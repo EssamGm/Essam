@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Do you? / Did you? - الدرس رقم ٢٢</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red:#e63030; --red-dark:#b71c1c; --gold:#f5c842;
+    --bg:#f0f4ff; --text:#1a1a2e; --muted:#6b7280;
+    --do:#2563eb; --did:#7c3aed; --green:#16a34a; --danger:#dc2626;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(ellipse at 20% 10%,rgba(37,99,235,.08) 0%,transparent 50%),
+               radial-gradient(ellipse at 80% 80%,rgba(124,58,237,.08) 0%,transparent 50%),
+               radial-gradient(ellipse at 60% 30%,rgba(245,200,66,.06) 0%,transparent 40%);}
+
+  .container{max-width:860px;margin:0 auto;padding:0 20px 60px;position:relative;z-index:1;}
+
+  /* HERO */
+  .hero{background:linear-gradient(135deg,#1e1b4b 0%,#3730a3 55%,#4f46e5 100%);
+    padding:60px 40px 50px;text-align:center;position:relative;overflow:hidden;
+    border-radius:0 0 40px 40px;margin-bottom:50px;box-shadow:0 20px 60px rgba(67,56,202,.35);}
+  .hero::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.06);}
+  .hero::after{content:'';position:absolute;bottom:-60px;left:-30px;width:250px;height:250px;border-radius:50%;background:rgba(255,255,255,.04);}
+  .hero-badge{display:inline-block;background:var(--red);color:#fff;font-size:13px;font-weight:700;padding:6px 18px;border-radius:50px;margin-bottom:20px;}
+  .hero h1{font-family:'Outfit',sans-serif;font-size:clamp(36px,7vw,64px);font-weight:900;color:#fff;line-height:1.05;margin-bottom:10px;letter-spacing:-1px;}
+  .hero h1 span.do{color:#60a5fa;} .hero h1 span.did{color:#c4b5fd;}
+  .hero h2{font-size:clamp(15px,3vw,20px);font-weight:600;color:rgba(255,255,255,.8);margin-bottom:28px;}
+  .hero-pills{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;}
+  .hero-pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:50px;padding:10px 22px;color:#fff;font-size:14px;font-weight:700;}
+  .hero-pill span{color:var(--gold);}
+
+  /* TABS */
+  .tabs{display:flex;gap:8px;margin-bottom:28px;background:white;border-radius:20px;padding:8px;box-shadow:0 4px 16px rgba(0,0,0,.06);flex-wrap:wrap;}
+  .tab-btn{flex:1;min-width:110px;padding:12px 14px;border:none;background:transparent;border-radius:14px;font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;color:var(--muted);cursor:pointer;transition:all .25s;}
+  .tab-btn.active{background:linear-gradient(135deg,#3730a3,#4f46e5);color:white;box-shadow:0 4px 14px rgba(67,56,202,.35);}
+  .tab-btn:hover:not(.active){background:#f3f4f6;color:var(--text);}
+  .tab-panel{display:none;animation:fadeUp .35s ease;}
+  .tab-panel.active{display:block;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+
+  /* RULE BANNER */
+  .rule-banner{display:flex;align-items:center;gap:16px;background:white;border-radius:20px;padding:20px 24px;margin-bottom:28px;box-shadow:0 4px 16px rgba(0,0,0,.06);}
+  .rule-num{background:var(--red);color:white;font-family:'Outfit',sans-serif;font-weight:900;font-size:26px;width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .rule-info h3{font-family:'Outfit',sans-serif;font-weight:800;font-size:20px;color:var(--text);direction:ltr;text-align:left;}
+  .rule-info p{font-size:13px;color:var(--muted);font-weight:600;margin-top:3px;}
+
+  /* COMPARE CARDS */
+  .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:28px;}
+  @media(max-width:560px){.compare-grid{grid-template-columns:1fr;}}
+  .cmp-card{border-radius:22px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.08);animation:fadeUp .5s ease backwards;}
+  .cmp-card:nth-child(2){animation-delay:.1s;}
+  .cmp-header{padding:22px 22px 16px;color:white;}
+  .cmp-header.do-h{background:linear-gradient(135deg,#1d4ed8,#3b82f6);}
+  .cmp-header.did-h{background:linear-gradient(135deg,#6d28d9,#8b5cf6);}
+  .cmp-word{font-family:'Outfit',sans-serif;font-weight:900;font-size:34px;line-height:1;}
+  .cmp-sub{font-size:13px;color:rgba(255,255,255,.8);font-weight:600;margin-top:4px;}
+  .cmp-body{background:white;padding:18px 22px 22px;}
+  .cmp-when{font-size:13px;color:var(--muted);font-weight:700;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;}
+  .cmp-desc{font-size:14px;font-weight:600;line-height:1.65;margin-bottom:14px;border-right:3px solid;padding-right:10px;}
+  .do-desc{border-color:var(--do);}
+  .did-desc{border-color:var(--did);}
+  .cmp-example{background:#f9fafb;border-radius:12px;padding:12px 14px;}
+  .ex-en{font-family:'Outfit',sans-serif;font-weight:700;font-size:15px;direction:ltr;text-align:left;margin-bottom:5px;}
+  .ex-en strong.do-w{color:var(--do);} .ex-en strong.did-w{color:var(--did);}
+  .ex-ar{font-size:12px;color:var(--muted);font-weight:600;}
+
+  /* GOLDEN RULE */
+  .golden-box{background:linear-gradient(135deg,#1e1b4b,#312e81);border-radius:24px;padding:28px 26px;margin-bottom:28px;color:white;box-shadow:0 8px 32px rgba(49,46,129,.3);}
+  .golden-box h4{font-size:17px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .formula{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:16px 18px;font-family:'Outfit',sans-serif;font-size:16px;font-weight:700;text-align:center;margin-bottom:14px;direction:ltr;letter-spacing:.3px;}
+  .formula span{color:var(--gold);}
+  .golden-tip{font-size:14px;color:rgba(255,255,255,.82);font-weight:600;line-height:1.75;}
+
+  /* TRANSFORMATION DEMO */
+  .transform-section{background:white;border-radius:22px;padding:26px 24px;margin-bottom:28px;box-shadow:0 4px 20px rgba(0,0,0,.07);}
+  .transform-section h4{font-size:17px;font-weight:800;margin-bottom:18px;}
+  .transform-row{display:flex;align-items:center;gap:10px;padding:14px;background:#f9fafb;border-radius:14px;margin-bottom:12px;flex-wrap:wrap;direction:ltr;}
+  .tr-box{background:white;border-radius:10px;padding:10px 14px;font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;border:2px solid #e5e7eb;flex:1;min-width:100px;text-align:center;}
+  .tr-box.stmt{border-color:#e5e7eb;}
+  .tr-box.q{border-color:var(--did);color:var(--did);}
+  .tr-box strong.did-w{color:var(--did);}
+  .tr-arrow{font-size:20px;color:var(--muted);flex-shrink:0;}
+  .tr-label{font-size:11px;color:var(--muted);font-weight:600;text-align:center;margin-top:4px;}
+  .tr-note{font-size:12px;color:var(--red);font-weight:700;background:#fef2f2;padding:4px 10px;border-radius:8px;margin-top:6px;direction:rtl;}
+
+  /* QUIZ */
+  .quiz-wrap{background:white;border-radius:24px;padding:28px 24px;margin-bottom:28px;box-shadow:0 4px 24px rgba(0,0,0,.07);}
+  .quiz-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px;}
+  .quiz-header h4{font-size:19px;font-weight:800;}
+  .quiz-score-badge{background:linear-gradient(135deg,#3730a3,#4f46e5);color:white;font-family:'Outfit',sans-serif;font-weight:800;font-size:14px;padding:8px 18px;border-radius:50px;}
+  .quiz-progress{background:#f3f4f6;border-radius:50px;height:8px;margin-bottom:24px;overflow:hidden;}
+  .quiz-progress-fill{height:100%;background:linear-gradient(90deg,var(--did),#a78bfa);border-radius:50px;transition:width .5s ease;}
+  .quiz-q{font-size:16px;font-weight:700;text-align:center;margin-bottom:8px;line-height:1.5;}
+  .quiz-sub{font-size:13px;color:var(--muted);font-weight:600;text-align:center;margin-bottom:20px;}
+  .quiz-sent{background:linear-gradient(135deg,#1e1b4b,#312e81);color:white;border-radius:16px;padding:20px 22px;font-family:'Outfit',sans-serif;font-size:19px;font-weight:700;text-align:center;direction:ltr;margin-bottom:22px;}
+  .quiz-sent .blank{display:inline-block;background:rgba(255,255,255,.18);border-bottom:3px solid var(--gold);min-width:100px;padding:2px 10px;border-radius:8px;color:var(--gold);}
+  .quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:18px;}
+  .quiz-opt{padding:13px 16px;border:2px solid #e5e7eb;border-radius:14px;background:white;font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;color:var(--text);}
+  .quiz-opt:hover:not(:disabled){border-color:var(--did);background:#f5f3ff;transform:translateY(-2px);}
+  .quiz-opt.correct{border-color:var(--green)!important;background:#f0fdf4!important;color:var(--green)!important;}
+  .quiz-opt.wrong{border-color:var(--danger)!important;background:#fef2f2!important;color:var(--danger)!important;}
+  .quiz-opt:disabled{cursor:default;transform:none;}
+  .quiz-fb{text-align:center;font-size:14px;font-weight:700;padding:11px;border-radius:12px;margin-bottom:14px;display:none;}
+  .quiz-fb.show{display:block;}
+  .quiz-fb.ok{background:#f0fdf4;color:var(--green);}
+  .quiz-fb.bad{background:#fef2f2;color:var(--danger);}
+  .quiz-next-btn{width:100%;padding:13px;background:linear-gradient(135deg,#3730a3,#4f46e5);color:white;border:none;border-radius:14px;font-family:'Cairo',sans-serif;font-size:15px;font-weight:800;cursor:pointer;transition:opacity .2s;display:none;}
+  .quiz-next-btn:hover{opacity:.9;}
+  .quiz-next-btn.show{display:block;}
+  .quiz-result{text-align:center;padding:10px 0;}
+  .big-score{font-family:'Outfit',sans-serif;font-size:72px;font-weight:900;line-height:1;margin-bottom:10px;}
+  .quiz-result p{font-size:15px;color:var(--muted);font-weight:600;margin-bottom:20px;}
+  .quiz-restart{padding:13px 34px;background:linear-gradient(135deg,#3730a3,#4f46e5);color:white;border:none;border-radius:14px;font-family:'Cairo',sans-serif;font-size:15px;font-weight:800;cursor:pointer;}
+
+  /* BUILDER */
+  .builder-wrap{background:white;border-radius:24px;padding:28px 24px;margin-bottom:28px;box-shadow:0 4px 24px rgba(0,0,0,.07);}
+  .builder-wrap h4{font-size:19px;font-weight:800;margin-bottom:5px;}
+  .builder-sub{font-size:13px;color:var(--muted);font-weight:600;margin-bottom:20px;}
+  .builder-task{background:linear-gradient(135deg,#1e1b4b,#312e81);color:white;border-radius:14px;padding:16px 20px;margin-bottom:18px;font-size:15px;font-weight:700;line-height:1.6;text-align:right;}
+  .builder-task .ar-hint{color:rgba(255,255,255,.75);font-size:13px;}
+  .builder-display{background:#f9fafb;border:2px dashed #d1d5db;border-radius:16px;padding:18px 20px;min-height:66px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;margin-bottom:18px;direction:ltr;transition:border-color .3s;}
+  .builder-display.has-words{border-color:#c4b5fd;background:#faf5ff;}
+  .builder-display.correct-s{border-color:var(--green);background:#f0fdf4;}
+  .builder-display.wrong-s{border-color:var(--danger);background:#fef2f2;}
+  .placeholder-text{color:#9ca3af;font-size:13px;font-weight:600;font-family:'Cairo',sans-serif;}
+  .builder-token{background:white;border:2px solid #e5e7eb;border-radius:10px;padding:7px 14px;font-family:'Outfit',sans-serif;font-weight:700;font-size:15px;cursor:pointer;transition:all .2s;user-select:none;}
+  .builder-token.key-word{border-color:var(--gold);background:#fffbeb;color:#92400e;}
+  .builder-token:hover{transform:scale(1.06);box-shadow:0 4px 10px rgba(0,0,0,.1);}
+  .word-bank{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px;}
+  .word-chip{background:white;border:2px solid #e5e7eb;border-radius:12px;padding:9px 16px;font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;cursor:pointer;transition:all .2s;}
+  .word-chip.key-chip{border-color:var(--gold);background:#fffbeb;color:#92400e;}
+  .word-chip:hover:not(.used){transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.1);}
+  .word-chip.used{opacity:.3;cursor:default;transform:none;}
+  .builder-actions{display:flex;gap:10px;flex-wrap:wrap;}
+  .b-clear{padding:11px 18px;background:#f3f4f6;color:var(--text);border:none;border-radius:12px;font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;cursor:pointer;}
+  .b-check{flex:1;padding:11px;background:linear-gradient(135deg,#3730a3,#4f46e5);color:white;border:none;border-radius:12px;font-family:'Cairo',sans-serif;font-size:14px;font-weight:800;cursor:pointer;}
+  .b-next{flex:1;padding:11px;background:var(--green);color:white;border:none;border-radius:12px;font-family:'Cairo',sans-serif;font-size:14px;font-weight:800;cursor:pointer;display:none;}
+  .b-next.show{display:block;}
+  .builder-fb{text-align:center;font-size:14px;font-weight:700;padding:10px;border-radius:12px;margin-bottom:12px;display:none;}
+  .builder-fb.show{display:block;}
+  .builder-fb.ok{background:#f0fdf4;color:var(--green);}
+  .builder-fb.bad{background:#fef2f2;color:var(--danger);}
+
+  /* EXAMPLES TAB */
+  .ex-section{background:white;border-radius:22px;padding:26px 24px;margin-bottom:28px;box-shadow:0 4px 20px rgba(0,0,0,.07);}
+  .ex-section h4{font-size:17px;font-weight:800;margin-bottom:18px;}
+  .ex-list{display:flex;flex-direction:column;gap:11px;}
+  .ex-item{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;padding:13px 16px;background:#f9fafb;border-radius:13px;direction:ltr;transition:background .2s;cursor:default;}
+  .ex-item:hover{background:#f3f4f6;}
+  .ex-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+  .ex-en-t{font-family:'Outfit',sans-serif;font-weight:700;font-size:15px;color:var(--text);}
+  .ex-ar-t{font-family:'Cairo',sans-serif;font-size:12px;color:var(--muted);font-weight:600;direction:rtl;text-align:right;margin-top:3px;}
+  .ex-col{display:flex;flex-direction:column;}
+
+  .footer{text-align:center;padding:28px;color:var(--muted);font-size:13px;font-weight:600;}
+  .footer strong{color:var(--red);}
+
+  @media(max-width:480px){
+    .hero{padding:40px 20px 36px;}
+    .quiz-opts{grid-template-columns:1fr;}
+    .tabs .tab-btn{font-size:12px;padding:10px 8px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">📚 الدرس رقم ٢٢</div>
+  <h1><span class="do">Do you</span>..? <span class="did">Did you</span>..?</h1>
+  <h2>كيف تسأل بالعادات والماضي — الفرق والاستخدام</h2>
+  <div class="hero-pills">
+    <div class="hero-pill">الحاضر: <span>Do you + فعل</span></div>
+    <div class="hero-pill">الماضي: <span>Did you + فعل</span></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="rule-banner">
+    <div class="rule-num">٢٢</div>
+    <div class="rule-info">
+      <h3>Do you? vs Did you?</h3>
+      <p>قاعدة السؤال في الحاضر والماضي — الربط بين درسين مهمين</p>
+    </div>
+  </div>
+
+  <!-- ===== CONTACT / COACHING BLOCK ===== -->
+<div class="coach-cta">
+  <div class="coach-cta-inner">
+    <p class="coach-pitch">حل مشكلة الانقطاع في تعلم اللغة الانجليزية للموظفين</p>
+    <a class="coach-wa-btn" href="https://wa.me/966595701144" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4C7.6 4 3.97 7.63 3.97 12.08c0 1.5.42 2.97 1.2 4.27l-.07.27-1.13 4.13 4.24-1.11.26.16a8.94 8.94 0 0 0 4.55 1.25h.04c4.45 0 8.08-3.63 8.08-8.08a8.04 8.04 0 0 0-2.39-5.65zm-5.55 12.4h-.03a7.4 7.4 0 0 1-3.78-1.04l-.27-.16-2.81.74.75-2.73-.18-.28a7.36 7.36 0 0 1-1.14-3.97c0-4.08 3.32-7.4 7.4-7.4 1.97 0 3.83.77 5.22 2.17a7.34 7.34 0 0 1 2.17 5.24c0 4.08-3.32 7.4-7.33 7.4zm4.05-5.55c-.22-.11-1.31-.65-1.51-.72-.2-.08-.35-.11-.5.11-.15.22-.57.72-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.1-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.28.37-.42.13-.14.17-.24.25-.4.08-.16.04-.3-.03-.41-.07-.11-.62-1.49-.85-2.04-.17-.42-.34-.36-.47-.37l-.4-.01c-.14 0-.36.05-.55.27-.19.22-.74.72-.74 1.76 0 1.04.76 2.04.86 2.18.11.15 1.49 2.27 3.61 3.09 1.8.68 2.17.55 2.56.51.4-.04 1.29-.53 1.47-1.04.18-.51.18-.94.13-1.04-.05-.1-.2-.16-.42-.27z"/></svg>
+      <span>كلمني على الواتس</span>
+    </a>
+    <div class="coach-number" dir="ltr">0595701144</div>
+  </div>
+</div>
+
+<style>
+  .coach-cta{
+    background:linear-gradient(135deg,#075e54,#128c7e);
+    border-radius:20px;
+    padding:18px 22px;
+    margin-bottom:28px;
+    box-shadow:0 6px 20px rgba(7,94,84,.28);
+    text-align:center;
+  }
+  .coach-cta-inner{max-width:480px;margin:0 auto;}
+  .coach-pitch{font-family:'Cairo',sans-serif;font-size:14.5px;font-weight:700;color:rgba(255,255,255,.92);line-height:1.5;margin-bottom:14px;}
+  .coach-wa-btn{
+    display:inline-flex;align-items:center;gap:9px;
+    background:#fff;color:#075e54;
+    padding:11px 26px;border-radius:50px;
+    font-family:'Cairo',sans-serif;font-weight:800;font-size:14.5px;
+    text-decoration:none;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+    transition:transform .2s,box-shadow .2s;
+  }
+  .coach-wa-btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.2);}
+  .coach-number{
+    margin-top:10px;
+    font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;
+    color:rgba(255,255,255,.88);
+    letter-spacing:.5px;
+  }
+</style>
+
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('learn',this)">📖 تعلّم</button>
+    <button class="tab-btn" onclick="switchTab('quiz',this)">🧠 اختبر نفسك</button>
+    <button class="tab-btn" onclick="switchTab('build',this)">🔧 رتّب الجملة</button>
+    <button class="tab-btn" onclick="switchTab('examples',this)">✏️ أمثلة</button>
+  </div>
+
+  <!-- ===== LEARN ===== -->
+  <div class="tab-panel active" id="tab-learn">
+
+    <div class="compare-grid">
+      <!-- DO YOU -->
+      <div class="cmp-card">
+        <div class="cmp-header do-h">
+          <div class="cmp-word">Do you?</div>
+          <div class="cmp-sub">السؤال عن العادات والحاضر</div>
+        </div>
+        <div class="cmp-body">
+          <div class="cmp-when">متى نستخدمه؟</div>
+          <div class="cmp-desc do-desc">نستخدمها للسؤال عن شيء تفعله بشكل منتظم أو عادة مستمرة (الحاضر البسيط)</div>
+          <div class="cmp-example">
+            <div class="ex-en"><strong class="do-w">Do you</strong> drink coffee?</div>
+            <div class="ex-ar">هل تشرب القهوة؟ (عادة)</div>
+          </div>
+        </div>
+      </div>
+      <!-- DID YOU -->
+      <div class="cmp-card">
+        <div class="cmp-header did-h">
+          <div class="cmp-word">Did you?</div>
+          <div class="cmp-sub">السؤال عن الماضي</div>
+        </div>
+        <div class="cmp-body">
+          <div class="cmp-when">متى نستخدمه؟</div>
+          <div class="cmp-desc did-desc">نستخدمها للسؤال عن شيء حدث وانتهى في الماضي (أمس، الأسبوع الماضي، قبل قليل)</div>
+          <div class="cmp-example">
+            <div class="ex-en"><strong class="did-w">Did you</strong> drink coffee?</div>
+            <div class="ex-ar">هل شربت القهوة؟ (أمس/اليوم)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GOLDEN RULE -->
+    <div class="golden-box">
+      <h4>⭐ القاعدة الذهبية — Did you</h4>
+      <div class="formula"><span>Did you</span> + Verb (base form — بدون ed)?</div>
+      <div class="golden-tip">
+        ⚠️ <strong>ملاحظة خطيرة:</strong> بمجرد دخول <strong>Did</strong> في الجملة، فإنها "تسرق" الزمن الماضي من الفعل<br>
+        فيعود الفعل لحالته الأصلية (المجرد) — <strong>بدون ed</strong><br><br>
+        ✅ جملة: You <strong>watched</strong> a movie.<br>
+        ✅ سؤال: <strong>Did you watch</strong> a movie? — (وليس watched ❌)
+      </div>
+    </div>
+
+    <!-- TRANSFORMATION DEMO -->
+    <div class="transform-section">
+      <h4>🔄 كيف تحوّل الجملة إلى سؤال؟</h4>
+
+      <div class="transform-row">
+        <div style="flex:1">
+          <div class="tr-box stmt">You <strong>cooked</strong> dinner.</div>
+          <div class="tr-label">جملة خبرية</div>
+        </div>
+        <div class="tr-arrow">→</div>
+        <div style="flex:1">
+          <div class="tr-box q"><strong class="did-w">Did</strong> you <strong class="did-w">cook</strong> dinner?</div>
+          <div class="tr-label">سؤال ماضي</div>
+        </div>
+        <div class="tr-note">cooked → cook ✅</div>
+      </div>
+
+      <div class="transform-row">
+        <div style="flex:1">
+          <div class="tr-box stmt">You <strong>cleaned</strong> your car.</div>
+          <div class="tr-label">جملة خبرية</div>
+        </div>
+        <div class="tr-arrow">→</div>
+        <div style="flex:1">
+          <div class="tr-box q"><strong class="did-w">Did</strong> you <strong class="did-w">clean</strong> your car?</div>
+          <div class="tr-label">سؤال ماضي</div>
+        </div>
+        <div class="tr-note">cleaned → clean ✅</div>
+      </div>
+
+      <div class="transform-row">
+        <div style="flex:1">
+          <div class="tr-box stmt">You <strong>visited</strong> London.</div>
+          <div class="tr-label">جملة خبرية</div>
+        </div>
+        <div class="tr-arrow">→</div>
+        <div style="flex:1">
+          <div class="tr-box q"><strong class="did-w">Did</strong> you <strong class="did-w">visit</strong> London?</div>
+          <div class="tr-label">سؤال ماضي</div>
+        </div>
+        <div class="tr-note">visited → visit ✅</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== QUIZ ===== -->
+  <div class="tab-panel" id="tab-quiz">
+    <div class="quiz-wrap">
+      <div class="quiz-header">
+        <h4>🧠 اختبر معلوماتك</h4>
+        <div class="quiz-score-badge" id="quiz-score-badge">0 / 0</div>
+      </div>
+      <div class="quiz-progress"><div class="quiz-progress-fill" id="quiz-prog" style="width:0%"></div></div>
+      <div id="quiz-body">
+        <div class="quiz-q" id="quiz-q"></div>
+        <div class="quiz-sub" id="quiz-sub"></div>
+        <div class="quiz-sent" id="quiz-sent"></div>
+        <div class="quiz-opts" id="quiz-opts"></div>
+        <div class="quiz-fb" id="quiz-fb"></div>
+        <button class="quiz-next-btn" id="quiz-next-btn" onclick="nextQuestion()">التالي ←</button>
+      </div>
+      <div id="quiz-result" style="display:none">
+        <div class="quiz-result">
+          <div class="big-score" id="final-score-display"></div>
+          <p id="final-msg"></p>
+          <button class="quiz-restart" onclick="startQuiz()">🔄 حاول مرة أخرى</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BUILD ===== -->
+  <div class="tab-panel" id="tab-build">
+    <div class="builder-wrap">
+      <h4>🔧 رتّب الجملة الصحيحة</h4>
+      <div class="builder-sub">حوّل الجملة إلى سؤال بترتيب الكلمات الصحيح</div>
+      <div class="builder-task" id="builder-task"></div>
+      <div class="builder-display" id="builder-display">
+        <span class="placeholder-text">اضغط على الكلمات أدناه لبناء الجملة</span>
+      </div>
+      <div class="word-bank" id="word-bank"></div>
+      <div class="builder-fb" id="builder-fb"></div>
+      <div class="builder-actions">
+        <button class="b-clear" onclick="clearBuilder()">🗑️ مسح</button>
+        <button class="b-check" onclick="checkBuilder()">✅ تحقق</button>
+        <button class="b-next show" id="b-next-btn" onclick="nextBuilderQ()">التالي ←</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== EXAMPLES ===== -->
+  <div class="tab-panel" id="tab-examples">
+    <div class="ex-section">
+      <h4>✏️ Do you? — أسئلة العادات</h4>
+      <div class="ex-list">
+        <div class="ex-item">
+          <div class="ex-dot" style="background:var(--do)"></div>
+          <div class="ex-col">
+            <div class="ex-en-t"><strong style="color:var(--do)">Do you</strong> drink coffee every morning?</div>
+            <div class="ex-ar-t">هل تشرب القهوة كل صباح؟</div>
+          </div>
+        </div>
+        <div class="ex-item">
+          <div class="ex-dot" style="background:var(--do)"></div>
+          <div class="ex-col">
+            <div class="ex-en-t"><strong style="color:var(--do)">Do you</strong> exercise regularly?</div>
+            <div class="ex-ar-t">هل تمارس الرياضة بانتظام؟</div>
+          </div>
+        </div>
+        <div class="ex-item">
+          <div class="ex-dot" style="background:var(--do)"></div>
+          <div class="ex-col">
+            <div class="ex-en-t"><strong style="color:var(--do)">Do you</strong> like watching movies?</div>
+            <div class="ex-ar-t">هل تحب مشاهدة الأفلام؟</div>
+          </div>
+        </div>
+        <div class="ex-item">
+          <div class="ex-dot" style="background:var(--do)"></div>
+          <div class="ex-col">
+            <div class="ex-en-t"><strong style="color:var(--do)">Do you</strong> speak Arabic at home?</div>
+            <div class="ex-ar-t">هل تتكلم العربية في البيت؟</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ex-section">
+      <h4>✏️ Did you? — أسئلة الماضي</h4>
+      <div class="ex-list">
+        <div class="ex-item">
+          <div class="ex-dot" style="background:var(--did)"></div>
+          <div class="ex-col">
+            <div class="ex-en-t"><strong style="color:var(--did)">Did you</strong> cook dinner last night?</div>
+            <div class="ex-ar-t">هل طبخت العشاء الليلة الماضية؟</div>
+          </div>
+        </div>
+        <div class="ex-item">
+          <div class="ex-dot" style="background:var(--did)"></div>
+          <div class="ex-col">
+            <div class="ex-en-t"><strong style="color:var(--did)">Did you</strong> clean your car?</div>
+            <div class="ex-ar-t">هل نظفت سيارتك؟</div>
+          </div>
+        </div>
+        <div class="ex-item">
+          <div class="ex-dot" style="background:var(--did)"></div>
+          <div class="ex-col">
+            <div class="ex-en-t"><strong style="color:var(--did)">Did you</strong> visit London?</div>
+            <div class="ex-ar-t">هل زرت لندن؟</div>
+          </div>
+        </div>
+        <div class="ex-item">
+          <div class="ex-dot" style="background:var(--did)"></div>
+          <div class="ex-col">
+            <div class="ex-en-t"><strong style="color:var(--did)">Did you</strong> watch a movie yesterday?</div>
+            <div class="ex-ar-t">هل شاهدت فيلماً أمس؟</div>
+          </div>
+        </div>
+        <div class="ex-item">
+          <div class="ex-dot" style="background:var(--did)"></div>
+          <div class="ex-col">
+            <div class="ex-en-t"><strong style="color:var(--did)">Did you</strong> sleep early last night?</div>
+            <div class="ex-ar-t">هل نمت مبكراً الليلة الماضية؟</div>
+          </div>
+        </div>
+        <div class="ex-item">
+          <div class="ex-dot" style="background:var(--did)"></div>
+          <div class="ex-col">
+            <div class="ex-en-t"><strong style="color:var(--did)">Did you</strong> study English today?</div>
+            <div class="ex-ar-t">هل درست الإنجليزية اليوم؟</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">تعلم اللغة الإنجليزية مع Gemini خطوة بخطوة — الدرس رقم ٢٢ | <strong>@essam3699</strong></div>
+</div>
+
+<script>
+// ===== TABS =====
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+  if (name === 'quiz' && !quizState.started) startQuiz();
+  if (name === 'build' && !builderState.initialized) initBuilder();
+}
+
+// ===== QUIZ =====
+const quizData = [
+  { sent:'___ you drink coffee every day?', answer:'Do', opts:['Do','Did','Does','Done'], ar:'هل تشرب القهوة كل يوم؟ (عادة)', note:'عادة مستمرة ← Do' },
+  { sent:'___ you cook dinner last night?', answer:'Did', opts:['Do','Did','Does','Are'], ar:'هل طبخت العشاء الليلة الماضية؟', note:'حدث في الماضي ← Did' },
+  { sent:'___ you visit London last year?', answer:'Did', opts:['Did','Do','Are','Have'], ar:'هل زرت لندن العام الماضي؟', note:'الماضي ← Did' },
+  { sent:'___ you usually wake up early?', answer:'Do', opts:['Do','Did','Was','Have'], ar:'هل عادةً تستيقظ مبكراً؟', note:'عادة ← Do' },
+  { sent:'___ you clean your car yesterday?', answer:'Did', opts:['Did','Do','Does','Were'], ar:'هل نظفت سيارتك أمس؟', note:'أمس ← Did' },
+  { sent:'___ you watch movies on weekends?', answer:'Do', opts:['Do','Did','Have','Are'], ar:'هل تشاهد الأفلام في الإجازات؟', note:'عادة أسبوعية ← Do' },
+  { sent:'Did you ___ a movie last night?', answer:'watch', opts:['watch','watched','watching','watches'], ar:'هل شاهدت فيلماً الليلة الماضية؟', note:'بعد Did الفعل يرجع لأصله بدون ed' },
+  { sent:'Did you ___ dinner?', answer:'cook', opts:['cook','cooked','cooking','cooks'], ar:'هل طبخت العشاء؟', note:'بعد Did الفعل يرجع لأصله بدون ed' },
+  { sent:'Did you ___ English today?', answer:'study', opts:['study','studied','studying','studies'], ar:'هل درست الإنجليزية اليوم؟', note:'بعد Did الفعل يرجع لأصله' },
+  { sent:'___ you sleep early last night?', answer:'Did', opts:['Did','Do','Have','Were'], ar:'هل نمت مبكراً الليلة الماضية؟', note:'الليلة الماضية ← Did' },
+];
+
+const quizState = { current:0, score:0, answered:false, started:false, order:[] };
+function shuffle(a){ return [...a].sort(()=>Math.random()-.5); }
+
+function startQuiz(){
+  quizState.current=0; quizState.score=0; quizState.answered=false; quizState.started=true;
+  quizState.order=shuffle(quizData);
+  document.getElementById('quiz-result').style.display='none';
+  document.getElementById('quiz-body').style.display='block';
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const q=quizState.order[quizState.current], total=quizState.order.length;
+  document.getElementById('quiz-q').textContent=`السؤال ${quizState.current+1} من ${total}`;
+  document.getElementById('quiz-sub').textContent=q.ar;
+  document.getElementById('quiz-prog').style.width=((quizState.current/total)*100)+'%';
+  document.getElementById('quiz-score-badge').textContent=quizState.score+' / '+quizState.current;
+  document.getElementById('quiz-sent').innerHTML=q.sent.replace('___','<span class="blank">___</span>');
+  const optsEl=document.getElementById('quiz-opts');
+  optsEl.innerHTML='';
+  shuffle(q.opts).forEach(o=>{
+    const btn=document.createElement('button');
+    btn.className='quiz-opt'; btn.textContent=o;
+    btn.onclick=()=>answerQuiz(o,q.answer,q.note,btn);
+    optsEl.appendChild(btn);
+  });
+  const fb=document.getElementById('quiz-fb');
+  fb.className='quiz-fb'; fb.textContent='';
+  document.getElementById('quiz-next-btn').className='quiz-next-btn';
+  quizState.answered=false;
+}
+
+function answerQuiz(chosen,correct,note,btn){
+  if(quizState.answered)return;
+  quizState.answered=true;
+  const fb=document.getElementById('quiz-fb');
+  document.querySelectorAll('.quiz-opt').forEach(b=>b.disabled=true);
+  if(chosen===correct){
+    btn.classList.add('correct'); quizState.score++;
+    fb.textContent='✅ صحيح! '+note; fb.className='quiz-fb show ok';
+  } else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.quiz-opt').forEach(b=>{ if(b.textContent===correct) b.classList.add('correct'); });
+    fb.textContent='❌ الإجابة: '+correct+' — '+note; fb.className='quiz-fb show bad';
+  }
+  document.getElementById('quiz-score-badge').textContent=quizState.score+' / '+(quizState.current+1);
+  document.getElementById('quiz-next-btn').className='quiz-next-btn show';
+}
+
+function nextQuestion(){
+  quizState.current++;
+  if(quizState.current>=quizState.order.length){ showQuizResult(); return; }
+  renderQuestion();
+}
+
+function showQuizResult(){
+  document.getElementById('quiz-body').style.display='none';
+  document.getElementById('quiz-result').style.display='block';
+  const s=quizState.score, t=quizState.order.length, pct=Math.round((s/t)*100);
+  const el=document.getElementById('final-score-display');
+  el.textContent=s+'/'+t;
+  el.style.color=pct>=80?'var(--green)':pct>=50?'var(--did)':'var(--danger)';
+  document.getElementById('final-msg').textContent=
+    pct===100?'🏆 ممتاز! أتقنت الدرس بالكامل!':pct>=70?'💪 رائع! استمر في التدريب':pct>=40?'📚 جيد! راجع الدرس وحاول':'🔁 راجع البطاقات وحاول مرة أخرى';
+  document.getElementById('quiz-prog').style.width='100%';
+}
+
+// ===== BUILDER =====
+const builderData = [
+  { task:'حوّل إلى سؤال ماضٍ: "You cooked dinner."', hint:'هل طبخت العشاء؟',
+    words:['dinner','Did','cooked','you','cook'], key:'Did',
+    answer:['Did','you','cook','dinner','?'], note:'cooked → cook بعد Did' },
+  { task:'حوّل إلى سؤال ماضٍ: "You cleaned your car."', hint:'هل نظفت سيارتك؟',
+    words:['your','Did','clean','car','you','cleaned'], key:'Did',
+    answer:['Did','you','clean','your','car','?'], note:'cleaned → clean بعد Did' },
+  { task:'حوّل إلى سؤال ماضٍ: "You visited London."', hint:'هل زرت لندن؟',
+    words:['London','visited','Did','visit','you'], key:'Did',
+    answer:['Did','you','visit','London','?'], note:'visited → visit بعد Did' },
+  { task:'حوّل إلى سؤال حاضر عن عادة: "You drink coffee."', hint:'هل تشرب القهوة؟',
+    words:['Do','drink','you','coffee','drinks'], key:'Do',
+    answer:['Do','you','drink','coffee','?'], note:'عادة ← Do you' },
+  { task:'حوّل إلى سؤال ماضٍ: "You watched a movie."', hint:'هل شاهدت فيلماً؟',
+    words:['Did','watched','watch','you','a','movie'], key:'Did',
+    answer:['Did','you','watch','a','movie','?'], note:'watched → watch بعد Did' },
+];
+
+const builderState = { current:0, placed:[], initialized:false };
+
+function initBuilder(){
+  builderState.initialized=true; builderState.current=0; loadBuilderQ();
+}
+
+function loadBuilderQ(){
+  builderState.placed=[];
+  const q=builderData[builderState.current%builderData.length];
+  document.getElementById('builder-task').innerHTML=q.task+'<div class="ar-hint">'+q.hint+'</div>';
+  const display=document.getElementById('builder-display');
+  const bank=document.getElementById('word-bank');
+  const fb=document.getElementById('builder-fb');
+  fb.className='builder-fb'; fb.textContent='';
+  display.className='builder-display';
+  display.innerHTML='<span class="placeholder-text">اضغط على الكلمات أدناه لبناء الجملة</span>';
+  bank.innerHTML='';
+  document.getElementById('b-next-btn').className='b-next';
+  const words=shuffle([...q.words,'?']);
+  words.forEach((w,i)=>{
+    const chip=document.createElement('div');
+    chip.className='word-chip'+(w===q.key?' key-chip':'');
+    chip.textContent=w; chip.dataset.idx=i;
+    chip.onclick=()=>placeWord(chip,w);
+    bank.appendChild(chip);
+  });
+}
+
+function placeWord(chip,word){
+  if(chip.classList.contains('used'))return;
+  chip.classList.add('used');
+  builderState.placed.push(word);
+  renderBuilderDisplay();
+}
+
+function renderBuilderDisplay(){
+  const q=builderData[builderState.current%builderData.length];
+  const display=document.getElementById('builder-display');
+  if(!builderState.placed.length){
+    display.className='builder-display';
+    display.innerHTML='<span class="placeholder-text">اضغط على الكلمات أدناه لبناء الجملة</span>';
+    return;
+  }
+  display.className='builder-display has-words';
+  display.innerHTML='';
+  builderState.placed.forEach((w,i)=>{
+    const tok=document.createElement('div');
+    tok.className='builder-token'+(w===q.key?' key-word':'');
+    tok.textContent=w;
+    tok.onclick=()=>removeToken(i,w);
+    display.appendChild(tok);
+  });
+}
+
+function removeToken(idx,word){
+  builderState.placed.splice(idx,1);
+  const chips=document.querySelectorAll('.word-chip');
+  for(let c of chips){
+    if(c.textContent===word&&c.classList.contains('used')){ c.classList.remove('used'); break; }
+  }
+  renderBuilderDisplay();
+}
+
+function clearBuilder(){
+  document.querySelectorAll('.word-chip').forEach(c=>c.classList.remove('used'));
+  builderState.placed=[];
+  renderBuilderDisplay();
+  document.getElementById('builder-fb').className='builder-fb';
+  document.getElementById('builder-display').className='builder-display';
+  document.getElementById('b-next-btn').className='b-next';
+}
+
+function checkBuilder(){
+  const q=builderData[builderState.current%builderData.length];
+  const fb=document.getElementById('builder-fb');
+  if(builderState.placed.length<q.answer.length){
+    fb.textContent='⚠️ ضع كل الكلمات أولاً!'; fb.className='builder-fb show bad'; return;
+  }
+  const correct=JSON.stringify(builderState.placed)===JSON.stringify(q.answer);
+  const display=document.getElementById('builder-display');
+  if(correct){
+    display.className='builder-display correct-s';
+    fb.textContent='✅ ممتاز! الجملة صحيحة — '+q.note; fb.className='builder-fb show ok';
+  } else {
+    display.className='builder-display wrong-s';
+    fb.textContent='❌ الصحيح: '+q.answer.join(' ')+' — '+q.note; fb.className='builder-fb show bad';
+  }
+  document.querySelectorAll('.word-chip').forEach(c=>c.classList.add('used'));
+  document.getElementById('b-next-btn').className='b-next show';
+}
+
+function nextBuilderQ(){
+  builderState.current++;
+  document.getElementById('builder-fb').className='builder-fb';
+  document.getElementById('b-next-btn').className='b-next';
+  loadBuilderQ();
+}
+</script>
+</body>
+</html>

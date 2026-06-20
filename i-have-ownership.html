@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>قاعدة الملكية - I have / I don't have</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#f0fdf4; --text:#1a1a2e; --muted:#6b7280;
+    --have:#16a34a; --have-dark:#14532d; --have-light:#dcfce7;
+    --dont:#dc2626; --dont-dark:#7f1d1d; --dont-light:#fee2e2;
+    --gold:#f5c842; --purple:#7c3aed; --blue:#2563eb;
+    --red:#e63030;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(ellipse at 15% 10%,rgba(22,163,74,.1) 0%,transparent 50%),
+               radial-gradient(ellipse at 85% 80%,rgba(220,38,38,.07) 0%,transparent 50%),
+               radial-gradient(ellipse at 55% 40%,rgba(245,200,66,.06) 0%,transparent 40%);}
+
+  .container{max-width:860px;margin:0 auto;padding:0 20px 60px;position:relative;z-index:1;}
+
+  /* HERO */
+  .hero{background:linear-gradient(135deg,#14532d 0%,#16a34a 55%,#22c55e 100%);
+    padding:60px 40px 50px;text-align:center;position:relative;overflow:hidden;
+    border-radius:0 0 40px 40px;margin-bottom:50px;box-shadow:0 20px 60px rgba(22,163,74,.35);}
+  .hero::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.06);}
+  .hero::after{content:'';position:absolute;bottom:-60px;left:-30px;width:250px;height:250px;border-radius:50%;background:rgba(255,255,255,.04);}
+  .hero-badge{display:inline-block;background:var(--gold);color:#7a4f00;font-size:13px;font-weight:700;padding:6px 18px;border-radius:50px;margin-bottom:20px;}
+  .hero h1{font-family:'Outfit',sans-serif;font-size:clamp(34px,7vw,62px);font-weight:900;color:#fff;line-height:1.05;margin-bottom:10px;letter-spacing:-1px;}
+  .hero h1 .have-w{color:#bbf7d0;} .hero h1 .dont-w{color:#fca5a5;}
+  .hero h2{font-size:clamp(14px,2.8vw,19px);font-weight:600;color:rgba(255,255,255,.82);margin-bottom:28px;}
+  .hero-pills{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;}
+  .hero-pill{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:50px;padding:10px 20px;color:#fff;font-size:14px;font-weight:700;}
+  .hero-pill span{color:var(--gold);}
+
+  /* TABS */
+  .tabs{display:flex;gap:8px;margin-bottom:28px;background:white;border-radius:20px;padding:8px;box-shadow:0 4px 16px rgba(0,0,0,.06);flex-wrap:wrap;}
+  .tab-btn{flex:1;min-width:110px;padding:12px 12px;border:none;background:transparent;border-radius:14px;font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;color:var(--muted);cursor:pointer;transition:all .25s;}
+  .tab-btn.active{background:linear-gradient(135deg,#14532d,#16a34a);color:white;box-shadow:0 4px 14px rgba(22,163,74,.35);}
+  .tab-btn:hover:not(.active){background:#f0fdf4;color:var(--text);}
+  .tab-panel{display:none;animation:fadeUp .35s ease;}
+  .tab-panel.active{display:block;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+
+  /* RULE BANNER */
+  .rule-banner{display:flex;align-items:center;gap:16px;background:white;border-radius:20px;padding:20px 24px;margin-bottom:28px;box-shadow:0 4px 16px rgba(0,0,0,.06);}
+  .rule-num{background:var(--have);color:white;font-family:'Outfit',sans-serif;font-weight:900;font-size:24px;width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .rule-info h3{font-family:'Outfit',sans-serif;font-weight:800;font-size:20px;color:var(--text);direction:ltr;text-align:left;}
+  .rule-info p{font-size:13px;color:var(--muted);font-weight:600;margin-top:3px;}
+
+  /* COMPARE CARDS */
+  .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:28px;}
+  @media(max-width:540px){.compare-grid{grid-template-columns:1fr;}}
+  .cmp-card{border-radius:22px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.08);animation:fadeUp .5s ease backwards;}
+  .cmp-card:nth-child(2){animation-delay:.1s;}
+  .cmp-header{padding:22px 22px 16px;color:white;}
+  .have-h{background:linear-gradient(135deg,#14532d,#16a34a);}
+  .dont-h{background:linear-gradient(135deg,#7f1d1d,#dc2626);}
+  .cmp-word{font-family:'Outfit',sans-serif;font-weight:900;font-size:28px;line-height:1;}
+  .cmp-sub{font-size:13px;color:rgba(255,255,255,.8);font-weight:600;margin-top:4px;}
+  .cmp-body{background:white;padding:18px 22px 22px;}
+  .cmp-meaning{font-size:16px;font-weight:800;margin-bottom:10px;padding:8px 14px;border-radius:10px;}
+  .have-meaning{background:var(--have-light);color:var(--have-dark);}
+  .dont-meaning{background:var(--dont-light);color:var(--dont-dark);}
+  .cmp-desc{font-size:14px;font-weight:600;line-height:1.65;margin-bottom:14px;border-right:3px solid;padding-right:10px;color:var(--text);}
+  .have-desc{border-color:var(--have);}
+  .dont-desc{border-color:var(--dont);}
+  .cmp-examples{display:flex;flex-direction:column;gap:8px;}
+  .ex-pill{background:#f9fafb;border-radius:10px;padding:10px 12px;}
+  .ex-en{font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;direction:ltr;text-align:left;margin-bottom:3px;}
+  .ex-en .hw{color:var(--have);} .ex-en .dw{color:var(--dont);}
+  .ex-ar{font-size:12px;color:var(--muted);font-weight:600;}
+
+  /* FORMULA BOX */
+  .formula-section{background:linear-gradient(135deg,#1a1a2e,#2d2d5e);border-radius:24px;padding:28px 26px;margin-bottom:28px;color:white;box-shadow:0 8px 32px rgba(26,26,46,.3);}
+  .formula-section h4{font-size:17px;font-weight:800;margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+  .formula-row{display:flex;flex-direction:column;gap:12px;}
+  .formula-item{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:14px 18px;}
+  .formula-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;opacity:.7;}
+  .formula-text{font-family:'Outfit',sans-serif;font-size:17px;font-weight:800;direction:ltr;text-align:left;}
+  .formula-text .key{color:var(--gold);}
+  .formula-ar{font-size:13px;color:rgba(255,255,255,.65);font-weight:600;margin-top:5px;text-align:right;}
+
+  /* 3-RULE COMBO */
+  .combo-box{background:white;border-radius:22px;padding:26px 24px;margin-bottom:28px;box-shadow:0 4px 20px rgba(0,0,0,.07);}
+  .combo-box h4{font-size:17px;font-weight:800;margin-bottom:18px;}
+  .combo-steps{display:flex;flex-direction:column;gap:12px;}
+  .combo-step{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;border-radius:14px;background:#f9fafb;transition:background .2s;}
+  .combo-step:hover{background:#f0fdf4;}
+  .step-num{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:white;flex-shrink:0;}
+  .step-content{flex:1;}
+  .step-title{font-weight:800;font-size:15px;margin-bottom:3px;}
+  .step-ex{font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;direction:ltr;text-align:left;color:var(--text);}
+  .step-ex .hl{color:var(--have);}
+
+  /* QUIZ */
+  .quiz-wrap{background:white;border-radius:24px;padding:28px 24px;margin-bottom:28px;box-shadow:0 4px 24px rgba(0,0,0,.07);}
+  .quiz-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px;}
+  .quiz-header h4{font-size:19px;font-weight:800;}
+  .score-badge{background:linear-gradient(135deg,#14532d,#16a34a);color:white;font-family:'Outfit',sans-serif;font-weight:800;font-size:14px;padding:8px 18px;border-radius:50px;}
+  .quiz-progress{background:#f3f4f6;border-radius:50px;height:8px;margin-bottom:24px;overflow:hidden;}
+  .quiz-prog-fill{height:100%;background:linear-gradient(90deg,var(--have),#4ade80);border-radius:50px;transition:width .5s ease;}
+  .qbox{font-size:13px;color:var(--muted);font-weight:600;text-align:center;margin-bottom:8px;}
+  .qnum{font-size:16px;font-weight:700;text-align:center;margin-bottom:20px;}
+  .qsent{background:linear-gradient(135deg,#14532d,#16a34a);color:white;border-radius:16px;padding:20px 22px;font-size:14px;font-weight:600;text-align:center;margin-bottom:20px;line-height:1.6;}
+  .qsent .blank{display:inline-block;background:rgba(255,255,255,.2);border-bottom:3px solid var(--gold);min-width:110px;padding:2px 10px;border-radius:8px;color:var(--gold);font-family:'Outfit',sans-serif;font-weight:800;}
+  .qopts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+  .qopt{padding:12px 14px;border:2px solid #e5e7eb;border-radius:13px;background:white;font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;color:var(--text);}
+  .qopt:hover:not(:disabled){border-color:var(--have);background:#f0fdf4;transform:translateY(-2px);}
+  .qopt.correct{border-color:var(--have)!important;background:var(--have-light)!important;color:var(--have-dark)!important;}
+  .qopt.wrong{border-color:var(--dont)!important;background:var(--dont-light)!important;color:var(--dont-dark)!important;}
+  .qopt:disabled{cursor:default;transform:none;}
+  .qfb{text-align:center;font-size:13px;font-weight:700;padding:11px;border-radius:12px;margin-bottom:14px;display:none;}
+  .qfb.show{display:block;}
+  .qfb.ok{background:var(--have-light);color:var(--have-dark);}
+  .qfb.bad{background:var(--dont-light);color:var(--dont-dark);}
+  .qnext{width:100%;padding:13px;background:linear-gradient(135deg,#14532d,#16a34a);color:white;border:none;border-radius:14px;font-family:'Cairo',sans-serif;font-size:15px;font-weight:800;cursor:pointer;display:none;}
+  .qnext:hover{opacity:.9;} .qnext.show{display:block;}
+  .qresult{text-align:center;padding:10px 0;}
+  .bigscore{font-family:'Outfit',sans-serif;font-size:72px;font-weight:900;line-height:1;margin-bottom:10px;}
+  .qresult p{font-size:15px;color:var(--muted);font-weight:600;margin-bottom:20px;}
+  .qrestart{padding:13px 34px;background:linear-gradient(135deg,#14532d,#16a34a);color:white;border:none;border-radius:14px;font-family:'Cairo',sans-serif;font-size:15px;font-weight:800;cursor:pointer;}
+
+  /* BUILDER */
+  .builder-wrap{background:white;border-radius:24px;padding:28px 24px;margin-bottom:28px;box-shadow:0 4px 24px rgba(0,0,0,.07);}
+  .builder-wrap h4{font-size:19px;font-weight:800;margin-bottom:5px;}
+  .builder-sub{font-size:13px;color:var(--muted);font-weight:600;margin-bottom:18px;}
+  .b-task{background:linear-gradient(135deg,#14532d,#16a34a);color:white;border-radius:14px;padding:16px 20px;margin-bottom:16px;font-size:15px;font-weight:700;line-height:1.6;}
+  .b-task .hint{color:rgba(255,255,255,.75);font-size:13px;display:block;margin-top:4px;}
+  .b-display{background:#f9fafb;border:2px dashed #d1d5db;border-radius:16px;padding:18px 20px;min-height:66px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;margin-bottom:16px;direction:ltr;transition:border-color .3s;}
+  .b-display.has-w{border-color:#86efac;background:#f0fdf4;}
+  .b-display.correct-s{border-color:var(--have);background:#dcfce7;}
+  .b-display.wrong-s{border-color:var(--dont);background:#fee2e2;}
+  .ph-txt{color:#9ca3af;font-size:13px;font-weight:600;font-family:'Cairo',sans-serif;}
+  .b-token{background:white;border:2px solid #e5e7eb;border-radius:10px;padding:7px 14px;font-family:'Outfit',sans-serif;font-weight:700;font-size:15px;cursor:pointer;transition:all .2s;user-select:none;}
+  .b-token.key-tok{border-color:var(--gold);background:#fffbeb;color:#92400e;}
+  .b-token:hover{transform:scale(1.06);}
+  .wbank{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;}
+  .wchip{background:white;border:2px solid #e5e7eb;border-radius:11px;padding:8px 14px;font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;cursor:pointer;transition:all .2s;}
+  .wchip.kchip{border-color:var(--gold);background:#fffbeb;color:#92400e;}
+  .wchip:hover:not(.used){transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.1);}
+  .wchip.used{opacity:.3;cursor:default;transform:none;}
+  .b-actions{display:flex;gap:10px;flex-wrap:wrap;}
+  .bc{padding:11px 16px;background:#f3f4f6;color:var(--text);border:none;border-radius:12px;font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;cursor:pointer;}
+  .bck{flex:1;padding:11px;background:linear-gradient(135deg,#14532d,#16a34a);color:white;border:none;border-radius:12px;font-family:'Cairo',sans-serif;font-size:14px;font-weight:800;cursor:pointer;}
+  .bnxt{flex:1;padding:11px;background:var(--blue);color:white;border:none;border-radius:12px;font-family:'Cairo',sans-serif;font-size:14px;font-weight:800;cursor:pointer;display:none;}
+  .bnxt.show{display:block;}
+  .bfb{text-align:center;font-size:13px;font-weight:700;padding:10px;border-radius:12px;margin-bottom:12px;display:none;}
+  .bfb.show{display:block;}
+  .bfb.ok{background:var(--have-light);color:var(--have-dark);}
+  .bfb.bad{background:var(--dont-light);color:var(--dont-dark);}
+
+  /* FILL-IN EXERCISE */
+  .fill-wrap{background:white;border-radius:24px;padding:28px 24px;margin-bottom:28px;box-shadow:0 4px 24px rgba(0,0,0,.07);}
+  .fill-wrap h4{font-size:19px;font-weight:800;margin-bottom:6px;}
+  .fill-sub{font-size:13px;color:var(--muted);font-weight:600;margin-bottom:20px;}
+  .fill-list{display:flex;flex-direction:column;gap:14px;}
+  .fill-item{background:#f9fafb;border-radius:14px;padding:16px 18px;}
+  .fill-q{font-size:14px;font-weight:700;color:var(--muted);margin-bottom:8px;}
+  .fill-sent{font-family:'Outfit',sans-serif;font-size:17px;font-weight:700;direction:ltr;text-align:left;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+  .fill-input{border:2px solid #d1d5db;border-radius:10px;padding:6px 14px;font-family:'Outfit',sans-serif;font-size:16px;font-weight:700;width:140px;outline:none;text-align:center;transition:border-color .2s;}
+  .fill-input:focus{border-color:var(--have);}
+  .fill-input.correct-i{border-color:var(--have);background:var(--have-light);color:var(--have-dark);}
+  .fill-input.wrong-i{border-color:var(--dont);background:var(--dont-light);color:var(--dont-dark);}
+  .fill-ar{font-size:12px;color:var(--muted);font-weight:600;margin-top:6px;text-align:right;}
+  .fill-result{font-size:12px;font-weight:700;margin-top:5px;display:none;}
+  .fill-result.show{display:block;}
+  .fill-result.ok{color:var(--have);}
+  .fill-result.bad{color:var(--dont);}
+  .fill-check-all{width:100%;margin-top:18px;padding:13px;background:linear-gradient(135deg,#14532d,#16a34a);color:white;border:none;border-radius:14px;font-family:'Cairo',sans-serif;font-size:15px;font-weight:800;cursor:pointer;}
+  .fill-check-all:hover{opacity:.9;}
+
+  /* EXAMPLES */
+  .ex-section{background:white;border-radius:22px;padding:26px 24px;margin-bottom:28px;box-shadow:0 4px 20px rgba(0,0,0,.07);}
+  .ex-section h4{font-size:17px;font-weight:800;margin-bottom:18px;}
+  .ex-list{display:flex;flex-direction:column;gap:10px;}
+  .ex-item{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;padding:12px 16px;background:#f9fafb;border-radius:12px;direction:ltr;transition:background .2s;}
+  .ex-item:hover{background:#f0fdf4;}
+  .ex-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+  .ex-en{font-family:'Outfit',sans-serif;font-weight:700;font-size:15px;color:var(--text);}
+  .ex-ar{font-family:'Cairo',sans-serif;font-size:12px;color:var(--muted);font-weight:600;direction:rtl;text-align:right;margin-top:2px;}
+  .ex-col{display:flex;flex-direction:column;}
+
+  .footer{text-align:center;padding:28px;color:var(--muted);font-size:13px;font-weight:600;}
+  .footer strong{color:var(--have);}
+
+  @media(max-width:480px){
+    .hero{padding:40px 20px 36px;}
+    .qopts{grid-template-columns:1fr;}
+    .tabs .tab-btn{font-size:12px;padding:10px 6px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">⏱️ تعلّم في خمس دقائق بس!</div>
+  <h1>I <span class="have-w">have</span> / I <span class="dont-w">don't have</span></h1>
+  <h2>قاعدة الملكية — كيف تقول "عندي" و"ليس عندي"</h2>
+  <div class="hero-pills">
+    <div class="hero-pill">الإثبات: <span>I have + اسم</span></div>
+    <div class="hero-pill">النفي: <span>I don't have + اسم</span></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="rule-banner">
+    <div class="rule-num">👑</div>
+    <div class="rule-info">
+      <h3>Ownership Rule — قاعدة الملكية</h3>
+      <p>نستخدم I have لنقول "أنا أملك" أو "عندي" — للأشياء والعلاقات والمشاعر</p>
+    </div>
+  </div>
+
+  <!-- ===== CONTACT / COACHING BLOCK ===== -->
+<div class="coach-cta">
+  <div class="coach-cta-inner">
+    <p class="coach-pitch">حل مشكلة الانقطاع في تعلم اللغة الانجليزية للموظفين</p>
+    <a class="coach-wa-btn" href="https://wa.me/966595701144" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4C7.6 4 3.97 7.63 3.97 12.08c0 1.5.42 2.97 1.2 4.27l-.07.27-1.13 4.13 4.24-1.11.26.16a8.94 8.94 0 0 0 4.55 1.25h.04c4.45 0 8.08-3.63 8.08-8.08a8.04 8.04 0 0 0-2.39-5.65zm-5.55 12.4h-.03a7.4 7.4 0 0 1-3.78-1.04l-.27-.16-2.81.74.75-2.73-.18-.28a7.36 7.36 0 0 1-1.14-3.97c0-4.08 3.32-7.4 7.4-7.4 1.97 0 3.83.77 5.22 2.17a7.34 7.34 0 0 1 2.17 5.24c0 4.08-3.32 7.4-7.33 7.4zm4.05-5.55c-.22-.11-1.31-.65-1.51-.72-.2-.08-.35-.11-.5.11-.15.22-.57.72-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.1-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.28.37-.42.13-.14.17-.24.25-.4.08-.16.04-.3-.03-.41-.07-.11-.62-1.49-.85-2.04-.17-.42-.34-.36-.47-.37l-.4-.01c-.14 0-.36.05-.55.27-.19.22-.74.72-.74 1.76 0 1.04.76 2.04.86 2.18.11.15 1.49 2.27 3.61 3.09 1.8.68 2.17.55 2.56.51.4-.04 1.29-.53 1.47-1.04.18-.51.18-.94.13-1.04-.05-.1-.2-.16-.42-.27z"/></svg>
+      <span>كلمني على الواتس</span>
+    </a>
+    <div class="coach-number" dir="ltr">0595701144</div>
+  </div>
+</div>
+
+<style>
+  .coach-cta{
+    background:linear-gradient(135deg,#075e54,#128c7e);
+    border-radius:20px;
+    padding:18px 22px;
+    margin-bottom:28px;
+    box-shadow:0 6px 20px rgba(7,94,84,.28);
+    text-align:center;
+  }
+  .coach-cta-inner{max-width:480px;margin:0 auto;}
+  .coach-pitch{font-family:'Cairo',sans-serif;font-size:14.5px;font-weight:700;color:rgba(255,255,255,.92);line-height:1.5;margin-bottom:14px;}
+  .coach-wa-btn{
+    display:inline-flex;align-items:center;gap:9px;
+    background:#fff;color:#075e54;
+    padding:11px 26px;border-radius:50px;
+    font-family:'Cairo',sans-serif;font-weight:800;font-size:14.5px;
+    text-decoration:none;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+    transition:transform .2s,box-shadow .2s;
+  }
+  .coach-wa-btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.2);}
+  .coach-number{
+    margin-top:10px;
+    font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;
+    color:rgba(255,255,255,.88);
+    letter-spacing:.5px;
+  }
+</style>
+
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('learn',this)">📖 تعلّم</button>
+    <button class="tab-btn" onclick="switchTab('fill',this)">✍️ أكمل الجملة</button>
+    <button class="tab-btn" onclick="switchTab('quiz',this)">🧠 اختبر نفسك</button>
+    <button class="tab-btn" onclick="switchTab('build',this)">🔧 رتّب الجملة</button>
+    <button class="tab-btn" onclick="switchTab('examples',this)">✏️ أمثلة</button>
+  </div>
+
+  <!-- ===== LEARN ===== -->
+  <div class="tab-panel active" id="tab-learn">
+
+    <div class="compare-grid">
+      <div class="cmp-card">
+        <div class="cmp-header have-h">
+          <div class="cmp-word">I have</div>
+          <div class="cmp-sub">الإثبات — أنا أملك / عندي</div>
+        </div>
+        <div class="cmp-body">
+          <div class="cmp-meaning have-meaning">✅ عندي — أنا أملك</div>
+          <div class="cmp-desc have-desc">نستخدم I have لنقول أننا نملك شيئاً أو لدينا علاقة بشخص أو شيء ما</div>
+          <div class="cmp-examples">
+            <div class="ex-pill"><div class="ex-en">I <span class="hw">have</span> a car.</div><div class="ex-ar">عندي سيارة.</div></div>
+            <div class="ex-pill"><div class="ex-en">I <span class="hw">have</span> a friend.</div><div class="ex-ar">عندي صديق.</div></div>
+            <div class="ex-pill"><div class="ex-en">I <span class="hw">have</span> a new phone.</div><div class="ex-ar">عندي هاتف جديد.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="cmp-card">
+        <div class="cmp-header dont-h">
+          <div class="cmp-word">I don't have</div>
+          <div class="cmp-sub">النفي — ليس عندي</div>
+        </div>
+        <div class="cmp-body">
+          <div class="cmp-meaning dont-meaning">❌ ليس عندي — لا أملك</div>
+          <div class="cmp-desc dont-desc">عندما تريد أن تقول "ليس عندي" أو "لا أملك" نستخدم don't have</div>
+          <div class="cmp-examples">
+            <div class="ex-pill"><div class="ex-en">I <span class="dw">don't have</span> a car.</div><div class="ex-ar">ليس عندي سيارة.</div></div>
+            <div class="ex-pill"><div class="ex-en">I <span class="dw">don't have</span> a pen.</div><div class="ex-ar">ليس عندي قلم.</div></div>
+            <div class="ex-pill"><div class="ex-en">I <span class="dw">don't have</span> time.</div><div class="ex-ar">ليس عندي وقت.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORMULA -->
+    <div class="formula-section">
+      <h4>📐 ملخص الـ 5 دقائق</h4>
+      <div class="formula-row">
+        <div class="formula-item">
+          <div class="formula-label">الإثبات</div>
+          <div class="formula-text">I <span class="key">have</span> + a/an + (adjective) + noun</div>
+          <div class="formula-ar">أنا أملك + أداة + (صفة) + اسم</div>
+        </div>
+        <div class="formula-item">
+          <div class="formula-label">النفي</div>
+          <div class="formula-text">I <span class="key">don't have</span> + a/an + (adjective) + noun</div>
+          <div class="formula-ar">ليس عندي + أداة + (صفة) + اسم</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3-RULE COMBO: I have a new phone -->
+    <div class="combo-box">
+      <h4>🏆 التمرين الثالث — الدمج (صفة + ملكية)</h4>
+      <p style="font-size:13px;color:var(--muted);font-weight:600;margin-bottom:16px;">لقد طبّقت كل ما تعلمناه في جملة: <strong style="font-family:'Outfit',sans-serif;direction:ltr;display:inline-block">I have a new phone.</strong></p>
+      <div class="combo-steps">
+        <div class="combo-step">
+          <div class="step-num" style="background:var(--have)">1</div>
+          <div class="step-content">
+            <div class="step-title">الملكية — استخدام have</div>
+            <div class="step-ex">I <span class="hl">have</span> a phone.</div>
+          </div>
+        </div>
+        <div class="combo-step">
+          <div class="step-num" style="background:var(--blue)">2</div>
+          <div class="step-content">
+            <div class="step-title">الأداة — وضع "a" لأن الهاتف مفرد</div>
+            <div class="step-ex">I have <span class="hl">a</span> phone.</div>
+          </div>
+        </div>
+        <div class="combo-step">
+          <div class="step-num" style="background:var(--purple)">3</div>
+          <div class="step-content">
+            <div class="step-title">الصفة — وضع "new" قبل الاسم</div>
+            <div class="step-ex">I have a <span class="hl">new</span> phone. ✅</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== FILL IN ===== -->
+  <div class="tab-panel" id="tab-fill">
+    <div class="fill-wrap">
+      <h4>✍️ أكمل الجمل</h4>
+      <div class="fill-sub">اكتب الكلمة الصحيحة في كل فراغ (have أو don't have)</div>
+      <div class="fill-list" id="fill-list"></div>
+      <button class="fill-check-all" onclick="checkAllFill()">✅ تحقق من الإجابات</button>
+    </div>
+  </div>
+
+  <!-- ===== QUIZ ===== -->
+  <div class="tab-panel" id="tab-quiz">
+    <div class="quiz-wrap">
+      <div class="quiz-header">
+        <h4>🧠 اختبر معلوماتك</h4>
+        <div class="score-badge" id="score-badge">0 / 0</div>
+      </div>
+      <div class="quiz-progress"><div class="quiz-prog-fill" id="qprog" style="width:0%"></div></div>
+      <div id="qbody">
+        <div class="qbox" id="qbox"></div>
+        <div class="qnum" id="qnum"></div>
+        <div class="qsent" id="qsent"></div>
+        <div class="qopts" id="qopts"></div>
+        <div class="qfb" id="qfb"></div>
+        <button class="qnext" id="qnext" onclick="nextQ()">التالي ←</button>
+      </div>
+      <div id="qresult" style="display:none">
+        <div class="qresult">
+          <div class="bigscore" id="finalscore"></div>
+          <p id="finalmsg"></p>
+          <button class="qrestart" onclick="startQuiz()">🔄 حاول مرة أخرى</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BUILD ===== -->
+  <div class="tab-panel" id="tab-build">
+    <div class="builder-wrap">
+      <h4>🔧 رتّب الجملة الصحيحة</h4>
+      <div class="builder-sub">رتّب الكلمات لتكوين جملة صحيحة بالملكية</div>
+      <div class="b-task" id="b-task"></div>
+      <div class="b-display" id="b-display"><span class="ph-txt">اضغط على الكلمات أدناه لبناء الجملة</span></div>
+      <div class="wbank" id="wbank"></div>
+      <div class="bfb" id="bfb"></div>
+      <div class="b-actions">
+        <button class="bc" onclick="clearB()">🗑️ مسح</button>
+        <button class="bck" onclick="checkB()">✅ تحقق</button>
+        <button class="bnxt show" id="bnxt" onclick="nextBQ()">التالي ←</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== EXAMPLES ===== -->
+  <div class="tab-panel" id="tab-examples">
+    <div class="ex-section">
+      <h4>✅ I have — أمثلة الإثبات</h4>
+      <div class="ex-list">
+        <div class="ex-item"><div class="ex-dot" style="background:var(--have)"></div><div class="ex-col"><div class="ex-en">I <strong style="color:var(--have)">have</strong> a car.</div><div class="ex-ar">عندي سيارة.</div></div></div>
+        <div class="ex-item"><div class="ex-dot" style="background:var(--have)"></div><div class="ex-col"><div class="ex-en">I <strong style="color:var(--have)">have</strong> a small house.</div><div class="ex-ar">عندي بيت صغير.</div></div></div>
+        <div class="ex-item"><div class="ex-dot" style="background:var(--have)"></div><div class="ex-col"><div class="ex-en">I <strong style="color:var(--have)">have</strong> a new phone.</div><div class="ex-ar">عندي هاتف جديد.</div></div></div>
+        <div class="ex-item"><div class="ex-dot" style="background:var(--have)"></div><div class="ex-col"><div class="ex-en">I <strong style="color:var(--have)">have</strong> a big problem.</div><div class="ex-ar">عندي مشكلة كبيرة.</div></div></div>
+        <div class="ex-item"><div class="ex-dot" style="background:var(--have)"></div><div class="ex-col"><div class="ex-en">I <strong style="color:var(--have)">have</strong> a good friend.</div><div class="ex-ar">عندي صديق جيد.</div></div></div>
+        <div class="ex-item"><div class="ex-dot" style="background:var(--have)"></div><div class="ex-col"><div class="ex-en">I <strong style="color:var(--have)">have</strong> an idea.</div><div class="ex-ar">عندي فكرة.</div></div></div>
+      </div>
+    </div>
+    <div class="ex-section">
+      <h4>❌ I don't have — أمثلة النفي</h4>
+      <div class="ex-list">
+        <div class="ex-item"><div class="ex-dot" style="background:var(--dont)"></div><div class="ex-col"><div class="ex-en">I <strong style="color:var(--dont)">don't have</strong> a car.</div><div class="ex-ar">ليس عندي سيارة.</div></div></div>
+        <div class="ex-item"><div class="ex-dot" style="background:var(--dont)"></div><div class="ex-col"><div class="ex-en">I <strong style="color:var(--dont)">don't have</strong> a pen.</div><div class="ex-ar">ليس عندي قلم.</div></div></div>
+        <div class="ex-item"><div class="ex-dot" style="background:var(--dont)"></div><div class="ex-col"><div class="ex-en">I <strong style="color:var(--dont)">don't have</strong> time.</div><div class="ex-ar">ليس عندي وقت.</div></div></div>
+        <div class="ex-item"><div class="ex-dot" style="background:var(--dont)"></div><div class="ex-col"><div class="ex-en">I <strong style="color:var(--dont)">don't have</strong> a big house.</div><div class="ex-ar">ليس عندي بيت كبير.</div></div></div>
+        <div class="ex-item"><div class="ex-dot" style="background:var(--dont)"></div><div class="ex-col"><div class="ex-en">I <strong style="color:var(--dont)">don't have</strong> a problem.</div><div class="ex-ar">ليس عندي مشكلة.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">تعلم اللغة الإنجليزية مع Gemini خطوة بخطوة — قاعدة الملكية | <strong>@essam3699</strong></div>
+</div>
+
+<script>
+// ===== TABS =====
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+  if (name === 'quiz' && !qState.started) startQuiz();
+  if (name === 'build' && !bState.init) initB();
+  if (name === 'fill' && !fillInit) initFill();
+}
+
+// ===== FILL IN =====
+let fillInit = false;
+const fillData = [
+  { before:'I', after:'a small house.', answer:'have', ar:'عندي بيت صغير' },
+  { before:'I', after:'a big problem.', answer:'have', ar:'عندي مشكلة كبيرة' },
+  { before:'I', after:'a car.', answer:"don't have", ar:'ليس عندي سيارة' },
+  { before:'I', after:'a pen.', answer:"don't have", ar:'ليس عندي قلم' },
+  { before:'I', after:'a new phone.', answer:'have', ar:'عندي هاتف جديد' },
+  { before:'I', after:'time.', answer:"don't have", ar:'ليس عندي وقت' },
+];
+
+function initFill() {
+  fillInit = true;
+  const list = document.getElementById('fill-list');
+  list.innerHTML = '';
+  fillData.forEach((f, i) => {
+    const item = document.createElement('div');
+    item.className = 'fill-item';
+    item.innerHTML = `
+      <div class="fill-q">السؤال ${i+1}</div>
+      <div class="fill-sent" dir="ltr">
+        <span>I</span>
+        <input class="fill-input" id="fi-${i}" placeholder="...?" autocomplete="off" />
+        <span>${f.after}</span>
+      </div>
+      <div class="fill-ar">${f.ar}</div>
+      <div class="fill-result" id="fr-${i}"></div>`;
+    list.appendChild(item);
+  });
+}
+
+function checkAllFill() {
+  fillData.forEach((f, i) => {
+    const inp = document.getElementById('fi-' + i);
+    const res = document.getElementById('fr-' + i);
+    const val = inp.value.trim().toLowerCase();
+    const correct = f.answer.toLowerCase();
+    if (val === correct || val === correct.replace("'","'")) {
+      inp.className = 'fill-input correct-i';
+      res.textContent = '✅ صحيح!';
+      res.className = 'fill-result show ok';
+    } else {
+      inp.className = 'fill-input wrong-i';
+      res.textContent = '❌ الإجابة: ' + f.answer;
+      res.className = 'fill-result show bad';
+    }
+    inp.disabled = true;
+  });
+}
+
+// ===== QUIZ =====
+const quizData = [
+  { sent:'___ a car. (عندي سيارة)', answer:"I have", opts:["I have","I don't have","I had","I am have"], ar:'', note:'عندي = I have' },
+  { sent:'___ a pen. (ليس عندي قلم)', answer:"I don't have", opts:["I have","I don't have","I not have","I haven't"], ar:'', note:'ليس عندي = I don\'t have' },
+  { sent:'I ___ a small house. (بيت صغير)', answer:"have", opts:["have","don't have","has","am have"], ar:'', note:'إثبات ← have' },
+  { sent:'I ___ time. (ليس عندي وقت)', answer:"don't have", opts:["don't have","have","hasn't","not have"], ar:'', note:'نفي ← don\'t have' },
+  { sent:'I have ___ new phone. (هاتف جديد مفرد)', answer:"a", opts:["a","an","the","—"], ar:'', note:'phone يبدأ بحرف ساكن ← a' },
+  { sent:'I have ___ idea. (فكرة)', answer:"an", opts:["an","a","the","—"], ar:'', note:'idea تبدأ بحرف علة (i) ← an' },
+  { sent:'___ a big problem. (عندي مشكلة كبيرة)', answer:"I have", opts:["I have","I don't have","I am","I had"], ar:'', note:'عندي = I have' },
+  { sent:'I have a ___ phone. (هاتف جديد)', answer:"new", opts:["new","a new","news","newly"], ar:'', note:'الصفة قبل الاسم مباشرة' },
+  { sent:'___ a friend. (ليس عندي صديق)', answer:"I don't have", opts:["I don't have","I have","I not have","I haven't"], ar:'', note:'النفي = I don\'t have' },
+  { sent:'I ___ a car. I walk to work.', answer:"don't have", opts:["don't have","have","has","am not have"], ar:'ليس عندي سيارة. أمشي للعمل', note:'نفي ← don\'t have' },
+];
+
+const qState = { current:0, score:0, answered:false, started:false, order:[] };
+function shuffle(a){ return [...a].sort(()=>Math.random()-.5); }
+
+function startQuiz(){
+  qState.current=0; qState.score=0; qState.answered=false; qState.started=true;
+  qState.order=shuffle(quizData);
+  document.getElementById('qresult').style.display='none';
+  document.getElementById('qbody').style.display='block';
+  renderQ();
+}
+
+function renderQ(){
+  const q=qState.order[qState.current], total=qState.order.length;
+  document.getElementById('qbox').textContent=q.ar||'اختر الإجابة الصحيحة';
+  document.getElementById('qnum').textContent=`السؤال ${qState.current+1} من ${total}`;
+  document.getElementById('qprog').style.width=((qState.current/total)*100)+'%';
+  document.getElementById('score-badge').textContent=qState.score+' / '+qState.current;
+  document.getElementById('qsent').innerHTML=q.sent.replace('___','<span class="blank">___</span>');
+  const optsEl=document.getElementById('qopts');
+  optsEl.innerHTML='';
+  shuffle(q.opts).forEach(o=>{
+    const btn=document.createElement('button');
+    btn.className='qopt'; btn.textContent=o;
+    btn.onclick=()=>answerQ(o,q.answer,q.note,btn);
+    optsEl.appendChild(btn);
+  });
+  document.getElementById('qfb').className='qfb';
+  document.getElementById('qnext').className='qnext';
+  qState.answered=false;
+}
+
+function answerQ(chosen,correct,note,btn){
+  if(qState.answered)return;
+  qState.answered=true;
+  const fb=document.getElementById('qfb');
+  document.querySelectorAll('.qopt').forEach(b=>b.disabled=true);
+  if(chosen===correct){
+    btn.classList.add('correct'); qState.score++;
+    fb.textContent='✅ صحيح! '+note; fb.className='qfb show ok';
+  } else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.qopt').forEach(b=>{ if(b.textContent===correct) b.classList.add('correct'); });
+    fb.textContent='❌ الإجابة: '+correct+' — '+note; fb.className='qfb show bad';
+  }
+  document.getElementById('score-badge').textContent=qState.score+' / '+(qState.current+1);
+  document.getElementById('qnext').className='qnext show';
+}
+
+function nextQ(){
+  qState.current++;
+  if(qState.current>=qState.order.length){ showResult(); return; }
+  renderQ();
+}
+
+function showResult(){
+  document.getElementById('qbody').style.display='none';
+  document.getElementById('qresult').style.display='block';
+  const s=qState.score, t=qState.order.length, pct=Math.round((s/t)*100);
+  const el=document.getElementById('finalscore');
+  el.textContent=s+'/'+t;
+  el.style.color=pct>=80?'var(--have)':pct>=50?'var(--blue)':'var(--dont)';
+  document.getElementById('finalmsg').textContent=
+    pct===100?'🏆 ممتاز! أتقنت قاعدة الملكية!':pct>=70?'💪 رائع! واصل التدريب':pct>=40?'📚 جيد! راجع الدرس مجدداً':'🔁 راجع البطاقات وحاول مرة أخرى';
+  document.getElementById('qprog').style.width='100%';
+}
+
+// ===== BUILDER =====
+const bData = [
+  { task:'رتّب: "عندي سيارة"', hint:'I have a car.', words:['have','a','I','car','don\'t'], key:'have', answer:['I','have','a','car','.'] },
+  { task:'رتّب: "ليس عندي قلم"', hint:"I don't have a pen.", words:['a','have','pen','don\'t','I'], key:"don't", answer:['I',"don't",'have','a','pen','.'] },
+  { task:'رتّب: "عندي هاتف جديد"', hint:'I have a new phone.', words:['new','have','a','phone','I'], key:'have', answer:['I','have','a','new','phone','.'] },
+  { task:'رتّب: "عندي بيت صغير"', hint:'I have a small house.', words:['small','I','a','house','have'], key:'have', answer:['I','have','a','small','house','.'] },
+  { task:'رتّب: "ليس عندي وقت"', hint:"I don't have time.", words:['time','don\'t','have','I','a'], key:"don't", answer:['I',"don't",'have','time','.'] },
+];
+
+const bState = { current:0, placed:[], init:false };
+
+function initB(){
+  bState.init=true; bState.current=0; loadBQ();
+}
+
+function loadBQ(){
+  bState.placed=[];
+  const q=bData[bState.current%bData.length];
+  document.getElementById('b-task').innerHTML=q.task+'<span class="hint">الجواب: '+q.hint+'</span>';
+  const disp=document.getElementById('b-display');
+  const bank=document.getElementById('wbank');
+  disp.className='b-display';
+  disp.innerHTML='<span class="ph-txt">اضغط على الكلمات أدناه لبناء الجملة</span>';
+  bank.innerHTML='';
+  document.getElementById('bfb').className='bfb';
+  document.getElementById('bnxt').className='bnxt';
+  const words=shuffle([...q.words,'.']);
+  words.forEach((w,i)=>{
+    const chip=document.createElement('div');
+    chip.className='wchip'+(w===q.key?' kchip':'');
+    chip.textContent=w; chip.dataset.idx=i;
+    chip.onclick=()=>placeW(chip,w);
+    bank.appendChild(chip);
+  });
+}
+
+function placeW(chip,word){
+  if(chip.classList.contains('used'))return;
+  chip.classList.add('used');
+  bState.placed.push(word);
+  renderBDisplay();
+}
+
+function renderBDisplay(){
+  const q=bData[bState.current%bData.length];
+  const disp=document.getElementById('b-display');
+  if(!bState.placed.length){
+    disp.className='b-display';
+    disp.innerHTML='<span class="ph-txt">اضغط على الكلمات أدناه لبناء الجملة</span>';
+    return;
+  }
+  disp.className='b-display has-w';
+  disp.innerHTML='';
+  bState.placed.forEach((w,i)=>{
+    const tok=document.createElement('div');
+    tok.className='b-token'+(w===q.key?' key-tok':'');
+    tok.textContent=w;
+    tok.onclick=()=>removeTok(i,w);
+    disp.appendChild(tok);
+  });
+}
+
+function removeTok(idx,word){
+  bState.placed.splice(idx,1);
+  const chips=document.querySelectorAll('.wchip');
+  for(let c of chips){ if(c.textContent===word&&c.classList.contains('used')){ c.classList.remove('used'); break; } }
+  renderBDisplay();
+}
+
+function clearB(){
+  document.querySelectorAll('.wchip').forEach(c=>c.classList.remove('used'));
+  bState.placed=[];
+  renderBDisplay();
+  document.getElementById('bfb').className='bfb';
+  document.getElementById('b-display').className='b-display';
+  document.getElementById('bnxt').className='bnxt';
+}
+
+function checkB(){
+  const q=bData[bState.current%bData.length];
+  const fb=document.getElementById('bfb');
+  if(bState.placed.length<q.answer.length){
+    fb.textContent='⚠️ ضع كل الكلمات أولاً!'; fb.className='bfb show bad'; return;
+  }
+  const correct=JSON.stringify(bState.placed)===JSON.stringify(q.answer);
+  const disp=document.getElementById('b-display');
+  if(correct){
+    disp.className='b-display correct-s';
+    fb.textContent='✅ ممتاز! الجملة صحيحة تماماً 🎉'; fb.className='bfb show ok';
+  } else {
+    disp.className='b-display wrong-s';
+    fb.textContent='❌ الصحيح: '+q.answer.join(' '); fb.className='bfb show bad';
+  }
+  document.querySelectorAll('.wchip').forEach(c=>c.classList.add('used'));
+  document.getElementById('bnxt').className='bnxt show';
+}
+
+function nextBQ(){
+  bState.current++;
+  document.getElementById('bfb').className='bfb';
+  document.getElementById('bnxt').className='bnxt';
+  loadBQ();
+}
+</script>
+</body>
+</html>

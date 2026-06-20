@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أدوات النكرة A / An | الدرس ٢٠</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#fdf4ff; --text:#1a1a2e; --muted:#6b7280;
+    --a:#e63030;    --a-light:#fee2e2;    --a-dark:#7f1d1d;
+    --an:#7c3aed;   --an-light:#ede9fe;   --an-dark:#4c1d95;
+    --the:#d97706;  --the-light:#fef3c7;  --the-dark:#78350f;
+    --green:#16a34a; --green-light:#dcfce7;
+    --red:#dc2626;   --red-light:#fee2e2;
+    --accent:#f59e0b;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(ellipse at 15% 10%,rgba(230,48,48,.09) 0%,transparent 50%),
+               radial-gradient(ellipse at 85% 80%,rgba(124,58,237,.08) 0%,transparent 50%),
+               radial-gradient(ellipse at 55% 35%,rgba(217,119,6,.06) 0%,transparent 40%);}
+  .container{max-width:860px;margin:0 auto;padding:0 20px 60px;position:relative;z-index:1;}
+
+  /* HERO */
+  .hero{background:linear-gradient(135deg,#7f1d1d 0%,#e63030 50%,#f87171 100%);
+    padding:58px 40px 48px;text-align:center;position:relative;overflow:hidden;
+    border-radius:0 0 44px 44px;margin-bottom:46px;box-shadow:0 20px 60px rgba(230,48,48,.38);}
+  .hero::before{content:'';position:absolute;top:-50px;right:-50px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.06);}
+  .hero::after{content:'';position:absolute;bottom:-70px;left:-40px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.04);}
+  .hero-badge{display:inline-block;background:var(--accent);color:#78350f;font-size:13px;font-weight:700;padding:6px 20px;border-radius:50px;margin-bottom:18px;}
+  .hero h1{font-family:'Outfit',sans-serif;font-size:clamp(36px,8vw,68px);font-weight:900;color:#fff;line-height:1.0;margin-bottom:10px;letter-spacing:-1px;}
+  .hero h1 .w-a{color:#fde68a;} .hero h1 .w-an{color:#ddd6fe;} .hero h1 .w-vs{color:rgba(255,255,255,.5);font-size:.6em;}
+  .hero h2{font-size:clamp(14px,3vw,19px);font-weight:600;color:rgba(255,255,255,.82);margin-bottom:26px;}
+  .hero-pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;}
+  .hero-pill{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);border-radius:50px;padding:9px 18px;color:#fff;font-size:14px;font-weight:700;}
+  .hero-pill span{color:#fde68a;}
+
+  /* TABS */
+  .tabs{display:flex;gap:8px;margin-bottom:28px;background:white;border-radius:20px;padding:8px;box-shadow:0 4px 16px rgba(0,0,0,.07);flex-wrap:wrap;}
+  .tab-btn{flex:1;min-width:90px;padding:12px 8px;border:none;background:transparent;border-radius:14px;font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;color:var(--muted);cursor:pointer;transition:all .25s;}
+  .tab-btn.active{background:linear-gradient(135deg,#7f1d1d,#e63030);color:white;box-shadow:0 4px 14px rgba(230,48,48,.35);}
+  .tab-btn:hover:not(.active){background:#fdf4ff;color:var(--text);}
+  .tab-panel{display:none;animation:fadeUp .35s ease;}
+  .tab-panel.active{display:block;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+
+  /* RULE BANNER */
+  .rule-banner{display:flex;align-items:center;gap:16px;background:white;border-radius:20px;padding:20px 24px;margin-bottom:28px;box-shadow:0 4px 16px rgba(0,0,0,.06);}
+  .rule-icon{background:linear-gradient(135deg,#7f1d1d,#e63030);color:white;font-size:22px;width:58px;height:58px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .rule-info h3{font-family:'Outfit',sans-serif;font-weight:800;font-size:20px;color:var(--text);direction:ltr;text-align:left;}
+  .rule-info p{font-size:13px;color:var(--muted);font-weight:600;margin-top:3px;}
+
+  /* BIG COMPARE CARDS */
+  .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:28px;}
+  @media(max-width:540px){.compare-grid{grid-template-columns:1fr;}}
+  .cmp-card{border-radius:22px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.09);animation:fadeUp .5s ease backwards;transition:transform .2s,box-shadow .2s;}
+  .cmp-card:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,.14);}
+  .cmp-card:nth-child(2){animation-delay:.1s;}
+  .cmp-header{padding:24px 22px 18px;color:white;text-align:center;}
+  .a-h{background:linear-gradient(135deg,#7f1d1d,#e63030);}
+  .an-h{background:linear-gradient(135deg,#4c1d95,#7c3aed);}
+  .cmp-letter{font-family:'Outfit',sans-serif;font-weight:900;font-size:56px;line-height:1;}
+  .cmp-rule{font-size:13px;color:rgba(255,255,255,.82);font-weight:600;margin-top:6px;}
+  .cmp-body{background:white;padding:16px 20px 20px;}
+  .cmp-when{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px;}
+  .cmp-vowels{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;direction:ltr;}
+  .vowel-badge{padding:5px 14px;border-radius:50px;font-family:'Outfit',sans-serif;font-weight:800;font-size:15px;}
+  .a-vowel{background:var(--a-light);color:var(--a-dark);}
+  .an-vowel{background:var(--an-light);color:var(--an-dark);}
+  .cmp-examples{display:flex;flex-direction:column;gap:7px;}
+  .cmp-ex{background:#f9fafb;border-radius:10px;padding:9px 12px;font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;direction:ltr;text-align:left;}
+  .cmp-ex-ar{font-family:'Cairo',sans-serif;font-size:11px;color:var(--muted);font-weight:600;direction:rtl;text-align:right;margin-top:2px;}
+  .hi-a{color:var(--a);font-size:16px;}  .hi-an{color:var(--an);font-size:16px;}
+
+  /* THE BOX */
+  .the-box{background:linear-gradient(135deg,#78350f,#d97706);border-radius:22px;padding:24px 24px;margin-bottom:28px;color:white;box-shadow:0 8px 28px rgba(217,119,6,.3);}
+  .the-box h4{font-size:17px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .the-compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:480px){.the-compare{grid-template-columns:1fr;}}
+  .the-item{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:14px 16px;}
+  .the-label{font-size:12px;font-weight:700;opacity:.75;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;}
+  .the-ex{font-family:'Outfit',sans-serif;font-weight:800;font-size:18px;direction:ltr;text-align:left;}
+  .the-ar{font-size:13px;color:rgba(255,255,255,.75);font-weight:600;margin-top:4px;}
+
+  /* TRICK BOX: University */
+  .trick-box{background:linear-gradient(135deg,#1e1b4b,#312e81);border-radius:22px;padding:24px 24px;margin-bottom:28px;color:white;box-shadow:0 8px 28px rgba(49,46,129,.3);}
+  .trick-box h4{font-size:17px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+  .trick-content{font-size:14px;color:rgba(255,255,255,.82);font-weight:600;line-height:1.8;}
+  .trick-content strong{color:#fde68a;}
+  .trick-ex{background:rgba(255,255,255,.1);border-radius:12px;padding:12px 16px;margin-top:14px;font-family:'Outfit',sans-serif;font-weight:800;font-size:18px;text-align:center;direction:ltr;}
+  .trick-ex span{color:#fde68a;}
+
+  /* VOWEL DISPLAY */
+  .vowel-display{background:white;border-radius:22px;padding:24px;margin-bottom:28px;box-shadow:0 4px 20px rgba(0,0,0,.07);}
+  .vowel-display h4{font-size:17px;font-weight:800;margin-bottom:18px;}
+  .vowel-row{display:flex;gap:10px;justify-content:center;margin-bottom:16px;flex-wrap:wrap;}
+  .vbig{width:64px;height:64px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-weight:900;font-size:28px;}
+  .vbig.vowel{background:var(--an-light);color:var(--an-dark);}
+  .vbig.cons{background:#f3f4f6;color:var(--muted);}
+  .vowel-note{text-align:center;font-size:14px;font-weight:600;color:var(--muted);}
+
+  /* WORD CARDS */
+  .words-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-bottom:28px;}
+  .wcard{border-radius:16px;padding:14px 16px;text-align:center;cursor:default;transition:transform .2s;}
+  .wcard:hover{transform:translateY(-3px);}
+  .wcard .wc-word{font-family:'Outfit',sans-serif;font-weight:800;font-size:18px;margin-bottom:4px;}
+  .wcard .wc-art{font-family:'Outfit',sans-serif;font-weight:900;font-size:24px;margin-bottom:4px;}
+  .wcard .wc-ar{font-size:12px;color:var(--muted);font-weight:600;}
+  .wcard.use-a{background:var(--a-light);border:2px solid #fca5a5;}
+  .wcard.use-a .wc-art{color:var(--a);}
+  .wcard.use-an{background:var(--an-light);border:2px solid #c4b5fd;}
+  .wcard.use-an .wc-art{color:var(--an);}
+
+  /* QUIZ */
+  .quiz-wrap{background:white;border-radius:24px;padding:28px 24px;margin-bottom:28px;box-shadow:0 4px 24px rgba(0,0,0,.07);}
+  .quiz-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px;}
+  .quiz-header h4{font-size:19px;font-weight:800;}
+  .score-badge{background:linear-gradient(135deg,#7f1d1d,#e63030);color:white;font-family:'Outfit',sans-serif;font-weight:800;font-size:14px;padding:8px 18px;border-radius:50px;}
+  .q-progress{background:#f3f4f6;border-radius:50px;height:8px;margin-bottom:24px;overflow:hidden;}
+  .q-prog-fill{height:100%;background:linear-gradient(90deg,var(--a),#f87171);border-radius:50px;transition:width .5s ease;}
+  .q-label{font-size:13px;color:var(--muted);font-weight:600;text-align:center;margin-bottom:8px;}
+  .q-num{font-size:16px;font-weight:700;text-align:center;margin-bottom:20px;}
+  .q-sent{background:linear-gradient(135deg,#7f1d1d,#e63030);color:white;border-radius:16px;padding:20px 22px;font-family:'Outfit',sans-serif;font-size:20px;font-weight:700;text-align:center;direction:ltr;margin-bottom:20px;line-height:1.5;}
+  .q-sent .blank{display:inline-block;background:rgba(255,255,255,.18);border-bottom:3px solid #fde68a;min-width:70px;padding:2px 10px;border-radius:8px;color:#fde68a;font-weight:800;}
+  .q-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+  .q-opt{padding:14px 20px;border:2px solid #e5e7eb;border-radius:13px;background:white;font-family:'Outfit',sans-serif;font-size:20px;font-weight:900;cursor:pointer;transition:all .2s;color:var(--text);}
+  .q-opt:hover:not(:disabled){border-color:var(--a);background:var(--a-light);transform:translateY(-2px);}
+  .q-opt.correct{border-color:var(--green)!important;background:var(--green-light)!important;color:#14532d!important;}
+  .q-opt.wrong{border-color:var(--red)!important;background:var(--red-light)!important;color:#7f1d1d!important;}
+  .q-opt:disabled{cursor:default;transform:none;}
+  .q-fb{text-align:center;font-size:14px;font-weight:700;padding:12px;border-radius:12px;margin-bottom:14px;display:none;}
+  .q-fb.show{display:block;}
+  .q-fb.ok{background:var(--green-light);color:#14532d;}
+  .q-fb.bad{background:var(--red-light);color:#7f1d1d;}
+  .q-next{width:100%;padding:13px;background:linear-gradient(135deg,#7f1d1d,#e63030);color:white;border:none;border-radius:14px;font-family:'Cairo',sans-serif;font-size:15px;font-weight:800;cursor:pointer;display:none;}
+  .q-next:hover{opacity:.9;} .q-next.show{display:block;}
+  .q-result{text-align:center;padding:10px 0;}
+  .big-score{font-family:'Outfit',sans-serif;font-size:72px;font-weight:900;line-height:1;margin-bottom:10px;}
+  .q-result p{font-size:15px;color:var(--muted);font-weight:600;margin-bottom:20px;}
+  .q-restart{padding:13px 34px;background:linear-gradient(135deg,#7f1d1d,#e63030);color:white;border:none;border-radius:14px;font-family:'Cairo',sans-serif;font-size:15px;font-weight:800;cursor:pointer;}
+
+  /* FILL */
+  .fill-wrap{background:white;border-radius:24px;padding:28px 24px;margin-bottom:28px;box-shadow:0 4px 24px rgba(0,0,0,.07);}
+  .fill-wrap h4{font-size:19px;font-weight:800;margin-bottom:6px;}
+  .fill-sub{font-size:13px;color:var(--muted);font-weight:600;margin-bottom:20px;}
+  .fill-item{background:#f9fafb;border-radius:14px;padding:16px 18px;margin-bottom:14px;}
+  .fill-q{font-size:13px;font-weight:700;color:var(--muted);margin-bottom:8px;}
+  .fill-sent{font-family:'Outfit',sans-serif;font-size:18px;font-weight:700;direction:ltr;text-align:left;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+  .fill-inp{border:2px solid #d1d5db;border-radius:10px;padding:6px 12px;font-family:'Outfit',sans-serif;font-size:16px;font-weight:700;width:90px;outline:none;text-align:center;transition:border-color .2s;}
+  .fill-inp:focus{border-color:var(--a);}
+  .fill-inp.ok-i{border-color:var(--green);background:var(--green-light);color:#14532d;}
+  .fill-inp.bad-i{border-color:var(--red);background:var(--red-light);color:#7f1d1d;}
+  .fill-ar{font-size:12px;color:var(--muted);font-weight:600;margin-top:6px;text-align:right;}
+  .fill-res{font-size:12px;font-weight:700;margin-top:5px;display:none;}
+  .fill-res.show{display:block;}
+  .fill-res.ok{color:var(--green);}
+  .fill-res.bad{color:var(--red);}
+  .fill-btn{width:100%;margin-top:4px;padding:13px;background:linear-gradient(135deg,#7f1d1d,#e63030);color:white;border:none;border-radius:14px;font-family:'Cairo',sans-serif;font-size:15px;font-weight:800;cursor:pointer;}
+
+  /* BUILDER */
+  .builder-wrap{background:white;border-radius:24px;padding:28px 24px;margin-bottom:28px;box-shadow:0 4px 24px rgba(0,0,0,.07);}
+  .builder-wrap h4{font-size:19px;font-weight:800;margin-bottom:5px;}
+  .builder-sub{font-size:13px;color:var(--muted);font-weight:600;margin-bottom:18px;}
+  .b-task{background:linear-gradient(135deg,#7f1d1d,#e63030);color:white;border-radius:14px;padding:16px 20px;margin-bottom:16px;font-size:15px;font-weight:700;line-height:1.6;}
+  .b-task .hint{color:rgba(255,255,255,.72);font-size:13px;display:block;margin-top:4px;font-family:'Outfit',sans-serif;direction:ltr;}
+  .b-display{background:#f9fafb;border:2px dashed #d1d5db;border-radius:16px;padding:18px 20px;min-height:66px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;margin-bottom:16px;direction:ltr;transition:border-color .3s;}
+  .b-display.has-w{border-color:#fca5a5;background:#fff5f5;}
+  .b-display.ok-s{border-color:var(--green);background:var(--green-light);}
+  .b-display.bad-s{border-color:var(--red);background:var(--red-light);}
+  .ph-txt{color:#9ca3af;font-size:13px;font-weight:600;font-family:'Cairo',sans-serif;}
+  .b-tok{background:white;border:2px solid #e5e7eb;border-radius:10px;padding:7px 14px;font-family:'Outfit',sans-serif;font-weight:700;font-size:15px;cursor:pointer;transition:all .2s;user-select:none;}
+  .b-tok.key-tok{border-color:#fde68a;background:#fffbeb;color:#78350f;}
+  .b-tok:hover{transform:scale(1.06);}
+  .wbank{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;}
+  .wchip{background:white;border:2px solid #e5e7eb;border-radius:11px;padding:8px 14px;font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;cursor:pointer;transition:all .2s;}
+  .wchip.kchip{border-color:#fde68a;background:#fffbeb;color:#78350f;}
+  .wchip:hover:not(.used){transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.1);}
+  .wchip.used{opacity:.3;cursor:default;transform:none;}
+  .b-actions{display:flex;gap:10px;flex-wrap:wrap;}
+  .b-clr{padding:11px 16px;background:#f3f4f6;color:var(--text);border:none;border-radius:12px;font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;cursor:pointer;}
+  .b-chk{flex:1;padding:11px;background:linear-gradient(135deg,#7f1d1d,#e63030);color:white;border:none;border-radius:12px;font-family:'Cairo',sans-serif;font-size:14px;font-weight:800;cursor:pointer;}
+  .b-nxt{flex:1;padding:11px;background:var(--green);color:white;border:none;border-radius:12px;font-family:'Cairo',sans-serif;font-size:14px;font-weight:800;cursor:pointer;display:none;}
+  .b-nxt.show{display:block;}
+  .b-fb{text-align:center;font-size:13px;font-weight:700;padding:10px;border-radius:12px;margin-bottom:12px;display:none;}
+  .b-fb.show{display:block;}
+  .b-fb.ok{background:var(--green-light);color:#14532d;}
+  .b-fb.bad{background:var(--red-light);color:#7f1d1d;}
+
+  .footer{text-align:center;padding:28px;color:var(--muted);font-size:13px;font-weight:600;}
+  .footer strong{color:var(--a);}
+  @media(max-width:480px){
+    .hero{padding:40px 20px 36px;}
+    .tabs .tab-btn{font-size:12px;padding:10px 5px;}
+    .q-opts{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">📚 الدرس رقم ٢٠ — أدوات النكرة</div>
+  <h1><span class="w-a">A</span> <span class="w-vs">vs</span> <span class="w-an">An</span></h1>
+  <h2>متى تستخدم A ومتى تستخدم An؟ — القاعدة الذهبية</h2>
+  <div class="hero-pills">
+    <div class="hero-pill"><span>A</span> = قبل حرف ساكن</div>
+    <div class="hero-pill"><span>An</span> = قبل حرف علة (A E I O U)</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="rule-banner">
+    <div class="rule-icon">🔤</div>
+    <div class="rule-info">
+      <h3>A / An — Indefinite Articles</h3>
+      <p>نستخدمهما قبل الاسم المفرد لنقول "واحد من مجموعة" — أي شيء غير محدد</p>
+    </div>
+  </div>
+
+  <!-- ===== CONTACT / COACHING BLOCK ===== -->
+<div class="coach-cta">
+  <div class="coach-cta-inner">
+    <p class="coach-pitch">حل مشكلة الانقطاع في تعلم اللغة الانجليزية للموظفين</p>
+    <a class="coach-wa-btn" href="https://wa.me/966595701144" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4C7.6 4 3.97 7.63 3.97 12.08c0 1.5.42 2.97 1.2 4.27l-.07.27-1.13 4.13 4.24-1.11.26.16a8.94 8.94 0 0 0 4.55 1.25h.04c4.45 0 8.08-3.63 8.08-8.08a8.04 8.04 0 0 0-2.39-5.65zm-5.55 12.4h-.03a7.4 7.4 0 0 1-3.78-1.04l-.27-.16-2.81.74.75-2.73-.18-.28a7.36 7.36 0 0 1-1.14-3.97c0-4.08 3.32-7.4 7.4-7.4 1.97 0 3.83.77 5.22 2.17a7.34 7.34 0 0 1 2.17 5.24c0 4.08-3.32 7.4-7.33 7.4zm4.05-5.55c-.22-.11-1.31-.65-1.51-.72-.2-.08-.35-.11-.5.11-.15.22-.57.72-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.1-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.28.37-.42.13-.14.17-.24.25-.4.08-.16.04-.3-.03-.41-.07-.11-.62-1.49-.85-2.04-.17-.42-.34-.36-.47-.37l-.4-.01c-.14 0-.36.05-.55.27-.19.22-.74.72-.74 1.76 0 1.04.76 2.04.86 2.18.11.15 1.49 2.27 3.61 3.09 1.8.68 2.17.55 2.56.51.4-.04 1.29-.53 1.47-1.04.18-.51.18-.94.13-1.04-.05-.1-.2-.16-.42-.27z"/></svg>
+      <span>كلمني على الواتس</span>
+    </a>
+    <div class="coach-number" dir="ltr">0595701144</div>
+  </div>
+</div>
+
+<style>
+  .coach-cta{
+    background:linear-gradient(135deg,#075e54,#128c7e);
+    border-radius:20px;
+    padding:18px 22px;
+    margin-bottom:28px;
+    box-shadow:0 6px 20px rgba(7,94,84,.28);
+    text-align:center;
+  }
+  .coach-cta-inner{max-width:480px;margin:0 auto;}
+  .coach-pitch{font-family:'Cairo',sans-serif;font-size:14.5px;font-weight:700;color:rgba(255,255,255,.92);line-height:1.5;margin-bottom:14px;}
+  .coach-wa-btn{
+    display:inline-flex;align-items:center;gap:9px;
+    background:#fff;color:#075e54;
+    padding:11px 26px;border-radius:50px;
+    font-family:'Cairo',sans-serif;font-weight:800;font-size:14.5px;
+    text-decoration:none;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+    transition:transform .2s,box-shadow .2s;
+  }
+  .coach-wa-btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.2);}
+  .coach-number{
+    margin-top:10px;
+    font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;
+    color:rgba(255,255,255,.88);
+    letter-spacing:.5px;
+  }
+</style>
+
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('learn',this)">📖 تعلّم</button>
+    <button class="tab-btn" onclick="switchTab('words',this)">📝 أمثلة</button>
+    <button class="tab-btn" onclick="switchTab('fill',this)">✍️ أكمل</button>
+    <button class="tab-btn" onclick="switchTab('quiz',this)">🧠 اختبر</button>
+    <button class="tab-btn" onclick="switchTab('build',this)">🔧 رتّب</button>
+  </div>
+
+  <!-- ===== LEARN ===== -->
+  <div class="tab-panel active" id="tab-learn">
+
+    <div class="compare-grid">
+      <!-- A -->
+      <div class="cmp-card">
+        <div class="cmp-header a-h">
+          <div class="cmp-letter">A</div>
+          <div class="cmp-rule">قبل الحروف الساكنة</div>
+        </div>
+        <div class="cmp-body">
+          <div class="cmp-when">معظم الحروف — الساكنة</div>
+          <div class="cmp-vowels">
+            <span class="vowel-badge a-vowel">b</span>
+            <span class="vowel-badge a-vowel">c</span>
+            <span class="vowel-badge a-vowel">d</span>
+            <span class="vowel-badge a-vowel">f</span>
+            <span class="vowel-badge a-vowel">g</span>
+            <span class="vowel-badge a-vowel">...</span>
+          </div>
+          <div class="cmp-examples">
+            <div class="cmp-ex"><span class="hi-a">A</span> book <div class="cmp-ex-ar">كتاب (واحد)</div></div>
+            <div class="cmp-ex"><span class="hi-a">A</span> car <div class="cmp-ex-ar">سيارة (واحدة)</div></div>
+            <div class="cmp-ex"><span class="hi-a">A</span> phone <div class="cmp-ex-ar">هاتف (واحد)</div></div>
+            <div class="cmp-ex"><span class="hi-a">A</span> doctor <div class="cmp-ex-ar">طبيب (واحد)</div></div>
+          </div>
+        </div>
+      </div>
+      <!-- AN -->
+      <div class="cmp-card">
+        <div class="cmp-header an-h">
+          <div class="cmp-letter">An</div>
+          <div class="cmp-rule">قبل حروف العلة</div>
+        </div>
+        <div class="cmp-body">
+          <div class="cmp-when">حروف العلة فقط ← A E I O U</div>
+          <div class="cmp-vowels">
+            <span class="vowel-badge an-vowel">A</span>
+            <span class="vowel-badge an-vowel">E</span>
+            <span class="vowel-badge an-vowel">I</span>
+            <span class="vowel-badge an-vowel">O</span>
+            <span class="vowel-badge an-vowel">U</span>
+          </div>
+          <div class="cmp-examples">
+            <div class="cmp-ex"><span class="hi-an">An</span> apple <div class="cmp-ex-ar">تفاحة (واحدة)</div></div>
+            <div class="cmp-ex"><span class="hi-an">An</span> egg <div class="cmp-ex-ar">بيضة (واحدة)</div></div>
+            <div class="cmp-ex"><span class="hi-an">An</span> idea <div class="cmp-ex-ar">فكرة (واحدة)</div></div>
+            <div class="cmp-ex"><span class="hi-an">An</span> orange <div class="cmp-ex-ar">برتقالة (واحدة)</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VOWELS DISPLAY -->
+    <div class="vowel-display">
+      <h4>🎵 حروف العلة — Vowels (A E I O U)</h4>
+      <div class="vowel-row">
+        <div class="vbig vowel">A</div>
+        <div class="vbig vowel">E</div>
+        <div class="vbig vowel">I</div>
+        <div class="vbig vowel">O</div>
+        <div class="vbig vowel">U</div>
+      </div>
+      <div class="vowel-note">كل الحروف الأخرى = ساكنة → نستخدم <strong>A</strong></div>
+    </div>
+
+    <!-- THE VS A -->
+    <div class="the-box">
+      <h4>💡 الفرق بين A و The</h4>
+      <div class="the-compare">
+        <div class="the-item">
+          <div class="the-label">غير محدد — A book</div>
+          <div class="the-ex">I have <strong style="color:#fde68a">a</strong> book.</div>
+          <div class="the-ar">عندي كتاب (أي كتاب)</div>
+        </div>
+        <div class="the-item">
+          <div class="the-label">محدد — The book</div>
+          <div class="the-ex">I have <strong style="color:#fde68a">the</strong> book.</div>
+          <div class="the-ar">عندي الكتاب (كتاب معين)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UNIVERSITY TRICK -->
+    <div class="trick-box">
+      <h4>⚠️ الفخ الشهير — University!</h4>
+      <div class="trick-content">
+        كلمة <strong>University</strong> تبدأ بحرف <strong>U</strong> — وهو حرف علة.<br>
+        لكن ننطقها بصوت <strong>"يو"</strong> وليس صوت <strong>"أ"</strong>!<br>
+        لذلك نستخدم معها <strong>A</strong> وليس An ❌
+      </div>
+      <div class="trick-ex"><span>A</span> university ✅ &nbsp;&nbsp; ~~An university~~ ❌</div>
+    </div>
+
+  </div>
+
+  <!-- ===== WORDS ===== -->
+  <div class="tab-panel" id="tab-words">
+    <div style="background:white;border-radius:22px;padding:26px 24px;margin-bottom:28px;box-shadow:0 4px 20px rgba(0,0,0,.07);">
+      <h4 style="font-size:17px;font-weight:800;margin-bottom:18px;">📝 قاموس A / An — اضغط لتتذكر</h4>
+      <div class="words-grid">
+        <div class="wcard use-a"><div class="wc-art">A</div><div class="wc-word">book</div><div class="wc-ar">كتاب</div></div>
+        <div class="wcard use-an"><div class="wc-art">An</div><div class="wc-word">apple</div><div class="wc-ar">تفاحة</div></div>
+        <div class="wcard use-a"><div class="wc-art">A</div><div class="wc-word">car</div><div class="wc-ar">سيارة</div></div>
+        <div class="wcard use-an"><div class="wc-art">An</div><div class="wc-word">egg</div><div class="wc-ar">بيضة</div></div>
+        <div class="wcard use-a"><div class="wc-art">A</div><div class="wc-word">doctor</div><div class="wc-ar">طبيب</div></div>
+        <div class="wcard use-an"><div class="wc-art">An</div><div class="wc-word">idea</div><div class="wc-ar">فكرة</div></div>
+        <div class="wcard use-a"><div class="wc-art">A</div><div class="wc-word">phone</div><div class="wc-ar">هاتف</div></div>
+        <div class="wcard use-an"><div class="wc-art">An</div><div class="wc-word">orange</div><div class="wc-ar">برتقالة</div></div>
+        <div class="wcard use-a"><div class="wc-art">A</div><div class="wc-word">house</div><div class="wc-ar">بيت</div></div>
+        <div class="wcard use-an"><div class="wc-art">An</div><div class="wc-word">umbrella</div><div class="wc-ar">مظلة</div></div>
+        <div class="wcard use-a"><div class="wc-art">A</div><div class="wc-word">university</div><div class="wc-ar">جامعة ⚠️</div></div>
+        <div class="wcard use-an"><div class="wc-art">An</div><div class="wc-word">hour</div><div class="wc-ar">ساعة ⚠️</div></div>
+      </div>
+      <div style="background:#fff7ed;border-radius:12px;padding:14px;font-size:13px;font-weight:600;color:#78350f;margin-top:4px;">
+        ⚠️ <strong>university</strong> = A (صوت "يو") &nbsp;|&nbsp; <strong>hour</strong> = An (الـ h صامتة، ننطق "أور")
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FILL ===== -->
+  <div class="tab-panel" id="tab-fill">
+    <div class="fill-wrap">
+      <h4>✍️ أكمل الجمل</h4>
+      <div class="fill-sub">ضع <strong>A</strong> أو <strong>An</strong> في كل فراغ</div>
+      <div id="fill-list"></div>
+      <button class="fill-btn" onclick="checkFill()">✅ تحقق من الإجابات</button>
+    </div>
+  </div>
+
+  <!-- ===== QUIZ ===== -->
+  <div class="tab-panel" id="tab-quiz">
+    <div class="quiz-wrap">
+      <div class="quiz-header">
+        <h4>🧠 اختبر معلوماتك</h4>
+        <div class="score-badge" id="score-badge">0 / 0</div>
+      </div>
+      <div class="q-progress"><div class="q-prog-fill" id="qprog" style="width:0%"></div></div>
+      <div id="qbody">
+        <div class="q-label" id="qlabel"></div>
+        <div class="q-num"   id="qnum"></div>
+        <div class="q-sent"  id="qsent"></div>
+        <div class="q-opts"  id="qopts"></div>
+        <div class="q-fb"    id="qfb"></div>
+        <button class="q-next" id="qnext" onclick="nextQ()">التالي ←</button>
+      </div>
+      <div id="qresult" style="display:none">
+        <div class="q-result">
+          <div class="big-score" id="finalscore"></div>
+          <p id="finalmsg"></p>
+          <button class="q-restart" onclick="startQuiz()">🔄 حاول مرة أخرى</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BUILD ===== -->
+  <div class="tab-panel" id="tab-build">
+    <div class="builder-wrap">
+      <h4>🔧 رتّب الجملة الصحيحة</h4>
+      <div class="builder-sub">رتّب الكلمات مع اختيار A أو An الصحيحة</div>
+      <div class="b-task" id="b-task"></div>
+      <div class="b-display" id="b-display"><span class="ph-txt">اضغط على الكلمات أدناه لبناء الجملة</span></div>
+      <div class="wbank" id="wbank"></div>
+      <div class="b-fb" id="b-fb"></div>
+      <div class="b-actions">
+        <button class="b-clr" onclick="clearB()">🗑️ مسح</button>
+        <button class="b-chk" onclick="checkB()">✅ تحقق</button>
+        <button class="b-nxt show" id="b-nxt" onclick="nextBQ()">التالي ←</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">تعلم اللغة الإنجليزية مع Gemini خطوة بخطوة — الدرس رقم ٢٠ | <strong>@essam3699</strong></div>
+</div>
+
+<script>
+// TABS
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+  if (name === 'quiz' && !qState.started) startQuiz();
+  if (name === 'build' && !bState.init) initB();
+  if (name === 'fill' && !fillInit) initFill();
+}
+
+// FILL
+let fillInit = false;
+const fillData = [
+  { before:'I have', word:'apple', after:'.', answer:'an', ar:'عندي تفاحة.' },
+  { before:'She is', word:'doctor', after:'.', answer:'a', ar:'هي طبيبة.' },
+  { before:'I have', word:'idea', after:'.', answer:'an', ar:'عندي فكرة.' },
+  { before:'He has', word:'car', after:'.', answer:'a', ar:'عنده سيارة.' },
+  { before:'I want', word:'egg', after:'.', answer:'an', ar:'أريد بيضة.' },
+  { before:'She goes to', word:'university', after:'.', answer:'a', ar:'هي تذهب إلى جامعة. (⚠️ فخ)' },
+  { before:'I have', word:'orange', after:'.', answer:'an', ar:'عندي برتقالة.' },
+  { before:'He needs', word:'book', after:'.', answer:'a', ar:'يحتاج كتاباً.' },
+  { before:'It takes', word:'hour', after:'.', answer:'an', ar:'تستغرق ساعة. (⚠️ h صامتة)' },
+  { before:'I have', word:'phone', after:'.', answer:'a', ar:'عندي هاتف.' },
+];
+
+function initFill() {
+  fillInit = true;
+  const list = document.getElementById('fill-list');
+  list.innerHTML = '';
+  fillData.forEach((f, i) => {
+    const div = document.createElement('div');
+    div.className = 'fill-item';
+    div.innerHTML = `
+      <div class="fill-q">السؤال ${i+1} — <span style="font-family:'Outfit',sans-serif;font-weight:800;font-size:15px;">${f.word}</span> تبدأ بـ؟</div>
+      <div class="fill-sent" dir="ltr">
+        <span>${f.before}</span>
+        <input class="fill-inp" id="fi-${i}" placeholder="a/an" autocomplete="off"/>
+        <span>${f.word}${f.after}</span>
+      </div>
+      <div class="fill-ar">${f.ar}</div>
+      <div class="fill-res" id="fr-${i}"></div>`;
+    list.appendChild(div);
+  });
+}
+
+function checkFill() {
+  fillData.forEach((f, i) => {
+    const inp = document.getElementById('fi-'+i);
+    const res = document.getElementById('fr-'+i);
+    const val = inp.value.trim().toLowerCase();
+    if (val === f.answer) {
+      inp.className = 'fill-inp ok-i';
+      res.textContent = '✅ صحيح! ' + f.answer.toUpperCase() + ' ' + f.word;
+      res.className = 'fill-res show ok';
+    } else {
+      inp.className = 'fill-inp bad-i';
+      res.textContent = '❌ الإجابة: ' + f.answer.toUpperCase() + ' ' + f.word;
+      res.className = 'fill-res show bad';
+    }
+    inp.disabled = true;
+  });
+}
+
+// QUIZ
+const quizData = [
+  { word:'apple',      answer:'An', note:'apple تبدأ بـ A (حرف علة) ← An' },
+  { word:'doctor',     answer:'A',  note:'doctor تبدأ بـ D (حرف ساكن) ← A' },
+  { word:'idea',       answer:'An', note:'idea تبدأ بـ I (حرف علة) ← An' },
+  { word:'car',        answer:'A',  note:'car تبدأ بـ C (حرف ساكن) ← A' },
+  { word:'egg',        answer:'An', note:'egg تبدأ بـ E (حرف علة) ← An' },
+  { word:'university', answer:'A',  note:'university ننطقها "يو" — ليس حرف علة ← A ⚠️' },
+  { word:'orange',     answer:'An', note:'orange تبدأ بـ O (حرف علة) ← An' },
+  { word:'book',       answer:'A',  note:'book تبدأ بـ B (حرف ساكن) ← A' },
+  { word:'umbrella',   answer:'An', note:'umbrella تبدأ بـ U (حرف علة) ← An' },
+  { word:'phone',      answer:'A',  note:'phone تبدأ بـ P (حرف ساكن) ← A' },
+  { word:'hour',       answer:'An', note:'hour الـ H صامتة، ننطق "أور" ← An ⚠️' },
+  { word:'house',      answer:'A',  note:'house تبدأ بـ H ساكنة ← A' },
+];
+
+const qState = { current:0, score:0, answered:false, started:false, order:[] };
+const shuffle = a => [...a].sort(() => Math.random() - .5);
+
+function startQuiz() {
+  qState.current=0; qState.score=0; qState.answered=false; qState.started=true;
+  qState.order=shuffle(quizData);
+  document.getElementById('qresult').style.display='none';
+  document.getElementById('qbody').style.display='block';
+  renderQ();
+}
+
+function renderQ() {
+  const q=qState.order[qState.current], total=qState.order.length;
+  document.getElementById('qlabel').textContent='اختر A أو An';
+  document.getElementById('qnum').textContent=`السؤال ${qState.current+1} من ${total}`;
+  document.getElementById('qprog').style.width=((qState.current/total)*100)+'%';
+  document.getElementById('score-badge').textContent=qState.score+' / '+qState.current;
+  document.getElementById('qsent').innerHTML='<span class="blank">___</span> ' + q.word;
+  const optsEl=document.getElementById('qopts');
+  optsEl.innerHTML='';
+  ['A','An'].forEach(o=>{
+    const btn=document.createElement('button');
+    btn.className='q-opt'; btn.textContent=o;
+    btn.onclick=()=>answerQ(o,q.answer,q.note,btn);
+    optsEl.appendChild(btn);
+  });
+  document.getElementById('qfb').className='q-fb';
+  document.getElementById('qnext').className='q-next';
+  qState.answered=false;
+}
+
+function answerQ(chosen,correct,note,btn){
+  if(qState.answered)return;
+  qState.answered=true;
+  const fb=document.getElementById('qfb');
+  document.querySelectorAll('.q-opt').forEach(b=>b.disabled=true);
+  if(chosen===correct){
+    btn.classList.add('correct'); qState.score++;
+    fb.textContent='✅ صحيح! '+note; fb.className='q-fb show ok';
+  } else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.q-opt').forEach(b=>{if(b.textContent===correct)b.classList.add('correct');});
+    fb.textContent='❌ الإجابة: '+correct+' — '+note; fb.className='q-fb show bad';
+  }
+  document.getElementById('score-badge').textContent=qState.score+' / '+(qState.current+1);
+  document.getElementById('qnext').className='q-next show';
+}
+
+function nextQ(){
+  qState.current++;
+  if(qState.current>=qState.order.length){showResult();return;}
+  renderQ();
+}
+
+function showResult(){
+  document.getElementById('qbody').style.display='none';
+  document.getElementById('qresult').style.display='block';
+  const s=qState.score,t=qState.order.length,pct=Math.round((s/t)*100);
+  const el=document.getElementById('finalscore');
+  el.textContent=s+'/'+t;
+  el.style.color=pct>=80?'var(--green)':pct>=50?'var(--an)':'var(--red)';
+  document.getElementById('finalmsg').textContent=
+    pct===100?'🏆 ممتاز! أتقنت قاعدة A/An بالكامل!':
+    pct>=70?'💪 رائع! واصل التدريب':
+    pct>=40?'📚 جيد! راجع الدرس مجدداً':'🔁 راجع البطاقات وحاول مرة أخرى';
+  document.getElementById('qprog').style.width='100%';
+}
+
+// BUILDER
+const bData = [
+  { task:'رتّب: "عندي تفاحة"', hint:'I have an apple.', words:['have','I','apple','a','an'], key:'an', answer:['I','have','an','apple','.'] },
+  { task:'رتّب: "هي طبيبة"', hint:'She is a doctor.', words:['is','She','doctor','an','a'], key:'a', answer:['She','is','a','doctor','.'] },
+  { task:'رتّب: "عندي فكرة"', hint:'I have an idea.', words:['have','I','idea','an','a'], key:'an', answer:['I','have','an','idea','.'] },
+  { task:'رتّب: "أريد بيضة"', hint:'I want an egg.', words:['want','I','egg','an','a'], key:'an', answer:['I','want','an','egg','.'] },
+  { task:'رتّب: "عنده سيارة"', hint:'He has a car.', words:['has','He','car','an','a'], key:'a', answer:['He','has','a','car','.'] },
+];
+
+const bState={current:0,placed:[],init:false};
+function initB(){bState.init=true;bState.current=0;loadBQ();}
+
+function loadBQ(){
+  bState.placed=[];
+  const q=bData[bState.current%bData.length];
+  document.getElementById('b-task').innerHTML=q.task+'<span class="hint">'+q.hint+'</span>';
+  const disp=document.getElementById('b-display');
+  const bank=document.getElementById('wbank');
+  disp.className='b-display';
+  disp.innerHTML='<span class="ph-txt">اضغط على الكلمات أدناه لبناء الجملة</span>';
+  bank.innerHTML='';
+  document.getElementById('b-fb').className='b-fb';
+  document.getElementById('b-nxt').className='b-nxt';
+  shuffle([...q.words,'.']).forEach((w,i)=>{
+    const chip=document.createElement('div');
+    chip.className='wchip'+(w===q.key?' kchip':'');
+    chip.textContent=w;chip.dataset.idx=i;
+    chip.onclick=()=>placeW(chip,w);
+    bank.appendChild(chip);
+  });
+}
+
+function placeW(chip,word){
+  if(chip.classList.contains('used'))return;
+  chip.classList.add('used');bState.placed.push(word);renderBDisp();
+}
+
+function renderBDisp(){
+  const q=bData[bState.current%bData.length];
+  const disp=document.getElementById('b-display');
+  if(!bState.placed.length){
+    disp.className='b-display';
+    disp.innerHTML='<span class="ph-txt">اضغط على الكلمات أدناه لبناء الجملة</span>';
+    return;
+  }
+  disp.className='b-display has-w';disp.innerHTML='';
+  bState.placed.forEach((w,i)=>{
+    const tok=document.createElement('div');
+    tok.className='b-tok'+(w===q.key?' key-tok':'');
+    tok.textContent=w;tok.onclick=()=>removeTok(i,w);
+    disp.appendChild(tok);
+  });
+}
+
+function removeTok(idx,word){
+  bState.placed.splice(idx,1);
+  const chips=document.querySelectorAll('.wchip');
+  for(let c of chips){if(c.textContent===word&&c.classList.contains('used')){c.classList.remove('used');break;}}
+  renderBDisp();
+}
+
+function clearB(){
+  document.querySelectorAll('.wchip').forEach(c=>c.classList.remove('used'));
+  bState.placed=[];renderBDisp();
+  document.getElementById('b-fb').className='b-fb';
+  document.getElementById('b-display').className='b-display';
+  document.getElementById('b-nxt').className='b-nxt';
+}
+
+function checkB(){
+  const q=bData[bState.current%bData.length];
+  const fb=document.getElementById('b-fb');
+  if(bState.placed.length<q.answer.length){fb.textContent='⚠️ ضع كل الكلمات أولاً!';fb.className='b-fb show bad';return;}
+  const correct=JSON.stringify(bState.placed)===JSON.stringify(q.answer);
+  const disp=document.getElementById('b-display');
+  if(correct){disp.className='b-display ok-s';fb.textContent='✅ ممتاز! الجملة صحيحة 🎉';fb.className='b-fb show ok';}
+  else{disp.className='b-display bad-s';fb.textContent='❌ الصحيح: '+q.answer.join(' ');fb.className='b-fb show bad';}
+  document.querySelectorAll('.wchip').forEach(c=>c.classList.add('used'));
+  document.getElementById('b-nxt').className='b-nxt show';
+}
+
+function nextBQ(){
+  bState.current++;
+  document.getElementById('b-fb').className='b-fb';
+  document.getElementById('b-nxt').className='b-nxt';
+  loadBQ();
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>عصام الغامدي — دروس اللغة الإنجليزية</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#f5f3ff; --text:#1a1a2e; --muted:#6b7280;
+    --indigo:#1e1b4b; --indigo2:#4c1d95; --purple:#7c3aed;
+    --tenses:#ea580c; --tenses-light:#ffedd5; --tenses-dark:#7c2d12;
+    --core:#2563eb;   --core-light:#dbeafe;   --core-dark:#1e3a8a;
+    --wa:#075e54;
+    --green:#16a34a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(ellipse at 15% 8%,rgba(124,58,237,.10) 0%,transparent 50%),
+               radial-gradient(ellipse at 85% 75%,rgba(234,88,12,.07) 0%,transparent 50%),
+               radial-gradient(ellipse at 50% 95%,rgba(7,94,84,.06) 0%,transparent 45%);}
+  .container{max-width:780px;margin:0 auto;padding:0 20px 60px;position:relative;z-index:1;}
+
+  /* ===== PROFILE HERO ===== */
+  .hero{
+    background:linear-gradient(150deg,#1e1b4b 0%,#4c1d95 55%,#7c3aed 100%);
+    padding:52px 32px 42px;text-align:center;position:relative;overflow:hidden;
+    border-radius:0 0 40px 40px;margin-bottom:26px;
+    box-shadow:0 18px 50px rgba(76,29,149,.35);
+  }
+  .hero::before{content:'';position:absolute;top:-50px;right:-60px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.06);}
+  .hero::after{content:'';position:absolute;bottom:-70px;left:-40px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.04);}
+  .avatar-ring{
+    width:84px;height:84px;border-radius:50%;
+    background:linear-gradient(135deg,#fde68a,#fb923c);
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 18px;position:relative;z-index:1;
+    font-family:'Outfit',sans-serif;font-weight:900;font-size:32px;color:#4c1d95;
+    box-shadow:0 8px 24px rgba(0,0,0,.25);
+  }
+  .hero-name{font-family:'Cairo',sans-serif;font-weight:900;font-size:clamp(26px,6vw,34px);color:#fff;margin-bottom:10px;position:relative;z-index:1;}
+  .hero-bio{font-size:14px;color:rgba(255,255,255,.82);font-weight:600;line-height:2;max-width:480px;margin:0 auto;position:relative;z-index:1;}
+  .hero-bio .sep{color:rgba(255,255,255,.4);margin:0 4px;}
+  .hero-avail{display:inline-block;margin-top:14px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);border-radius:50px;padding:7px 18px;font-size:12.5px;font-weight:700;color:#fde68a;position:relative;z-index:1;}
+
+  /* ===== CONTACT BLOCK (identical to lesson pages) ===== */
+  .coach-cta{
+    background:linear-gradient(135deg,#075e54,#128c7e);
+    border-radius:20px;
+    padding:18px 22px;
+    margin-bottom:34px;
+    box-shadow:0 6px 20px rgba(7,94,84,.28);
+    text-align:center;
+  }
+  .coach-cta-inner{max-width:480px;margin:0 auto;}
+  .coach-pitch{font-family:'Cairo',sans-serif;font-size:14.5px;font-weight:700;color:rgba(255,255,255,.92);line-height:1.5;margin-bottom:14px;}
+  .coach-wa-btn{
+    display:inline-flex;align-items:center;gap:9px;
+    background:#fff;color:#075e54;
+    padding:11px 26px;border-radius:50px;
+    font-family:'Cairo',sans-serif;font-weight:800;font-size:14.5px;
+    text-decoration:none;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+    transition:transform .2s,box-shadow .2s;
+  }
+  .coach-wa-btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.2);}
+  .coach-number{
+    margin-top:10px;
+    font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;
+    color:rgba(255,255,255,.88);
+    letter-spacing:.5px;
+  }
+
+  /* ===== SECTION DIVIDER ===== */
+  .section-title{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+  .section-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+  .section-title h2{font-family:'Outfit',sans-serif;font-weight:800;font-size:18px;color:var(--text);}
+  .section-count{margin-right:auto;font-size:12px;font-weight:700;color:var(--muted);background:#f3f4f6;padding:4px 12px;border-radius:50px;}
+
+  .category{margin-bottom:34px;animation:fadeUp .5s ease backwards;}
+  .category:nth-child(1){animation-delay:.05s;}
+  .category:nth-child(2){animation-delay:.15s;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+
+  .cat-tenses .section-dot{background:var(--tenses);}
+  .cat-core   .section-dot{background:var(--core);}
+
+  /* ===== LESSON ROW CARDS ===== */
+  .lesson-list{display:flex;flex-direction:column;gap:10px;}
+  .lesson-card{
+    display:flex;align-items:center;gap:14px;
+    background:white;border-radius:16px;padding:14px 16px;
+    text-decoration:none;color:var(--text);
+    box-shadow:0 2px 10px rgba(0,0,0,.05);
+    border-right:4px solid transparent;
+    transition:transform .18s,box-shadow .18s,border-color .18s;
+  }
+  .lesson-card:hover{transform:translateX(-4px);box-shadow:0 6px 20px rgba(0,0,0,.1);}
+  .cat-tenses .lesson-card{border-right-color:var(--tenses);}
+  .cat-core   .lesson-card{border-right-color:var(--core);}
+
+  .lesson-num{
+    width:38px;height:38px;border-radius:11px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Outfit',sans-serif;font-weight:900;font-size:14px;color:#fff;
+  }
+  .cat-tenses .lesson-num{background:linear-gradient(135deg,#7c2d12,#ea580c);}
+  .cat-core   .lesson-num{background:linear-gradient(135deg,#1e3a8a,#2563eb);}
+
+  .lesson-info{flex:1;min-width:0;}
+  .lesson-title-ar{font-weight:800;font-size:15px;line-height:1.3;}
+  .lesson-title-en{font-family:'Outfit',sans-serif;font-weight:600;font-size:12px;color:var(--muted);direction:ltr;text-align:right;margin-top:2px;}
+  .lesson-arrow{font-size:18px;color:var(--muted);flex-shrink:0;}
+
+  /* ===== COMING SOON ===== */
+  .coming-soon{
+    text-align:center;padding:24px 20px;
+    background:repeating-linear-gradient(135deg,#f9fafb,#f9fafb 10px,#f3f4f6 10px,#f3f4f6 20px);
+    border-radius:16px;border:2px dashed #d1d5db;
+    color:var(--muted);font-size:13.5px;font-weight:700;
+    margin-bottom:18px;
+  }
+
+  .tiktok-link{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    background:#000;color:#fff;
+    padding:13px 24px;border-radius:50px;
+    font-family:'Cairo',sans-serif;font-weight:800;font-size:14.5px;
+    text-decoration:none;
+    box-shadow:0 4px 14px rgba(0,0,0,.2);
+    transition:transform .2s,box-shadow .2s;
+    max-width:280px;margin:0 auto;
+  }
+  .tiktok-link:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.3);}
+
+  .footer{text-align:center;padding:30px 20px;color:var(--muted);font-size:12.5px;font-weight:600;}
+  .footer strong{color:var(--purple);}
+
+  @media(max-width:480px){
+    .hero{padding:42px 22px 34px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="avatar-ring">ع</div>
+  <div class="hero-name">عصام الغامدي</div>
+  <div class="hero-bio">
+    هندسة كيميائية <span class="sep">•</span> IT Consultant<br>
+    مشروع إتقان لحل مشكلة الانقطاع في تعلم اللغة الانجليزية للموظفين
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- CONTACT BLOCK -->
+  <div class="coach-cta">
+    <div class="coach-cta-inner">
+      <a class="coach-wa-btn" href="https://wa.me/966595701144" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4C7.6 4 3.97 7.63 3.97 12.08c0 1.5.42 2.97 1.2 4.27l-.07.27-1.13 4.13 4.24-1.11.26.16a8.94 8.94 0 0 0 4.55 1.25h.04c4.45 0 8.08-3.63 8.08-8.08a8.04 8.04 0 0 0-2.39-5.65zm-5.55 12.4h-.03a7.4 7.4 0 0 1-3.78-1.04l-.27-.16-2.81.74.75-2.73-.18-.28a7.36 7.36 0 0 1-1.14-3.97c0-4.08 3.32-7.4 7.4-7.4 1.97 0 3.83.77 5.22 2.17a7.34 7.34 0 0 1 2.17 5.24c0 4.08-3.32 7.4-7.33 7.4zm4.05-5.55c-.22-.11-1.31-.65-1.51-.72-.2-.08-.35-.11-.5.11-.15.22-.57.72-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.1-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.28.37-.42.13-.14.17-.24.25-.4.08-.16.04-.3-.03-.41-.07-.11-.62-1.49-.85-2.04-.17-.42-.34-.36-.47-.37l-.4-.01c-.14 0-.36.05-.55.27-.19.22-.74.72-.74 1.76 0 1.04.76 2.04.86 2.18.11.15 1.49 2.27 3.61 3.09 1.8.68 2.17.55 2.56.51.4-.04 1.29-.53 1.47-1.04.18-.51.18-.94.13-1.04-.05-.1-.2-.16-.42-.27z"/></svg>
+        <span>كلمني على الواتس</span>
+      </a>
+      <div class="coach-number" dir="ltr">0595701144</div>
+    </div>
+  </div>
+
+  <!-- CATEGORY: TENSES -->
+  <div class="category cat-tenses">
+    <div class="section-title">
+      <div class="section-dot"></div>
+      <h2>⏱️ الأزمنة (Tenses)</h2>
+      <div class="section-count">4 دروس</div>
+    </div>
+    <div class="lesson-list">
+      <a class="lesson-card" href="present-continuous.html">
+        <div class="lesson-num">١٨</div>
+        <div class="lesson-info">
+          <div class="lesson-title-ar">المضارع المستمر</div>
+          <div class="lesson-title-en">Present Continuous</div>
+        </div>
+        <div class="lesson-arrow">‹</div>
+      </a>
+      <a class="lesson-card" href="past-simple.html">
+        <div class="lesson-num">٣د</div>
+        <div class="lesson-info">
+          <div class="lesson-title-ar">الماضي البسيط</div>
+          <div class="lesson-title-en">Past Simple</div>
+        </div>
+        <div class="lesson-arrow">‹</div>
+      </a>
+      <a class="lesson-card" href="adverbs-of-frequency.html">
+        <div class="lesson-num">٢٣</div>
+        <div class="lesson-info">
+          <div class="lesson-title-ar">ظروف التكرار</div>
+          <div class="lesson-title-en">Adverbs of Frequency</div>
+        </div>
+        <div class="lesson-arrow">‹</div>
+      </a>
+      <a class="lesson-card" href="do-did-you.html">
+        <div class="lesson-num">٢٢</div>
+        <div class="lesson-info">
+          <div class="lesson-title-ar">Do you؟ مقابل Did you؟</div>
+          <div class="lesson-title-en">Do you vs Did you</div>
+        </div>
+        <div class="lesson-arrow">‹</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- CATEGORY: CORE GRAMMAR -->
+  <div class="category cat-core">
+    <div class="section-title">
+      <div class="section-dot"></div>
+      <h2>🧩 القواعد الأساسية (Core Grammar)</h2>
+      <div class="section-count">3 دروس</div>
+    </div>
+    <div class="lesson-list">
+      <a class="lesson-card" href="i-have-ownership.html">
+        <div class="lesson-num">👑</div>
+        <div class="lesson-info">
+          <div class="lesson-title-ar">قاعدة الملكية</div>
+          <div class="lesson-title-en">I have / I don't have</div>
+        </div>
+        <div class="lesson-arrow">‹</div>
+      </a>
+      <a class="lesson-card" href="a-an-articles.html">
+        <div class="lesson-num">٢٠</div>
+        <div class="lesson-info">
+          <div class="lesson-title-ar">أدوات النكرة</div>
+          <div class="lesson-title-en">A vs An</div>
+        </div>
+        <div class="lesson-arrow">‹</div>
+      </a>
+      <a class="lesson-card" href="prepositions-of-place.html">
+        <div class="lesson-num">١٧</div>
+        <div class="lesson-info">
+          <div class="lesson-title-ar">حروف جر المكان</div>
+          <div class="lesson-title-en">In, On, Under</div>
+        </div>
+        <div class="lesson-arrow">‹</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="coming-soon">📚 دروس جديدة تُضاف باستمرار</div>
+
+  <a class="tiktok-link" href="https://www.tiktok.com/@essam3699" target="_blank" rel="noopener">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg>
+    <span>تابعني على تيك توك</span>
+  </a>
+
+  <div class="footer">دروس تعلّم اللغة الإنجليزية — مكتبة <strong>عصام الغامدي</strong></div>
+</div>
+
+</body>
+</html>
