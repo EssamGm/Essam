@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المضارع البسيط - Present Simple | الدرس ٢٤</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#f0fdfa; --text:#1a1a2e; --muted:#6b7280;
+    --primary:#0d9488; --primary-dark:#134e4a; --primary-light:#ccfbf1;
+    --accent:#fbbf24;
+    --green:#16a34a; --green-light:#dcfce7;
+    --red:#dc2626; --red-light:#fee2e2;
+    --blue:#2563eb; --purple:#7c3aed;
+    --wa:#075e54;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(ellipse at 15% 10%,rgba(13,148,136,.1) 0%,transparent 50%),
+               radial-gradient(ellipse at 85% 80%,rgba(251,191,36,.07) 0%,transparent 50%),
+               radial-gradient(ellipse at 55% 40%,rgba(124,58,237,.05) 0%,transparent 40%);}
+  .container{max-width:860px;margin:0 auto;padding:0 20px 60px;position:relative;z-index:1;}
+
+  /* TOP NAV (back button) */
+  .top-nav{max-width:860px;margin:0 auto;padding:16px 20px 0;position:relative;z-index:2;}
+  .back-btn{display:inline-flex;align-items:center;gap:6px;background:white;border-radius:50px;padding:9px 18px;font-family:'Cairo',sans-serif;font-weight:700;font-size:13.5px;color:var(--muted);text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s;}
+  .back-btn:hover{transform:translateX(3px);box-shadow:0 4px 14px rgba(0,0,0,.1);color:var(--primary);}
+
+  /* HERO */
+  .hero{background:linear-gradient(135deg,#134e4a 0%,#0d9488 60%,#2dd4bf 100%);
+    padding:50px 40px 48px;text-align:center;position:relative;overflow:hidden;
+    border-radius:0 0 44px 44px;margin-bottom:46px;margin-top:14px;box-shadow:0 20px 60px rgba(13,148,136,.38);}
+  .hero::before{content:'';position:absolute;top:-50px;right:-50px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.06);}
+  .hero::after{content:'';position:absolute;bottom:-70px;left:-40px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.04);}
+  .hero-badge{display:inline-block;background:var(--accent);color:#78350f;font-size:13px;font-weight:700;padding:6px 20px;border-radius:50px;margin-bottom:18px;}
+  .hero h1{font-family:'Outfit',sans-serif;font-size:clamp(32px,7vw,58px);font-weight:900;color:#fff;line-height:1.05;margin-bottom:10px;letter-spacing:-1px;}
+  .hero h1 .s{color:#fde68a;}
+  .hero h2{font-size:clamp(14px,3vw,19px);font-weight:600;color:rgba(255,255,255,.82);margin-bottom:26px;}
+  .hero-pills{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;}
+  .hero-pill{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);border-radius:50px;padding:10px 20px;color:#fff;font-size:14px;font-weight:700;}
+  .hero-pill span{color:#fde68a;}
+
+  /* CONTACT BLOCK */
+  .coach-cta{background:linear-gradient(135deg,#075e54,#128c7e);border-radius:20px;padding:18px 22px;margin-bottom:28px;box-shadow:0 6px 20px rgba(7,94,84,.28);text-align:center;}
+  .coach-cta-inner{max-width:480px;margin:0 auto;}
+  .coach-wa-btn{display:inline-flex;align-items:center;gap:9px;background:#fff;color:#075e54;padding:11px 26px;border-radius:50px;font-family:'Cairo',sans-serif;font-weight:800;font-size:14.5px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.15);transition:transform .2s,box-shadow .2s;}
+  .coach-wa-btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.2);}
+  .coach-number{margin-top:10px;font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;color:rgba(255,255,255,.88);letter-spacing:.5px;}
+
+  /* TABS */
+  .tabs{display:flex;gap:8px;margin-bottom:28px;background:white;border-radius:20px;padding:8px;box-shadow:0 4px 16px rgba(0,0,0,.07);flex-wrap:wrap;}
+  .tab-btn{flex:1;min-width:90px;padding:12px 8px;border:none;background:transparent;border-radius:14px;font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;color:var(--muted);cursor:pointer;transition:all .25s;}
+  .tab-btn.active{background:linear-gradient(135deg,#134e4a,#0d9488);color:white;box-shadow:0 4px 14px rgba(13,148,136,.35);}
+  .tab-btn:hover:not(.active){background:#f0fdfa;color:var(--text);}
+  .tab-panel{display:none;animation:fadeUp .35s ease;}
+  .tab-panel.active{display:block;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+
+  /* RULE BANNER */
+  .rule-banner{display:flex;align-items:center;gap:16px;background:white;border-radius:20px;padding:20px 24px;margin-bottom:28px;box-shadow:0 4px 16px rgba(0,0,0,.06);}
+  .rule-icon{background:linear-gradient(135deg,#134e4a,#0d9488);color:white;font-size:22px;width:58px;height:58px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .rule-info h3{font-family:'Outfit',sans-serif;font-weight:800;font-size:20px;color:var(--text);direction:ltr;text-align:left;}
+  .rule-info p{font-size:13px;color:var(--muted);font-weight:600;margin-top:3px;}
+
+  /* FORMULA BOX */
+  .formula-box{background:linear-gradient(135deg,#042f2e,#134e4a);border-radius:24px;padding:28px 26px;margin-bottom:28px;color:white;box-shadow:0 8px 32px rgba(19,78,74,.35);}
+  .formula-box h4{font-size:17px;font-weight:800;margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+  .formula{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:16px 20px;font-family:'Outfit',sans-serif;font-size:18px;font-weight:800;text-align:center;margin-bottom:16px;direction:ltr;letter-spacing:.4px;}
+  .formula .k{color:#fde68a;}
+  .formula-tip{font-size:14px;color:rgba(255,255,255,.82);font-weight:600;line-height:1.8;text-align:right;}
+  .formula-tip strong{color:#fde68a;}
+
+  /* SUBJECT GRID — who needs S and who doesn't */
+  .subject-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:28px;}
+  @media(max-width:540px){.subject-grid{grid-template-columns:1fr;}}
+  .subj-card{border-radius:22px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.09);}
+  .subj-header{padding:18px 20px 14px;color:white;text-align:center;}
+  .no-s-h{background:linear-gradient(135deg,#1d4ed8,#3b82f6);}
+  .yes-s-h{background:linear-gradient(135deg,#134e4a,#0d9488);}
+  .subj-title{font-family:'Outfit',sans-serif;font-weight:900;font-size:20px;}
+  .subj-sub{font-size:12.5px;color:rgba(255,255,255,.82);font-weight:600;margin-top:4px;}
+  .subj-body{background:white;padding:16px 18px 18px;}
+  .pronoun-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+  .pronoun-badge{font-family:'Outfit',sans-serif;font-weight:800;font-size:15px;padding:6px 14px;border-radius:50px;}
+  .no-s-badge{background:#dbeafe;color:#1e3a8a;}
+  .yes-s-badge{background:var(--primary-light);color:var(--primary-dark);}
+  .subj-example{background:#f9fafb;border-radius:10px;padding:10px 12px;font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;direction:ltr;text-align:left;}
+  .subj-ex-ar{font-family:'Cairo',sans-serif;font-size:11.5px;color:var(--muted);font-weight:600;direction:rtl;text-align:right;margin-top:3px;}
+
+  /* SPELLING RULES */
+  .spelling-box{background:white;border-radius:24px;padding:28px 24px;margin-bottom:28px;box-shadow:0 4px 20px rgba(0,0,0,.07);}
+  .spelling-box h4{font-size:17px;font-weight:800;margin-bottom:18px;}
+  .spell-row{display:flex;align-items:center;gap:14px;margin-bottom:12px;flex-wrap:wrap;direction:ltr;padding:12px 14px;border-radius:12px;background:#f9fafb;transition:background .2s;}
+  .spell-row:hover{background:#f0fdfa;}
+  .spell-box{flex:1;min-width:140px;font-family:'Outfit',sans-serif;font-weight:700;font-size:16px;text-align:left;}
+  .spell-box .hi{color:var(--primary);font-size:18px;}
+  .spell-ar{font-size:12.5px;color:var(--muted);font-weight:600;font-family:'Cairo',sans-serif;direction:rtl;text-align:right;}
+
+  /* QUIZ */
+  .quiz-wrap{background:white;border-radius:24px;padding:28px 24px;margin-bottom:28px;box-shadow:0 4px 24px rgba(0,0,0,.07);}
+  .quiz-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px;}
+  .quiz-header h4{font-size:19px;font-weight:800;}
+  .score-badge{background:linear-gradient(135deg,#134e4a,#0d9488);color:white;font-family:'Outfit',sans-serif;font-weight:800;font-size:14px;padding:8px 18px;border-radius:50px;}
+  .q-progress{background:#f3f4f6;border-radius:50px;height:8px;margin-bottom:24px;overflow:hidden;}
+  .q-prog-fill{height:100%;background:linear-gradient(90deg,var(--primary),#2dd4bf);border-radius:50px;transition:width .5s ease;}
+  .q-label{font-size:13px;color:var(--muted);font-weight:600;text-align:center;margin-bottom:8px;}
+  .q-num{font-size:16px;font-weight:700;text-align:center;margin-bottom:20px;}
+  .q-sent{background:linear-gradient(135deg,#042f2e,#134e4a);color:white;border-radius:16px;padding:20px 22px;font-family:'Outfit',sans-serif;font-size:18px;font-weight:700;text-align:center;direction:ltr;margin-bottom:20px;line-height:1.5;}
+  .q-sent .blank{display:inline-block;background:rgba(255,255,255,.18);border-bottom:3px solid #fde68a;min-width:100px;padding:2px 10px;border-radius:8px;color:#fde68a;font-weight:800;}
+  .q-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+  .q-opt{padding:12px 14px;border:2px solid #e5e7eb;border-radius:13px;background:white;font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;color:var(--text);}
+  .q-opt:hover:not(:disabled){border-color:var(--primary);background:var(--primary-light);transform:translateY(-2px);}
+  .q-opt.correct{border-color:var(--green)!important;background:var(--green-light)!important;color:#14532d!important;}
+  .q-opt.wrong{border-color:var(--red)!important;background:var(--red-light)!important;color:#7f1d1d!important;}
+  .q-opt:disabled{cursor:default;transform:none;}
+  .q-fb{text-align:center;font-size:13px;font-weight:700;padding:11px;border-radius:12px;margin-bottom:14px;display:none;}
+  .q-fb.show{display:block;}
+  .q-fb.ok{background:var(--green-light);color:#14532d;}
+  .q-fb.bad{background:var(--red-light);color:#7f1d1d;}
+  .q-next{width:100%;padding:13px;background:linear-gradient(135deg,#134e4a,#0d9488);color:white;border:none;border-radius:14px;font-family:'Cairo',sans-serif;font-size:15px;font-weight:800;cursor:pointer;display:none;}
+  .q-next:hover{opacity:.9;} .q-next.show{display:block;}
+  .q-result{text-align:center;padding:10px 0;}
+  .big-score{font-family:'Outfit',sans-serif;font-size:72px;font-weight:900;line-height:1;margin-bottom:10px;}
+  .q-result p{font-size:15px;color:var(--muted);font-weight:600;margin-bottom:20px;}
+  .q-restart{padding:13px 34px;background:linear-gradient(135deg,#134e4a,#0d9488);color:white;border:none;border-radius:14px;font-family:'Cairo',sans-serif;font-size:15px;font-weight:800;cursor:pointer;}
+
+  /* FILL IN */
+  .fill-wrap{background:white;border-radius:24px;padding:28px 24px;margin-bottom:28px;box-shadow:0 4px 24px rgba(0,0,0,.07);}
+  .fill-wrap h4{font-size:19px;font-weight:800;margin-bottom:6px;}
+  .fill-sub{font-size:13px;color:var(--muted);font-weight:600;margin-bottom:20px;}
+  .fill-item{background:#f9fafb;border-radius:14px;padding:16px 18px;margin-bottom:14px;}
+  .fill-q{font-size:13px;font-weight:700;color:var(--muted);margin-bottom:8px;}
+  .fill-sent{font-family:'Outfit',sans-serif;font-size:17px;font-weight:700;direction:ltr;text-align:left;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+  .fill-inp{border:2px solid #d1d5db;border-radius:10px;padding:6px 12px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;width:130px;outline:none;text-align:center;transition:border-color .2s;}
+  .fill-inp:focus{border-color:var(--primary);}
+  .fill-inp.ok-i{border-color:var(--green);background:var(--green-light);color:#14532d;}
+  .fill-inp.bad-i{border-color:var(--red);background:var(--red-light);color:#7f1d1d;}
+  .fill-ar{font-size:12px;color:var(--muted);font-weight:600;margin-top:6px;text-align:right;}
+  .fill-res{font-size:12px;font-weight:700;margin-top:5px;display:none;}
+  .fill-res.show{display:block;}
+  .fill-res.ok{color:var(--green);}
+  .fill-res.bad{color:var(--red);}
+  .fill-btn{width:100%;margin-top:4px;padding:13px;background:linear-gradient(135deg,#134e4a,#0d9488);color:white;border:none;border-radius:14px;font-family:'Cairo',sans-serif;font-size:15px;font-weight:800;cursor:pointer;}
+
+  /* BUILDER */
+  .builder-wrap{background:white;border-radius:24px;padding:28px 24px;margin-bottom:28px;box-shadow:0 4px 24px rgba(0,0,0,.07);}
+  .builder-wrap h4{font-size:19px;font-weight:800;margin-bottom:5px;}
+  .builder-sub{font-size:13px;color:var(--muted);font-weight:600;margin-bottom:18px;}
+  .b-task{background:linear-gradient(135deg,#042f2e,#134e4a);color:white;border-radius:14px;padding:16px 20px;margin-bottom:16px;font-size:15px;font-weight:700;line-height:1.6;}
+  .b-task .hint{color:rgba(255,255,255,.72);font-size:13px;display:block;margin-top:4px;font-family:'Outfit',sans-serif;direction:ltr;}
+  .b-display{background:#f9fafb;border:2px dashed #d1d5db;border-radius:16px;padding:18px 20px;min-height:66px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;margin-bottom:16px;direction:ltr;transition:border-color .3s;}
+  .b-display.has-w{border-color:#5eead4;background:#f0fdfa;}
+  .b-display.ok-s{border-color:var(--green);background:var(--green-light);}
+  .b-display.bad-s{border-color:var(--red);background:var(--red-light);}
+  .ph-txt{color:#9ca3af;font-size:13px;font-weight:600;font-family:'Cairo',sans-serif;}
+  .b-tok{background:white;border:2px solid #e5e7eb;border-radius:10px;padding:7px 14px;font-family:'Outfit',sans-serif;font-weight:700;font-size:15px;cursor:pointer;transition:all .2s;user-select:none;}
+  .b-tok.key-tok{border-color:#fde68a;background:#fffbeb;color:#78350f;}
+  .b-tok:hover{transform:scale(1.06);}
+  .wbank{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;}
+  .wchip{background:white;border:2px solid #e5e7eb;border-radius:11px;padding:8px 14px;font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;cursor:pointer;transition:all .2s;}
+  .wchip.kchip{border-color:#fde68a;background:#fffbeb;color:#78350f;}
+  .wchip:hover:not(.used){transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.1);}
+  .wchip.used{opacity:.3;cursor:default;transform:none;}
+  .b-actions{display:flex;gap:10px;flex-wrap:wrap;}
+  .b-clr{padding:11px 16px;background:#f3f4f6;color:var(--text);border:none;border-radius:12px;font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;cursor:pointer;}
+  .b-chk{flex:1;padding:11px;background:linear-gradient(135deg,#134e4a,#0d9488);color:white;border:none;border-radius:12px;font-family:'Cairo',sans-serif;font-size:14px;font-weight:800;cursor:pointer;}
+  .b-nxt{flex:1;padding:11px;background:var(--green);color:white;border:none;border-radius:12px;font-family:'Cairo',sans-serif;font-size:14px;font-weight:800;cursor:pointer;display:none;}
+  .b-nxt.show{display:block;}
+  .b-fb{text-align:center;font-size:13px;font-weight:700;padding:10px;border-radius:12px;margin-bottom:12px;display:none;}
+  .b-fb.show{display:block;}
+  .b-fb.ok{background:var(--green-light);color:#14532d;}
+  .b-fb.bad{background:var(--red-light);color:#7f1d1d;}
+
+  .footer{text-align:center;padding:28px;color:var(--muted);font-size:13px;font-weight:600;}
+  .footer strong{color:var(--primary);}
+
+  @media(max-width:480px){
+    .hero{padding:40px 20px 36px;}
+    .q-opts{grid-template-columns:1fr;}
+    .tabs .tab-btn{font-size:12px;padding:10px 5px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <a class="back-btn" href="index.html">→ رجوع للرئيسية</a>
+</div>
+
+<div class="hero">
+  <div class="hero-badge">📚 الدرس رقم ٢٤</div>
+  <h1>Present Simple <span class="s">+ s</span></h1>
+  <h2>المضارع البسيط — تصرفات وحقائق ثابتة</h2>
+  <div class="hero-pills">
+    <div class="hero-pill">He / She / It <span>+ s</span></div>
+    <div class="hero-pill">I / You / We / They <span>بدون s</span></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- CONTACT BLOCK -->
+  <div class="coach-cta">
+    <div class="coach-cta-inner">
+      <a class="coach-wa-btn" href="https://wa.me/966595701144" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4C7.6 4 3.97 7.63 3.97 12.08c0 1.5.42 2.97 1.2 4.27l-.07.27-1.13 4.13 4.24-1.11.26.16a8.94 8.94 0 0 0 4.55 1.25h.04c4.45 0 8.08-3.63 8.08-8.08a8.04 8.04 0 0 0-2.39-5.65zm-5.55 12.4h-.03a7.4 7.4 0 0 1-3.78-1.04l-.27-.16-2.81.74.75-2.73-.18-.28a7.36 7.36 0 0 1-1.14-3.97c0-4.08 3.32-7.4 7.4-7.4 1.97 0 3.83.77 5.22 2.17a7.34 7.34 0 0 1 2.17 5.24c0 4.08-3.32 7.4-7.33 7.4zm4.05-5.55c-.22-.11-1.31-.65-1.51-.72-.2-.08-.35-.11-.5.11-.15.22-.57.72-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.1-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.28.37-.42.13-.14.17-.24.25-.4.08-.16.04-.3-.03-.41-.07-.11-.62-1.49-.85-2.04-.17-.42-.34-.36-.47-.37l-.4-.01c-.14 0-.36.05-.55.27-.19.22-.74.72-.74 1.76 0 1.04.76 2.04.86 2.18.11.15 1.49 2.27 3.61 3.09 1.8.68 2.17.55 2.56.51.4-.04 1.29-.53 1.47-1.04.18-.51.18-.94.13-1.04-.05-.1-.2-.16-.42-.27z"/></svg>
+        <span>كلمني على الواتس</span>
+      </a>
+      <div class="coach-number" dir="ltr">0595701144</div>
+    </div>
+  </div>
+
+  <div class="rule-banner">
+    <div class="rule-icon">🔁</div>
+    <div class="rule-info">
+      <h3>Present Simple — He/She/It + s</h3>
+      <p>نستخدمه للحقائق الثابتة والعادات — لكن مع هو/هي/هو (غير العاقل) نضيف s للفعل</p>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('learn',this)">📖 تعلّم</button>
+    <button class="tab-btn" onclick="switchTab('spelling',this)">📝 أمثلة</button>
+    <button class="tab-btn" onclick="switchTab('fill',this)">📝 أكمل</button>
+    <button class="tab-btn" onclick="switchTab('quiz',this)">🧠 اختبر</button>
+    <button class="tab-btn" onclick="switchTab('build',this)">🔧 رتّب</button>
+  </div>
+
+  <!-- ===== LEARN ===== -->
+  <div class="tab-panel active" id="tab-learn">
+
+    <div class="formula-box">
+      <h4>⭐ القاعدة الذهبية</h4>
+      <div class="formula">He / She / It + Verb + <span class="k">s</span></div>
+      <div class="formula-tip">
+        ✅ مع <strong>I, You, We, They</strong> → الفعل بدون أي إضافة<br>
+        ✅ مع <strong>He, She, It</strong> → نضيف <strong>s</strong> في نهاية الفعل<br>
+        ✅ مثال: I read. ← He <strong>reads</strong>.<br>
+        ✅ مثال: They write. ← She <strong>writes</strong>.
+      </div>
+    </div>
+
+    <div class="subject-grid">
+      <div class="subj-card">
+        <div class="subj-header no-s-h">
+          <div class="subj-title">بدون S</div>
+          <div class="subj-sub">I / You / We / They</div>
+        </div>
+        <div class="subj-body">
+          <div class="pronoun-row">
+            <span class="pronoun-badge no-s-badge">I</span>
+            <span class="pronoun-badge no-s-badge">You</span>
+            <span class="pronoun-badge no-s-badge">We</span>
+            <span class="pronoun-badge no-s-badge">They</span>
+          </div>
+          <div class="subj-example">
+            They <strong>live</strong> in Riyadh.
+            <div class="subj-ex-ar">هم يعيشون في الرياض.</div>
+          </div>
+        </div>
+      </div>
+      <div class="subj-card">
+        <div class="subj-header yes-s-h">
+          <div class="subj-title">+ S</div>
+          <div class="subj-sub">He / She / It</div>
+        </div>
+        <div class="subj-body">
+          <div class="pronoun-row">
+            <span class="pronoun-badge yes-s-badge">He</span>
+            <span class="pronoun-badge yes-s-badge">She</span>
+            <span class="pronoun-badge yes-s-badge">It</span>
+          </div>
+          <div class="subj-example">
+            He <strong>works</strong> in Riyadh.
+            <div class="subj-ex-ar">هو يعمل في الرياض.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== EXAMPLES ===== -->
+  <div class="tab-panel" id="tab-spelling">
+    <div class="spelling-box">
+      <h4>📝 أمثلة على He / She / It + s</h4>
+
+      <div class="spell-row">
+        <div class="spell-box">He cook<span class="hi">s</span>.</div>
+        <div class="spell-ar">هو يطبخ.</div>
+      </div>
+
+      <div class="spell-row">
+        <div class="spell-box">She read<span class="hi">s</span>.</div>
+        <div class="spell-ar">هي تقرأ.</div>
+      </div>
+
+      <div class="spell-row">
+        <div class="spell-box">It drink<span class="hi">s</span> water.</div>
+        <div class="spell-ar">إنه يشرب الماء.</div>
+      </div>
+
+      <div class="spell-row">
+        <div class="spell-box">He speak<span class="hi">s</span> English.</div>
+        <div class="spell-ar">هو يتحدث الإنجليزية.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FILL ===== -->
+  <div class="tab-panel" id="tab-fill">
+    <div class="fill-wrap">
+      <h4>📝 أكمل الجمل</h4>
+      <div class="fill-sub">حوّل الفعل بين القوسين للمضارع البسيط مع الفاعل المناسب</div>
+      <div id="fill-list"></div>
+      <button class="fill-btn" onclick="checkFill()">✅ تحقق من الإجابات</button>
+    </div>
+  </div>
+
+  <!-- ===== QUIZ ===== -->
+  <div class="tab-panel" id="tab-quiz">
+    <div class="quiz-wrap">
+      <div class="quiz-header">
+        <h4>🧠 اختبر معلوماتك</h4>
+        <div class="score-badge" id="score-badge">0 / 0</div>
+      </div>
+      <div class="q-progress"><div class="q-prog-fill" id="qprog" style="width:0%"></div></div>
+      <div id="qbody">
+        <div class="q-label" id="qlabel"></div>
+        <div class="q-num"   id="qnum"></div>
+        <div class="q-sent"  id="qsent"></div>
+        <div class="q-opts"  id="qopts"></div>
+        <div class="q-fb"    id="qfb"></div>
+        <button class="q-next" id="qnext" onclick="nextQ()">التالي ←</button>
+      </div>
+      <div id="qresult" style="display:none">
+        <div class="q-result">
+          <div class="big-score" id="finalscore"></div>
+          <p id="finalmsg"></p>
+          <button class="q-restart" onclick="startQuiz()">🔄 حاول مرة أخرى</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BUILD ===== -->
+  <div class="tab-panel" id="tab-build">
+    <div class="builder-wrap">
+      <h4>🔧 رتّب الجملة الصحيحة</h4>
+      <div class="builder-sub">رتّب الكلمات مع التهجي الصحيح للفعل</div>
+      <div class="b-task" id="b-task"></div>
+      <div class="b-display" id="b-display"><span class="ph-txt">اضغط على الكلمات أدناه لبناء الجملة</span></div>
+      <div class="wbank" id="wbank"></div>
+      <div class="b-fb" id="b-fb"></div>
+      <div class="b-actions">
+        <button class="b-clr" onclick="clearB()">🗑️ مسح</button>
+        <button class="b-chk" onclick="checkB()">✅ تحقق</button>
+        <button class="b-nxt show" id="b-nxt" onclick="nextBQ()">التالي ←</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">تعلم اللغة الإنجليزية — الدرس رقم ٢٤ | <strong>عصام الغامدي</strong></div>
+</div>
+
+<script>
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+  if (name === 'quiz' && !qState.started) startQuiz();
+  if (name === 'build' && !bState.init) initB();
+  if (name === 'fill' && !fillInit) initFill();
+}
+
+let fillInit = false;
+const fillData = [
+  { before:'He', word:'cook', answer:'cooks', after:'dinner.', ar:'هو يطبخ العشاء.' },
+  { before:'She', word:'read', answer:'reads', after:'books.', ar:'هي تقرأ كتباً.' },
+  { before:'It', word:'drink', answer:'drinks', after:'water.', ar:'إنه يشرب الماء.' },
+  { before:'He', word:'speak', answer:'speaks', after:'English.', ar:'هو يتحدث الإنجليزية.' },
+  { before:'She', word:'walk', answer:'walks', after:'to work.', ar:'هي تمشي إلى العمل.' },
+  { before:'They', word:'cook', answer:'cook', after:'together.', ar:'هم يطبخون معاً. (بدون s)' },
+];
+
+function initFill() {
+  fillInit = true;
+  const list = document.getElementById('fill-list');
+  list.innerHTML = '';
+  fillData.forEach((f, i) => {
+    const div = document.createElement('div');
+    div.className = 'fill-item';
+    div.innerHTML = `
+      <div class="fill-q">السؤال ${i+1} — حوّل الفعل: <strong style="font-family:'Outfit',sans-serif;color:var(--primary)">${f.word}</strong></div>
+      <div class="fill-sent" dir="ltr">
+        <span>${f.before}</span>
+        <input class="fill-inp" id="fi-${i}" placeholder="___" autocomplete="off"/>
+        <span>${f.after}</span>
+      </div>
+      <div class="fill-ar">${f.ar}</div>
+      <div class="fill-res" id="fr-${i}"></div>`;
+    list.appendChild(div);
+  });
+}
+
+function checkFill() {
+  fillData.forEach((f, i) => {
+    const inp = document.getElementById('fi-'+i);
+    const res = document.getElementById('fr-'+i);
+    const val = inp.value.trim().toLowerCase();
+    if (val === f.answer) {
+      inp.className = 'fill-inp ok-i';
+      res.textContent = '✅ صحيح! ' + f.answer;
+      res.className = 'fill-res show ok';
+    } else {
+      inp.className = 'fill-inp bad-i';
+      res.textContent = '❌ الإجابة: ' + f.answer;
+      res.className = 'fill-res show bad';
+    }
+    inp.disabled = true;
+  });
+}
+
+const quizData = [
+  { sent:'He ___ in a bank. (work)', answer:'works', opts:['works','work','working','worked'], note:'He ← work + s' },
+  { sent:'They ___ football. (play)', answer:'play', opts:['play','plays','playing','played'], note:'They لا تأخذ s' },
+  { sent:'She ___ tea every day. (drink)', answer:'drinks', opts:['drinks','drink','drinking','drank'], note:'She ← drink + s' },
+  { sent:'I ___ coffee. (drink)', answer:'drink', opts:['drink','drinks','drinking','drank'], note:'I لا تأخذ s' },
+  { sent:'He ___ books. (read)', answer:'reads', opts:['reads','read','reading','red'], note:'He ← read + s' },
+  { sent:'She ___ English well. (speak)', answer:'speaks', opts:['speaks','speak','speaking','spoke'], note:'She ← speak + s' },
+  { sent:'We ___ in Jeddah. (live)', answer:'live', opts:['live','lives','living','lived'], note:'We لا تأخذ s' },
+  { sent:'It ___ a lot here. (rain)', answer:'rains', opts:['rains','rain','raining','rained'], note:'It ← rain + s' },
+  { sent:'He ___ dinner every night. (cook)', answer:'cooks', opts:['cooks','cook','cooking','cooked'], note:'He ← cook + s' },
+  { sent:'أي فاعل يحتاج s مع الفعل؟', answer:'She', opts:['She','They','We','I'], note:'He/She/It فقط تحتاج s' },
+];
+
+const qState = { current:0, score:0, answered:false, started:false, order:[] };
+const shuffle = a => [...a].sort(() => Math.random() - .5);
+
+function startQuiz() {
+  qState.current=0; qState.score=0; qState.answered=false; qState.started=true;
+  qState.order=shuffle(quizData);
+  document.getElementById('qresult').style.display='none';
+  document.getElementById('qbody').style.display='block';
+  renderQ();
+}
+
+function renderQ() {
+  const q=qState.order[qState.current], total=qState.order.length;
+  document.getElementById('qlabel').textContent='اختر الإجابة الصحيحة';
+  document.getElementById('qnum').textContent=`السؤال ${qState.current+1} من ${total}`;
+  document.getElementById('qprog').style.width=((qState.current/total)*100)+'%';
+  document.getElementById('score-badge').textContent=qState.score+' / '+qState.current;
+  document.getElementById('qsent').innerHTML=q.sent.replace('___','<span class="blank">___</span>');
+  const optsEl=document.getElementById('qopts');
+  optsEl.innerHTML='';
+  shuffle(q.opts).forEach(o=>{
+    const btn=document.createElement('button');
+    btn.className='q-opt'; btn.textContent=o;
+    btn.onclick=()=>answerQ(o,q.answer,q.note,btn);
+    optsEl.appendChild(btn);
+  });
+  document.getElementById('qfb').className='q-fb';
+  document.getElementById('qnext').className='q-next';
+  qState.answered=false;
+}
+
+function answerQ(chosen,correct,note,btn){
+  if(qState.answered)return;
+  qState.answered=true;
+  const fb=document.getElementById('qfb');
+  document.querySelectorAll('.q-opt').forEach(b=>b.disabled=true);
+  if(chosen===correct){
+    btn.classList.add('correct'); qState.score++;
+    fb.textContent='✅ صحيح! '+note; fb.className='q-fb show ok';
+  } else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.q-opt').forEach(b=>{if(b.textContent===correct)b.classList.add('correct');});
+    fb.textContent='❌ الإجابة: '+correct+' — '+note; fb.className='q-fb show bad';
+  }
+  document.getElementById('score-badge').textContent=qState.score+' / '+(qState.current+1);
+  document.getElementById('qnext').className='q-next show';
+}
+
+function nextQ(){
+  qState.current++;
+  if(qState.current>=qState.order.length){showResult();return;}
+  renderQ();
+}
+
+function showResult(){
+  document.getElementById('qbody').style.display='none';
+  document.getElementById('qresult').style.display='block';
+  const s=qState.score,t=qState.order.length,pct=Math.round((s/t)*100);
+  const el=document.getElementById('finalscore');
+  el.textContent=s+'/'+t;
+  el.style.color=pct>=80?'var(--green)':pct>=50?'var(--primary)':'var(--red)';
+  document.getElementById('finalmsg').textContent=
+    pct===100?'🏆 ممتاز! أتقنت المضارع البسيط!':
+    pct>=70?'💪 رائع! واصل التدريب':
+    pct>=40?'📚 جيد! راجع الدرس مجدداً':'🔁 راجع البطاقات وحاول مرة أخرى';
+  document.getElementById('qprog').style.width='100%';
+}
+
+const bData = [
+  { task:'رتّب: "هو يطبخ العشاء"', hint:'He cooks dinner.', words:['cooks','He','dinner','cook'], key:'cooks', answer:['He','cooks','dinner','.'] },
+  { task:'رتّب: "هي تقرأ كتباً"', hint:'She reads books.', words:['reads','She','books','read'], key:'reads', answer:['She','reads','books','.'] },
+  { task:'رتّب: "هم يلعبون كرة القدم"', hint:'They play football.', words:['play','They','football','plays'], key:'play', answer:['They','play','football','.'] },
+  { task:'رتّب: "هو يتحدث الإنجليزية"', hint:'He speaks English.', words:['speaks','He','English','speak'], key:'speaks', answer:['He','speaks','English','.'] },
+  { task:'رتّب: "هي تشرب الشاي"', hint:'She drinks tea.', words:['drinks','She','tea','drink'], key:'drinks', answer:['She','drinks','tea','.'] },
+];
+
+const bState={current:0,placed:[],init:false};
+function initB(){bState.init=true;bState.current=0;loadBQ();}
+
+function loadBQ(){
+  bState.placed=[];
+  const q=bData[bState.current%bData.length];
+  document.getElementById('b-task').innerHTML=q.task+'<span class="hint">'+q.hint+'</span>';
+  const disp=document.getElementById('b-display');
+  const bank=document.getElementById('wbank');
+  disp.className='b-display';
+  disp.innerHTML='<span class="ph-txt">اضغط على الكلمات أدناه لبناء الجملة</span>';
+  bank.innerHTML='';
+  document.getElementById('b-fb').className='b-fb';
+  document.getElementById('b-nxt').className='b-nxt';
+  shuffle([...q.words,'.']).forEach((w,i)=>{
+    const chip=document.createElement('div');
+    chip.className='wchip'+(w===q.key?' kchip':'');
+    chip.textContent=w;chip.dataset.idx=i;
+    chip.onclick=()=>placeW(chip,w);
+    bank.appendChild(chip);
+  });
+}
+
+function placeW(chip,word){
+  if(chip.classList.contains('used'))return;
+  chip.classList.add('used');bState.placed.push(word);renderBDisp();
+}
+
+function renderBDisp(){
+  const q=bData[bState.current%bData.length];
+  const disp=document.getElementById('b-display');
+  if(!bState.placed.length){
+    disp.className='b-display';
+    disp.innerHTML='<span class="ph-txt">اضغط على الكلمات أدناه لبناء الجملة</span>';
+    return;
+  }
+  disp.className='b-display has-w';disp.innerHTML='';
+  bState.placed.forEach((w,i)=>{
+    const tok=document.createElement('div');
+    tok.className='b-tok'+(w===q.key?' key-tok':'');
+    tok.textContent=w;tok.onclick=()=>removeTok(i,w);
+    disp.appendChild(tok);
+  });
+}
+
+function removeTok(idx,word){
+  bState.placed.splice(idx,1);
+  const chips=document.querySelectorAll('.wchip');
+  for(let c of chips){if(c.textContent===word&&c.classList.contains('used')){c.classList.remove('used');break;}}
+  renderBDisp();
+}
+
+function clearB(){
+  document.querySelectorAll('.wchip').forEach(c=>c.classList.remove('used'));
+  bState.placed=[];renderBDisp();
+  document.getElementById('b-fb').className='b-fb';
+  document.getElementById('b-display').className='b-display';
+  document.getElementById('b-nxt').className='b-nxt';
+}
+
+function checkB(){
+  const q=bData[bState.current%bData.length];
+  const fb=document.getElementById('b-fb');
+  if(bState.placed.length<q.answer.length){fb.textContent='⚠️ ضع كل الكلمات أولاً!';fb.className='b-fb show bad';return;}
+  const correct=JSON.stringify(bState.placed)===JSON.stringify(q.answer);
+  const disp=document.getElementById('b-display');
+  if(correct){disp.className='b-display ok-s';fb.textContent='✅ ممتاز! الجملة صحيحة 🎉';fb.className='b-fb show ok';}
+  else{disp.className='b-display bad-s';fb.textContent='❌ الصحيح: '+q.answer.join(' ');fb.className='b-fb show bad';}
+  document.querySelectorAll('.wchip').forEach(c=>c.classList.add('used'));
+  document.getElementById('b-nxt').className='b-nxt show';
+}
+
+function nextBQ(){
+  bState.current++;
+  document.getElementById('b-fb').className='b-fb';
+  document.getElementById('b-nxt').className='b-nxt';
+  loadBQ();
+}
+</script>
+</body>
+</html>
