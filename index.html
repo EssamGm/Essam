@@ -72,6 +72,29 @@
     letter-spacing:.5px;
   }
 
+  /* ===== ETQAN BUTTON ===== */
+  .etqan-btn{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    background:#fff;border:1.5px solid #E6E7EC;
+    border-radius:16px;padding:16px 20px;
+    text-decoration:none;margin-bottom:34px;
+    box-shadow:0 2px 10px rgba(20,54,92,.06);
+    transition:transform .2s,box-shadow .2s,border-color .2s;
+  }
+  .etqan-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(20,54,92,.12);border-color:#B8860B;}
+  .etqan-btn-text{
+    font-family:'Cairo',sans-serif;font-weight:600;font-size:14.5px;color:#5A5A6E;
+  }
+  .etqan-logo{
+    font-family:'Cairo',sans-serif;font-weight:900;font-size:17px;color:#14365C;
+    display:inline-flex;align-items:baseline;gap:1px;
+  }
+  .etqan-logo .dot{
+    display:inline-block;width:6px;height:6px;background:#B8860B;
+    margin-right:1px;transform:translateY(-2px);
+  }
+  .etqan-arrow{color:#B8860B;font-size:15px;}
+
   /* ===== SECTION DIVIDER ===== */
   .section-title{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
   .section-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
@@ -165,6 +188,14 @@
       <div class="coach-number" dir="ltr">0595701144</div>
     </div>
   </div>
+
+  <!-- ETQAN BUTTON -->
+  <a class="etqan-btn" href="etqan-landing.html">
+    <span class="etqan-btn-text">ما هو</span>
+    <span class="etqan-logo">إتقان<span class="dot"></span></span>
+    <span class="etqan-btn-text">؟</span>
+    <span class="etqan-arrow">‹</span>
+  </a>
 
   <!-- CATEGORY: TENSES -->
   <div class="category cat-tenses">

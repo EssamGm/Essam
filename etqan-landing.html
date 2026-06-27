@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إتقان — حل مشكلة الانقطاع في تعلّم اللغة الإنجليزية للموظفين</title>
+
+<!-- Open Graph: ما يظهر عند مشاركة الرابط في واتساب وغيره -->
+<meta property="og:title" content="إتقان">
+<meta property="og:description" content="حل مشكلة الانقطاع في تعلّم اللغة الإنجليزية للموظفين">
+<meta property="og:image" content="https://essamgm.github.io/Essam/og-image.png">
+<meta property="og:url" content="https://essamgm.github.io/Essam/etqan-landing.html">
+<meta property="og:type" content="website">
+<meta name="description" content="حل مشكلة الانقطاع في تعلّم اللغة الإنجليزية للموظفين">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --navy: #14365C;
+    --navy-soft: #1F4E79;
+    --gold: #B8860B;
+    --gold-soft: #C9A227;
+    --ink: #1A1A2E;
+    --gray: #5A5A6E;
+    --line: #E6E7EC;
+    --bg-soft: #F6F7F9;
+    --wa-green: #128c7e;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    color: var(--ink);
+    background: #fff;
+    line-height: 1.85;
+    overflow-x: hidden;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 64px 0; }
+  @media (max-width: 640px) { section { padding: 48px 0; } .wrap { padding: 0 20px; } }
+
+  /* ===== الشعار ===== */
+  .logo {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 900;
+    font-size: 30px;
+    color: var(--navy);
+    letter-spacing: -1px;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 2px;
+  }
+  .logo .dot {
+    display: inline-block;
+    width: 7px; height: 7px;
+    background: var(--gold);
+    margin-right: 2px;
+    transform: translateY(-2px);
+  }
+
+  /* ===== الترويسة ===== */
+  header {
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; background: #ffffff;
+    z-index: 50;
+  }
+  header .wrap { display:flex; align-items:center; justify-content:space-between; }
+  .nav-cta {
+    background: var(--wa-green); color:#fff; font-family:'Cairo',sans-serif; font-weight:700;
+    font-size: 14px; padding: 9px 20px; border-radius: 100px; text-decoration:none;
+    display:flex; align-items:center; gap:7px;
+  }
+  @media (max-width: 480px) { .nav-cta span.full { display:none; } }
+
+  /* ===== Hero ===== */
+  .hero { padding: 72px 0 56px; text-align:center; }
+  .hero h1 {
+    font-family:'Cairo',sans-serif; font-weight:800; font-size: 34px;
+    color: var(--navy); line-height:1.5; max-width: 700px; margin: 0 auto 18px;
+  }
+  .hero h1 .accent { color: var(--gold); }
+  .hero p.lead { font-size: 17px; color: var(--gray); max-width: 580px; margin: 0 auto; }
+
+  /* ===== قائمة الفئة المستهدفة ===== */
+  .pain-list { display:flex; flex-direction:column; gap:14px; margin-top: 40px; }
+  .pain-item {
+    display:flex; align-items:flex-start; gap:14px;
+    background: var(--bg-soft); border-radius: 14px; padding: 18px 20px;
+    text-align: right; font-size: 16px; color: var(--ink); font-weight:500;
+  }
+  .pain-item .num {
+    flex-shrink:0; width:30px; height:30px; border-radius:50%;
+    background: var(--navy); color:#fff; font-family:'Cairo',sans-serif; font-weight:700;
+    font-size:14px; display:flex; align-items:center; justify-content:center;
+  }
+
+  /* ===== عناوين الأقسام ===== */
+  .section-title {
+    font-family:'Cairo',sans-serif; font-weight:800; font-size: 26px;
+    color: var(--navy); text-align:center; margin-bottom: 8px;
+  }
+  .section-sub { text-align:center; color:var(--gray); font-size:15px; margin-bottom:36px; }
+
+  /* ===== بطاقات النتائج (3 أشهر) ===== */
+  .results-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:18px; }
+  @media (max-width: 720px) { .results-grid { grid-template-columns: 1fr; } }
+  .result-card {
+    border: 1.5px solid var(--line); border-radius:16px; padding:26px 22px;
+    background: linear-gradient(160deg, #fff 60%, var(--bg-soft));
+  }
+  .result-card .rnum {
+    font-family:'Cairo',sans-serif; font-weight:900; font-size:34px; color: var(--gold-soft);
+    margin-bottom: 10px; line-height:1;
+  }
+  .result-card h3 { font-family:'Cairo',sans-serif; font-weight:700; font-size:18px; color:var(--navy); margin-bottom:8px; }
+  .result-card p { font-size:14px; color:var(--gray); }
+
+  /* ===== خطوات "كيف" ===== */
+  .how-wrap { display:flex; flex-direction:column; gap:0; }
+  .how-item {
+    display:grid; grid-template-columns: 56px 1fr; gap:18px;
+    padding: 26px 0; border-top: 1px solid var(--line);
+  }
+  .how-item:first-child { border-top:none; }
+  .how-num {
+    width:56px; height:56px; border-radius:16px; background:var(--navy);
+    color:#fff; font-family:'Cairo',sans-serif; font-weight:800; font-size:22px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .how-item h3 { font-family:'Cairo',sans-serif; font-weight:700; font-size:18px; color:var(--navy); margin-bottom:6px; }
+  .how-item p { font-size:15px; color:var(--gray); }
+  .how-item .extra-note {
+    display:inline-block; margin-top:8px; font-size:13px; color:var(--gold);
+    font-weight:600; background:#FBF4E2; padding:4px 12px; border-radius:100px;
+  }
+
+  /* ===== Q&A أسلوب محادثة ===== */
+  .qa-block {
+    background: var(--bg-soft); border-radius:20px; padding: 32px 28px; margin-bottom:22px;
+  }
+  .qa-q {
+    font-family:'Cairo',sans-serif; font-weight:700; font-size:19px; color:var(--ink);
+    margin-bottom:12px; display:flex; gap:8px; align-items:flex-start;
+  }
+  .qa-q .qmark { color:var(--navy); flex-shrink:0; }
+  .qa-a { font-size:15.5px; color:var(--gray); line-height:1.9; }
+  .qa-a b { color: var(--ink); font-weight:700; }
+  .qa-a .highlight { color: var(--gold-soft); font-weight:700; }
+  .check-list { list-style:none; display:flex; flex-direction:column; gap:10px; margin-top:4px; }
+  .check-list li { display:flex; align-items:flex-start; gap:10px; }
+  .check-list .ck {
+    flex-shrink:0; width:20px; height:20px; border-radius:50%;
+    background: var(--gold-soft); color:#fff; font-size:12px; font-weight:900;
+    display:flex; align-items:center; justify-content:center; margin-top:2px;
+  }
+  .qa-a.big-answer {
+    font-family:'Cairo',sans-serif; font-weight:800; font-size:24px; color:var(--navy);
+    margin-bottom:18px;
+  }
+
+  /* ===== زر واتساب ===== */
+  .wa-btn {
+    display:inline-flex; align-items:center; gap:10px;
+    background: var(--wa-green); color:#fff; font-family:'Cairo',sans-serif; font-weight:800;
+    font-size:16px; padding:14px 30px; border-radius:100px; text-decoration:none;
+    box-shadow: 0 6px 18px rgba(18,140,126,0.3); margin-top:18px;
+  }
+  .wa-center { text-align:center; }
+
+  /* ===== قسم المثال (راكان) ===== */
+  .example-box {
+    border: 2px solid var(--gold-soft); border-radius:20px; padding:32px 28px;
+    text-align:center; background: linear-gradient(160deg,#fff,#FBF8F0);
+  }
+  .example-box .badge {
+    display:inline-block; background:var(--gold-soft); color:#fff; font-size:12px;
+    font-weight:700; padding:4px 14px; border-radius:100px; margin-bottom:14px;
+  }
+  .example-box h3 { font-family:'Cairo',sans-serif; font-size:21px; color:var(--navy); margin-bottom:10px; }
+  .example-box p { color:var(--gray); font-size:15px; margin-bottom:20px; }
+  .example-link {
+    display:inline-flex; align-items:center; gap:8px;
+    color: var(--navy); font-family:'Cairo',sans-serif; font-weight:700; font-size:15px;
+    border:2px solid var(--navy); padding:11px 24px; border-radius:100px; text-decoration:none;
+  }
+
+  /* ===== جدول الفرق ===== */
+  .diff-table { width:100%; border-collapse:separate; border-spacing:0; border-radius:16px; overflow:hidden; border:1.5px solid var(--line); margin-top: 10px; }
+  .diff-table th { padding:14px 16px; font-family:'Cairo',sans-serif; font-weight:700; font-size:14px; text-align:center; }
+  .diff-table th.trad { background:var(--bg-soft); color:var(--gray); width:50%; }
+  .diff-table th.us { background:var(--navy); color:var(--gold-soft); width:50%; border-top: 3px solid var(--gold-soft); }
+  .diff-table td { padding:14px 16px; font-size:13.5px; border-top:1px solid var(--line); vertical-align:top; text-align:center; }
+  .diff-table td.trad { color:var(--gray); }
+  .diff-table td.us { color:var(--ink); font-weight:500; background:#F4F8FC; border-right: 3px solid var(--gold-soft); border-left: 3px solid var(--gold-soft); }
+  .diff-table tr:last-child td.us { border-bottom: 3px solid var(--gold-soft); border-radius: 0 0 4px 4px; }
+
+  /* ===== الفوتر/CTA الأخير ===== */
+  .final-cta { background: var(--navy); border-radius:24px; padding:48px 32px; text-align:center; color:#fff; }
+  .final-cta h2 { font-family:'Cairo',sans-serif; font-weight:800; font-size:25px; margin-bottom:14px; }
+  .final-cta p { color: rgba(255,255,255,0.8); font-size:15px; margin-bottom:24px; }
+
+  footer { padding: 30px 0 50px; text-align:center; color: var(--gray); font-size:13px; }
+
+  /* ===== زر الرجوع للرئيسية ===== */
+  .top-nav{max-width:880px;margin:0 auto;padding:16px 24px 0;}
+  .back-home-btn{
+    display:inline-flex;align-items:center;gap:6px;
+    background:#fff;border:1.5px solid var(--line);border-radius:50px;
+    padding:9px 18px;font-family:'Cairo',sans-serif;font-weight:700;font-size:13.5px;
+    color:var(--gray);text-decoration:none;
+    box-shadow:0 2px 10px rgba(20,54,92,.06);
+    transition:transform .2s,box-shadow .2s,color .2s;
+  }
+  .back-home-btn:hover{transform:translateX(-3px);box-shadow:0 4px 14px rgba(20,54,92,.1);color:var(--navy);}
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <a class="back-home-btn" href="index.html">→ رجوع للرئيسية</a>
+</div>
+
+<header>
+  <div class="wrap">
+    <div class="logo">إتقان<span class="dot"></span></div>
+    <a class="nav-cta" href="https://wa.me/966595701144" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.05 4.91A9.816 9.816 0 0 0 12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01zm-7.01 15.24c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.264 8.264 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.183 8.183 0 0 1 2.41 5.83c.01 4.55-3.69 8.23-8.22 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.78.97-.15.17-.29.19-.54.06-1.45-.72-2.4-1.29-3.36-2.92-.25-.44.25-.41.72-1.36.08-.17.04-.31-.04-.43-.08-.12-.7-1.68-.96-2.3-.25-.62-.51-.53-.7-.54-.18-.01-.39-.01-.6-.01-.21 0-.55.08-.84.39-.29.31-1.11 1.08-1.11 2.64s1.14 3.06 1.3 3.27c.16.21 2.21 3.39 5.45 4.62 2.71 1.03 2.71.69 3.7.58.99-.11 3.2-1.31 3.65-2.58.45-1.27.45-2.36.31-2.58-.13-.21-.32-.32-.57-.44z"/></svg>
+      <span class="full">كلمني على الواتس</span>
+    </a>
+  </div>
+</header>
+
+<!-- ===== Hero + الفئة المستهدفة ===== -->
+<section class="hero">
+  <div class="wrap">
+    <div class="pain-list" style="margin-top:0;">
+      <div class="pain-item"><span class="num">1</span><span>إذا سجّلت في دورة لغة ثم وقفت بعد أسبوعين.</span></div>
+      <div class="pain-item"><span class="num">2</span><span>إذا حمّلت تطبيق تعلّم لغة... وحذفته بعد شهر.</span></div>
+      <div class="pain-item"><span class="num">3</span><span>إذا لازلت ضايع وملخبط في تعلّم اللغة.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== النتائج خلال 3 أشهر ===== -->
+<section style="background:var(--bg-soft);">
+  <div class="wrap">
+    <div class="section-title">إتقان يحل مشكلتك</div>
+    <div class="section-sub">خلال 3 أشهر مع إتقان</div>
+
+    <div class="results-grid">
+      <div class="result-card">
+        <div class="rnum">١</div>
+        <h3>مشكلة الانقطاع صارت من الماضي</h3>
+        <p>ما راح تسأل نفسك: هل سأتعلّم اللغة؟ راح تسأل نفسك: متى سأتقن اللغة؟</p>
+      </div>
+      <div class="result-card">
+        <div class="rnum">٢</div>
+        <h3>تعلّم اللغة يتحوّل لهواية ممتعة</h3>
+        <p>ما تحتاج تجبر نفسك تتعلّم، التعلّم راح يكون جزء جميل من يومك.</p>
+      </div>
+      <div class="result-card">
+        <div class="rnum">٣</div>
+        <h3>لا تشتت ولا ضياع</h3>
+        <p>تعرف بالضبط كيف تتعلّم، تعرف متى تركّز على الاستماع ومتى تركّز على التحدّث..الخ</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== كيف نوصل للنتيجة ===== -->
+<section>
+  <div class="wrap">
+    <div class="section-title">طيب، كيف راح أوصل لهذي النتيجة يا عصام؟؟</div>
+
+    <div class="how-wrap">
+      <div class="how-item">
+        <div class="how-num">١</div>
+        <div>
+          <h3>متابعة يومية شخصية</h3>
+          <p>راح تتعلّم اللغة بالطريقة المريحة لك، وأنا راح أتابعك وأفهم مشاكلك.</p>
+        </div>
+      </div>
+      <div class="how-item">
+        <div class="how-num">٢</div>
+        <div>
+          <h3>خطط أسبوعية</h3>
+          <p>في نهاية كل أسبوع نشوف أكبر مشكلة عندك ونتفق على حل يناسبك. وهنا نرجع للمتابعة اليومية وأراقب تطبيق الخطة.</p>
+          <span class="extra-note">12 أسبوع = 12 مشكلة على الأقل نحلّها مع بعض</span>
+        </div>
+      </div>
+      <div class="how-item">
+        <div class="how-num">٣</div>
+        <div>
+          <h3>نتفق على محتوى يناسبك</h3>
+          <p>تحب مسار تعلّم واضح؟ راح أوجّهك للمحتوى المناسب. تبغى محتوى مجاني؟ راح أبحث عن محتوى مجاني ومفيد.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== سؤال الانشغال ===== -->
+<section style="background:var(--bg-soft);">
+  <div class="wrap">
+    <div class="qa-block">
+      <div class="qa-q"><span>طيب يا عصام أنا مشغول.. هل لازم أتفرّغ عشان أتدرّب في إتقان؟</span></div>
+      <div class="qa-a big-answer">غالباً.. لا ما تحتاج.</div>
+      <div class="wa-center">
+        <a class="wa-btn" href="https://wa.me/966595701144" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.05 4.91A9.816 9.816 0 0 0 12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01zm-7.01 15.24c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.264 8.264 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.183 8.183 0 0 1 2.41 5.83c.01 4.55-3.69 8.23-8.22 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.78.97-.15.17-.29.19-.54.06-1.45-.72-2.4-1.29-3.36-2.92-.25-.44.25-.41.72-1.36.08-.17.04-.31-.04-.43-.08-.12-.7-1.68-.96-2.3-.25-.62-.51-.53-.7-.54-.18-.01-.39-.01-.6-.01-.21 0-.55.08-.84.39-.29.31-1.11 1.08-1.11 2.64s1.14 3.06 1.3 3.27c.16.21 2.21 3.39 5.45 4.62 2.71 1.03 2.71.69 3.7.58.99-.11 3.2-1.31 3.65-2.58.45-1.27.45-2.36.31-2.58-.13-.21-.32-.32-.57-.44z"/></svg>
+          كلمني ونشوف وضعك
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== شاهد هذا المثال ===== -->
+<section>
+  <div class="wrap">
+    <div class="example-box">
+      <span class="badge">دراسة حالة موثّقة</span>
+      <h3>هل نجح إتقان مع غيري؟</h3>
+      <p>نعم.</p>
+      <a class="example-link" href="etqan-rakkan-report.pdf" download>
+        شاهد هذا المثال
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 5l7 7-7 7M21 12H3"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== الفرق عن الدورات ===== -->
+<section style="background:var(--bg-soft);">
+  <div class="wrap">
+    <div class="section-title">ايش الفرق بين إتقان ودورات اللغة؟</div>
+
+    <table class="diff-table">
+      <tr>
+        <th class="trad">دورات اللغة</th>
+        <th class="us">إتقان</th>
+      </tr>
+      <tr>
+        <td class="trad">تنتظرك تجيها تتعلّم</td>
+        <td class="us">آخذك إلى تعلّم اللغة</td>
+      </tr>
+      <tr>
+        <td class="trad">التعلّم ينتهي بانتهاء الدورة</td>
+        <td class="us">التعلّم يستمر سنوات بعد تخرّجك</td>
+      </tr>
+    </table>
+
+    <div class="qa-block" style="margin-top:24px;">
+      <div class="qa-q"><span>ليش التعلّم يستمر بعد إتقان؟</span></div>
+      <div class="qa-a">
+        <ul class="check-list">
+          <li><span class="ck">✓</span><span><b>مهارات التعلّم الذاتي</b> صارت عندك.</span></li>
+          <li><span class="ck">✓</span><span>المحتوى الكبير المتوفر على النت صرت تعرف كيف تختار منه اللي يناسبك.</span></li>
+          <li><span class="ck">✓</span><span>التعلّم نفسه صار <span class="highlight">ممتع</span> وما تبغى توقف أصلاً!</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA الأخير ===== -->
+<section>
+  <div class="wrap">
+    <div class="final-cta">
+      <h2>جاهز تبدأ رحلتك؟</h2>
+      <p>كلمني على الواتس ونشوف وقت مناسب للاتصال.</p>
+      <a class="wa-btn" href="https://wa.me/966595701144" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.05 4.91A9.816 9.816 0 0 0 12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01zm-7.01 15.24c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.264 8.264 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.183 8.183 0 0 1 2.41 5.83c.01 4.55-3.69 8.23-8.22 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.78.97-.15.17-.29.19-.54.06-1.45-.72-2.4-1.29-3.36-2.92-.25-.44.25-.41.72-1.36.08-.17.04-.31-.04-.43-.08-.12-.7-1.68-.96-2.3-.25-.62-.51-.53-.7-.54-.18-.01-.39-.01-.6-.01-.21 0-.55.08-.84.39-.29.31-1.11 1.08-1.11 2.64s1.14 3.06 1.3 3.27c.16.21 2.21 3.39 5.45 4.62 2.71 1.03 2.71.69 3.7.58.99-.11 3.2-1.31 3.65-2.58.45-1.27.45-2.36.31-2.58-.13-.21-.32-.32-.57-.44z"/></svg>
+        كلمني على الواتس
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo" style="font-size:20px;">إتقان<span class="dot" style="width:5px;height:5px;"></span></div>
+  <p style="margin-top:8px;">حل مشكلة الانقطاع في تعلّم اللغة الإنجليزية للموظفين</p>
+</footer>
+
+</body>
+</html>
