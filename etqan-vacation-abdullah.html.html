@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إجازة من إتقان — عبدالله</title>
+<meta property="og:title" content="إتقان">
+<meta property="og:description" content="سجّل إجازتك وسيتواصل معك عصام فور انتهائها">
+<meta property="og:image" content="https://essamgm.github.io/Essam/vacation-preview-abdullah.png">
+<meta property="og:url" content="https://essamgm.github.io/Essam/etqan-vacation-abdullah.html">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:#14365C; --navy-soft:#1F4E79; --gold:#B8860B; --gold-soft:#C9A227;
+    --ink:#1A1A2E; --gray:#5A5A6E; --line:#E6E7EC; --bg-soft:#F6F7F9; --green:#128c7e;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'IBM Plex Sans Arabic',sans-serif;color:var(--ink);background:var(--bg-soft);
+    min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;}
+  .card{background:#fff;border-radius:24px;padding:48px 40px;max-width:520px;width:100%;
+    box-shadow:0 4px 32px rgba(20,54,92,.10);border:1.5px solid var(--line);}
+  .logo{font-family:'Cairo',sans-serif;font-weight:900;font-size:26px;color:var(--navy);
+    display:inline-flex;align-items:baseline;gap:2px;margin-bottom:32px;}
+  .logo .dot{display:inline-block;width:6px;height:6px;background:var(--gold);margin-right:2px;transform:translateY(-2px);}
+  .greeting{font-family:'Cairo',sans-serif;font-weight:800;font-size:22px;color:var(--navy);margin-bottom:10px;}
+  .greeting .name{color:var(--gold);}
+  .subtext{font-size:15px;color:var(--gray);line-height:1.8;margin-bottom:32px;
+    border-right:3px solid var(--gold);padding-right:14px;}
+  .field{margin-bottom:22px;}
+  label{display:block;font-family:'Cairo',sans-serif;font-weight:700;font-size:14px;color:var(--navy);margin-bottom:8px;}
+  label .optional{font-weight:400;color:var(--gray);font-size:13px;margin-right:4px;}
+  select,textarea{width:100%;font-family:'IBM Plex Sans Arabic',sans-serif;font-size:15px;color:var(--ink);
+    background:var(--bg-soft);border:1.5px solid var(--line);border-radius:12px;padding:12px 16px;
+    outline:none;transition:border-color .2s;appearance:none;-webkit-appearance:none;}
+  select:focus,textarea:focus{border-color:var(--navy);background:#fff;}
+  textarea{resize:vertical;min-height:90px;line-height:1.7;}
+  .select-wrap{position:relative;}
+  .select-wrap::after{content:'▾';position:absolute;left:14px;top:50%;transform:translateY(-50%);
+    color:var(--navy);font-size:14px;pointer-events:none;}
+  .submit-btn{width:100%;background:var(--navy);color:#fff;font-family:'Cairo',sans-serif;font-weight:800;
+    font-size:16px;padding:14px 24px;border:none;border-radius:100px;cursor:pointer;
+    transition:background .2s,transform .15s;margin-top:6px;}
+  .submit-btn:hover{background:var(--navy-soft);transform:translateY(-1px);}
+  .success-state{text-align:center;display:none;}
+  .success-icon{width:70px;height:70px;background:linear-gradient(135deg,#e6f4f1,#c3e8e3);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-size:32px;}
+  .success-title{font-family:'Cairo',sans-serif;font-weight:800;font-size:22px;color:var(--navy);margin-bottom:10px;}
+  .success-msg{font-size:15px;color:var(--gray);line-height:1.8;}
+  .success-msg .highlight{color:var(--gold);font-weight:700;}
+  .divider{border:none;border-top:1px solid var(--line);margin:28px 0;}
+  .card-footer{text-align:center;font-size:12.5px;color:var(--gray);margin-top:28px;}
+  @media(max-width:560px){.card{padding:36px 24px;}.greeting{font-size:20px;}}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">إتقان<span class="dot"></span></div>
+  <div id="form-state">
+    <div class="greeting">مرحباً، <span class="name" id="trainee-name">عبدالله</span> 👋</div>
+    <p class="subtext">أنت لا تزال جزءاً من إتقان.<br>سجّل إجازتك هنا وسيتواصل معك عصام فور انتهائها.</p>
+    <form id="vacation-form" action="https://formspree.io/f/xykrnaej" method="POST">
+      <input type="hidden" name="اسم المتدرب" id="hidden-name" value="عبدالله">
+      <div class="field">
+        <label>متى تتوقع العودة؟</label>
+        <div class="select-wrap">
+          <select name="تاريخ العودة المتوقع" required>
+            <option value="" disabled selected>اختر التاريخ</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>ما سبب الإجازة؟ <span class="optional">(اختياري)</span></label>
+        <textarea name="سبب الإجازة" placeholder="لست مضطراً للشرح، لكن إذا أردت..."></textarea>
+      </div>
+      <button type="submit" class="submit-btn">سجّل إجازتي ✓</button>
+    </form>
+  </div>
+  <div class="success-state" id="success-state">
+    <div class="success-icon">✓</div>
+    <div class="success-title">تمّت الإجازة بنجاح</div>
+    <hr class="divider">
+    <p class="success-msg">إجازتك مسجّلة يا <span class="highlight" id="success-name"></span>.<br>
+    سيتواصل معك عصام في تاريخ العودة الذي اخترته.<br><br>
+    نشوفك على خير 💛</p>
+  </div>
+  <div class="card-footer">إتقان — برنامج مهارات التعلّم الذاتي</div>
+</div>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const name = params.get('name') || 'عبدالله';
+  document.getElementById('trainee-name').textContent = name;
+  document.getElementById('hidden-name').value = name;
+  document.getElementById('success-name').textContent = name;
+  const select = document.querySelector('select[name="تاريخ العودة المتوقع"]');
+  const today = new Date();
+  const arDays=['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+  const arMonths=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+  for(let i=1;i<=60;i++){
+    const d=new Date(today); d.setDate(today.getDate()+i);
+    const label=`${arDays[d.getDay()]}، ${d.getDate()} ${arMonths[d.getMonth()]} ${d.getFullYear()}`;
+    const opt=document.createElement('option'); opt.value=label; opt.textContent=label;
+    select.appendChild(opt);
+  }
+  const form=document.getElementById('vacation-form');
+  form.addEventListener('submit',async function(e){
+    e.preventDefault();
+    const btn=form.querySelector('.submit-btn');
+    btn.textContent='جاري التسجيل...'; btn.disabled=true;
+    try{
+      const res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
+      if(res.ok){document.getElementById('form-state').style.display='none';document.getElementById('success-state').style.display='block';}
+      else{btn.textContent='حدث خطأ — حاول مجدداً';btn.disabled=false;}
+    }catch{btn.textContent='حدث خطأ — حاول مجدداً';btn.disabled=false;}
+  });
+</script>
+</body>
+</html>
