@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إتقان — لوحة التحليلات</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f0f4f8;
+  --card:#ffffff;
+  --teal:#0d9488;
+  --teal-light:#ccfbf1;
+  --teal-dark:#0f766e;
+  --amber:#f59e0b;
+  --amber-light:#fef3c7;
+  --rose:#e11d48;
+  --rose-light:#ffe4e6;
+  --slate:#334155;
+  --slate-mid:#64748b;
+  --slate-light:#94a3b8;
+  --border:#e2e8f0;
+  --shadow:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:0 4px 12px rgba(0,0,0,.10),0 2px 4px rgba(0,0,0,.06);
+}
+body{font-family:'Noto Sans Arabic',system-ui,sans-serif;background:var(--bg);color:var(--slate);min-height:100vh;direction:rtl}
+.header{background:#fff;border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:var(--shadow)}
+.header-brand{display:flex;align-items:center;gap:10px}
+.header-dot{width:10px;height:10px;border-radius:50%;background:var(--teal)}
+.header-title{font-size:1.15rem;font-weight:700;color:var(--slate)}
+.header-subtitle{font-size:.8rem;color:var(--slate-light);margin-top:1px}
+.header-date{font-size:.82rem;color:var(--slate-mid);background:var(--bg);padding:5px 12px;border-radius:20px;border:1px solid var(--border)}
+.main{max-width:1280px;margin:0 auto;padding:28px 20px}
+
+/* STAT CARDS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
+@media(max-width:768px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+.stat-card{background:var(--card);border-radius:16px;padding:20px 22px;box-shadow:var(--shadow);border:1px solid var(--border);position:relative;overflow:hidden;transition:transform .2s ease,box-shadow .2s ease}
+.stat-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.stat-card::before{content:'';position:absolute;top:0;right:0;width:4px;height:100%;border-radius:0 16px 16px 0}
+.stat-card.teal::before{background:var(--teal)}
+.stat-card.amber::before{background:var(--amber)}
+.stat-card.blue::before{background:#3b82f6}
+.stat-card.rose::before{background:var(--rose)}
+.stat-label{font-size:.78rem;font-weight:500;color:var(--slate-light);letter-spacing:.02em;margin-bottom:8px}
+.stat-num{font-size:2.6rem;font-weight:800;line-height:1;color:var(--slate)}
+.stat-card.teal .stat-num{color:var(--teal-dark)}
+.stat-card.amber .stat-num{color:#d97706}
+.stat-card.blue .stat-num{color:#2563eb}
+.stat-card.rose .stat-num{color:var(--rose)}
+.stat-sub{font-size:.75rem;color:var(--slate-light);margin-top:6px}
+.stat-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:2rem;opacity:.12}
+
+/* FILTER PILLS */
+.filter-bar{background:var(--card);border-radius:14px;padding:14px 18px;margin-bottom:24px;box-shadow:var(--shadow);border:1px solid var(--border)}
+.filter-label{font-size:.75rem;color:var(--slate-light);margin-bottom:10px;font-weight:500}
+.pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{padding:6px 14px;border-radius:20px;font-size:.82rem;font-weight:600;cursor:pointer;border:1.5px solid var(--border);background:#fff;color:var(--slate-mid);transition:all .15s ease;white-space:nowrap}
+.pill:hover{border-color:var(--teal);color:var(--teal)}
+.pill.active{background:var(--teal);border-color:var(--teal);color:#fff}
+
+/* CHART SECTION */
+.chart-section{background:var(--card);border-radius:16px;padding:24px;margin-bottom:24px;box-shadow:var(--shadow);border:1px solid var(--border)}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:gap:12px}
+.section-title{font-size:1rem;font-weight:700;color:var(--slate)}
+.section-sub{font-size:.78rem;color:var(--slate-light);margin-top:2px}
+.toggles{display:flex;gap:6px;background:var(--bg);border-radius:10px;padding:4px}
+.toggle-btn{padding:6px 14px;border-radius:7px;font-size:.8rem;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--slate-mid);transition:all .15s ease;font-family:inherit}
+.toggle-btn.active{background:#fff;color:var(--teal);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.toggle-btn:hover:not(.active){color:var(--slate)}
+#chart-canvas-wrap{position:relative;width:100%;overflow:hidden}
+#chart-svg{width:100%;display:block}
+.tooltip{position:absolute;background:var(--slate);color:#fff;padding:6px 12px;border-radius:8px;font-size:.78rem;pointer-events:none;opacity:0;transition:opacity .15s;white-space:nowrap;z-index:50;font-family:'Noto Sans Arabic',sans-serif}
+
+/* TRAINEE GRID */
+.grid-section{margin-bottom:24px}
+.grid-title{font-size:1rem;font-weight:700;color:var(--slate);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.trainee-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.trainee-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:580px){.trainee-grid{grid-template-columns:1fr}}
+
+.trainee-card{background:var(--card);border-radius:16px;padding:18px 18px 14px;box-shadow:var(--shadow);border:1px solid var(--border);cursor:pointer;transition:all .2s ease;position:relative}
+.trainee-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:#cbd5e1}
+.trainee-card.vacation-upcoming{border-top:3px solid var(--teal)}
+.trainee-card.vacation-now{border-top:3px solid var(--amber)}
+
+.tc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
+.tc-name{font-size:.95rem;font-weight:700;color:var(--slate);line-height:1.3}
+.tc-kunya{font-size:.75rem;color:var(--slate-light);margin-top:2px}
+.tc-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.badge{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:20px;font-size:.7rem;font-weight:600}
+.badge-teal{background:var(--teal-light);color:var(--teal-dark)}
+.badge-amber{background:var(--amber-light);color:#92400e}
+.badge-slate{background:#f1f5f9;color:var(--slate-mid)}
+.badge-voice{background:#ede9fe;color:#7c3aed}
+.badge-text{background:#f0fdf4;color:#15803d}
+.badge-mixed{background:#fff7ed;color:#c2410c}
+
+.tc-last{font-size:.78rem;color:var(--slate-mid);margin-bottom:10px;display:flex;align-items:center;gap:4px}
+.tc-last-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);display:inline-block;flex-shrink:0}
+.tc-last-dot.old{background:var(--slate-light)}
+
+/* HEATMAP */
+.heatmap{margin-bottom:10px}
+.heatmap-label{font-size:.68rem;color:var(--slate-light);margin-bottom:5px}
+.heatmap-grid{display:flex;gap:2px;flex-wrap:wrap}
+.heatmap-cell{width:14px;height:14px;border-radius:3px;background:#f1f5f9;transition:opacity .2s;cursor:default;position:relative}
+.heatmap-cell.resp{background:var(--teal);opacity:.85}
+.heatmap-cell.resp:hover{opacity:1}
+.heatmap-cell.voice{background:var(--amber);opacity:.8}
+.heatmap-cell.voice:hover{opacity:1}
+.heatmap-cell.today{box-shadow:0 0 0 1.5px var(--teal-dark)}
+
+.tc-goal{font-size:.75rem;color:var(--slate-mid);background:var(--bg);border-radius:8px;padding:7px 10px;line-height:1.5;margin-bottom:10px;border-right:2px solid var(--teal)}
+.tc-goal-label{font-size:.67rem;color:var(--slate-light);margin-bottom:2px;font-weight:600}
+
+.tc-expand{display:none;margin-top:12px;border-top:1px solid var(--border);padding-top:12px}
+.trainee-card.expanded .tc-expand{display:block}
+.expand-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:.78rem}
+.expand-key{color:var(--slate-light)}
+.expand-val{color:var(--slate);font-weight:500;text-align:left}
+.goals-list{margin-top:8px}
+.goal-item{font-size:.75rem;color:var(--slate-mid);padding:5px 8px;border-radius:6px;background:var(--bg);margin-bottom:4px;line-height:1.5}
+.goal-date{font-size:.67rem;color:var(--slate-light);display:block;margin-bottom:1px}
+.tc-chevron{position:absolute;left:14px;top:18px;font-size:.8rem;color:var(--slate-light);transition:transform .2s}
+.trainee-card.expanded .tc-chevron{transform:rotate(180deg)}
+
+/* FOOTER */
+.footer{text-align:center;padding:24px;font-size:.75rem;color:var(--slate-light)}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-brand">
+    <div class="header-dot"></div>
+    <div>
+      <div class="header-title">إتقان · لوحة التحليلات</div>
+      <div class="header-subtitle">متابعة برنامج التدريب</div>
+    </div>
+  </div>
+  <div class="header-date" id="header-date">يُحدَّث...</div>
+</div>
+
+<div class="main">
+
+  <!-- STAT CARDS -->
+  <div class="stats-grid" id="stat-cards"></div>
+
+  <!-- FILTER PILLS -->
+  <div class="filter-bar">
+    <div class="filter-label">تصفية حسب المتدرب</div>
+    <div class="pills" id="filter-pills"></div>
+  </div>
+
+  <!-- CHART -->
+  <div class="chart-section">
+    <div class="section-header">
+      <div>
+        <div class="section-title">النشاط اليومي</div>
+        <div class="section-sub" id="chart-sub">عدد المتدربين المتفاعلين يومياً</div>
+      </div>
+      <div class="toggles">
+        <button class="toggle-btn active" onclick="setMode('raw')">خام</button>
+        <button class="toggle-btn" onclick="setMode('avg7')">متوسط ٧ أيام</button>
+        <button class="toggle-btn" onclick="setMode('weekly')">أسبوعي</button>
+      </div>
+    </div>
+    <div id="chart-canvas-wrap">
+      <svg id="chart-svg" height="240"></svg>
+      <div class="tooltip" id="tooltip"></div>
+    </div>
+  </div>
+
+  <!-- TRAINEE CARDS -->
+  <div class="grid-section">
+    <div class="grid-title">
+      <span>🎓</span>
+      <span>المتدربون</span>
+    </div>
+    <div class="trainee-grid" id="trainee-grid"></div>
+  </div>
+
+</div>
+
+<div class="footer">
+  إتقان — لوحة التحليلات · تم الإنشاء في 2026-07-31
+</div>
+
+<script>
+const DATA = {"gen":"2026-07-31","stats":{"total_events":146,"total_trainees":8,"max_streak":41,"on_vacation":2,"date_range":["2026-06-20","2026-07-31"]},"daily_series":[{"d":"2026-06-20","c":1},{"d":"2026-06-21","c":1},{"d":"2026-06-22","c":1},{"d":"2026-06-23","c":1},{"d":"2026-06-24","c":1},{"d":"2026-06-25","c":1},{"d":"2026-06-26","c":1},{"d":"2026-06-27","c":1},{"d":"2026-06-28","c":2},{"d":"2026-06-29","c":3},{"d":"2026-06-30","c":2},{"d":"2026-07-01","c":3},{"d":"2026-07-02","c":2},{"d":"2026-07-03","c":3},{"d":"2026-07-04","c":3},{"d":"2026-07-05","c":3},{"d":"2026-07-06","c":3},{"d":"2026-07-07","c":3},{"d":"2026-07-08","c":3},{"d":"2026-07-09","c":3},{"d":"2026-07-10","c":4},{"d":"2026-07-11","c":6},{"d":"2026-07-12","c":5},{"d":"2026-07-13","c":6},{"d":"2026-07-14","c":5},{"d":"2026-07-15","c":4},{"d":"2026-07-16","c":5},{"d":"2026-07-17","c":4},{"d":"2026-07-18","c":4},{"d":"2026-07-19","c":5},{"d":"2026-07-20","c":6},{"d":"2026-07-21","c":4},{"d":"2026-07-22","c":4},{"d":"2026-07-23","c":3},{"d":"2026-07-24","c":6},{"d":"2026-07-25","c":5},{"d":"2026-07-26","c":5},{"d":"2026-07-27","c":5},{"d":"2026-07-28","c":6},{"d":"2026-07-29","c":6},{"d":"2026-07-30","c":6},{"d":"2026-07-31","c":1}],"trainee_daily":{"T6b87599973":[{"d":"2026-06-20","c":12,"m":"mixed","cc":1},{"d":"2026-06-21","c":6,"m":"text","cc":1},{"d":"2026-06-22","c":10,"m":"mixed","cc":1},{"d":"2026-06-23","c":11,"m":"text","cc":1},{"d":"2026-06-24","c":5,"m":"text","cc":1},{"d":"2026-06-25","c":6,"m":"text","cc":1},{"d":"2026-06-26","c":11,"m":"text","cc":1},{"d":"2026-06-27","c":6,"m":"text","cc":1},{"d":"2026-06-28","c":9,"m":"text","cc":1},{"d":"2026-06-29","c":8,"m":"text","cc":1},{"d":"2026-06-30","c":3,"m":"text","cc":1},{"d":"2026-07-01","c":11,"m":"text","cc":1},{"d":"2026-07-02","c":4,"m":"text","cc":1},{"d":"2026-07-03","c":7,"m":"mixed","cc":1},{"d":"2026-07-04","c":3,"m":"mixed","cc":1},{"d":"2026-07-05","c":4,"m":"text","cc":1},{"d":"2026-07-06","c":6,"m":"text","cc":1},{"d":"2026-07-07","c":9,"m":"text","cc":1},{"d":"2026-07-08","c":3,"m":"text","cc":1},{"d":"2026-07-09","c":6,"m":"text","cc":1},{"d":"2026-07-10","c":9,"m":"text","cc":1},{"d":"2026-07-11","c":2,"m":"text","cc":1},{"d":"2026-07-12","c":3,"m":"text","cc":1},{"d":"2026-07-13","c":3,"m":"text","cc":1},{"d":"2026-07-14","c":3,"m":"text","cc":1},{"d":"2026-07-15","c":3,"m":"text","cc":1},{"d":"2026-07-16","c":2,"m":"text","cc":1},{"d":"2026-07-17","c":2,"m":"text","cc":1},{"d":"2026-07-18","c":23,"m":"mixed","cc":1},{"d":"2026-07-19","c":4,"m":"text","cc":1},{"d":"2026-07-20","c":10,"m":"mixed","cc":1},{"d":"2026-07-21","c":4,"m":"text","cc":1},{"d":"2026-07-22","c":3,"m":"text","cc":1},{"d":"2026-07-23","c":2,"m":"text","cc":1},{"d":"2026-07-24","c":3,"m":"text","cc":1},{"d":"2026-07-25","c":2,"m":"text","cc":1},{"d":"2026-07-26","c":3,"m":"text","cc":1},{"d":"2026-07-27","c":4,"m":"text","cc":1},{"d":"2026-07-28","c":1,"m":"text","cc":1},{"d":"2026-07-29","c":3,"m":"text","cc":1},{"d":"2026-07-30","c":3,"m":"text","cc":1},{"d":"2026-07-31","c":0,"m":null,"cc":0}],"Taf2af3c0e3":[{"d":"2026-06-20","c":0,"m":null,"cc":0},{"d":"2026-06-21","c":0,"m":null,"cc":0},{"d":"2026-06-22","c":0,"m":null,"cc":0},{"d":"2026-06-23","c":0,"m":null,"cc":0},{"d":"2026-06-24","c":0,"m":null,"cc":0},{"d":"2026-06-25","c":0,"m":null,"cc":0},{"d":"2026-06-26","c":0,"m":null,"cc":0},{"d":"2026-06-27","c":0,"m":null,"cc":0},{"d":"2026-06-28","c":5,"m":"text","cc":1},{"d":"2026-06-29","c":3,"m":"text","cc":1},{"d":"2026-06-30","c":0,"m":null,"cc":0},{"d":"2026-07-01","c":7,"m":"mixed","cc":1},{"d":"2026-07-02","c":0,"m":null,"cc":0},{"d":"2026-07-03","c":4,"m":"text","cc":1},{"d":"2026-07-04","c":3,"m":"text","cc":1},{"d":"2026-07-05","c":3,"m":"mixed","cc":1},{"d":"2026-07-06","c":5,"m":"mixed","cc":1},{"d":"2026-07-07","c":2,"m":"mixed","cc":1},{"d":"2026-07-08","c":5,"m":"text","cc":1},{"d":"2026-07-09","c":8,"m":"text","cc":1},{"d":"2026-07-10","c":11,"m":"mixed","cc":1},{"d":"2026-07-11","c":7,"m":"text","cc":1},{"d":"2026-07-12","c":2,"m":"mixed","cc":1},{"d":"2026-07-13","c":7,"m":"mixed","cc":1},{"d":"2026-07-14","c":1,"m":"voice","cc":0},{"d":"2026-07-15","c":7,"m":"mixed","cc":1},{"d":"2026-07-16","c":1,"m":"voice","cc":0},{"d":"2026-07-17","c":2,"m":"text","cc":1},{"d":"2026-07-18","c":9,"m":"mixed","cc":1},{"d":"2026-07-19","c":0,"m":null,"cc":0},{"d":"2026-07-20","c":3,"m":"mixed","cc":1},{"d":"2026-07-21","c":0,"m":null,"cc":0},{"d":"2026-07-22","c":0,"m":null,"cc":0},{"d":"2026-07-23","c":0,"m":null,"cc":0},{"d":"2026-07-24","c":1,"m":"text","cc":1},{"d":"2026-07-25","c":0,"m":null,"cc":0},{"d":"2026-07-26","c":0,"m":null,"cc":0},{"d":"2026-07-27","c":0,"m":null,"cc":0},{"d":"2026-07-28","c":0,"m":null,"cc":0},{"d":"2026-07-29","c":0,"m":null,"cc":0},{"d":"2026-07-30","c":0,"m":null,"cc":0},{"d":"2026-07-31","c":0,"m":null,"cc":0}],"T0a55e556f3":[{"d":"2026-06-20","c":0,"m":null,"cc":0},{"d":"2026-06-21","c":0,"m":null,"cc":0},{"d":"2026-06-22","c":0,"m":null,"cc":0},{"d":"2026-06-23","c":0,"m":null,"cc":0},{"d":"2026-06-24","c":0,"m":null,"cc":0},{"d":"2026-06-25","c":0,"m":null,"cc":0},{"d":"2026-06-26","c":0,"m":null,"cc":0},{"d":"2026-06-27","c":0,"m":null,"cc":0},{"d":"2026-06-28","c":0,"m":null,"cc":0},{"d":"2026-06-29","c":4,"m":"text","cc":1},{"d":"2026-06-30","c":5,"m":"text","cc":1},{"d":"2026-07-01","c":4,"m":"text","cc":1},{"d":"2026-07-02","c":2,"m":"text","cc":1},{"d":"2026-07-03","c":2,"m":"text","cc":1},{"d":"2026-07-04","c":3,"m":"text","cc":1},{"d":"2026-07-05","c":2,"m":"text","cc":1},{"d":"2026-07-06","c":4,"m":"text","cc":1},{"d":"2026-07-07","c":2,"m":"text","cc":1},{"d":"2026-07-08","c":5,"m":"text","cc":1},{"d":"2026-07-09","c":4,"m":"text","cc":1},{"d":"2026-07-10","c":4,"m":"text","cc":1},{"d":"2026-07-11","c":2,"m":"text","cc":1},{"d":"2026-07-12","c":0,"m":null,"cc":0},{"d":"2026-07-13","c":2,"m":"text","cc":1},{"d":"2026-07-14","c":0,"m":null,"cc":0},{"d":"2026-07-15","c":0,"m":null,"cc":0},{"d":"2026-07-16","c":0,"m":null,"cc":0},{"d":"2026-07-17","c":0,"m":null,"cc":0},{"d":"2026-07-18","c":0,"m":null,"cc":0},{"d":"2026-07-19","c":0,"m":null,"cc":0},{"d":"2026-07-20","c":0,"m":null,"cc":0},{"d":"2026-07-21","c":0,"m":null,"cc":0},{"d":"2026-07-22","c":0,"m":null,"cc":0},{"d":"2026-07-23","c":0,"m":null,"cc":0},{"d":"2026-07-24","c":1,"m":"text","cc":1},{"d":"2026-07-25","c":0,"m":null,"cc":0},{"d":"2026-07-26","c":0,"m":null,"cc":0},{"d":"2026-07-27","c":0,"m":null,"cc":0},{"d":"2026-07-28","c":3,"m":"text","cc":1},{"d":"2026-07-29","c":3,"m":"text","cc":1},{"d":"2026-07-30","c":7,"m":"text","cc":1},{"d":"2026-07-31","c":0,"m":null,"cc":0}],"T4de3afe51b":[{"d":"2026-06-20","c":0,"m":null,"cc":0},{"d":"2026-06-21","c":0,"m":null,"cc":0},{"d":"2026-06-22","c":0,"m":null,"cc":0},{"d":"2026-06-23","c":0,"m":null,"cc":0},{"d":"2026-06-24","c":0,"m":null,"cc":0},{"d":"2026-06-25","c":0,"m":null,"cc":0},{"d":"2026-06-26","c":0,"m":null,"cc":0},{"d":"2026-06-27","c":0,"m":null,"cc":0},{"d":"2026-06-28","c":0,"m":null,"cc":0},{"d":"2026-06-29","c":0,"m":null,"cc":0},{"d":"2026-06-30","c":0,"m":null,"cc":0},{"d":"2026-07-01","c":0,"m":null,"cc":0},{"d":"2026-07-02","c":0,"m":null,"cc":0},{"d":"2026-07-03","c":0,"m":null,"cc":0},{"d":"2026-07-04","c":0,"m":null,"cc":0},{"d":"2026-07-05","c":0,"m":null,"cc":0},{"d":"2026-07-06","c":0,"m":null,"cc":0},{"d":"2026-07-07","c":0,"m":null,"cc":0},{"d":"2026-07-08","c":0,"m":null,"cc":0},{"d":"2026-07-09","c":0,"m":null,"cc":0},{"d":"2026-07-10","c":7,"m":"text","cc":1},{"d":"2026-07-11","c":3,"m":"text","cc":1},{"d":"2026-07-12","c":2,"m":"text","cc":1},{"d":"2026-07-13","c":4,"m":"text","cc":1},{"d":"2026-07-14","c":1,"m":"text","cc":1},{"d":"2026-07-15","c":0,"m":null,"cc":0},{"d":"2026-07-16","c":5,"m":"text","cc":1},{"d":"2026-07-17","c":0,"m":null,"cc":0},{"d":"2026-07-18","c":0,"m":null,"cc":0},{"d":"2026-07-19","c":1,"m":"text","cc":1},{"d":"2026-07-20","c":2,"m":"text","cc":1},{"d":"2026-07-21","c":1,"m":"text","cc":1},{"d":"2026-07-22","c":0,"m":null,"cc":0},{"d":"2026-07-23","c":0,"m":null,"cc":0},{"d":"2026-07-24","c":0,"m":null,"cc":0},{"d":"2026-07-25","c":0,"m":null,"cc":0},{"d":"2026-07-26","c":2,"m":"text","cc":1},{"d":"2026-07-27","c":0,"m":null,"cc":0},{"d":"2026-07-28","c":0,"m":null,"cc":0},{"d":"2026-07-29","c":0,"m":null,"cc":0},{"d":"2026-07-30","c":0,"m":null,"cc":0},{"d":"2026-07-31","c":0,"m":null,"cc":0}],"T71aeb973ab":[{"d":"2026-06-20","c":0,"m":null,"cc":0},{"d":"2026-06-21","c":0,"m":null,"cc":0},{"d":"2026-06-22","c":0,"m":null,"cc":0},{"d":"2026-06-23","c":0,"m":null,"cc":0},{"d":"2026-06-24","c":0,"m":null,"cc":0},{"d":"2026-06-25","c":0,"m":null,"cc":0},{"d":"2026-06-26","c":0,"m":null,"cc":0},{"d":"2026-06-27","c":0,"m":null,"cc":0},{"d":"2026-06-28","c":0,"m":null,"cc":0},{"d":"2026-06-29","c":0,"m":null,"cc":0},{"d":"2026-06-30","c":0,"m":null,"cc":0},{"d":"2026-07-01","c":0,"m":null,"cc":0},{"d":"2026-07-02","c":0,"m":null,"cc":0},{"d":"2026-07-03","c":0,"m":null,"cc":0},{"d":"2026-07-04","c":0,"m":null,"cc":0},{"d":"2026-07-05","c":0,"m":null,"cc":0},{"d":"2026-07-06","c":0,"m":null,"cc":0},{"d":"2026-07-07","c":0,"m":null,"cc":0},{"d":"2026-07-08","c":0,"m":null,"cc":0},{"d":"2026-07-09","c":0,"m":null,"cc":0},{"d":"2026-07-10","c":0,"m":null,"cc":0},{"d":"2026-07-11","c":21,"m":"text","cc":1},{"d":"2026-07-12","c":2,"m":"text","cc":1},{"d":"2026-07-13","c":4,"m":"mixed","cc":1},{"d":"2026-07-14","c":9,"m":"text","cc":1},{"d":"2026-07-15","c":7,"m":"text","cc":1},{"d":"2026-07-16","c":6,"m":"text","cc":1},{"d":"2026-07-17","c":1,"m":"text","cc":1},{"d":"2026-07-18","c":24,"m":"mixed","cc":1},{"d":"2026-07-19","c":1,"m":"text","cc":1},{"d":"2026-07-20","c":5,"m":"text","cc":1},{"d":"2026-07-21","c":2,"m":"mixed","cc":0},{"d":"2026-07-22","c":14,"m":"mixed","cc":1},{"d":"2026-07-23","c":2,"m":"mixed","cc":1},{"d":"2026-07-24","c":2,"m":"text","cc":0},{"d":"2026-07-25","c":7,"m":"text","cc":0},{"d":"2026-07-26","c":0,"m":null,"cc":0},{"d":"2026-07-27","c":6,"m":"text","cc":0},{"d":"2026-07-28","c":13,"m":"text","cc":0},{"d":"2026-07-29","c":19,"m":"mixed","cc":1},{"d":"2026-07-30","c":8,"m":"mixed","cc":1},{"d":"2026-07-31","c":0,"m":null,"cc":0}],"T1fa3872880":[{"d":"2026-06-20","c":0,"m":null,"cc":0},{"d":"2026-06-21","c":0,"m":null,"cc":0},{"d":"2026-06-22","c":0,"m":null,"cc":0},{"d":"2026-06-23","c":0,"m":null,"cc":0},{"d":"2026-06-24","c":0,"m":null,"cc":0},{"d":"2026-06-25","c":0,"m":null,"cc":0},{"d":"2026-06-26","c":0,"m":null,"cc":0},{"d":"2026-06-27","c":0,"m":null,"cc":0},{"d":"2026-06-28","c":0,"m":null,"cc":0},{"d":"2026-06-29","c":0,"m":null,"cc":0},{"d":"2026-06-30","c":0,"m":null,"cc":0},{"d":"2026-07-01","c":0,"m":null,"cc":0},{"d":"2026-07-02","c":0,"m":null,"cc":0},{"d":"2026-07-03","c":0,"m":null,"cc":0},{"d":"2026-07-04","c":0,"m":null,"cc":0},{"d":"2026-07-05","c":0,"m":null,"cc":0},{"d":"2026-07-06","c":0,"m":null,"cc":0},{"d":"2026-07-07","c":0,"m":null,"cc":0},{"d":"2026-07-08","c":0,"m":null,"cc":0},{"d":"2026-07-09","c":0,"m":null,"cc":0},{"d":"2026-07-10","c":0,"m":null,"cc":0},{"d":"2026-07-11","c":15,"m":"mixed","cc":1},{"d":"2026-07-12","c":9,"m":"mixed","cc":1},{"d":"2026-07-13","c":4,"m":"text","cc":1},{"d":"2026-07-14","c":3,"m":"text","cc":1},{"d":"2026-07-15","c":4,"m":"mixed","cc":1},{"d":"2026-07-16","c":13,"m":"mixed","cc":1},{"d":"2026-07-17","c":2,"m":"text","cc":1},{"d":"2026-07-18","c":15,"m":"mixed","cc":1},{"d":"2026-07-19","c":8,"m":"mixed","cc":1},{"d":"2026-07-20","c":2,"m":"mixed","cc":0},{"d":"2026-07-21","c":7,"m":"mixed","cc":1},{"d":"2026-07-22","c":1,"m":"text","cc":1},{"d":"2026-07-23","c":11,"m":"mixed","cc":1},{"d":"2026-07-24","c":10,"m":"mixed","cc":1},{"d":"2026-07-25","c":3,"m":"mixed","cc":1},{"d":"2026-07-26","c":2,"m":"mixed","cc":1},{"d":"2026-07-27","c":2,"m":"text","cc":0},{"d":"2026-07-28","c":5,"m":"mixed","cc":0},{"d":"2026-07-29","c":3,"m":"text","cc":1},{"d":"2026-07-30","c":6,"m":"text","cc":1},{"d":"2026-07-31","c":10,"m":"mixed","cc":1}],"T2dd5e3572a":[{"d":"2026-06-20","c":0,"m":null,"cc":0},{"d":"2026-06-21","c":0,"m":null,"cc":0},{"d":"2026-06-22","c":0,"m":null,"cc":0},{"d":"2026-06-23","c":0,"m":null,"cc":0},{"d":"2026-06-24","c":0,"m":null,"cc":0},{"d":"2026-06-25","c":0,"m":null,"cc":0},{"d":"2026-06-26","c":0,"m":null,"cc":0},{"d":"2026-06-27","c":0,"m":null,"cc":0},{"d":"2026-06-28","c":0,"m":null,"cc":0},{"d":"2026-06-29","c":0,"m":null,"cc":0},{"d":"2026-06-30","c":0,"m":null,"cc":0},{"d":"2026-07-01","c":0,"m":null,"cc":0},{"d":"2026-07-02","c":0,"m":null,"cc":0},{"d":"2026-07-03","c":0,"m":null,"cc":0},{"d":"2026-07-04","c":0,"m":null,"cc":0},{"d":"2026-07-05","c":0,"m":null,"cc":0},{"d":"2026-07-06","c":0,"m":null,"cc":0},{"d":"2026-07-07","c":0,"m":null,"cc":0},{"d":"2026-07-08","c":0,"m":null,"cc":0},{"d":"2026-07-09","c":0,"m":null,"cc":0},{"d":"2026-07-10","c":0,"m":null,"cc":0},{"d":"2026-07-11","c":0,"m":null,"cc":0},{"d":"2026-07-12","c":0,"m":null,"cc":0},{"d":"2026-07-13","c":0,"m":null,"cc":0},{"d":"2026-07-14","c":0,"m":null,"cc":0},{"d":"2026-07-15","c":0,"m":null,"cc":0},{"d":"2026-07-16","c":0,"m":null,"cc":0},{"d":"2026-07-17","c":0,"m":null,"cc":0},{"d":"2026-07-18","c":0,"m":null,"cc":0},{"d":"2026-07-19","c":3,"m":"text","cc":1},{"d":"2026-07-20","c":1,"m":"text","cc":1},{"d":"2026-07-21","c":0,"m":null,"cc":0},{"d":"2026-07-22","c":0,"m":null,"cc":0},{"d":"2026-07-23","c":0,"m":null,"cc":0},{"d":"2026-07-24","c":0,"m":null,"cc":0},{"d":"2026-07-25","c":3,"m":"text","cc":1},{"d":"2026-07-26","c":2,"m":"text","cc":1},{"d":"2026-07-27","c":3,"m":"mixed","cc":0},{"d":"2026-07-28","c":1,"m":"text","cc":1},{"d":"2026-07-29","c":3,"m":"text","cc":1},{"d":"2026-07-30","c":1,"m":"text","cc":1},{"d":"2026-07-31","c":0,"m":null,"cc":0}],"Tbc6cbe3542":[{"d":"2026-06-20","c":0,"m":null,"cc":0},{"d":"2026-06-21","c":0,"m":null,"cc":0},{"d":"2026-06-22","c":0,"m":null,"cc":0},{"d":"2026-06-23","c":0,"m":null,"cc":0},{"d":"2026-06-24","c":0,"m":null,"cc":0},{"d":"2026-06-25","c":0,"m":null,"cc":0},{"d":"2026-06-26","c":0,"m":null,"cc":0},{"d":"2026-06-27","c":0,"m":null,"cc":0},{"d":"2026-06-28","c":0,"m":null,"cc":0},{"d":"2026-06-29","c":0,"m":null,"cc":0},{"d":"2026-06-30","c":0,"m":null,"cc":0},{"d":"2026-07-01","c":0,"m":null,"cc":0},{"d":"2026-07-02","c":0,"m":null,"cc":0},{"d":"2026-07-03","c":0,"m":null,"cc":0},{"d":"2026-07-04","c":0,"m":null,"cc":0},{"d":"2026-07-05","c":0,"m":null,"cc":0},{"d":"2026-07-06","c":0,"m":null,"cc":0},{"d":"2026-07-07","c":0,"m":null,"cc":0},{"d":"2026-07-08","c":0,"m":null,"cc":0},{"d":"2026-07-09","c":0,"m":null,"cc":0},{"d":"2026-07-10","c":0,"m":null,"cc":0},{"d":"2026-07-11","c":0,"m":null,"cc":0},{"d":"2026-07-12","c":0,"m":null,"cc":0},{"d":"2026-07-13","c":0,"m":null,"cc":0},{"d":"2026-07-14","c":0,"m":null,"cc":0},{"d":"2026-07-15","c":0,"m":null,"cc":0},{"d":"2026-07-16","c":0,"m":null,"cc":0},{"d":"2026-07-17","c":0,"m":null,"cc":0},{"d":"2026-07-18","c":0,"m":null,"cc":0},{"d":"2026-07-19","c":0,"m":null,"cc":0},{"d":"2026-07-20","c":0,"m":null,"cc":0},{"d":"2026-07-21","c":0,"m":null,"cc":0},{"d":"2026-07-22","c":3,"m":"text","cc":1},{"d":"2026-07-23","c":0,"m":null,"cc":0},{"d":"2026-07-24","c":1,"m":"text","cc":1},{"d":"2026-07-25","c":3,"m":"mixed","cc":1},{"d":"2026-07-26","c":11,"m":"text","cc":1},{"d":"2026-07-27","c":4,"m":"mixed","cc":1},{"d":"2026-07-28","c":4,"m":"mixed","cc":1},{"d":"2026-07-29","c":4,"m":"mixed","cc":1},{"d":"2026-07-30","c":2,"m":"text","cc":1},{"d":"2026-07-31","c":0,"m":null,"cc":0}]},"trainees":[{"key":"T6b87599973","label":"عبدالرحمن المقبل","kunya":"","first_contact":"2026-06-20","last_resp":"2026-07-30","reminder":"","slug":"","event_count":41,"streak":41,"medium":"text","vacation":null,"goal":"هدف الأسبوع الرابع:\n١-الاستمرار في الاستماع.\n٢-تجربة الاستماع للكتاب الوردي.","all_goals":[{"date":"2026-07-03","text":"هدف الأسبوع: ٣٠ دقيقة استماع و٣٠ قراءة يوميا"},{"date":"2026-07-04","text":"هدف الأسبوع: ٣٠ دقيقة استماع و٣٠ قراءة يوميا"},{"date":"2026-07-10","text":"هدف الأسبوع الرابع:\n\n١-الاستمرار في الاستماع.\n\n٢-تجربة الاستماع للكتاب الوردي."},{"date":"2026-07-12","text":"هدف الأسبوع الرابع:\n١-الاستمرار في الاستماع.\n٢-تجربة الاستماع للكتاب الوردي."},{"date":"2026-07-15","text":"هدف الأسبوع الرابع:\n١-الاستمرار في الاستماع.\n٢-تجربة الاستماع للكتاب الوردي."}],"minutes":[{"d":"2026-06-21","min":24},{"d":"2026-06-22","min":12},{"d":"2026-06-23","min":30},{"d":"2026-06-25","min":30},{"d":"2026-06-29","min":20},{"d":"2026-06-30","min":30}]},{"key":"Taf2af3c0e3","label":"أحمد حكمي","kunya":"أبو حميد","first_contact":"2026-06-28","last_resp":"2026-07-24","reminder":"08:00","slug":"ahmed","event_count":21,"streak":16,"medium":"mixed","vacation":{"start":"2026-08-15","end":"2026-08-15","resume":null,"raw":"2026-08-15"},"goal":"هدف الأسبوع الرابع: اكتشاف طريقة لمراجعة القصص أثناء القيادة","all_goals":[{"date":"2026-07-03","text":"هدف الأسبوع: استمع و Gemini يوميا"},{"date":"2026-07-04","text":"هدف الأسبوع: استمع و Gemini يوميا"},{"date":"2026-07-10","text":"هدف الأسبوع الثالث:\n\n١-ما تستعجل وتبدأ بالقصص القصيرة لكي تستوعب السياق..\n\n٢-تستفيد من جيمناي في تصحيح الفهم وليس شرح القواعد"},{"date":"2026-07-11","text":"هدف الأسبوع الثالث:\n١-ما تستعجل وتبدأ بالقصص القصيرة لكي تستوعب السياق..\n٢-تستفيد من جيمناي في تصحيح الفهم وليس شرح القواعد"},{"date":"2026-07-17","text":"هدف الأسبوع الرابع: اكتشاف طريقة لمراجعة القصص أثناء القيادة"},{"date":"2026-07-17","text":"هدف الأسبوع الرابع: اكتشاف طريقة لمراجعة القصص أثناء القيادة"}],"minutes":[{"d":"2026-07-08","min":20}]},{"key":"T0a55e556f3","label":"زيد الزهراني","kunya":"","first_contact":"2026-06-29","last_resp":"2026-07-30","reminder":"","slug":"generic (not personalised)","event_count":18,"streak":13,"medium":"text","vacation":null,"goal":"هدف الأسبوع الثالث: \n١-تحاول تسمع على اليوتيوب.\n٢-القراءة لمدة ٢٠ دقيقة يومياً.","all_goals":[{"date":"2026-07-04","text":"هدف الأسبوع: ساعة استماع ونص ساعة قراءة"},{"date":"2026-07-06","text":"هدف الأسبوع: ساعة استماع ونص ساعة قراءة"},{"date":"2026-07-11","text":"هدف الأسبوع الثالث: \n\n١-تحاول تسمع على اليوتيوب.\n\n٢-القراءة لمدة ٢٠ دقيقة يومياً."},{"date":"2026-07-12","text":"هدف الأسبوع الثالث: \n١-تحاول تسمع على اليوتيوب.\n٢-القراءة لمدة ٢٠ دقيقة يومياً."}],"minutes":[{"d":"2026-06-29","min":50},{"d":"2026-07-01","min":39},{"d":"2026-07-02","min":50},{"d":"2026-07-03","min":50},{"d":"2026-07-07","min":12},{"d":"2026-07-08","min":20},{"d":"2026-07-13","min":20}]},{"key":"T4de3afe51b","label":"محمد المساعد (…7250)","kunya":"","first_contact":"2026-07-10","last_resp":"2026-07-26","reminder":"06:00","slug":"mohammed","event_count":10,"streak":5,"medium":"text","vacation":{"start":null,"end":null,"resume":null,"raw":"stated directly by Essam 31/07/2026: on vacation"},"goal":"","all_goals":[],"minutes":[]},{"key":"T71aeb973ab","label":"Abdullah Mutlaq (…9888)","kunya":"","first_contact":"2026-07-11","last_resp":"2026-07-30","reminder":"","slug":"","event_count":19,"streak":15,"medium":"text","vacation":null,"goal":"","all_goals":[],"minutes":[]},{"key":"T1fa3872880","label":"Hussain (…9544)","kunya":"أبو بدر","first_contact":"2026-07-11","last_resp":"2026-07-31","reminder":"06:00","slug":"","event_count":21,"streak":21,"medium":"mixed","vacation":null,"goal":"هدف الأسبوع الثالث: توليد محتوى ممتع بنفس المفردات","all_goals":[{"date":"2026-07-18","text":"هدف الأسبوع الثاني: التعلم على جيميناي كل يوم مساءً"},{"date":"2026-07-24","text":"هدف الأسبوع الثالث: توليد محتوى ممتع بنفس المفردات"},{"date":"2026-07-25","text":"هدف الأسبوع الثالث: توليد محتوى ممتع بنفس المفردات"}],"minutes":[]},{"key":"T2dd5e3572a","label":"محمد العتيبي","kunya":"","first_contact":"2026-07-19","last_resp":"2026-07-30","reminder":"","slug":"","event_count":8,"streak":6,"medium":"text","vacation":null,"goal":"","all_goals":[],"minutes":[]},{"key":"Tbc6cbe3542","label":"حمدي الحربي أبو صالح","kunya":"أبو صالح","first_contact":"2026-07-22","last_resp":"2026-07-30","reminder":"","slug":"","event_count":8,"streak":7,"medium":"text","vacation":null,"goal":"","all_goals":[],"minutes":[]}]};
+
+// ─── HELPERS ──────────────────────────────────────────────
+const TODAY = '2026-07-31';
+
+function relDate(dateStr) {
+  if (!dateStr) return '—';
+  const diff = Math.round((new Date(TODAY) - new Date(dateStr)) / 86400000);
+  if (diff === 0) return 'اليوم';
+  if (diff === 1) return 'أمس';
+  if (diff <= 6) return `منذ ${diff} أيام`;
+  if (diff <= 29) return `منذ ${Math.round(diff/7)} أسبوع`;
+  return `منذ ${Math.round(diff/30)} شهر`;
+}
+
+function arabicDate(dateStr) {
+  if (!dateStr) return '—';
+  const d = new Date(dateStr + 'T00:00:00');
+  return d.toLocaleDateString('ar-SA', {year:'numeric',month:'long',day:'numeric'});
+}
+
+function mediumBadge(m) {
+  if (m === 'voice') return '<span class="badge badge-voice">🎙️ صوت</span>';
+  if (m === 'text') return '<span class="badge badge-text">📝 نص</span>';
+  if (m === 'mixed') return '<span class="badge badge-mixed">🔀 مختلط</span>';
+  return '<span class="badge badge-slate">📝 نص</span>';
+}
+
+function daysDiff(dateStr) {
+  if (!dateStr) return 999;
+  return Math.round((new Date(TODAY) - new Date(dateStr)) / 86400000);
+}
+
+// ─── STATS ────────────────────────────────────────────────
+const s = DATA.stats;
+document.getElementById('header-date').textContent = 'يوليو ٢٠٢٦';
+
+const statsHTML = [
+  {label:'إجمالي التفاعلات', num: s.total_events, sub:`من ${arabicDate(s.date_range[0])}`, cls:'teal', icon:'📊'},
+  {label:'أعلى سلسلة يومية', num: s.max_streak + ' يوم', sub:'عبدالرحمن المقبل', cls:'amber', icon:'🔥'},
+  {label:'عدد المتدربين', num: s.total_trainees, sub:'في البرنامج', cls:'blue', icon:'🎓'},
+  {label:'في إجازة', num: s.on_vacation, sub:'متدرب حالياً', cls:'rose', icon:'🌴'},
+];
+document.getElementById('stat-cards').innerHTML = statsHTML.map(st => `
+  <div class="stat-card ${st.cls}">
+    <div class="stat-label">${st.label}</div>
+    <div class="stat-num">${st.num}</div>
+    <div class="stat-sub">${st.sub}</div>
+    <div class="stat-icon">${st.icon}</div>
+  </div>
+`).join('');
+
+// ─── FILTER PILLS ─────────────────────────────────────────
+let activeKey = null;
+const pillsEl = document.getElementById('filter-pills');
+const allPill = document.createElement('button');
+allPill.className = 'pill active';
+allPill.textContent = 'الكل';
+allPill.onclick = () => setFilter(null, allPill);
+pillsEl.appendChild(allPill);
+
+DATA.trainees.forEach(t => {
+  const btn = document.createElement('button');
+  btn.className = 'pill';
+  const shortName = t.label.split(' ')[0];
+  btn.textContent = shortName;
+  btn.title = t.label;
+  btn.onclick = () => setFilter(t.key, btn);
+  pillsEl.appendChild(btn);
+});
+
+function setFilter(key, btn) {
+  activeKey = key;
+  document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  const sub = document.getElementById('chart-sub');
+  if (!key) {
+    sub.textContent = 'عدد المتدربين المتفاعلين يومياً';
+  } else {
+    const t = DATA.trainees.find(x => x.key === key);
+    sub.textContent = `عدد الرسائل اليومية — ${t.label}`;
+  }
+  drawChart(currentMode);
+}
+
+// ─── CHART ────────────────────────────────────────────────
+let currentMode = 'raw';
+function setMode(m) {
+  currentMode = m;
+  document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  drawChart(m);
+}
+
+function getSeries() {
+  if (!activeKey) return DATA.daily_series.map(d => ({date: d.d, val: d.c}));
+  const td = DATA.trainee_daily[activeKey];
+  return td.map(d => ({date: d.d, val: d.c}));
+}
+
+function getWeeklySeries(raw) {
+  const weeks = {};
+  raw.forEach(p => {
+    const d = new Date(p.date + 'T00:00:00');
+    const mon = new Date(d);
+    mon.setDate(d.getDate() - d.getDay() + 1);
+    const k = mon.toISOString().slice(0,10);
+    weeks[k] = (weeks[k]||0) + p.val;
+  });
+  return Object.entries(weeks).sort((a,b)=>a[0].localeCompare(b[0])).map(([date,val]) => ({date,val}));
+}
+
+function movingAvg(arr, w) {
+  return arr.map((p,i) => {
+    const slice = arr.slice(Math.max(0,i-w+1), i+1);
+    const avg = slice.reduce((s,x)=>s+x.val,0)/slice.length;
+    return {...p, val: avg};
+  });
+}
+
+function drawChart(mode) {
+  const svg = document.getElementById('chart-svg');
+  const wrap = document.getElementById('chart-canvas-wrap');
+  const W = wrap.clientWidth || 800;
+  const H = 240;
+  const padL = 8, padR = 20, padT = 16, padB = 40;
+  const cW = W - padL - padR;
+  const cH = H - padT - padB;
+
+  let raw = getSeries();
+  let series, type;
+
+  if (mode === 'raw') { series = raw; type = 'bar'; }
+  else if (mode === 'avg7') { series = movingAvg(raw, 7); type = 'line'; }
+  else { series = getWeeklySeries(raw); type = 'bar-wide'; }
+
+  const maxVal = Math.max(...series.map(p=>p.val), 1);
+  const n = series.length;
+
+  let elems = '';
+
+  // Grid lines
+  const steps = 4;
+  for (let i=0; i<=steps; i++) {
+    const y = padT + cH - (i/steps)*cH;
+    const v = Math.round((i/steps)*maxVal);
+    elems += `<line x1="${padL}" y1="${y}" x2="${W-padR}" y2="${y}" stroke="#e2e8f0" stroke-width="1"/>`;
+    if (i > 0) elems += `<text x="${W-padR+4}" y="${y+4}" font-size="10" fill="#94a3b8" text-anchor="start" font-family="Noto Sans Arabic,sans-serif">${v}</text>`;
+  }
+
+  // Bars or line
+  if (type === 'bar' || type === 'bar-wide') {
+    const barW = Math.max(2, cW/n - 1.5);
+    series.forEach((p,i) => {
+      const x = padL + (i / n) * cW + (cW/n - barW)/2;
+      const barH = (p.val / maxVal) * cH;
+      const y = padT + cH - barH;
+      const color = type === 'bar-wide' ? '#0d9488' : (p.val > 0 ? '#14b8a6' : '#f1f5f9');
+      elems += `<rect class="chart-bar" x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${Math.max(1,barH).toFixed(1)}" rx="2" fill="${color}" data-date="${p.date}" data-val="${Math.round(p.val)}" opacity="0.85"/>`;
+    });
+  } else {
+    // Smooth line
+    let pts = series.map((p,i) => {
+      const x = padL + (i + .5) / n * cW;
+      const y = padT + cH - (p.val/maxVal)*cH;
+      return [x,y];
+    });
+    // Area fill
+    const areaPath = `M ${pts[0][0]},${padT+cH} ` +
+      pts.map(p=>`L ${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' ') +
+      ` L ${pts[pts.length-1][0]},${padT+cH} Z`;
+    elems += `<defs><linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0d9488" stop-opacity="0.25"/><stop offset="100%" stop-color="#0d9488" stop-opacity="0.02"/></linearGradient></defs>`;
+    elems += `<path d="${areaPath}" fill="url(#areaGrad)"/>`;
+    const linePath = `M ` + pts.map(p=>`${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' L ');
+    elems += `<path d="${linePath}" stroke="#0d9488" stroke-width="2.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>`;
+    pts.forEach((p,i) => {
+      elems += `<circle class="chart-dot" cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="3" fill="#0d9488" data-date="${series[i].date}" data-val="${series[i].val.toFixed(1)}"/>`;
+    });
+  }
+
+  // X-axis date labels (show every ~7th)
+  const step = Math.ceil(n/8);
+  series.forEach((p,i) => {
+    if (i % step === 0 || i === n-1) {
+      const x = padL + (i + .5) / n * cW;
+      const d = new Date(p.date + 'T00:00:00');
+      const lbl = `${d.getDate()}/${d.getMonth()+1}`;
+      elems += `<text x="${x.toFixed(1)}" y="${H-8}" font-size="10" fill="#94a3b8" text-anchor="middle" font-family="Noto Sans Arabic,sans-serif">${lbl}</text>`;
+    }
+  });
+
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('height', H);
+  svg.innerHTML = elems;
+
+  // Tooltip
+  const tip = document.getElementById('tooltip');
+  svg.querySelectorAll('.chart-bar,.chart-dot').forEach(el => {
+    el.addEventListener('mouseenter', ev => {
+      const rect = wrap.getBoundingClientRect();
+      const mx = ev.clientX - rect.left;
+      const my = ev.clientY - rect.top;
+      const d = el.dataset.date;
+      const v = el.dataset.val;
+      const dateObj = new Date(d + 'T00:00:00');
+      const lbl = dateObj.toLocaleDateString('ar-SA',{month:'short',day:'numeric'});
+      tip.textContent = `${lbl}: ${v}`;
+      tip.style.opacity = '1';
+      tip.style.left = (mx + 10) + 'px';
+      tip.style.top = (my - 32) + 'px';
+    });
+    el.addEventListener('mouseleave', () => { tip.style.opacity = '0'; });
+  });
+}
+
+// Draw on load and resize
+window.addEventListener('load', () => drawChart('raw'));
+window.addEventListener('resize', () => drawChart(currentMode));
+
+// ─── TRAINEE CARDS ────────────────────────────────────────
+function buildHeatmap(key) {
+  const events = DATA.trainee_daily[key] || [];
+  // Last 30 days
+  const cells = [];
+  for (let i=29; i>=0; i--) {
+    const d = new Date(TODAY + 'T00:00:00');
+    d.setDate(d.getDate() - i);
+    const ds = d.toISOString().slice(0,10);
+    cells.push({date: ds, isToday: ds===TODAY});
+  }
+  const ev_map = {};
+  events.forEach(e => { if(e.c > 0) ev_map[e.d] = e; });
+
+  return `<div class="heatmap">
+    <div class="heatmap-label">آخر ٣٠ يوماً</div>
+    <div class="heatmap-grid">${cells.map(c => {
+      const ev = ev_map[c.date];
+      let cls = 'heatmap-cell';
+      let title = c.date;
+      if (ev) {
+        cls += ev.cc === 0 ? ' voice' : ' resp';
+        title += ev.cc === 0 ? ' · صوتي (غير مقروء)' : ` · ${ev.c} رسالة`;
+      }
+      if (c.isToday) cls += ' today';
+      return `<div class="${cls}" title="${title}"></div>`;
+    }).join('')}</div>
+  </div>`;
+}
+
+const grid = document.getElementById('trainee-grid');
+DATA.trainees.forEach(t => {
+  const daysSinceLast = daysDiff(t.last_resp);
+  const dotCls = daysSinceLast <= 2 ? 'tc-last-dot' : 'tc-last-dot old';
+  const lastLbl = relDate(t.last_resp);
+
+  // Vacation badge
+  let vacBadge = '';
+  let cardCls = 'trainee-card';
+  if (t.vacation) {
+    if (t.key === 'Taf2af3c0e3') {
+      // Ahmed Hikmi - upcoming vacation Aug 15
+      vacBadge = '<span class="badge badge-teal">🌴 إجازة مقبلة حتى ١٥ أغسطس</span>';
+      cardCls += ' vacation-upcoming';
+    } else {
+      // Currently on vacation
+      vacBadge = '<span class="badge badge-amber">🌴 في إجازة</span>';
+      cardCls += ' vacation-now';
+    }
+  }
+
+  // Goal text (truncate)
+  const goalTxt = t.goal ? (t.goal.length > 60 ? t.goal.slice(0,60)+'…' : t.goal) : '';
+  const goalHTML = goalTxt ? `<div class="tc-goal"><div class="tc-goal-label">الهدف الأسبوعي</div>${goalTxt}</div>` : '';
+
+  // All goals list
+  const allGoalsHTML = t.all_goals.length ? `
+    <div class="goals-list">
+      <div style="font-size:.75rem;font-weight:600;color:#64748b;margin-bottom:6px">جميع الأهداف</div>
+      ${t.all_goals.map(g=>`<div class="goal-item"><span class="goal-date">${arabicDate(g.date)}</span>${g.text}</div>`).join('')}
+    </div>` : '';
+
+  const card = document.createElement('div');
+  card.className = cardCls;
+  card.innerHTML = `
+    <div class="tc-chevron">▼</div>
+    <div class="tc-top">
+      <div>
+        <div class="tc-name">${t.label}</div>
+        ${t.kunya ? `<div class="tc-kunya">${t.kunya}</div>` : ''}
+        <div class="tc-badges">
+          ${mediumBadge(t.medium)}
+          ${vacBadge}
+        </div>
+      </div>
+    </div>
+    <div class="tc-last"><span class="${dotCls}"></span>آخر رد: ${lastLbl}</div>
+    ${buildHeatmap(t.key)}
+    ${goalHTML}
+    <div class="tc-expand">
+      <div class="expand-row"><span class="expand-key">إجمالي أيام التفاعل</span><span class="expand-val">${t.event_count} يوم</span></div>
+      <div class="expand-row"><span class="expand-key">أعلى سلسلة</span><span class="expand-val">${t.streak} يوم متتالي</span></div>
+      <div class="expand-row"><span class="expand-key">أول تواصل</span><span class="expand-val">${arabicDate(t.first_contact)}</span></div>
+      ${t.reminder ? `<div class="expand-row"><span class="expand-key">وقت التذكير</span><span class="expand-val">${t.reminder}</span></div>` : ''}
+      ${allGoalsHTML}
+    </div>
+  `;
+  card.addEventListener('click', () => card.classList.toggle('expanded'));
+  grid.appendChild(card);
+});
+</script>
+</body>
+</html>
