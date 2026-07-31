@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>إتقان – لوحة المتدربين</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f5f7;
+    --surface: #ffffff;
+    --surface2: #f0f0f5;
+    --border: #e0e0e8;
+    --text: #1a1a2e;
+    --text2: #6b6b80;
+    --text3: #9898aa;
+    --accent: #2563eb;
+    --accent-bg: #eff6ff;
+    --green: #16a34a;
+    --green-bg: #dcfce7;
+    --yellow: #ca8a04;
+    --yellow-bg: #fef9c3;
+    --red: #dc2626;
+    --red-bg: #fee2e2;
+    --blue: #2563eb;
+    --blue-bg: #dbeafe;
+    --orange: #ea580c;
+    --tab-h: 64px;
+    --header-h: 56px;
+    --radius: 14px;
+    --radius-sm: 8px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.04);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  body {
+    font-family: 'IBM Plex Arabic', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    max-width: 480px;
+    margin: 0 auto;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* ── Header ─────────────────────── */
+  .app-header {
+    position: fixed; top: 0; right: 0; left: 0;
+    max-width: 480px; margin: 0 auto;
+    height: var(--header-h);
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 18px;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .app-header h1 { font-size: 18px; font-weight: 700; color: var(--text); }
+  .app-header .badge-date {
+    font-size: 12px; color: var(--text3);
+    background: var(--surface2); border-radius: 20px;
+    padding: 3px 10px;
+  }
+
+  /* ── Main content area ────────────── */
+  .tab-content {
+    display: none;
+    padding-top: calc(var(--header-h) + 12px);
+    padding-bottom: calc(var(--tab-h) + 16px);
+    min-height: 100vh;
+  }
+  .tab-content.active { display: block; }
+
+  /* ── Bottom Tab Bar ───────────────── */
+  .tab-bar {
+    position: fixed; bottom: 0; right: 0; left: 0;
+    max-width: 480px; margin: 0 auto;
+    height: var(--tab-h);
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    display: flex; align-items: stretch;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .tab-btn {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 3px;
+    border: none; background: none; cursor: pointer;
+    color: var(--text3); transition: color 0.2s;
+    font-family: inherit; padding: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .tab-btn.active { color: var(--accent); }
+  .tab-btn .tab-icon { font-size: 20px; line-height: 1; }
+  .tab-btn .tab-label { font-size: 11px; font-weight: 500; }
+  .tab-btn::after {
+    content: ''; position: absolute; bottom: 0; width: 0; height: 2px;
+    background: var(--accent); border-radius: 2px 2px 0 0;
+    transition: width 0.2s;
+  }
+  .tab-btn.active::after { width: 32px; }
+
+  /* ── Stat Pills ───────────────────── */
+  .stats-row {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 10px; padding: 14px 14px 8px;
+  }
+  .stat-pill {
+    background: var(--surface); border-radius: var(--radius);
+    padding: 12px 10px; text-align: center;
+    box-shadow: var(--shadow);
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .stat-pill .stat-val { font-size: 22px; font-weight: 700; color: var(--accent); }
+  .stat-pill .stat-label { font-size: 10px; color: var(--text2); line-height: 1.3; }
+
+  /* ── Trainee Grid (Home) ──────────── */
+  .cards-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 10px; padding: 0 14px 14px;
+  }
+  .trainee-card {
+    background: var(--surface); border-radius: var(--radius);
+    padding: 14px; box-shadow: var(--shadow);
+    cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;
+    position: relative; overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .trainee-card:active { transform: scale(0.97); box-shadow: var(--shadow); }
+  .card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
+  .status-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
+  .dot-green { background: var(--green); box-shadow: 0 0 0 3px var(--green-bg); }
+  .dot-yellow { background: var(--yellow); box-shadow: 0 0 0 3px var(--yellow-bg); }
+  .dot-red { background: var(--red); box-shadow: 0 0 0 3px var(--red-bg); }
+  .dot-blue { background: var(--blue); box-shadow: 0 0 0 3px var(--blue-bg); }
+  .card-name { font-size: 13px; font-weight: 600; line-height: 1.3; flex: 1; padding-inline-end: 6px; }
+  .card-date { font-size: 11px; color: var(--text2); }
+  .leave-badge {
+    display: inline-block; font-size: 10px; font-weight: 600;
+    background: var(--blue-bg); color: var(--blue);
+    border-radius: 4px; padding: 1px 6px; margin-top: 6px;
+  }
+
+  /* ── Trainee List (Tab 2) ─────────── */
+  .list-section { padding: 0 14px; }
+  .list-section-title {
+    font-size: 11px; font-weight: 600; color: var(--text3);
+    text-transform: uppercase; letter-spacing: 0.05em;
+    padding: 16px 0 8px;
+  }
+  .trainee-row {
+    background: var(--surface); border-radius: var(--radius);
+    padding: 14px; margin-bottom: 8px;
+    box-shadow: var(--shadow); cursor: pointer;
+    display: flex; align-items: center; gap: 12px;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.15s;
+  }
+  .trainee-row:active { transform: scale(0.98); }
+  .row-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .row-info { flex: 1; min-width: 0; }
+  .row-name { font-size: 14px; font-weight: 600; }
+  .row-kunya { font-size: 12px; color: var(--text2); }
+  .row-goal { font-size: 11px; color: var(--text3); margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .row-meta { flex-shrink: 0; text-align: start; }
+  .row-date { font-size: 11px; color: var(--text2); }
+  .row-reminder { font-size: 10px; background: var(--accent-bg); color: var(--accent); border-radius: 4px; padding: 2px 6px; margin-top: 4px; display: inline-block; }
+
+  /* ── Bottom Sheet ─────────────────── */
+  .sheet-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.4);
+    z-index: 200; opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+    max-width: 480px; margin: 0 auto;
+  }
+  .sheet-overlay.open { opacity: 1; pointer-events: all; }
+  .bottom-sheet {
+    position: fixed; bottom: 0; right: 0; left: 0;
+    max-width: 480px; margin: 0 auto;
+    background: var(--surface);
+    border-radius: 20px 20px 0 0;
+    z-index: 201;
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+    max-height: 88vh;
+    display: flex; flex-direction: column;
+  }
+  .bottom-sheet.open { transform: translateY(0); }
+  .sheet-handle {
+    width: 36px; height: 4px; background: var(--border);
+    border-radius: 2px; margin: 12px auto 0;
+    flex-shrink: 0;
+  }
+  .sheet-header {
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .sheet-name { font-size: 20px; font-weight: 700; }
+  .sheet-kunya { font-size: 14px; color: var(--text2); margin-top: 2px; }
+  .sheet-meta-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .chip {
+    font-size: 11px; border-radius: 20px; padding: 3px 10px; font-weight: 500;
+  }
+  .chip-channel { background: var(--surface2); color: var(--text2); }
+  .chip-time { background: var(--accent-bg); color: var(--accent); }
+  .sheet-body { overflow-y: auto; padding: 16px 20px 30px; flex: 1; }
+  .sheet-section { margin-bottom: 20px; }
+  .sheet-section-title {
+    font-size: 11px; font-weight: 700; color: var(--text3);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    margin-bottom: 10px;
+  }
+  .sheet-stat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .sheet-stat {
+    background: var(--surface2); border-radius: var(--radius-sm);
+    padding: 10px 12px;
+  }
+  .sheet-stat .sv { font-size: 20px; font-weight: 700; color: var(--text); }
+  .sheet-stat .sl { font-size: 11px; color: var(--text2); margin-top: 2px; }
+  .goal-box {
+    background: var(--accent-bg); border-radius: var(--radius-sm);
+    padding: 12px 14px; border-right: 3px solid var(--accent);
+    font-size: 13px; line-height: 1.6; color: var(--text);
+    margin-bottom: 8px;
+  }
+  .goal-box .goal-date { font-size: 10px; color: var(--text3); margin-bottom: 4px; }
+  .absence-box {
+    background: var(--blue-bg); border-radius: var(--radius-sm);
+    padding: 12px 14px; border-right: 3px solid var(--blue);
+    font-size: 13px; color: var(--text);
+  }
+  .mini-calendar { display: flex; gap: 5px; margin-top: 6px; overflow-x: auto; padding-bottom: 4px; }
+  .mini-day {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 4px; min-width: 36px; flex-shrink: 0;
+  }
+  .mini-day .md-label { font-size: 9px; color: var(--text3); }
+  .mini-day .md-dot {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+  .md-dot.responded-text { background: var(--green-bg); }
+  .md-dot.responded-voice { background: var(--yellow-bg); }
+  .md-dot.responded-mixed { background: var(--accent-bg); }
+  .md-dot.no-data { background: var(--surface2); }
+  .md-dot.unread { background: #fff7ed; border: 1px solid #fed7aa; }
+  .mini-day .md-date { font-size: 9px; color: var(--text3); }
+
+  /* ── Timeline Tab ─────────────────── */
+  .timeline-header { padding: 14px; }
+  .trainee-select {
+    width: 100%; padding: 12px 14px; font-size: 14px;
+    font-family: inherit; border: 1.5px solid var(--border);
+    border-radius: var(--radius); background: var(--surface);
+    color: var(--text); appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b6b80' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left 14px center;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+  }
+  .timeline-wrap { padding: 0 14px 14px; position: relative; }
+  .timeline-wrap::before {
+    content: ''; position: absolute; right: 35px; top: 0; bottom: 0;
+    width: 2px; background: var(--border);
+  }
+  .tl-item { position: relative; padding: 0 52px 20px 0; }
+  .tl-dot {
+    position: absolute; right: 26px; top: 6px;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--surface); border: 2.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px;
+    z-index: 1;
+  }
+  .tl-dot.voice { border-color: var(--yellow); background: var(--yellow-bg); }
+  .tl-dot.text { border-color: var(--green); background: var(--green-bg); }
+  .tl-dot.mixed { border-color: var(--accent); background: var(--accent-bg); }
+  .tl-card {
+    background: var(--surface); border-radius: var(--radius-sm);
+    padding: 10px 12px; box-shadow: var(--shadow);
+  }
+  .tl-date-row { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+  .tl-date-abs { font-size: 12px; font-weight: 600; color: var(--text); }
+  .tl-date-rel { font-size: 11px; color: var(--text3); }
+  .tl-warn { font-size: 10px; color: var(--orange); cursor: help; }
+  .tl-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+  .tl-chip {
+    font-size: 11px; border-radius: 20px; padding: 2px 8px;
+    font-weight: 500;
+  }
+  .tl-chip.medium-voice { background: var(--yellow-bg); color: var(--yellow); }
+  .tl-chip.medium-text { background: var(--green-bg); color: var(--green); }
+  .tl-chip.medium-mixed { background: var(--accent-bg); color: var(--accent); }
+  .tl-chip.replies { background: var(--surface2); color: var(--text2); }
+  .tl-chip.minutes { background: #f0fdf4; color: #15803d; }
+  .tl-chip.unread { background: #fff7ed; color: var(--orange); }
+  .tl-goal-banner {
+    background: linear-gradient(135deg, var(--accent-bg), #e0f2fe);
+    border-radius: var(--radius-sm); padding: 10px 14px;
+    margin-bottom: 12px; border-right: 3px solid var(--accent);
+    font-size: 12px; color: var(--text); line-height: 1.5;
+  }
+  .tl-goal-banner .tl-goal-label { font-size: 10px; font-weight: 700; color: var(--accent); margin-bottom: 3px; }
+  .tl-absence-gap {
+    background: var(--blue-bg); border-radius: var(--radius-sm);
+    padding: 10px 14px; margin-bottom: 12px;
+    font-size: 12px; color: var(--blue);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .empty-state {
+    text-align: center; padding: 40px 20px; color: var(--text3);
+    font-size: 14px;
+  }
+
+  /* ── Animations ───────────────────── */
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .cards-grid .trainee-card, .trainee-row {
+    animation: fadeIn 0.3s ease both;
+  }
+  .cards-grid .trainee-card:nth-child(1) { animation-delay: 0.02s; }
+  .cards-grid .trainee-card:nth-child(2) { animation-delay: 0.05s; }
+  .cards-grid .trainee-card:nth-child(3) { animation-delay: 0.08s; }
+  .cards-grid .trainee-card:nth-child(4) { animation-delay: 0.11s; }
+  .cards-grid .trainee-card:nth-child(5) { animation-delay: 0.14s; }
+  .cards-grid .trainee-card:nth-child(6) { animation-delay: 0.17s; }
+  .cards-grid .trainee-card:nth-child(7) { animation-delay: 0.20s; }
+  .cards-grid .trainee-card:nth-child(8) { animation-delay: 0.23s; }
+
+  /* scrollbar styling */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<!-- App Header -->
+<header class="app-header">
+  <h1>🎯 إتقان</h1>
+  <span class="badge-date">31 يوليو 2026</span>
+</header>
+
+<!-- Tab 1: Home -->
+<div class="tab-content active" id="tab-home">
+  <div class="stats-row" id="stats-row"></div>
+  <div class="cards-grid" id="cards-grid"></div>
+</div>
+
+<!-- Tab 2: Trainees -->
+<div class="tab-content" id="tab-trainees">
+  <div class="list-section">
+    <div class="list-section-title">جميع المتدربين</div>
+    <div id="trainee-list"></div>
+  </div>
+</div>
+
+<!-- Tab 3: Timeline -->
+<div class="tab-content" id="tab-timeline">
+  <div class="timeline-header">
+    <select class="trainee-select" id="timeline-select" onchange="renderTimeline()">
+      <option value="">— اختر متدرباً —</option>
+    </select>
+  </div>
+  <div class="timeline-wrap" id="timeline-wrap"></div>
+</div>
+
+<!-- Bottom Tab Bar -->
+<nav class="tab-bar">
+  <button class="tab-btn active" id="tbtn-home" onclick="switchTab('home')">
+    <span class="tab-icon">🏠</span>
+    <span class="tab-label">الرئيسية</span>
+  </button>
+  <button class="tab-btn" id="tbtn-trainees" onclick="switchTab('trainees')">
+    <span class="tab-icon">👥</span>
+    <span class="tab-label">المتدربون</span>
+  </button>
+  <button class="tab-btn" id="tbtn-timeline" onclick="switchTab('timeline')">
+    <span class="tab-icon">📅</span>
+    <span class="tab-label">التسلسل</span>
+  </button>
+</nav>
+
+<!-- Bottom Sheet -->
+<div class="sheet-overlay" id="sheet-overlay" onclick="closeSheet()"></div>
+<div class="bottom-sheet" id="bottom-sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-header" id="sheet-header"></div>
+  <div class="sheet-body" id="sheet-body"></div>
+</div>
+
+<script>
+const DATA = {"trainees": [{"trainee_key": "T71aeb973ab", "label": "Abdullah Mutlaq (…9888)", "kunya": null, "first_contact_date": "2026-07-11", "last_response_date": "2026-07-30", "acquisition_channel": "udemy_course_referral", "vacation_form_slug": null, "reminder_time": null, "history_complete": 1, "earliest_reached": "2026-07-11", "notes": "start-of-chat encryption notice reached"}, {"trainee_key": "T1fa3872880", "label": "Hussain (…9544)", "kunya": "أبو بدر", "first_contact_date": "2026-07-11", "last_response_date": "2026-07-31", "acquisition_channel": "fee_enquiry", "vacation_form_slug": null, "reminder_time": "06:00", "history_complete": 1, "earliest_reached": "2026-07-11", "notes": "start-of-chat encryption notice reached"}, {"trainee_key": "Taf2af3c0e3", "label": "أحمد حكمي", "kunya": "أبو حميد", "first_contact_date": "2026-06-28", "last_response_date": "2026-07-24", "acquisition_channel": "english_language_community", "vacation_form_slug": "ahmed", "reminder_time": "08:00", "history_complete": 1, "earliest_reached": "2026-06-28", "notes": "start-of-chat encryption notice reached"}, {"trainee_key": "Tbc6cbe3542", "label": "حمدي الحربي أبو صالح", "kunya": "أبو صالح", "first_contact_date": "2026-07-22", "last_response_date": "2026-07-30", "acquisition_channel": null, "vacation_form_slug": null, "reminder_time": null, "history_complete": 1, "earliest_reached": "2026-07-22", "notes": "start-of-chat encryption notice reached"}, {"trainee_key": "T0a55e556f3", "label": "زيد الزهراني", "kunya": null, "first_contact_date": "2026-06-29", "last_response_date": "2026-07-30", "acquisition_channel": null, "vacation_form_slug": "generic (not personalised)", "reminder_time": null, "history_complete": 1, "earliest_reached": "2026-06-29", "notes": "start-of-chat encryption notice reached"}, {"trainee_key": "T6b87599973", "label": "عبدالرحمن المقبل", "kunya": null, "first_contact_date": "2026-06-20", "last_response_date": "2026-07-30", "acquisition_channel": "udemy_course_referral", "vacation_form_slug": null, "reminder_time": null, "history_complete": 1, "earliest_reached": "2024-02-28", "notes": "1 pre-programme message(s) exist, earliest 2024-02-28; excluded from programme stats. Programme history complete: first programme message 20/06/2026 is the trainee introducing himself. Above it sits one orphaned pre-programme message (Udemy referral, 28/02/2024) — contact predates the programme by ~16 months and older pre-programme material may exist only on the phone. No start-of-chat encryption notice and no phone banner were visible at the end of the sweep."}, {"trainee_key": "T2dd5e3572a", "label": "محمد العتيبي", "kunya": null, "first_contact_date": "2026-07-19", "last_response_date": "2026-07-30", "acquisition_channel": null, "vacation_form_slug": null, "reminder_time": null, "history_complete": 1, "earliest_reached": "2026-07-19", "notes": "start-of-chat encryption notice reached | new trainee, joined 19/07 (per Essam, 31/07)"}, {"trainee_key": "T4de3afe51b", "label": "محمد المساعد (…7250)", "kunya": null, "first_contact_date": "2026-07-10", "last_response_date": "2026-07-26", "acquisition_channel": null, "vacation_form_slug": "mohammed", "reminder_time": "06:00", "history_complete": 1, "earliest_reached": "2026-07-10", "notes": "start-of-chat encryption notice reached | on vacation (per Essam, 31/07)"}], "responses": [{"id": 57, "trainee_key": "T0a55e556f3", "calendar_date": "2026-06-29", "responded": 1, "medium": "text", "media_mix": "text x4", "content_captured": 1, "first_reply_time": "07:27", "last_reply_time": "17:15", "reply_count": 4, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3AFD1807C08EC2150B92"}, {"id": 58, "trainee_key": "T0a55e556f3", "calendar_date": "2026-06-30", "responded": 1, "medium": "text", "media_mix": "text x5", "content_captured": 1, "first_reply_time": "18:26", "last_reply_time": "18:41", "reply_count": 5, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3AC8827E6DDCB4E7FF3E"}, {"id": 59, "trainee_key": "T0a55e556f3", "calendar_date": "2026-07-01", "responded": 1, "medium": "text", "media_mix": "text x4", "content_captured": 1, "first_reply_time": "19:00", "last_reply_time": "19:01", "reply_count": 4, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A21A9D05A6EE8E86800"}, {"id": 60, "trainee_key": "T0a55e556f3", "calendar_date": "2026-07-02", "responded": 1, "medium": "text", "media_mix": "text x2", "content_captured": 1, "first_reply_time": "17:23", "last_reply_time": "19:59", "reply_count": 2, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3AACF3C3538F04099F69"}, {"id": 61, "trainee_key": "T0a55e556f3", "calendar_date": "2026-07-03", "responded": 1, "medium": "text", "media_mix": "text x2", "content_captured": 1, "first_reply_time": "14:55", "last_reply_time": "15:10", "reply_count": 2, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A14D9CE01D650145549"}, {"id": 62, "trainee_key": "T0a55e556f3", "calendar_date": "2026-07-04", "responded": 1, "medium": "text", "media_mix": "text x3", "content_captured": 1, "first_reply_time": "13:30", "last_reply_time": "17:23", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A4D0C9EE9DB4DA988DB"}, {"id": 63, "trainee_key": "T0a55e556f3", "calendar_date": "2026-07-05", "responded": 1, "medium": "text", "media_mix": "text x2", "content_captured": 1, "first_reply_time": "18:11", "last_reply_time": "18:11", "reply_count": 2, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3AB77DA43A7217BBAE99"}, {"id": 64, "trainee_key": "T0a55e556f3", "calendar_date": "2026-07-06", "responded": 1, "medium": "text", "media_mix": "text x4", "content_captured": 1, "first_reply_time": "18:43", "last_reply_time": "18:49", "reply_count": 4, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3AEDC578100A0AB01C13"}, {"id": 65, "trainee_key": "T0a55e556f3", "calendar_date": "2026-07-07", "responded": 1, "medium": "text", "media_mix": "text x2", "content_captured": 1, "first_reply_time": "17:08", "last_reply_time": "17:36", "reply_count": 2, "early_hours_replies": 0, "refers_to_prev_day": 1, "attribution_ambiguous": 1, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3AFB699781E45684B18B"}, {"id": 66, "trainee_key": "T0a55e556f3", "calendar_date": "2026-07-08", "responded": 1, "medium": "text", "media_mix": "text x5", "content_captured": 1, "first_reply_time": "17:43", "last_reply_time": "17:57", "reply_count": 5, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3AFE16561BA05D6A3870"}, {"id": 67, "trainee_key": "T0a55e556f3", "calendar_date": "2026-07-09", "responded": 1, "medium": "text", "media_mix": "text x4", "content_captured": 1, "first_reply_time": "19:59", "last_reply_time": "19:59", "reply_count": 4, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A9230DD6708DB6B69F6"}, {"id": 68, "trainee_key": "T0a55e556f3", "calendar_date": "2026-07-10", "responded": 1, "medium": "text", "media_mix": "text x4", "content_captured": 1, "first_reply_time": "17:42", "last_reply_time": "17:43", "reply_count": 4, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3AF6D26E7C5CD6383688"}, {"id": 69, "trainee_key": "T0a55e556f3", "calendar_date": "2026-07-11", "responded": 1, "medium": "text", "media_mix": "text x2", "content_captured": 1, "first_reply_time": "19:46", "last_reply_time": "19:46", "reply_count": 2, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A54A8BEBDE62C1FEE1C"}, {"id": 70, "trainee_key": "T0a55e556f3", "calendar_date": "2026-07-13", "responded": 1, "medium": "text", "media_mix": "text x2", "content_captured": 1, "first_reply_time": "00:53", "last_reply_time": "17:09", "reply_count": 2, "early_hours_replies": 1, "refers_to_prev_day": 0, "attribution_ambiguous": 1, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A07441E91FD11F58BAA"}, {"id": 71, "trainee_key": "T0a55e556f3", "calendar_date": "2026-07-24", "responded": 1, "medium": "text", "media_mix": "text x1", "content_captured": 1, "first_reply_time": "07:54", "last_reply_time": "07:54", "reply_count": 1, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3ABE81B07AA7451B6150"}, {"id": 72, "trainee_key": "T0a55e556f3", "calendar_date": "2026-07-28", "responded": 1, "medium": "text", "media_mix": "text x3", "content_captured": 1, "first_reply_time": "18:56", "last_reply_time": "18:59", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A2D840ABB8083091A6C"}, {"id": 73, "trainee_key": "T0a55e556f3", "calendar_date": "2026-07-29", "responded": 1, "medium": "text", "media_mix": "text x3", "content_captured": 1, "first_reply_time": "18:02", "last_reply_time": "18:03", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A641B705A62522F271A"}, {"id": 74, "trainee_key": "T0a55e556f3", "calendar_date": "2026-07-30", "responded": 1, "medium": "text", "media_mix": "text x7", "content_captured": 1, "first_reply_time": "18:31", "last_reply_time": "18:33", "reply_count": 7, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A8C65306A638FBC54C5"}, {"id": 36, "trainee_key": "T1fa3872880", "calendar_date": "2026-07-11", "responded": 1, "medium": "mixed", "media_mix": "text x14, image x1", "content_captured": 1, "first_reply_time": "10:23", "last_reply_time": "17:37", "reply_count": 15, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3EB07D5CEB99A18E60EA"}, {"id": 37, "trainee_key": "T1fa3872880", "calendar_date": "2026-07-12", "responded": 1, "medium": "mixed", "media_mix": "text x6, voice x3", "content_captured": 1, "first_reply_time": "05:06", "last_reply_time": "05:48", "reply_count": 9, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A9CAE5F33ECA60B800A"}, {"id": 38, "trainee_key": "T1fa3872880", "calendar_date": "2026-07-13", "responded": 1, "medium": "text", "media_mix": "text x4", "content_captured": 1, "first_reply_time": "05:05", "last_reply_time": "05:28", "reply_count": 4, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A9E7CF8B1F9CD0B2707"}, {"id": 39, "trainee_key": "T1fa3872880", "calendar_date": "2026-07-14", "responded": 1, "medium": "text", "media_mix": "text x3", "content_captured": 1, "first_reply_time": "05:12", "last_reply_time": "05:43", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3AB72FA012DCB466F6EE"}, {"id": 40, "trainee_key": "T1fa3872880", "calendar_date": "2026-07-15", "responded": 1, "medium": "mixed", "media_mix": "text x3, voice x1", "content_captured": 1, "first_reply_time": "05:08", "last_reply_time": "06:00", "reply_count": 4, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A48F0B99B43AC92F91B"}, {"id": 41, "trainee_key": "T1fa3872880", "calendar_date": "2026-07-16", "responded": 1, "medium": "mixed", "media_mix": "text x8, voice x5", "content_captured": 1, "first_reply_time": "05:04", "last_reply_time": "20:39", "reply_count": 13, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A99457639AC6E983F3A"}, {"id": 42, "trainee_key": "T1fa3872880", "calendar_date": "2026-07-17", "responded": 1, "medium": "text", "media_mix": "text x2", "content_captured": 1, "first_reply_time": "05:12", "last_reply_time": "05:28", "reply_count": 2, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3AEE359728434BA535C0"}, {"id": 43, "trainee_key": "T1fa3872880", "calendar_date": "2026-07-18", "responded": 1, "medium": "mixed", "media_mix": "text x9, voice x5, image x1", "content_captured": 1, "first_reply_time": "05:29", "last_reply_time": "23:31", "reply_count": 15, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A904C1290FFDBD42353"}, {"id": 44, "trainee_key": "T1fa3872880", "calendar_date": "2026-07-19", "responded": 1, "medium": "mixed", "media_mix": "text x7, voice x1", "content_captured": 1, "first_reply_time": "18:01", "last_reply_time": "19:17", "reply_count": 8, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A2A7A8AC01889AC8B98"}, {"id": 45, "trainee_key": "T1fa3872880", "calendar_date": "2026-07-20", "responded": 1, "medium": "mixed", "media_mix": "voice x1, text x1", "content_captured": 0, "first_reply_time": "18:10", "last_reply_time": "22:01", "reply_count": 2, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "medium", "source_message_id": "3AFBA104297B20FB4B57"}, {"id": 46, "trainee_key": "T1fa3872880", "calendar_date": "2026-07-21", "responded": 1, "medium": "mixed", "media_mix": "text x5, voice x2", "content_captured": 1, "first_reply_time": "06:54", "last_reply_time": "18:41", "reply_count": 7, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A59208F9AB5477DE76F"}, {"id": 47, "trainee_key": "T1fa3872880", "calendar_date": "2026-07-22", "responded": 1, "medium": "text", "media_mix": "text x1", "content_captured": 1, "first_reply_time": "18:33", "last_reply_time": "18:33", "reply_count": 1, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3AE2F9F94C5A36DB1BED"}, {"id": 48, "trainee_key": "T1fa3872880", "calendar_date": "2026-07-23", "responded": 1, "medium": "mixed", "media_mix": "text x7, voice x4", "content_captured": 1, "first_reply_time": "07:47", "last_reply_time": "18:34", "reply_count": 11, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3AAF62B66E7B35421F16"}, {"id": 49, "trainee_key": "T1fa3872880", "calendar_date": "2026-07-24", "responded": 1, "medium": "mixed", "media_mix": "text x9, voice x1", "content_captured": 1, "first_reply_time": "06:22", "last_reply_time": "20:56", "reply_count": 10, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3AB6E5CE261B0A341313"}, {"id": 50, "trainee_key": "T1fa3872880", "calendar_date": "2026-07-25", "responded": 1, "medium": "mixed", "media_mix": "text x2, voice x1", "content_captured": 1, "first_reply_time": "05:20", "last_reply_time": "18:18", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3AB220517BE39335ADE4"}, {"id": 51, "trainee_key": "T1fa3872880", "calendar_date": "2026-07-26", "responded": 1, "medium": "mixed", "media_mix": "text x1, voice x1", "content_captured": 1, "first_reply_time": "18:16", "last_reply_time": "22:32", "reply_count": 2, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A18F35DAEACABB4AC3B"}, {"id": 52, "trainee_key": "T1fa3872880", "calendar_date": "2026-07-27", "responded": 1, "medium": "text", "media_mix": "text x2", "content_captured": 0, "first_reply_time": "21:52", "last_reply_time": "21:53", "reply_count": 2, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "medium", "source_message_id": "3AF132C2B31C71BF13F9"}, {"id": 53, "trainee_key": "T1fa3872880", "calendar_date": "2026-07-28", "responded": 1, "medium": "mixed", "media_mix": "text x4, voice x1", "content_captured": 0, "first_reply_time": "05:12", "last_reply_time": "20:39", "reply_count": 5, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A5CF5C90DEEC8D709E7"}, {"id": 54, "trainee_key": "T1fa3872880", "calendar_date": "2026-07-29", "responded": 1, "medium": "text", "media_mix": "text x3", "content_captured": 1, "first_reply_time": "05:31", "last_reply_time": "18:02", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3AF8758B1BF57D155497"}, {"id": 55, "trainee_key": "T1fa3872880", "calendar_date": "2026-07-30", "responded": 1, "medium": "text", "media_mix": "text x6", "content_captured": 1, "first_reply_time": "07:01", "last_reply_time": "19:26", "reply_count": 6, "early_hours_replies": 0, "refers_to_prev_day": 1, "attribution_ambiguous": 1, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A44FF7B63D03144926C"}, {"id": 56, "trainee_key": "T1fa3872880", "calendar_date": "2026-07-31", "responded": 1, "medium": "mixed", "media_mix": "text x7, voice x3", "content_captured": 1, "first_reply_time": "08:45", "last_reply_time": "08:55", "reply_count": 10, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A56CF53FB316039EA02"}, {"id": 20, "trainee_key": "T2dd5e3572a", "calendar_date": "2026-07-19", "responded": 1, "medium": "text", "media_mix": "text x3", "content_captured": 1, "first_reply_time": "13:37", "last_reply_time": "21:00", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3EB0161C0238E7C4B3F8"}, {"id": 21, "trainee_key": "T2dd5e3572a", "calendar_date": "2026-07-20", "responded": 1, "medium": "text", "media_mix": "text x1", "content_captured": 1, "first_reply_time": "20:19", "last_reply_time": "20:19", "reply_count": 1, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "AC6C7B3F0A8EDE1A6F163EE6C3A6642B"}, {"id": 22, "trainee_key": "T2dd5e3572a", "calendar_date": "2026-07-25", "responded": 1, "medium": "text", "media_mix": "text x3", "content_captured": 1, "first_reply_time": "00:49", "last_reply_time": "22:42", "reply_count": 3, "early_hours_replies": 1, "refers_to_prev_day": 0, "attribution_ambiguous": 1, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "AC3736BC8848F0A48A8F2CB41220FD91"}, {"id": 23, "trainee_key": "T2dd5e3572a", "calendar_date": "2026-07-26", "responded": 1, "medium": "text", "media_mix": "text x2", "content_captured": 1, "first_reply_time": "07:23", "last_reply_time": "07:30", "reply_count": 2, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "AC2C543F419CFBCB37B9DFA9F1507E2E"}, {"id": 24, "trainee_key": "T2dd5e3572a", "calendar_date": "2026-07-27", "responded": 1, "medium": "mixed", "media_mix": "voice x2, text x1", "content_captured": 0, "first_reply_time": "07:43", "last_reply_time": "07:53", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "AC17C36193396D0C98272932BE55371C"}, {"id": 25, "trainee_key": "T2dd5e3572a", "calendar_date": "2026-07-28", "responded": 1, "medium": "text", "media_mix": "text x1", "content_captured": 1, "first_reply_time": "01:57", "last_reply_time": "01:57", "reply_count": 1, "early_hours_replies": 1, "refers_to_prev_day": 1, "attribution_ambiguous": 1, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "AC17EBBF49B7945DBE1A5CCBBF711C4F"}, {"id": 26, "trainee_key": "T2dd5e3572a", "calendar_date": "2026-07-29", "responded": 1, "medium": "text", "media_mix": "text x3", "content_captured": 1, "first_reply_time": "11:15", "last_reply_time": "16:42", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "AC8F329FA4A06B89E427C418C15AC414"}, {"id": 27, "trainee_key": "T2dd5e3572a", "calendar_date": "2026-07-30", "responded": 1, "medium": "text", "media_mix": "text x1", "content_captured": 1, "first_reply_time": "20:15", "last_reply_time": "20:15", "reply_count": 1, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "ACBA9CE3F8E7D5D42111F07998C1B10E"}, {"id": 116, "trainee_key": "T4de3afe51b", "calendar_date": "2026-07-10", "responded": 1, "medium": "text", "media_mix": "text x7", "content_captured": 1, "first_reply_time": "18:27", "last_reply_time": "20:02", "reply_count": 7, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3EB0900006B8CEC024F3"}, {"id": 117, "trainee_key": "T4de3afe51b", "calendar_date": "2026-07-11", "responded": 1, "medium": "text", "media_mix": "text x3", "content_captured": 1, "first_reply_time": "11:16", "last_reply_time": "11:40", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 1, "attribution_ambiguous": 1, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3AA59B562161AD82B829"}, {"id": 118, "trainee_key": "T4de3afe51b", "calendar_date": "2026-07-12", "responded": 1, "medium": "text", "media_mix": "text x2", "content_captured": 1, "first_reply_time": "08:03", "last_reply_time": "09:05", "reply_count": 2, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A136AF48090399D14ED"}, {"id": 119, "trainee_key": "T4de3afe51b", "calendar_date": "2026-07-13", "responded": 1, "medium": "text", "media_mix": "text x4", "content_captured": 1, "first_reply_time": "10:59", "last_reply_time": "14:42", "reply_count": 4, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A390A41407F8722A08F"}, {"id": 120, "trainee_key": "T4de3afe51b", "calendar_date": "2026-07-14", "responded": 1, "medium": "text", "media_mix": "text x1", "content_captured": 1, "first_reply_time": "11:01", "last_reply_time": "11:01", "reply_count": 1, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A44C8203347F606481E"}, {"id": 121, "trainee_key": "T4de3afe51b", "calendar_date": "2026-07-16", "responded": 1, "medium": "text", "media_mix": "text x5", "content_captured": 1, "first_reply_time": "10:53", "last_reply_time": "11:05", "reply_count": 5, "early_hours_replies": 0, "refers_to_prev_day": 1, "attribution_ambiguous": 1, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A58467116FD68EE0F69"}, {"id": 122, "trainee_key": "T4de3afe51b", "calendar_date": "2026-07-19", "responded": 1, "medium": "text", "media_mix": "text x1", "content_captured": 1, "first_reply_time": "11:13", "last_reply_time": "11:13", "reply_count": 1, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A435F739F1BC7343109"}, {"id": 123, "trainee_key": "T4de3afe51b", "calendar_date": "2026-07-20", "responded": 1, "medium": "text", "media_mix": "text x2", "content_captured": 1, "first_reply_time": "19:46", "last_reply_time": "19:48", "reply_count": 2, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A94B5B1EB73FC0C71B9"}, {"id": 124, "trainee_key": "T4de3afe51b", "calendar_date": "2026-07-21", "responded": 1, "medium": "text", "media_mix": "text x1", "content_captured": 1, "first_reply_time": "19:31", "last_reply_time": "19:31", "reply_count": 1, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A9B5EFFB4052355D37E"}, {"id": 125, "trainee_key": "T4de3afe51b", "calendar_date": "2026-07-26", "responded": 1, "medium": "text", "media_mix": "text x2", "content_captured": 1, "first_reply_time": "14:35", "last_reply_time": "14:36", "reply_count": 2, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3C6B175798F3CE8EDFE4"}, {"id": 75, "trainee_key": "T6b87599973", "calendar_date": "2026-06-20", "responded": 1, "medium": "mixed", "media_mix": "text x10, image x1, voice x1", "content_captured": 1, "first_reply_time": "17:40", "last_reply_time": "18:26", "reply_count": 12, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A77CD5E0C2D23F3FC43"}, {"id": 76, "trainee_key": "T6b87599973", "calendar_date": "2026-06-21", "responded": 1, "medium": "text", "media_mix": "text x6", "content_captured": 1, "first_reply_time": "12:40", "last_reply_time": "15:04", "reply_count": 6, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A734279288B7EEBB884"}, {"id": 77, "trainee_key": "T6b87599973", "calendar_date": "2026-06-22", "responded": 1, "medium": "mixed", "media_mix": "text x9, image x1", "content_captured": 1, "first_reply_time": "13:16", "last_reply_time": "14:22", "reply_count": 10, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A59911A7B25961B8C36"}, {"id": 78, "trainee_key": "T6b87599973", "calendar_date": "2026-06-23", "responded": 1, "medium": "text", "media_mix": "text x11", "content_captured": 1, "first_reply_time": "14:08", "last_reply_time": "14:30", "reply_count": 11, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3AC3FB4AF4919C89E817"}, {"id": 79, "trainee_key": "T6b87599973", "calendar_date": "2026-06-24", "responded": 1, "medium": "text", "media_mix": "text x5", "content_captured": 1, "first_reply_time": "13:10", "last_reply_time": "13:23", "reply_count": 5, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A74A63DFF876B589EC6"}, {"id": 80, "trainee_key": "T6b87599973", "calendar_date": "2026-06-25", "responded": 1, "medium": "text", "media_mix": "text x6", "content_captured": 1, "first_reply_time": "13:04", "last_reply_time": "13:05", "reply_count": 6, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A0AD4A31EC89D843D9D"}, {"id": 81, "trainee_key": "T6b87599973", "calendar_date": "2026-06-26", "responded": 1, "medium": "text", "media_mix": "text x11", "content_captured": 1, "first_reply_time": "13:36", "last_reply_time": "19:45", "reply_count": 11, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A8B5965D56213E7AFB8"}, {"id": 82, "trainee_key": "T6b87599973", "calendar_date": "2026-06-27", "responded": 1, "medium": "text", "media_mix": "text x6", "content_captured": 1, "first_reply_time": "15:02", "last_reply_time": "15:06", "reply_count": 6, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A6717EEC7A7C9A9E013"}, {"id": 83, "trainee_key": "T6b87599973", "calendar_date": "2026-06-28", "responded": 1, "medium": "text", "media_mix": "text x9", "content_captured": 1, "first_reply_time": "13:01", "last_reply_time": "19:05", "reply_count": 9, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A6903264EC2CB961964"}, {"id": 84, "trainee_key": "T6b87599973", "calendar_date": "2026-06-29", "responded": 1, "medium": "text", "media_mix": "text x8", "content_captured": 1, "first_reply_time": "13:04", "last_reply_time": "14:22", "reply_count": 8, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A38DC01C3CF0154C004"}, {"id": 85, "trainee_key": "T6b87599973", "calendar_date": "2026-06-30", "responded": 1, "medium": "text", "media_mix": "text x3", "content_captured": 1, "first_reply_time": "15:01", "last_reply_time": "15:08", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A1A280B741EB701B8FD"}, {"id": 86, "trainee_key": "T6b87599973", "calendar_date": "2026-07-01", "responded": 1, "medium": "text", "media_mix": "text x11", "content_captured": 1, "first_reply_time": "13:14", "last_reply_time": "13:23", "reply_count": 11, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3AE60549C0AF2871B165"}, {"id": 87, "trainee_key": "T6b87599973", "calendar_date": "2026-07-02", "responded": 1, "medium": "text", "media_mix": "text x4", "content_captured": 1, "first_reply_time": "17:09", "last_reply_time": "17:10", "reply_count": 4, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A7BBAA453C349B8D410"}, {"id": 88, "trainee_key": "T6b87599973", "calendar_date": "2026-07-03", "responded": 1, "medium": "mixed", "media_mix": "text x6, image x1", "content_captured": 1, "first_reply_time": "14:24", "last_reply_time": "16:30", "reply_count": 7, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3AC354B56802F0ACEBAA"}, {"id": 89, "trainee_key": "T6b87599973", "calendar_date": "2026-07-04", "responded": 1, "medium": "mixed", "media_mix": "text x2, image x1", "content_captured": 1, "first_reply_time": "15:50", "last_reply_time": "15:52", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A2B48DCB03E1BC89B1A"}, {"id": 90, "trainee_key": "T6b87599973", "calendar_date": "2026-07-05", "responded": 1, "medium": "text", "media_mix": "text x4", "content_captured": 1, "first_reply_time": "15:54", "last_reply_time": "15:59", "reply_count": 4, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A1497E37862AC3DBFF0"}, {"id": 91, "trainee_key": "T6b87599973", "calendar_date": "2026-07-06", "responded": 1, "medium": "text", "media_mix": "text x6", "content_captured": 1, "first_reply_time": "15:03", "last_reply_time": "17:22", "reply_count": 6, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3EB03A4ED5FD8C606A88D6"}, {"id": 92, "trainee_key": "T6b87599973", "calendar_date": "2026-07-07", "responded": 1, "medium": "text", "media_mix": "text x9", "content_captured": 1, "first_reply_time": "13:01", "last_reply_time": "15:01", "reply_count": 9, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3AFFB9A702D2247345E7"}, {"id": 93, "trainee_key": "T6b87599973", "calendar_date": "2026-07-08", "responded": 1, "medium": "text", "media_mix": "text x3", "content_captured": 1, "first_reply_time": "16:17", "last_reply_time": "16:17", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3AD3B30941EDF5F9A1B0"}, {"id": 94, "trainee_key": "T6b87599973", "calendar_date": "2026-07-09", "responded": 1, "medium": "text", "media_mix": "text x6", "content_captured": 1, "first_reply_time": "13:16", "last_reply_time": "13:18", "reply_count": 6, "early_hours_replies": 0, "refers_to_prev_day": 1, "attribution_ambiguous": 1, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3AA4E09CB6AFAF793C4A"}, {"id": 95, "trainee_key": "T6b87599973", "calendar_date": "2026-07-10", "responded": 1, "medium": "text", "media_mix": "text x9", "content_captured": 1, "first_reply_time": "17:03", "last_reply_time": "17:54", "reply_count": 9, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A9B6C3EE46764893780"}, {"id": 96, "trainee_key": "T6b87599973", "calendar_date": "2026-07-11", "responded": 1, "medium": "text", "media_mix": "text x2", "content_captured": 1, "first_reply_time": "16:41", "last_reply_time": "16:41", "reply_count": 2, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3AB3B2D746863F81CD2C"}, {"id": 97, "trainee_key": "T6b87599973", "calendar_date": "2026-07-12", "responded": 1, "medium": "text", "media_mix": "text x3", "content_captured": 1, "first_reply_time": "13:01", "last_reply_time": "14:25", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A9E0834D58B55469F90"}, {"id": 98, "trainee_key": "T6b87599973", "calendar_date": "2026-07-13", "responded": 1, "medium": "text", "media_mix": "text x3", "content_captured": 1, "first_reply_time": "13:17", "last_reply_time": "14:37", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3ADE216CFDD48279B9CA"}, {"id": 99, "trainee_key": "T6b87599973", "calendar_date": "2026-07-14", "responded": 1, "medium": "text", "media_mix": "text x3", "content_captured": 1, "first_reply_time": "15:03", "last_reply_time": "16:26", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 1, "attribution_ambiguous": 1, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3AE292F49C8DDD8A792E"}, {"id": 100, "trainee_key": "T6b87599973", "calendar_date": "2026-07-15", "responded": 1, "medium": "text", "media_mix": "text x3", "content_captured": 1, "first_reply_time": "13:01", "last_reply_time": "14:28", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A04F8F40D4B17E49259"}, {"id": 101, "trainee_key": "T6b87599973", "calendar_date": "2026-07-16", "responded": 1, "medium": "text", "media_mix": "text x2", "content_captured": 1, "first_reply_time": "13:01", "last_reply_time": "15:13", "reply_count": 2, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A98B0C0E08F4F34239C"}, {"id": 102, "trainee_key": "T6b87599973", "calendar_date": "2026-07-17", "responded": 1, "medium": "text", "media_mix": "text x2", "content_captured": 1, "first_reply_time": "16:10", "last_reply_time": "16:59", "reply_count": 2, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A6EA493B8A781B6C174"}, {"id": 103, "trainee_key": "T6b87599973", "calendar_date": "2026-07-18", "responded": 1, "medium": "mixed", "media_mix": "text x20, image x3", "content_captured": 1, "first_reply_time": "17:02", "last_reply_time": "19:52", "reply_count": 23, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A7F5A2343C77AAA2D79"}, {"id": 104, "trainee_key": "T6b87599973", "calendar_date": "2026-07-19", "responded": 1, "medium": "text", "media_mix": "text x4", "content_captured": 1, "first_reply_time": "13:06", "last_reply_time": "16:04", "reply_count": 4, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A29F354D05B0D54D412"}, {"id": 105, "trainee_key": "T6b87599973", "calendar_date": "2026-07-20", "responded": 1, "medium": "mixed", "media_mix": "text x9, gif x1", "content_captured": 1, "first_reply_time": "13:03", "last_reply_time": "15:03", "reply_count": 10, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A98FB1BD84807AA46D5"}, {"id": 106, "trainee_key": "T6b87599973", "calendar_date": "2026-07-21", "responded": 1, "medium": "text", "media_mix": "text x4", "content_captured": 1, "first_reply_time": "13:01", "last_reply_time": "15:38", "reply_count": 4, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A66544D044865D8FEBA"}, {"id": 107, "trainee_key": "T6b87599973", "calendar_date": "2026-07-22", "responded": 1, "medium": "text", "media_mix": "text x3", "content_captured": 1, "first_reply_time": "13:03", "last_reply_time": "14:12", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3AD1F33599DA1476571B"}, {"id": 108, "trainee_key": "T6b87599973", "calendar_date": "2026-07-23", "responded": 1, "medium": "text", "media_mix": "text x2", "content_captured": 1, "first_reply_time": "14:26", "last_reply_time": "15:14", "reply_count": 2, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A5F5D4CA74B5C906316"}, {"id": 109, "trainee_key": "T6b87599973", "calendar_date": "2026-07-24", "responded": 1, "medium": "text", "media_mix": "text x3", "content_captured": 1, "first_reply_time": "16:33", "last_reply_time": "17:42", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3AB33CE7E9BB9D9E42E1"}, {"id": 110, "trainee_key": "T6b87599973", "calendar_date": "2026-07-25", "responded": 1, "medium": "text", "media_mix": "text x2", "content_captured": 1, "first_reply_time": "15:35", "last_reply_time": "15:38", "reply_count": 2, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A73A6D67AA4C0528CF8"}, {"id": 111, "trainee_key": "T6b87599973", "calendar_date": "2026-07-26", "responded": 1, "medium": "text", "media_mix": "text x3", "content_captured": 1, "first_reply_time": "13:13", "last_reply_time": "15:07", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3ADA51BF575108B64685"}, {"id": 112, "trainee_key": "T6b87599973", "calendar_date": "2026-07-27", "responded": 1, "medium": "text", "media_mix": "text x4", "content_captured": 1, "first_reply_time": "14:08", "last_reply_time": "17:16", "reply_count": 4, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A3AE5CD81D66761B163"}, {"id": 113, "trainee_key": "T6b87599973", "calendar_date": "2026-07-28", "responded": 1, "medium": "text", "media_mix": "text x1", "content_captured": 1, "first_reply_time": "15:26", "last_reply_time": "15:26", "reply_count": 1, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A3EFB74BFF288D9861A"}, {"id": 114, "trainee_key": "T6b87599973", "calendar_date": "2026-07-29", "responded": 1, "medium": "text", "media_mix": "text x3", "content_captured": 1, "first_reply_time": "14:37", "last_reply_time": "17:18", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A19AF93A7670838A8A8"}, {"id": 115, "trainee_key": "T6b87599973", "calendar_date": "2026-07-30", "responded": 1, "medium": "text", "media_mix": "text x3", "content_captured": 1, "first_reply_time": "13:48", "last_reply_time": "17:01", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A56F586C795DD8A53F9"}, {"id": 1, "trainee_key": "T71aeb973ab", "calendar_date": "2026-07-11", "responded": 1, "medium": "text", "media_mix": "text x21", "content_captured": 1, "first_reply_time": "12:47", "last_reply_time": "14:26", "reply_count": 21, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3EB0914DC72C7EF6F4B4"}, {"id": 2, "trainee_key": "T71aeb973ab", "calendar_date": "2026-07-12", "responded": 1, "medium": "text", "media_mix": "text x2", "content_captured": 1, "first_reply_time": "09:08", "last_reply_time": "09:08", "reply_count": 2, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A5F302D8FDA25591889"}, {"id": 3, "trainee_key": "T71aeb973ab", "calendar_date": "2026-07-13", "responded": 1, "medium": "mixed", "media_mix": "text x3, voice x1", "content_captured": 1, "first_reply_time": "08:34", "last_reply_time": "08:48", "reply_count": 4, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A5D5D14ED237146DBAF"}, {"id": 4, "trainee_key": "T71aeb973ab", "calendar_date": "2026-07-14", "responded": 1, "medium": "text", "media_mix": "text x9", "content_captured": 1, "first_reply_time": "08:24", "last_reply_time": "14:15", "reply_count": 9, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A58B7672C20F1E44243"}, {"id": 5, "trainee_key": "T71aeb973ab", "calendar_date": "2026-07-15", "responded": 1, "medium": "text", "media_mix": "text x7", "content_captured": 1, "first_reply_time": "08:33", "last_reply_time": "08:58", "reply_count": 7, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A458FFC6976B7F04683"}, {"id": 6, "trainee_key": "T71aeb973ab", "calendar_date": "2026-07-16", "responded": 1, "medium": "text", "media_mix": "text x6", "content_captured": 1, "first_reply_time": "09:12", "last_reply_time": "10:18", "reply_count": 6, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A15C2C9B929871E1DA3"}, {"id": 7, "trainee_key": "T71aeb973ab", "calendar_date": "2026-07-17", "responded": 1, "medium": "text", "media_mix": "text x1", "content_captured": 1, "first_reply_time": "11:10", "last_reply_time": "11:10", "reply_count": 1, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A7DFC4C3358F315B836"}, {"id": 8, "trainee_key": "T71aeb973ab", "calendar_date": "2026-07-18", "responded": 1, "medium": "mixed", "media_mix": "text x14, image x5, voice x5", "content_captured": 1, "first_reply_time": "10:24", "last_reply_time": "13:56", "reply_count": 24, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A51E4CCD9FECC440F40"}, {"id": 9, "trainee_key": "T71aeb973ab", "calendar_date": "2026-07-19", "responded": 1, "medium": "text", "media_mix": "text x1", "content_captured": 1, "first_reply_time": "10:51", "last_reply_time": "10:51", "reply_count": 1, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A874312C11EF6CE329D"}, {"id": 10, "trainee_key": "T71aeb973ab", "calendar_date": "2026-07-20", "responded": 1, "medium": "text", "media_mix": "text x5", "content_captured": 1, "first_reply_time": "12:13", "last_reply_time": "12:43", "reply_count": 5, "early_hours_replies": 0, "refers_to_prev_day": 1, "attribution_ambiguous": 1, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A6A4A2532B72CB1CCEF"}, {"id": 11, "trainee_key": "T71aeb973ab", "calendar_date": "2026-07-21", "responded": 1, "medium": "mixed", "media_mix": "voice x1, image x1", "content_captured": 0, "first_reply_time": "18:02", "last_reply_time": "18:29", "reply_count": 2, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "medium", "source_message_id": "3A1AD45552B671546F46"}, {"id": 12, "trainee_key": "T71aeb973ab", "calendar_date": "2026-07-22", "responded": 1, "medium": "mixed", "media_mix": "text x8, voice x4, image x2", "content_captured": 1, "first_reply_time": "13:38", "last_reply_time": "14:35", "reply_count": 14, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A6352BC9E7ED7E3FF4F"}, {"id": 13, "trainee_key": "T71aeb973ab", "calendar_date": "2026-07-23", "responded": 1, "medium": "mixed", "media_mix": "image x1, text x1", "content_captured": 1, "first_reply_time": "21:19", "last_reply_time": "21:19", "reply_count": 2, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A0BEE8A4013C2E3424A"}, {"id": 14, "trainee_key": "T71aeb973ab", "calendar_date": "2026-07-24", "responded": 1, "medium": "text", "media_mix": "text x2", "content_captured": 0, "first_reply_time": "08:03", "last_reply_time": "08:03", "reply_count": 2, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "ACFB1A7471B003844D7804DDC184B5D6"}, {"id": 15, "trainee_key": "T71aeb973ab", "calendar_date": "2026-07-25", "responded": 1, "medium": "text", "media_mix": "text x7", "content_captured": 0, "first_reply_time": "07:27", "last_reply_time": "17:24", "reply_count": 7, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "AC2A44DFFA3EC9EDF808B5FBD35F796C"}, {"id": 16, "trainee_key": "T71aeb973ab", "calendar_date": "2026-07-27", "responded": 1, "medium": "text", "media_mix": "text x6", "content_captured": 0, "first_reply_time": "06:27", "last_reply_time": "14:52", "reply_count": 6, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3EB027F327267CA04CD70B"}, {"id": 17, "trainee_key": "T71aeb973ab", "calendar_date": "2026-07-28", "responded": 1, "medium": "text", "media_mix": "text x13", "content_captured": 0, "first_reply_time": "14:59", "last_reply_time": "18:56", "reply_count": 13, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "AC4348872BB6030501F808AB777F666E"}, {"id": 18, "trainee_key": "T71aeb973ab", "calendar_date": "2026-07-29", "responded": 1, "medium": "mixed", "media_mix": "text x18, image x1", "content_captured": 1, "first_reply_time": "08:25", "last_reply_time": "19:08", "reply_count": 19, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "AC814C63BA11AA647BE2258EC81398ED"}, {"id": 19, "trainee_key": "T71aeb973ab", "calendar_date": "2026-07-30", "responded": 1, "medium": "mixed", "media_mix": "text x6, image x1, voice x1", "content_captured": 1, "first_reply_time": "14:40", "last_reply_time": "19:57", "reply_count": 8, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A2883205AC6FD732126"}, {"id": 126, "trainee_key": "Taf2af3c0e3", "calendar_date": "2026-06-28", "responded": 1, "medium": "text", "media_mix": "text x5", "content_captured": 1, "first_reply_time": "18:17", "last_reply_time": "20:27", "reply_count": 5, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A4AFE0A9758E55E3A0E"}, {"id": 127, "trainee_key": "Taf2af3c0e3", "calendar_date": "2026-06-29", "responded": 1, "medium": "text", "media_mix": "text x3", "content_captured": 1, "first_reply_time": "20:00", "last_reply_time": "20:02", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A9EFBA5BB14C2A1AF7A"}, {"id": 128, "trainee_key": "Taf2af3c0e3", "calendar_date": "2026-07-01", "responded": 1, "medium": "mixed", "media_mix": "text x6, voice x1", "content_captured": 1, "first_reply_time": "11:38", "last_reply_time": "19:37", "reply_count": 7, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3ABA81E10707D49E2C39"}, {"id": 129, "trainee_key": "Taf2af3c0e3", "calendar_date": "2026-07-03", "responded": 1, "medium": "text", "media_mix": "text x4", "content_captured": 1, "first_reply_time": "17:35", "last_reply_time": "19:15", "reply_count": 4, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3AC1BD1301250DE43A1C"}, {"id": 130, "trainee_key": "Taf2af3c0e3", "calendar_date": "2026-07-04", "responded": 1, "medium": "text", "media_mix": "text x3", "content_captured": 1, "first_reply_time": "08:24", "last_reply_time": "13:17", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 1, "attribution_ambiguous": 1, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A2AAD5C6931F39FD47B"}, {"id": 131, "trainee_key": "Taf2af3c0e3", "calendar_date": "2026-07-05", "responded": 1, "medium": "mixed", "media_mix": "text x2, voice x1", "content_captured": 1, "first_reply_time": "08:20", "last_reply_time": "19:57", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A0805EFB52309F62341"}, {"id": 132, "trainee_key": "Taf2af3c0e3", "calendar_date": "2026-07-06", "responded": 1, "medium": "mixed", "media_mix": "voice x3, text x2", "content_captured": 1, "first_reply_time": "19:02", "last_reply_time": "19:04", "reply_count": 5, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3EB0148967AD17151A83C3"}, {"id": 133, "trainee_key": "Taf2af3c0e3", "calendar_date": "2026-07-07", "responded": 1, "medium": "mixed", "media_mix": "text x1, voice x1", "content_captured": 1, "first_reply_time": "08:21", "last_reply_time": "19:25", "reply_count": 2, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3ABD9AA79083E33AA8AA"}, {"id": 134, "trainee_key": "Taf2af3c0e3", "calendar_date": "2026-07-08", "responded": 1, "medium": "text", "media_mix": "text x5", "content_captured": 1, "first_reply_time": "08:22", "last_reply_time": "20:00", "reply_count": 5, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A593E438813BFAA7CC8"}, {"id": 135, "trainee_key": "Taf2af3c0e3", "calendar_date": "2026-07-09", "responded": 1, "medium": "text", "media_mix": "text x8", "content_captured": 1, "first_reply_time": "19:05", "last_reply_time": "20:22", "reply_count": 8, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A1DB04B678E652127F3"}, {"id": 136, "trainee_key": "Taf2af3c0e3", "calendar_date": "2026-07-10", "responded": 1, "medium": "mixed", "media_mix": "text x10, voice x1", "content_captured": 1, "first_reply_time": "16:51", "last_reply_time": "19:21", "reply_count": 11, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A07449CE190D89FFDDE"}, {"id": 137, "trainee_key": "Taf2af3c0e3", "calendar_date": "2026-07-11", "responded": 1, "medium": "text", "media_mix": "text x7", "content_captured": 1, "first_reply_time": "11:48", "last_reply_time": "19:25", "reply_count": 7, "early_hours_replies": 0, "refers_to_prev_day": 1, "attribution_ambiguous": 1, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3ABC8DCF8F54B550D651"}, {"id": 138, "trainee_key": "Taf2af3c0e3", "calendar_date": "2026-07-12", "responded": 1, "medium": "mixed", "media_mix": "text x1, voice x1", "content_captured": 1, "first_reply_time": "08:13", "last_reply_time": "20:11", "reply_count": 2, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3AF1BA4C477A4322A8B0"}, {"id": 139, "trainee_key": "Taf2af3c0e3", "calendar_date": "2026-07-13", "responded": 1, "medium": "mixed", "media_mix": "voice x4, text x2, image x1", "content_captured": 1, "first_reply_time": "17:58", "last_reply_time": "19:39", "reply_count": 7, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3AB02EF360217F16AC8C"}, {"id": 140, "trainee_key": "Taf2af3c0e3", "calendar_date": "2026-07-14", "responded": 1, "medium": "voice", "media_mix": "voice x1", "content_captured": 0, "first_reply_time": "08:16", "last_reply_time": "08:16", "reply_count": 1, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A88359A4AE5F44528F7"}, {"id": 141, "trainee_key": "Taf2af3c0e3", "calendar_date": "2026-07-15", "responded": 1, "medium": "mixed", "media_mix": "text x4, voice x3", "content_captured": 1, "first_reply_time": "03:04", "last_reply_time": "08:03", "reply_count": 7, "early_hours_replies": 5, "refers_to_prev_day": 0, "attribution_ambiguous": 1, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3ABDC61F43ACEAAF4AD4"}, {"id": 142, "trainee_key": "Taf2af3c0e3", "calendar_date": "2026-07-16", "responded": 1, "medium": "voice", "media_mix": "voice x1", "content_captured": 0, "first_reply_time": "17:27", "last_reply_time": "17:27", "reply_count": 1, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "medium", "source_message_id": "3A52920C8CB03C5444E2"}, {"id": 143, "trainee_key": "Taf2af3c0e3", "calendar_date": "2026-07-17", "responded": 1, "medium": "text", "media_mix": "text x2", "content_captured": 1, "first_reply_time": "16:06", "last_reply_time": "16:30", "reply_count": 2, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A6298408A7B1170ACEC"}, {"id": 144, "trainee_key": "Taf2af3c0e3", "calendar_date": "2026-07-18", "responded": 1, "medium": "mixed", "media_mix": "text x7, voice x2", "content_captured": 1, "first_reply_time": "01:35", "last_reply_time": "20:38", "reply_count": 9, "early_hours_replies": 7, "refers_to_prev_day": 0, "attribution_ambiguous": 1, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A56928517B2A2CAAACC"}, {"id": 145, "trainee_key": "Taf2af3c0e3", "calendar_date": "2026-07-20", "responded": 1, "medium": "mixed", "media_mix": "voice x2, text x1", "content_captured": 1, "first_reply_time": "05:02", "last_reply_time": "18:40", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3AE652200FC021B99334"}, {"id": 146, "trainee_key": "Taf2af3c0e3", "calendar_date": "2026-07-24", "responded": 1, "medium": "text", "media_mix": "text x1", "content_captured": 1, "first_reply_time": "18:51", "last_reply_time": "18:51", "reply_count": 1, "early_hours_replies": 0, "refers_to_prev_day": 1, "attribution_ambiguous": 1, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3AEEE3434348A46006D0"}, {"id": 28, "trainee_key": "Tbc6cbe3542", "calendar_date": "2026-07-22", "responded": 1, "medium": "text", "media_mix": "text x3", "content_captured": 1, "first_reply_time": "01:09", "last_reply_time": "01:10", "reply_count": 3, "early_hours_replies": 2, "refers_to_prev_day": 0, "attribution_ambiguous": 1, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3EB0879129FCB0E04F57"}, {"id": 29, "trainee_key": "Tbc6cbe3542", "calendar_date": "2026-07-24", "responded": 1, "medium": "text", "media_mix": "text x1", "content_captured": 1, "first_reply_time": "15:11", "last_reply_time": "15:11", "reply_count": 1, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3A92A10E8CBF9F508A21"}, {"id": 30, "trainee_key": "Tbc6cbe3542", "calendar_date": "2026-07-25", "responded": 1, "medium": "mixed", "media_mix": "text x2, voice x1", "content_captured": 1, "first_reply_time": "17:43", "last_reply_time": "20:56", "reply_count": 3, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3A6633084D815549EAF1"}, {"id": 31, "trainee_key": "Tbc6cbe3542", "calendar_date": "2026-07-26", "responded": 1, "medium": "text", "media_mix": "text x11", "content_captured": 1, "first_reply_time": "11:55", "last_reply_time": "18:35", "reply_count": 11, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3AF7CDB41EC6FEFDD2E8"}, {"id": 32, "trainee_key": "Tbc6cbe3542", "calendar_date": "2026-07-27", "responded": 1, "medium": "mixed", "media_mix": "voice x2, text x2", "content_captured": 1, "first_reply_time": "18:10", "last_reply_time": "18:13", "reply_count": 4, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3ACF6611FEE23C7AAD6F"}, {"id": 33, "trainee_key": "Tbc6cbe3542", "calendar_date": "2026-07-28", "responded": 1, "medium": "mixed", "media_mix": "text x3, voice x1", "content_captured": 1, "first_reply_time": "18:10", "last_reply_time": "18:25", "reply_count": 4, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 1, "confidence": "high", "source_message_id": "3AAAF0B1C775B061EAB3"}, {"id": 34, "trainee_key": "Tbc6cbe3542", "calendar_date": "2026-07-29", "responded": 1, "medium": "mixed", "media_mix": "text x3, voice x1", "content_captured": 1, "first_reply_time": "16:19", "last_reply_time": "16:27", "reply_count": 4, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3AA44FADA15315ADF37C"}, {"id": 35, "trainee_key": "Tbc6cbe3542", "calendar_date": "2026-07-30", "responded": 1, "medium": "text", "media_mix": "text x2", "content_captured": 1, "first_reply_time": "19:42", "last_reply_time": "19:42", "reply_count": 2, "early_hours_replies": 0, "refers_to_prev_day": 0, "attribution_ambiguous": 0, "rule_version": "v1-calendar-naive", "prompted_by_essam": 0, "confidence": "high", "source_message_id": "3AB3F09E5046B138C064"}], "minutes": [{"id": 3, "trainee_key": "T0a55e556f3", "calendar_date": "2026-06-29", "minutes": 50, "matched_phrase": "20 دقيقة + نص ساعة", "statement_kind": "reported", "refers_to_date": null, "attribution_ambiguous": 0, "confidence": "medium", "source_message_id": "3A1C06E081E0957EF436"}, {"id": 4, "trainee_key": "T0a55e556f3", "calendar_date": "2026-06-30", "minutes": 45, "matched_phrase": "45 دقيقة", "statement_kind": "unclear", "refers_to_date": null, "attribution_ambiguous": 1, "confidence": "low", "source_message_id": "3AC8827E6DDCB4E7FF3E"}, {"id": 5, "trainee_key": "T0a55e556f3", "calendar_date": "2026-07-01", "minutes": 39, "matched_phrase": "9 دقايق + 30 دقيقة", "statement_kind": "reported", "refers_to_date": null, "attribution_ambiguous": 0, "confidence": "low", "source_message_id": "3AF5C500224C44A2B2FB"}, {"id": 6, "trainee_key": "T0a55e556f3", "calendar_date": "2026-07-02", "minutes": 50, "matched_phrase": "20 دقيقة + نصف ساعة", "statement_kind": "reported", "refers_to_date": null, "attribution_ambiguous": 0, "confidence": "medium", "source_message_id": "3A99870B23F94CCE10C8"}, {"id": 7, "trainee_key": "T0a55e556f3", "calendar_date": "2026-07-03", "minutes": 50, "matched_phrase": "20 دقيقة + 30 دقيقة", "statement_kind": "reported", "refers_to_date": null, "attribution_ambiguous": 0, "confidence": "medium", "source_message_id": "3A14D9CE01D650145549"}, {"id": 8, "trainee_key": "T0a55e556f3", "calendar_date": "2026-07-07", "minutes": 12, "matched_phrase": "12 دقيقة", "statement_kind": "reported", "refers_to_date": "2026-07-06", "attribution_ambiguous": 1, "confidence": "high", "source_message_id": "3AFB699781E45684B18B"}, {"id": 9, "trainee_key": "T0a55e556f3", "calendar_date": "2026-07-08", "minutes": 20, "matched_phrase": "20 دقيقة", "statement_kind": "reported", "refers_to_date": null, "attribution_ambiguous": 0, "confidence": "high", "source_message_id": "3A9ECE811B784B656123"}, {"id": 10, "trainee_key": "T0a55e556f3", "calendar_date": "2026-07-13", "minutes": 20, "matched_phrase": "20 دقيقة", "statement_kind": "reported", "refers_to_date": null, "attribution_ambiguous": 1, "confidence": "high", "source_message_id": "3A07441E91FD11F58BAA"}, {"id": 1, "trainee_key": "T1fa3872880", "calendar_date": "2026-07-24", "minutes": 30, "matched_phrase": "نص ساعة", "statement_kind": "unclear", "refers_to_date": null, "attribution_ambiguous": 1, "confidence": "low", "source_message_id": "3A71BE759C9756551660"}, {"id": 2, "trainee_key": "T1fa3872880", "calendar_date": "2026-07-31", "minutes": 20, "matched_phrase": "20 دقيقه", "statement_kind": "unclear", "refers_to_date": null, "attribution_ambiguous": 1, "confidence": "low", "source_message_id": "3A69A86460D82C7933E6"}, {"id": 11, "trainee_key": "T6b87599973", "calendar_date": "2026-06-21", "minutes": 24, "matched_phrase": "المجموع 24", "statement_kind": "reported", "refers_to_date": null, "attribution_ambiguous": 0, "confidence": "high", "source_message_id": "3A48F06E0081CA260D80"}, {"id": 12, "trainee_key": "T6b87599973", "calendar_date": "2026-06-22", "minutes": 12, "matched_phrase": "12دقيقة", "statement_kind": "reported", "refers_to_date": null, "attribution_ambiguous": 0, "confidence": "medium", "source_message_id": "3A85F5458EF19E63B6ED"}, {"id": 13, "trainee_key": "T6b87599973", "calendar_date": "2026-06-23", "minutes": 30, "matched_phrase": "نصف ساعة", "statement_kind": "reported", "refers_to_date": null, "attribution_ambiguous": 0, "confidence": "medium", "source_message_id": "3A38C1483C39B89E527B"}, {"id": 14, "trainee_key": "T6b87599973", "calendar_date": "2026-06-25", "minutes": 30, "matched_phrase": "نصف ساعة", "statement_kind": "reported", "refers_to_date": null, "attribution_ambiguous": 0, "confidence": "high", "source_message_id": "3A9D0C4AE213121671EF"}, {"id": 15, "trainee_key": "T6b87599973", "calendar_date": "2026-06-25", "minutes": 30, "matched_phrase": "نصف ساعة", "statement_kind": "intent", "refers_to_date": null, "attribution_ambiguous": 1, "confidence": "low", "source_message_id": "3AC7372C22BC044A5C8A"}, {"id": 16, "trainee_key": "T6b87599973", "calendar_date": "2026-06-26", "minutes": 30, "matched_phrase": "نصف ساعة", "statement_kind": "intent", "refers_to_date": null, "attribution_ambiguous": 1, "confidence": "low", "source_message_id": "3AE39B260F893631AC2F"}, {"id": 17, "trainee_key": "T6b87599973", "calendar_date": "2026-06-28", "minutes": 40, "matched_phrase": "40 دقيقة", "statement_kind": "unclear", "refers_to_date": null, "attribution_ambiguous": 1, "confidence": "low", "source_message_id": "3AF63EBF15913A4DCCA5"}, {"id": 18, "trainee_key": "T6b87599973", "calendar_date": "2026-06-29", "minutes": 20, "matched_phrase": "20 دقيقة", "statement_kind": "reported", "refers_to_date": null, "attribution_ambiguous": 0, "confidence": "high", "source_message_id": "3A00A10836AF4343F3D6"}, {"id": 19, "trainee_key": "T6b87599973", "calendar_date": "2026-06-30", "minutes": 30, "matched_phrase": "30 دقيقة", "statement_kind": "reported", "refers_to_date": null, "attribution_ambiguous": 0, "confidence": "high", "source_message_id": "3AC2EFC73F5B9160BBF7"}, {"id": 20, "trainee_key": "T6b87599973", "calendar_date": "2026-07-01", "minutes": 20, "matched_phrase": "20 دقيقة", "statement_kind": "unclear", "refers_to_date": null, "attribution_ambiguous": 1, "confidence": "low", "source_message_id": "3A1BF439B535068D1473"}, {"id": 21, "trainee_key": "T6b87599973", "calendar_date": "2026-07-08", "minutes": 22, "matched_phrase": "22 دقيقة", "statement_kind": "intent", "refers_to_date": null, "attribution_ambiguous": 1, "confidence": "low", "source_message_id": "3A3FB5D9E072A1C6E74A"}, {"id": 22, "trainee_key": "T6b87599973", "calendar_date": "2026-07-11", "minutes": 30, "matched_phrase": "نصف ساعة", "statement_kind": "intent", "refers_to_date": null, "attribution_ambiguous": 1, "confidence": "low", "source_message_id": "3A210E00F2DFC9809E64"}, {"id": 23, "trainee_key": "Taf2af3c0e3", "calendar_date": "2026-06-29", "minutes": 10, "matched_phrase": "10 دقايق", "statement_kind": "intent", "refers_to_date": null, "attribution_ambiguous": 1, "confidence": "low", "source_message_id": "3ADF157AB0096084C8FE"}, {"id": 24, "trainee_key": "Taf2af3c0e3", "calendar_date": "2026-07-08", "minutes": 20, "matched_phrase": "20 دقيقه", "statement_kind": "reported", "refers_to_date": null, "attribution_ambiguous": 0, "confidence": "medium", "source_message_id": "3A6AD04EF37D14F5FFC7"}, {"id": 25, "trainee_key": "Taf2af3c0e3", "calendar_date": "2026-07-11", "minutes": 10, "matched_phrase": "10 minutes", "statement_kind": "unclear", "refers_to_date": null, "attribution_ambiguous": 1, "confidence": "low", "source_message_id": "3ACFB0A87D51E8970D4C"}, {"id": 26, "trainee_key": "Taf2af3c0e3", "calendar_date": "2026-07-18", "minutes": 15, "matched_phrase": "15 دقيقة", "statement_kind": "unclear", "refers_to_date": null, "attribution_ambiguous": 1, "confidence": "low", "source_message_id": "3A09497684B348F66CD7"}], "goals": [{"id": 4, "trainee_key": "T0a55e556f3", "set_date": "2026-07-04", "week_number": null, "goal_text": "هدف الأسبوع: ساعة استماع ونص ساعة قراءة", "confidence": "medium", "source_message_id": "AC6F9D60B49EBFB8FF935792BB6A04B0"}, {"id": 5, "trainee_key": "T0a55e556f3", "set_date": "2026-07-06", "week_number": null, "goal_text": "هدف الأسبوع: ساعة استماع ونص ساعة قراءة", "confidence": "medium", "source_message_id": "AC599DF559A807F48371251922EC391F"}, {"id": 6, "trainee_key": "T0a55e556f3", "set_date": "2026-07-11", "week_number": 3, "goal_text": "هدف الأسبوع الثالث: \n\n١-تحاول تسمع على اليوتيوب.\n\n٢-القراءة لمدة ٢٠ دقيقة يومياً.", "confidence": "high", "source_message_id": "ACAB2C01D599C2325BC54BD387CB5540"}, {"id": 7, "trainee_key": "T0a55e556f3", "set_date": "2026-07-12", "week_number": 3, "goal_text": "هدف الأسبوع الثالث: \n١-تحاول تسمع على اليوتيوب.\n٢-القراءة لمدة ٢٠ دقيقة يومياً.", "confidence": "high", "source_message_id": "AC53E58D22DAED3FE45CF01F54579C38"}, {"id": 1, "trainee_key": "T1fa3872880", "set_date": "2026-07-18", "week_number": 2, "goal_text": "هدف الأسبوع الثاني: التعلم على جيميناي كل يوم مساءً", "confidence": "high", "source_message_id": "AC4116EA3BE7768F6DDE1A12D04E285F"}, {"id": 2, "trainee_key": "T1fa3872880", "set_date": "2026-07-24", "week_number": 3, "goal_text": "هدف الأسبوع الثالث: توليد محتوى ممتع بنفس المفردات", "confidence": "high", "source_message_id": "AC9C3ECDCE30DE94CA6273C5A34E59BD"}, {"id": 3, "trainee_key": "T1fa3872880", "set_date": "2026-07-25", "week_number": 3, "goal_text": "هدف الأسبوع الثالث: توليد محتوى ممتع بنفس المفردات", "confidence": "high", "source_message_id": "AC779206BFEC1D33C85C5EBF551F8037"}, {"id": 8, "trainee_key": "T6b87599973", "set_date": "2026-07-03", "week_number": null, "goal_text": "هدف الأسبوع: ٣٠ دقيقة استماع و٣٠ قراءة يوميا", "confidence": "medium", "source_message_id": "AC66B719EAF52B7BE461B782A0C9163B"}, {"id": 9, "trainee_key": "T6b87599973", "set_date": "2026-07-04", "week_number": null, "goal_text": "هدف الأسبوع: ٣٠ دقيقة استماع و٣٠ قراءة يوميا", "confidence": "medium", "source_message_id": "AC4BE92C2D08AF7614A0A1EAFFF59AEF"}, {"id": 10, "trainee_key": "T6b87599973", "set_date": "2026-07-10", "week_number": 4, "goal_text": "هدف الأسبوع الرابع:\n\n١-الاستمرار في الاستماع.\n\n٢-تجربة الاستماع للكتاب الوردي.", "confidence": "high", "source_message_id": "ACED7F49C043172895BB13280532E54A"}, {"id": 11, "trainee_key": "T6b87599973", "set_date": "2026-07-12", "week_number": 4, "goal_text": "هدف الأسبوع الرابع:\n١-الاستمرار في الاستماع.\n٢-تجربة الاستماع للكتاب الوردي.", "confidence": "high", "source_message_id": "AC784770EEF0CF0226F426E1C319D3CC"}, {"id": 12, "trainee_key": "T6b87599973", "set_date": "2026-07-15", "week_number": 4, "goal_text": "هدف الأسبوع الرابع:\n١-الاستمرار في الاستماع.\n٢-تجربة الاستماع للكتاب الوردي.", "confidence": "high", "source_message_id": "ACA947CB47BB2BF49DEF83F7B3060071"}, {"id": 13, "trainee_key": "Taf2af3c0e3", "set_date": "2026-07-03", "week_number": null, "goal_text": "هدف الأسبوع: استمع و Gemini يوميا", "confidence": "medium", "source_message_id": "AC44D23F2BDAF57FBB24C055A7011915"}, {"id": 14, "trainee_key": "Taf2af3c0e3", "set_date": "2026-07-04", "week_number": null, "goal_text": "هدف الأسبوع: استمع و Gemini يوميا", "confidence": "medium", "source_message_id": "AC2ADA134995C7ACFA55EF1FBCA8C8B2"}, {"id": 15, "trainee_key": "Taf2af3c0e3", "set_date": "2026-07-10", "week_number": 3, "goal_text": "هدف الأسبوع الثالث:\n\n١-ما تستعجل وتبدأ بالقصص القصيرة لكي تستوعب السياق..\n\n٢-تستفيد من جيمناي في تصحيح الفهم وليس شرح القواعد", "confidence": "high", "source_message_id": "ACB15ECD9B41F4399F5E6A9AD5DD11C9"}, {"id": 16, "trainee_key": "Taf2af3c0e3", "set_date": "2026-07-11", "week_number": 3, "goal_text": "هدف الأسبوع الثالث:\n١-ما تستعجل وتبدأ بالقصص القصيرة لكي تستوعب السياق..\n٢-تستفيد من جيمناي في تصحيح الفهم وليس شرح القواعد", "confidence": "high", "source_message_id": "AC2AEB5F437AA9AEBA8F7435B48BE4C6"}, {"id": 17, "trainee_key": "Taf2af3c0e3", "set_date": "2026-07-17", "week_number": 4, "goal_text": "هدف الأسبوع الرابع: اكتشاف طريقة لمراجعة القصص أثناء القيادة", "confidence": "high", "source_message_id": "ACC5F1725405910DEDFAC6853249333D"}, {"id": 18, "trainee_key": "Taf2af3c0e3", "set_date": "2026-07-17", "week_number": 4, "goal_text": "هدف الأسبوع الرابع: اكتشاف طريقة لمراجعة القصص أثناء القيادة", "confidence": "high", "source_message_id": "ACB7191C314C60EC2DD79E9B818F1CF1"}], "absences": [{"id": 2, "trainee_key": "T4de3afe51b", "stated_on": "2026-07-31", "start_date": null, "end_date": null, "resume_date": null, "raw_phrase": "stated directly by Essam 31/07/2026: on vacation", "confidence": "high", "source_message_id": "ESSAM_DIRECT"}, {"id": 1, "trainee_key": "Taf2af3c0e3", "stated_on": "2026-07-24", "start_date": "2026-08-15", "end_date": "2026-08-15", "resume_date": null, "raw_phrase": "2026-08-15", "confidence": "medium", "source_message_id": "3AEEE3434348A46006D0"}], "tools": [{"id": 28, "trainee_key": "T0a55e556f3", "date": "2026-07-02", "tool": "estoria", "confidence": "high", "source_message_id": "3A99870B23F94CCE10C8"}, {"id": 29, "trainee_key": "T0a55e556f3", "date": "2026-07-11", "tool": "claude", "confidence": "high", "source_message_id": "AC298BCE0FE328D84BECF9622E7B250D"}, {"id": 30, "trainee_key": "T0a55e556f3", "date": "2026-07-11", "tool": "youtube", "confidence": "high", "source_message_id": "ACAB2C01D599C2325BC54BD387CB5540"}, {"id": 31, "trainee_key": "T0a55e556f3", "date": "2026-07-12", "tool": "youtube", "confidence": "high", "source_message_id": "AC53E58D22DAED3FE45CF01F54579C38"}, {"id": 32, "trainee_key": "T0a55e556f3", "date": "2026-07-13", "tool": "youtube", "confidence": "high", "source_message_id": "3A07441E91FD11F58BAA"}, {"id": 18, "trainee_key": "T1fa3872880", "date": "2026-07-11", "tool": "youtube", "confidence": "high", "source_message_id": "ACB673F7CE5DE25FE422E9D77B55F665"}, {"id": 19, "trainee_key": "T1fa3872880", "date": "2026-07-15", "tool": "youtube", "confidence": "high", "source_message_id": "AC0B634654F45E397B6560B0206087F3"}, {"id": 20, "trainee_key": "T1fa3872880", "date": "2026-07-16", "tool": "estoria", "confidence": "high", "source_message_id": "AC45FF64413C5D1E1748C1F96430D688"}, {"id": 21, "trainee_key": "T1fa3872880", "date": "2026-07-18", "tool": "gemini", "confidence": "high", "source_message_id": "AC4116EA3BE7768F6DDE1A12D04E285F"}, {"id": 22, "trainee_key": "T1fa3872880", "date": "2026-07-18", "tool": "gemini", "confidence": "high", "source_message_id": "ACB69C159107897D29CDCE090A236051"}, {"id": 23, "trainee_key": "T1fa3872880", "date": "2026-07-19", "tool": "gemini", "confidence": "high", "source_message_id": "AC3C95E9DA386987ADD3517C9D4F1982"}, {"id": 24, "trainee_key": "T1fa3872880", "date": "2026-07-23", "tool": "youtube", "confidence": "high", "source_message_id": "AC0004C1FE0956CCBA13518E4BB27BBB"}, {"id": 25, "trainee_key": "T1fa3872880", "date": "2026-07-24", "tool": "youtube", "confidence": "high", "source_message_id": "3ADE621963DF55487C78"}, {"id": 26, "trainee_key": "T1fa3872880", "date": "2026-07-31", "tool": "gemini", "confidence": "high", "source_message_id": "AC740AFD79647A9A245CC893B71A984A"}, {"id": 27, "trainee_key": "T1fa3872880", "date": "2026-07-31", "tool": "gemini", "confidence": "high", "source_message_id": "ACF5963B62FDE6E4E92B1170ECEE8B0D"}, {"id": 11, "trainee_key": "T2dd5e3572a", "date": "2026-07-26", "tool": "youtube", "confidence": "high", "source_message_id": "AC0AFC16B3D809AD422CF6E84335FE31"}, {"id": 12, "trainee_key": "T2dd5e3572a", "date": "2026-07-26", "tool": "youtube", "confidence": "high", "source_message_id": "AC630293001EBCE33B411C1DB32D8817"}, {"id": 85, "trainee_key": "T4de3afe51b", "date": "2026-07-10", "tool": "youtube", "confidence": "high", "source_message_id": "AC3921A4660FCBAC64E4B95E36FBF677"}, {"id": 86, "trainee_key": "T4de3afe51b", "date": "2026-07-21", "tool": "youtube", "confidence": "high", "source_message_id": "ACA6F5F757D70CB94F4A908121C9BEBE"}, {"id": 33, "trainee_key": "T6b87599973", "date": "2026-06-20", "tool": "youtube", "confidence": "high", "source_message_id": "AC5609B1E1ABF452FFD832AF75323F8D"}, {"id": 34, "trainee_key": "T6b87599973", "date": "2026-06-22", "tool": "youtube", "confidence": "high", "source_message_id": "3A62B41D2FA42C3243BA"}, {"id": 35, "trainee_key": "T6b87599973", "date": "2026-06-26", "tool": "youtube", "confidence": "high", "source_message_id": "ACF12451F91E6BCB9A917847F8896569"}, {"id": 36, "trainee_key": "T6b87599973", "date": "2026-06-26", "tool": "youtube", "confidence": "high", "source_message_id": "AC67DA339E2321B24A85B7E85CA3891A"}, {"id": 37, "trainee_key": "T6b87599973", "date": "2026-06-26", "tool": "youtube", "confidence": "high", "source_message_id": "ACF46BF3A777F5DFA57CEC9BABFD668D"}, {"id": 38, "trainee_key": "T6b87599973", "date": "2026-06-26", "tool": "youtube", "confidence": "high", "source_message_id": "AC480A68B90C5742670E927F670A15CA"}, {"id": 39, "trainee_key": "T6b87599973", "date": "2026-06-27", "tool": "youtube", "confidence": "high", "source_message_id": "3AA3BF8222D7E3BFA47A"}, {"id": 40, "trainee_key": "T6b87599973", "date": "2026-06-27", "tool": "youtube", "confidence": "high", "source_message_id": "AC11900327068817772AC615AE4F52BE"}, {"id": 41, "trainee_key": "T6b87599973", "date": "2026-06-28", "tool": "youtube", "confidence": "high", "source_message_id": "3A8C02ACC2E53E16B5B6"}, {"id": 42, "trainee_key": "T6b87599973", "date": "2026-06-29", "tool": "youtube", "confidence": "high", "source_message_id": "ACB93BC840C5DECCE7F3A4EA6380F63F"}, {"id": 43, "trainee_key": "T6b87599973", "date": "2026-07-01", "tool": "youtube", "confidence": "high", "source_message_id": "3A42DEA2955FC10B7610"}, {"id": 44, "trainee_key": "T6b87599973", "date": "2026-07-01", "tool": "claude", "confidence": "high", "source_message_id": "AC804873AA283E8B3D914BCCD5A0B47E"}, {"id": 45, "trainee_key": "T6b87599973", "date": "2026-07-01", "tool": "youtube", "confidence": "high", "source_message_id": "AC6329104871584AD9C078EE19463353"}, {"id": 46, "trainee_key": "T6b87599973", "date": "2026-07-01", "tool": "youtube", "confidence": "high", "source_message_id": "3AEEC196D9F9339D105E"}, {"id": 47, "trainee_key": "T6b87599973", "date": "2026-07-02", "tool": "youtube", "confidence": "high", "source_message_id": "AC596641E249D555A5598CF30EC28533"}, {"id": 48, "trainee_key": "T6b87599973", "date": "2026-07-03", "tool": "youtube", "confidence": "high", "source_message_id": "ACF4B7E41CEFF278A76E17366494795A"}, {"id": 49, "trainee_key": "T6b87599973", "date": "2026-07-04", "tool": "youtube", "confidence": "high", "source_message_id": "3A2B48DCB03E1BC89B1A"}, {"id": 50, "trainee_key": "T6b87599973", "date": "2026-07-05", "tool": "youtube", "confidence": "high", "source_message_id": "3A1497E37862AC3DBFF0"}, {"id": 51, "trainee_key": "T6b87599973", "date": "2026-07-07", "tool": "youtube", "confidence": "high", "source_message_id": "3AFC21DC58A44E6982DC"}, {"id": 52, "trainee_key": "T6b87599973", "date": "2026-07-07", "tool": "youtube", "confidence": "high", "source_message_id": "3A7D4FD27F291B83DB81"}, {"id": 53, "trainee_key": "T6b87599973", "date": "2026-07-07", "tool": "youtube", "confidence": "high", "source_message_id": "3A3F25161E4DA7A3C939"}, {"id": 54, "trainee_key": "T6b87599973", "date": "2026-07-07", "tool": "youtube", "confidence": "high", "source_message_id": "3A8769777328A73A7661"}, {"id": 55, "trainee_key": "T6b87599973", "date": "2026-07-08", "tool": "youtube", "confidence": "high", "source_message_id": "3ADC8DCAC105F9E51469"}, {"id": 56, "trainee_key": "T6b87599973", "date": "2026-07-09", "tool": "youtube", "confidence": "high", "source_message_id": "3AA4E09CB6AFAF793C4A"}, {"id": 57, "trainee_key": "T6b87599973", "date": "2026-07-09", "tool": "youtube", "confidence": "high", "source_message_id": "3A02650798AE96562C3F"}, {"id": 58, "trainee_key": "T6b87599973", "date": "2026-07-11", "tool": "youtube", "confidence": "high", "source_message_id": "3AB3B2D746863F81CD2C"}, {"id": 59, "trainee_key": "T6b87599973", "date": "2026-07-12", "tool": "youtube", "confidence": "high", "source_message_id": "3A14D74E279C36D861A8"}, {"id": 60, "trainee_key": "T6b87599973", "date": "2026-07-13", "tool": "youtube", "confidence": "high", "source_message_id": "3AA1E3D56A004BDECC1D"}, {"id": 61, "trainee_key": "T6b87599973", "date": "2026-07-14", "tool": "youtube", "confidence": "high", "source_message_id": "3A8596F91851FB74DD6F"}, {"id": 62, "trainee_key": "T6b87599973", "date": "2026-07-15", "tool": "youtube", "confidence": "high", "source_message_id": "3A535C688CADACBFBA99"}, {"id": 63, "trainee_key": "T6b87599973", "date": "2026-07-16", "tool": "youtube", "confidence": "high", "source_message_id": "3AA8FEAD15412307A4CD"}, {"id": 64, "trainee_key": "T6b87599973", "date": "2026-07-17", "tool": "youtube", "confidence": "high", "source_message_id": "3A2E952E5EC4CD7DFA26"}, {"id": 65, "trainee_key": "T6b87599973", "date": "2026-07-18", "tool": "youtube", "confidence": "high", "source_message_id": "3A7FF43BAA93CE1430C3"}, {"id": 66, "trainee_key": "T6b87599973", "date": "2026-07-18", "tool": "claude", "confidence": "high", "source_message_id": "ACB55AC63F72D8FCEBEF19C42CD3CCF3"}, {"id": 67, "trainee_key": "T6b87599973", "date": "2026-07-18", "tool": "claude", "confidence": "high", "source_message_id": "ACF70EFEBFFE4A7E546EFCD089993F37"}, {"id": 68, "trainee_key": "T6b87599973", "date": "2026-07-18", "tool": "youtube", "confidence": "high", "source_message_id": "ACF70EFEBFFE4A7E546EFCD089993F37"}, {"id": 69, "trainee_key": "T6b87599973", "date": "2026-07-18", "tool": "claude", "confidence": "high", "source_message_id": "3A88B377D262A048FA8D"}, {"id": 70, "trainee_key": "T6b87599973", "date": "2026-07-18", "tool": "youtube", "confidence": "high", "source_message_id": "3A88B377D262A048FA8D"}, {"id": 71, "trainee_key": "T6b87599973", "date": "2026-07-18", "tool": "claude", "confidence": "high", "source_message_id": "AC712410D3409E9037FC4B7E0F91D108"}, {"id": 72, "trainee_key": "T6b87599973", "date": "2026-07-19", "tool": "youtube", "confidence": "high", "source_message_id": "3A7ADE0C6D9080FB9371"}, {"id": 73, "trainee_key": "T6b87599973", "date": "2026-07-20", "tool": "youtube", "confidence": "high", "source_message_id": "AC91ED350A86F4C10716480111DFF042"}, {"id": 74, "trainee_key": "T6b87599973", "date": "2026-07-20", "tool": "youtube", "confidence": "high", "source_message_id": "3A1EDC36D2A671893E01"}, {"id": 75, "trainee_key": "T6b87599973", "date": "2026-07-21", "tool": "youtube", "confidence": "high", "source_message_id": "3A01313C9C5504DFECE4"}, {"id": 76, "trainee_key": "T6b87599973", "date": "2026-07-22", "tool": "youtube", "confidence": "high", "source_message_id": "3AAF41AE822CBCCEFB7B"}, {"id": 77, "trainee_key": "T6b87599973", "date": "2026-07-23", "tool": "youtube", "confidence": "high", "source_message_id": "3A49C65C1A8F3F83307D"}, {"id": 78, "trainee_key": "T6b87599973", "date": "2026-07-24", "tool": "youtube", "confidence": "high", "source_message_id": "3A382D1840B97F733BD4"}, {"id": 79, "trainee_key": "T6b87599973", "date": "2026-07-25", "tool": "youtube", "confidence": "high", "source_message_id": "3A73A6D67AA4C0528CF8"}, {"id": 80, "trainee_key": "T6b87599973", "date": "2026-07-26", "tool": "youtube", "confidence": "high", "source_message_id": "3A7C87D9BA774D90B8FE"}, {"id": 81, "trainee_key": "T6b87599973", "date": "2026-07-27", "tool": "youtube", "confidence": "high", "source_message_id": "3A3DFB0E9158DAF56239"}, {"id": 82, "trainee_key": "T6b87599973", "date": "2026-07-28", "tool": "youtube", "confidence": "high", "source_message_id": "3A3EFB74BFF288D9861A"}, {"id": 83, "trainee_key": "T6b87599973", "date": "2026-07-29", "tool": "youtube", "confidence": "high", "source_message_id": "3A10081A57D21988A41A"}, {"id": 84, "trainee_key": "T6b87599973", "date": "2026-07-30", "tool": "youtube", "confidence": "high", "source_message_id": "3A39D579433C55ED72BA"}, {"id": 1, "trainee_key": "T71aeb973ab", "date": "2026-07-11", "tool": "youtube", "confidence": "high", "source_message_id": "ACFBEAA8C99D1561BA677A29F1773FDA"}, {"id": 2, "trainee_key": "T71aeb973ab", "date": "2026-07-11", "tool": "youtube", "confidence": "high", "source_message_id": "3A955DB44D4A9C20EC83"}, {"id": 3, "trainee_key": "T71aeb973ab", "date": "2026-07-13", "tool": "youtube", "confidence": "high", "source_message_id": "3A7DB7A5F70AD150BC2A"}, {"id": 4, "trainee_key": "T71aeb973ab", "date": "2026-07-14", "tool": "gemini", "confidence": "high", "source_message_id": "AC7A7A0F119A2E0DA8BBFC87F652D257"}, {"id": 5, "trainee_key": "T71aeb973ab", "date": "2026-07-14", "tool": "gemini", "confidence": "high", "source_message_id": "3AFBED810EE146AF18CE"}, {"id": 6, "trainee_key": "T71aeb973ab", "date": "2026-07-15", "tool": "youtube", "confidence": "high", "source_message_id": "3A8A4D87815B5C79E932"}, {"id": 7, "trainee_key": "T71aeb973ab", "date": "2026-07-16", "tool": "youtube", "confidence": "high", "source_message_id": "3AC2C5858E82F81348B6"}, {"id": 8, "trainee_key": "T71aeb973ab", "date": "2026-07-18", "tool": "youtube", "confidence": "high", "source_message_id": "ACD61DE5D695F60F1C26B9BCA5BC333B"}, {"id": 9, "trainee_key": "T71aeb973ab", "date": "2026-07-18", "tool": "youtube", "confidence": "high", "source_message_id": "3A01CA31EDF42CC45113"}, {"id": 10, "trainee_key": "T71aeb973ab", "date": "2026-07-18", "tool": "youtube", "confidence": "high", "source_message_id": "3A52BA3D78BE4D83B56B"}, {"id": 87, "trainee_key": "Taf2af3c0e3", "date": "2026-06-28", "tool": "youtube", "confidence": "high", "source_message_id": "3A16DBCF14EF8AF221C2"}, {"id": 88, "trainee_key": "Taf2af3c0e3", "date": "2026-06-29", "tool": "youtube", "confidence": "high", "source_message_id": "ACE71A78F07D0B6A6DE9A923519506BA"}, {"id": 89, "trainee_key": "Taf2af3c0e3", "date": "2026-07-01", "tool": "youtube", "confidence": "high", "source_message_id": "3A406C3129DA46F76D9B"}, {"id": 90, "trainee_key": "Taf2af3c0e3", "date": "2026-07-03", "tool": "gemini", "confidence": "high", "source_message_id": "AC44D23F2BDAF57FBB24C055A7011915"}, {"id": 91, "trainee_key": "Taf2af3c0e3", "date": "2026-07-03", "tool": "youtube", "confidence": "high", "source_message_id": "3A4FAF43CE981D3BE605"}, {"id": 92, "trainee_key": "Taf2af3c0e3", "date": "2026-07-04", "tool": "gemini", "confidence": "high", "source_message_id": "AC2ADA134995C7ACFA55EF1FBCA8C8B2"}, {"id": 93, "trainee_key": "Taf2af3c0e3", "date": "2026-07-06", "tool": "youtube", "confidence": "high", "source_message_id": "3AFE6BB84EA59447E337"}, {"id": 94, "trainee_key": "Taf2af3c0e3", "date": "2026-07-10", "tool": "youtube", "confidence": "high", "source_message_id": "AC51005A310A6FAD2075E0CB9E1D4CC3"}, {"id": 95, "trainee_key": "Taf2af3c0e3", "date": "2026-07-10", "tool": "gemini", "confidence": "high", "source_message_id": "ACB15ECD9B41F4399F5E6A9AD5DD11C9"}, {"id": 96, "trainee_key": "Taf2af3c0e3", "date": "2026-07-10", "tool": "youtube", "confidence": "high", "source_message_id": "3AF1853F9908A7C1EF61"}, {"id": 97, "trainee_key": "Taf2af3c0e3", "date": "2026-07-11", "tool": "gemini", "confidence": "high", "source_message_id": "AC2AEB5F437AA9AEBA8F7435B48BE4C6"}, {"id": 98, "trainee_key": "Taf2af3c0e3", "date": "2026-07-13", "tool": "gemini", "confidence": "high", "source_message_id": "AC37951B613BF2D2C1839C0A32E8BA31"}, {"id": 99, "trainee_key": "Taf2af3c0e3", "date": "2026-07-14", "tool": "claude", "confidence": "high", "source_message_id": "ACAE16684B27A9A92F22C4AEA63E498F"}, {"id": 100, "trainee_key": "Taf2af3c0e3", "date": "2026-07-14", "tool": "gemini", "confidence": "high", "source_message_id": "AC57F9CF995EF337D8DA7AD1C1A8DCC8"}, {"id": 101, "trainee_key": "Taf2af3c0e3", "date": "2026-07-14", "tool": "claude", "confidence": "high", "source_message_id": "AC57F9CF995EF337D8DA7AD1C1A8DCC8"}, {"id": 102, "trainee_key": "Taf2af3c0e3", "date": "2026-07-17", "tool": "gemini", "confidence": "high", "source_message_id": "AC45A25519C66A4A73A59E4ABED70382"}, {"id": 103, "trainee_key": "Taf2af3c0e3", "date": "2026-07-17", "tool": "claude", "confidence": "high", "source_message_id": "AC45A25519C66A4A73A59E4ABED70382"}, {"id": 104, "trainee_key": "Taf2af3c0e3", "date": "2026-07-18", "tool": "claude", "confidence": "high", "source_message_id": "3A65D56BAC46A3B40CB6"}, {"id": 105, "trainee_key": "Taf2af3c0e3", "date": "2026-07-18", "tool": "claude", "confidence": "high", "source_message_id": "3A7AA38EC8B06D3025CB"}, {"id": 106, "trainee_key": "Taf2af3c0e3", "date": "2026-07-18", "tool": "gemini", "confidence": "high", "source_message_id": "ACB20158B93E35FF21BDDA2909BF5DC5"}, {"id": 107, "trainee_key": "Taf2af3c0e3", "date": "2026-07-18", "tool": "claude", "confidence": "high", "source_message_id": "ACB20158B93E35FF21BDDA2909BF5DC5"}, {"id": 13, "trainee_key": "Tbc6cbe3542", "date": "2026-07-25", "tool": "youtube", "confidence": "high", "source_message_id": "ACAD76D838F52AB019D155F0070667D7"}, {"id": 14, "trainee_key": "Tbc6cbe3542", "date": "2026-07-27", "tool": "youtube", "confidence": "high", "source_message_id": "ACAB530148AEFF295807E7DD8BEDD764"}, {"id": 15, "trainee_key": "Tbc6cbe3542", "date": "2026-07-29", "tool": "gemini", "confidence": "high", "source_message_id": "AC90B29DDBECAFA845A6312DE2323FAE"}, {"id": 16, "trainee_key": "Tbc6cbe3542", "date": "2026-07-29", "tool": "gemini", "confidence": "high", "source_message_id": "AC9C4BC3A4D5F53A6725A600B1E4E277"}, {"id": 17, "trainee_key": "Tbc6cbe3542", "date": "2026-07-29", "tool": "gemini", "confidence": "high", "source_message_id": "AC857D0848E6610A9E85C50370D987CF"}], "generated_at": "2026-07-31"};
+const TODAY = "2026-07-31";
+
+// ── Helpers ────────────────────────────────────────────────────────
+function relDate(dateStr) {
+  if (!dateStr) return "—";
+  const today = new Date(TODAY);
+  const d = new Date(dateStr);
+  const diff = Math.round((today - d) / 86400000);
+  if (diff === 0) return "اليوم";
+  if (diff === 1) return "أمس";
+  if (diff <= 6) return `منذ ${diff} أيام`;
+  if (diff <= 13) return "منذ أسبوع";
+  if (diff <= 20) return "منذ أسبوعين";
+  if (diff <= 30) return `منذ ${Math.round(diff/7)} أسابيع`;
+  return `منذ ${Math.round(diff/30)} أشهر`;
+}
+
+const AR_MONTHS = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
+const AR_DAYS = ["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
+
+function fmtDateAr(dateStr) {
+  if (!dateStr) return "—";
+  const d = new Date(dateStr);
+  return `${d.getDate()} ${AR_MONTHS[d.getMonth()]}`;
+}
+
+function fmtDayDateAr(dateStr) {
+  if (!dateStr) return "—";
+  const d = new Date(dateStr + "T00:00:00");
+  return `${AR_DAYS[d.getDay()]} ${d.getDate()} ${AR_MONTHS[d.getMonth()]}`;
+}
+
+function daysBetween(a, b) {
+  return Math.round((new Date(b) - new Date(a)) / 86400000);
+}
+
+function getTraineeName(t) {
+  if (!t.kunya) return t.label.split("(")[0].trim();
+  return t.label.split("(")[0].trim().length < t.kunya.length
+    ? t.label.split("(")[0].trim()
+    : t.kunya || t.label.split("(")[0].trim();
+}
+
+function getDisplayName(t) {
+  const base = t.label.split("(")[0].trim();
+  return base;
+}
+
+function isActiveAbsence(traineeKey) {
+  return DATA.absences.some(a => {
+    if (a.trainee_key !== traineeKey) return false;
+    // محمد المساعد - no dates, just flagged as on vacation
+    if (!a.start_date && !a.end_date && !a.resume_date) return true;
+    // future end_date
+    if (a.end_date && a.end_date >= TODAY) return true;
+    if (a.resume_date && a.resume_date >= TODAY) return true;
+    // start_date in future
+    if (a.start_date && a.start_date > TODAY) return true;
+    return false;
+  });
+}
+
+function getAbsenceInfo(traineeKey) {
+  return DATA.absences.filter(a => a.trainee_key === traineeKey);
+}
+
+function getDotClass(lastDate, onLeave) {
+  if (onLeave) return "dot-blue";
+  if (!lastDate) return "dot-red";
+  const diff = daysBetween(lastDate, TODAY);
+  if (diff <= 2) return "dot-green";
+  if (diff <= 7) return "dot-yellow";
+  return "dot-red";
+}
+
+function getRowDotClass(lastDate, onLeave) {
+  return getDotClass(lastDate, onLeave).replace("dot-","row-dot-");
+}
+
+function getLatestGoal(traineeKey) {
+  const goals = DATA.goals.filter(g => g.trainee_key === traineeKey);
+  if (!goals.length) return null;
+  return goals[goals.length - 1];
+}
+
+function getChannelLabel(ch) {
+  const map = {
+    "udemy_course_referral": "دورة يوديمي",
+    "direct": "مباشر",
+    "referral": "إحالة",
+    "whatsapp": "واتساب"
+  };
+  return map[ch] || ch || "—";
+}
+
+function getMediumLabel(m) {
+  const map = { "voice": "🎙️ صوتي", "text": "💬 نصي", "mixed": "🔀 مختلط" };
+  return map[m] || m;
+}
+
+function getMediumIcon(m) {
+  const map = { "voice": "🎙️", "text": "💬", "mixed": "🔀" };
+  return map[m] || "💬";
+}
+
+function getPreferredMedium(traineeKey) {
+  const rows = DATA.responses.filter(r => r.trainee_key === traineeKey && r.responded);
+  if (!rows.length) return "—";
+  const counts = {};
+  rows.forEach(r => { counts[r.medium] = (counts[r.medium]||0) + 1; });
+  return getMediumLabel(Object.entries(counts).sort((a,b)=>b[1]-a[1])[0][0]);
+}
+
+// ── Tab switching ──────────────────────────────────────────────────
+function switchTab(name) {
+  document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+  document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
+  document.getElementById("tab-" + name).classList.add("active");
+  document.getElementById("tbtn-" + name).classList.add("active");
+  if (name === "timeline" && !document.getElementById("timeline-select").dataset.populated) {
+    populateTimelineSelect();
+  }
+}
+
+// ── Tab 1: Home ────────────────────────────────────────────────────
+function renderHome() {
+  // Stats
+  const last7 = (() => {
+    const cutoff = new Date(TODAY);
+    cutoff.setDate(cutoff.getDate() - 7);
+    return DATA.responses.filter(r => r.responded && new Date(r.calendar_date) >= cutoff).length;
+  })();
+
+  const month = TODAY.slice(0,7);
+  const unreadVoice = DATA.responses.filter(r =>
+    r.calendar_date && r.calendar_date.startsWith(month) && r.content_captured === 0
+  ).length;
+
+  const onLeaveCount = DATA.trainees.filter(t => isActiveAbsence(t.trainee_key)).length;
+
+  document.getElementById("stats-row").innerHTML = `
+    <div class="stat-pill">
+      <div class="stat-val">${last7}</div>
+      <div class="stat-label">أيام تفاعل هذا الأسبوع</div>
+    </div>
+    <div class="stat-pill">
+      <div class="stat-val">${unreadVoice}</div>
+      <div class="stat-label">أيام صوتية غير مقروءة هذا الشهر</div>
+    </div>
+    <div class="stat-pill">
+      <div class="stat-val">${onLeaveCount}</div>
+      <div class="stat-label">في إجازة</div>
+    </div>
+  `;
+
+  // Cards
+  const grid = document.getElementById("cards-grid");
+  grid.innerHTML = DATA.trainees.map(t => {
+    const onLeave = isActiveAbsence(t.trainee_key);
+    const dotClass = getDotClass(t.last_response_date, onLeave);
+    const name = getDisplayName(t);
+    const rel = relDate(t.last_response_date);
+    return `
+      <div class="trainee-card" onclick="openSheet('${t.trainee_key}')">
+        <div class="card-top">
+          <div class="card-name">${name}</div>
+          <div class="status-dot ${dotClass}"></div>
+        </div>
+        <div class="card-date">${rel}</div>
+        ${onLeave ? '<div class="leave-badge">إجازة</div>' : ''}
+      </div>
+    `;
+  }).join("");
+}
+
+// ── Tab 2: Trainees List ───────────────────────────────────────────
+function renderTrainees() {
+  const list = document.getElementById("trainee-list");
+  list.innerHTML = DATA.trainees.map(t => {
+    const onLeave = isActiveAbsence(t.trainee_key);
+    const dotClass = getDotClass(t.last_response_date, onLeave).replace("dot-","");
+    const latestGoal = getLatestGoal(t.trainee_key);
+    const goalText = latestGoal ? latestGoal.goal_text.replace(/\n/g," ").substring(0,40) + (latestGoal.goal_text.length>40?"…":"") : "لا يوجد هدف";
+    return `
+      <div class="trainee-row" onclick="openSheet('${t.trainee_key}')">
+        <div class="row-dot dot-${dotClass}" style="background:var(--${dotClass === 'dot-' ? 'green' : dotClass.replace('dot-','')})"></div>
+        <div class="row-info">
+          <div class="row-name">${getDisplayName(t)}</div>
+          ${t.kunya ? `<div class="row-kunya">${t.kunya}</div>` : ""}
+          <div class="row-goal">${goalText}</div>
+        </div>
+        <div class="row-meta">
+          <div class="row-date">${relDate(t.last_response_date)}</div>
+          ${t.reminder_time ? `<div class="row-reminder">⏰ ${t.reminder_time}</div>` : ""}
+          ${onLeave ? '<div class="leave-badge" style="margin-top:4px">إجازة</div>' : ''}
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+// ── Bottom Sheet ───────────────────────────────────────────────────
+function openSheet(key) {
+  const t = DATA.trainees.find(x => x.trainee_key === key);
+  if (!t) return;
+
+  const onLeave = isActiveAbsence(t.trainee_key);
+  const absences = getAbsenceInfo(t.trainee_key);
+  const tResponses = DATA.responses.filter(r => r.trainee_key === key).sort((a,b)=>a.calendar_date.localeCompare(b.calendar_date));
+  const respondedDays = tResponses.filter(r => r.responded);
+  const thisMonth = TODAY.slice(0,7);
+  const respondedThisMonth = respondedDays.filter(r => r.calendar_date.startsWith(thisMonth));
+  const unreadVoiceDays = tResponses.filter(r => r.content_captured === 0);
+  const goals = DATA.goals.filter(g => g.trainee_key === key).sort((a,b)=>a.set_date.localeCompare(b.set_date));
+  const latestGoal = goals.length ? goals[goals.length-1] : null;
+
+  // Header
+  document.getElementById("sheet-header").innerHTML = `
+    <div class="sheet-name">${getDisplayName(t)}</div>
+    ${t.kunya ? `<div class="sheet-kunya">${t.kunya}</div>` : ""}
+    <div class="sheet-meta-chips">
+      <span class="chip chip-channel">${getChannelLabel(t.acquisition_channel)}</span>
+      ${t.reminder_time ? `<span class="chip chip-time">⏰ ${t.reminder_time}</span>` : ""}
+      ${t.first_contact_date ? `<span class="chip chip-channel">بدأ ${fmtDateAr(t.first_contact_date)}</span>` : ""}
+    </div>
+  `;
+
+  // Special: أحمد حكمي - upcoming absence
+  let absenceHTML = "";
+  if (absences.length) {
+    absenceHTML = '<div class="sheet-section"><div class="sheet-section-title">الإجازة</div>';
+    absences.forEach(a => {
+      let txt = "";
+      if (a.trainee_key === "Taf2af3c0e3") {
+        txt = `إجازة مقبلة حتى 15 أغسطس · يعود 16 أغسطس`;
+      } else if (!a.start_date && !a.end_date) {
+        txt = `في إجازة حالياً`;
+      } else {
+        if (a.start_date) txt += `من ${fmtDateAr(a.start_date)} `;
+        if (a.end_date) txt += `حتى ${fmtDateAr(a.end_date)}`;
+        if (a.resume_date) txt += ` · يعود ${fmtDateAr(a.resume_date)}`;
+      }
+      absenceHTML += `<div class="absence-box">🏖️ ${txt}</div>`;
+    });
+    absenceHTML += "</div>";
+  }
+
+  // Goal
+  let goalHTML = "";
+  if (latestGoal) {
+    goalHTML = `
+      <div class="sheet-section">
+        <div class="sheet-section-title">الهدف الحالي</div>
+        <div class="goal-box">
+          <div class="goal-date">${fmtDateAr(latestGoal.set_date)}</div>
+          ${latestGoal.goal_text.replace(/\n/g,"<br>")}
+        </div>
+      </div>`;
+  }
+
+  // Last 3 goals
+  let prevGoalsHTML = "";
+  if (goals.length > 1) {
+    const prev = goals.slice(-4,-1).reverse();
+    prevGoalsHTML = `<div class="sheet-section"><div class="sheet-section-title">أهداف سابقة</div>`;
+    prev.forEach(g => {
+      prevGoalsHTML += `<div class="goal-box" style="margin-bottom:8px;opacity:0.7;">
+        <div class="goal-date">${fmtDateAr(g.set_date)}</div>
+        ${g.goal_text.replace(/\n/g,"<br>")}
+      </div>`;
+    });
+    prevGoalsHTML += "</div>";
+  }
+
+  // Stats
+  const statsHTML = `
+    <div class="sheet-section">
+      <div class="sheet-section-title">الإحصائيات</div>
+      <div class="sheet-stat-grid">
+        <div class="sheet-stat"><div class="sv">${respondedDays.length}</div><div class="sl">أيام تفاعل (إجمالي)</div></div>
+        <div class="sheet-stat"><div class="sv">${respondedThisMonth.length}</div><div class="sl">أيام تفاعل هذا الشهر</div></div>
+        <div class="sheet-stat"><div class="sv">${unreadVoiceDays.length}</div><div class="sl">أيام صوتية (لم نقرأها)</div></div>
+        <div class="sheet-stat"><div class="sv">${getPreferredMedium(key)}</div><div class="sl">الوسيلة المفضلة</div></div>
+      </div>
+    </div>`;
+
+  // Mini calendar — last 7 responses
+  const last7Events = tResponses.slice(-7);
+  const miniCalHTML = `
+    <div class="sheet-section">
+      <div class="sheet-section-title">آخر 7 أيام تفاعل</div>
+      <div class="mini-calendar">
+        ${last7Events.map(r => {
+          const d = new Date(r.calendar_date + "T00:00:00");
+          const dayLabel = AR_DAYS[d.getDay()].slice(0,2);
+          let dotClass = "no-data";
+          let icon = "·";
+          if (r.responded) {
+            if (r.content_captured === 0) { dotClass="unread"; icon=getMediumIcon(r.medium); }
+            else if (r.medium === "voice") { dotClass="responded-voice"; icon="🎙️"; }
+            else if (r.medium === "text") { dotClass="responded-text"; icon="💬"; }
+            else { dotClass="responded-mixed"; icon="🔀"; }
+          }
+          return `<div class="mini-day">
+            <div class="md-label">${dayLabel}</div>
+            <div class="md-dot ${dotClass}">${icon}</div>
+            <div class="md-date">${d.getDate()}/${d.getMonth()+1}</div>
+          </div>`;
+        }).join("")}
+      </div>
+    </div>`;
+
+  document.getElementById("sheet-body").innerHTML = absenceHTML + goalHTML + statsHTML + miniCalHTML + prevGoalsHTML;
+
+  document.getElementById("sheet-overlay").classList.add("open");
+  document.getElementById("bottom-sheet").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeSheet() {
+  document.getElementById("sheet-overlay").classList.remove("open");
+  document.getElementById("bottom-sheet").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+// ── Tab 3: Timeline ────────────────────────────────────────────────
+function populateTimelineSelect() {
+  const sel = document.getElementById("timeline-select");
+  DATA.trainees.forEach(t => {
+    const opt = document.createElement("option");
+    opt.value = t.trainee_key;
+    opt.textContent = getDisplayName(t);
+    sel.appendChild(opt);
+  });
+  sel.dataset.populated = "1";
+}
+
+function renderTimeline() {
+  const key = document.getElementById("timeline-select").value;
+  const wrap = document.getElementById("timeline-wrap");
+  if (!key) { wrap.innerHTML = '<div class="empty-state">اختر متدرباً لعرض تسلسله الزمني</div>'; return; }
+
+  const t = DATA.trainees.find(x => x.trainee_key === key);
+  const tResponses = DATA.responses
+    .filter(r => r.trainee_key === key)
+    .sort((a,b) => b.calendar_date.localeCompare(a.calendar_date)); // newest first
+
+  const tMinutes = DATA.minutes.filter(m => m.trainee_key === key && m.statement_kind === "reported");
+  const tGoals = DATA.goals.filter(g => g.trainee_key === key).sort((a,b)=>a.set_date.localeCompare(b.set_date));
+  const tAbsences = DATA.absences.filter(a => a.trainee_key === key);
+
+  if (!tResponses.length) { wrap.innerHTML = '<div class="empty-state">لا توجد بيانات لهذا المتدرب</div>'; return; }
+
+  // Build a set of goal set_dates for banners
+  const goalsByDate = {};
+  tGoals.forEach(g => { goalsByDate[g.set_date] = g; });
+
+  // Build absence gaps (between the newest first order, we need to find gaps)
+  // We'll just show them inline where they occur
+
+  let html = "";
+  let shownAbsences = new Set();
+
+  tResponses.forEach((r, i) => {
+    const date = r.calendar_date;
+
+    // Show goal banner if a goal was set on this date
+    if (goalsByDate[date]) {
+      const g = goalsByDate[date];
+      html += `<div class="tl-goal-banner">
+        <div class="tl-goal-label">🎯 هدف جديد</div>
+        ${g.goal_text.replace(/\n/g,"<br>")}
+      </div>`;
+    }
+
+    // Show absence gaps
+    tAbsences.forEach(a => {
+      if (shownAbsences.has(a.id)) return;
+      if (a.start_date && date <= a.start_date && (i===0 || tResponses[i-1].calendar_date >= a.start_date)) {
+        shownAbsences.add(a.id);
+        const absText = a.start_date === a.end_date
+          ? `إجازة · ${fmtDateAr(a.start_date)}`
+          : `إجازة · ${fmtDateAr(a.start_date)} ← ${fmtDateAr(a.end_date || a.resume_date || a.start_date)}`;
+        html += `<div class="tl-absence-gap">🏖️ ${absText}</div>`;
+      }
+    });
+
+    // Get minutes for this date
+    const mEntry = tMinutes.find(m => m.calendar_date === date);
+    const ambiguous = r.attribution_ambiguous === 1;
+
+    const dotClass = r.medium === "voice" ? "voice" : r.medium === "text" ? "text" : "mixed";
+
+    let chips = `<span class="tl-chip medium-${r.medium}">${getMediumLabel(r.medium)}</span>`;
+    if (r.reply_count) chips += `<span class="tl-chip replies">${r.reply_count} رسائل</span>`;
+    if (mEntry) chips += `<span class="tl-chip minutes">⏱️ ${mEntry.minutes} د</span>`;
+    if (r.content_captured === 0) chips += `<span class="tl-chip unread">🔊 لم يُقرأ</span>`;
+
+    html += `
+      <div class="tl-item">
+        <div class="tl-dot ${dotClass}"></div>
+        <div class="tl-card">
+          <div class="tl-date-row">
+            <span class="tl-date-abs">${fmtDayDateAr(date)}</span>
+            <span class="tl-date-rel">${relDate(date)}</span>
+            ${ambiguous ? '<span class="tl-warn" title="التاريخ تقريبي">⚠️</span>' : ''}
+          </div>
+          <div class="tl-chips">${chips}</div>
+        </div>
+      </div>
+    `;
+  });
+
+  wrap.innerHTML = html || '<div class="empty-state">لا توجد بيانات</div>';
+}
+
+// ── Fix row dot colors ─────────────────────────────────────────────
+function fixRowDots() {
+  document.querySelectorAll(".trainee-row .row-dot").forEach(el => {
+    const cls = [...el.classList].find(c => c.startsWith("dot-"));
+    if (cls) {
+      const color = cls.replace("dot-","");
+      el.style.background = `var(--${color})`;
+      el.style.boxShadow = `0 0 0 3px var(--${color}-bg)`;
+    }
+  });
+}
+
+// ── Init ───────────────────────────────────────────────────────────
+renderHome();
+renderTrainees();
+fixRowDots();
+</script>
+</body>
+</html>
