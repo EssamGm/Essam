@@ -1,4 +1,4 @@
-"""Faceless 2D animation: "Otsukaresama deshita" — a late drive home.
+"""Faceless 2D animation: "Suteta mon ja nai" — a late drive home.
 
 Renders 1080x1920 (9:16) frames with skia-python and pipes them to ffmpeg.
 
@@ -690,9 +690,10 @@ def drive_ext(cv, t):
 
 # ---------------------------------------------------------------- scene: car interior (11 - 27.6)
 
-PHRASE_KANA = 'おつかれさまでした'
-PHRASE = 'お疲れ様でした'
-ROMAJI = 'otsukaresama deshita'
+PHRASE_KANA = 'すてたもんじゃない'
+PHRASE = '捨てたもんじゃない'
+ROMAJI = 'suteta mon ja nai'
+MEANING = '“Not so bad after all.”'
 KANA_POOL = 'のはがをにでもねよなあいうえおかきくけこさしすせそたちつてとなにぬねまみむめもやゆよらりるれろわん'
 PHONE_POS = (905, 935)
 
@@ -918,8 +919,8 @@ def car_int(cv, t):
             cv.save()
             cv.translate(540, 450)
             cv.scale(sc, sc)
-            text(cv, PHRASE, 0, 40, 118, GOLD, 0.8 * m, name='jpb', blur=26, blend=skia.BlendMode.kPlus)
-            text(cv, PHRASE, 0, 40, 118, '#FFF6E0', m, name='jpb')
+            text(cv, PHRASE, 0, 40, 100, GOLD, 0.8 * m, name='jpb', blur=24, blend=skia.BlendMode.kPlus)
+            text(cv, PHRASE, 0, 40, 100, '#FFF6E0', m, name='jpb')
             cv.restore()
         r = prog(t, 23.2, 23.8)
         if r > 0:
@@ -1106,9 +1107,9 @@ def celebrate(cv, t):
         cv.save()
         cv.translate(540, y)
         cv.scale(sc, sc)
-        text(cv, PHRASE, 0, 0, 120, GOLD, 0.8 * m, name='jpb', blur=26, blend=skia.BlendMode.kPlus)
-        text(cv, PHRASE, 0, 0, 120, '#FFF6E0', m, name='jpb')
-        text(cv, '“Thank you for your hard work.”', 0, 90, 44, '#FFE3B0', m, name='ital')
+        text(cv, PHRASE, 0, 0, 100, GOLD, 0.8 * m, name='jpb', blur=24, blend=skia.BlendMode.kPlus)
+        text(cv, PHRASE, 0, 0, 100, '#FFF6E0', m, name='jpb')
+        text(cv, MEANING, 0, 86, 46, '#FFE3B0', m, name='ital')
         cv.restore()
 
 
@@ -1180,16 +1181,17 @@ def phone_ui(cv, t):
         cv.saveLayerAlpha(None, int(255 * rc))
         rrect(cv, cx, cy + 10, cw, chh, 40, P('#000000', 0.08, blur=16))
         rrect(cv, cx, cy, cw, chh, 40, P('#FFFFFF'))
-        text(cv, PHRASE, cx + 40, cy + 110, 72, '#1B1D33', 1, name='jpb', align='l')
-        text(cv, ROMAJI, cx + 42, cy + 166, 32, '#8A8798', 1, name='ital', align='l')
+        text(cv, PHRASE, cx + 32, cy + 104, 50, '#1B1D33', 1, name='jpb', align='l')
+        text(cv, ROMAJI, cx + 34, cy + 160, 32, '#8A8798', 1, name='ital', align='l')
         cv.drawLine(cx + 40, cy + 206, cx + cw - 40, cy + 206, P('#ECE8F0', stroke=3))
         text(cv, 'MEANING', cx + 42, cy + 258, 24, '#E8724C', 1, name='bold', align='l')
         yy = cy + 312
-        for line in wrap('“Thank you for your hard work.”', 'bold', 40, cw - 80):
+        for line in wrap(MEANING, 'bold', 40, cw - 80):
             text(cv, line, cx + 40, yy, 40, '#1B1D33', 1, name='bold', align='l')
             yy += 52
         yy += 14
-        for line in wrap('A warm, polite phrase said to someone at the end of a long day of work.', 'reg', 30,
+        for line in wrap('Literally “not something to throw away.” Said when someone turns out better than you expected.',
+                         'reg', 30,
                          cw - 80):
             text(cv, line, cx + 40, yy, 30, '#5E5A6E', 1, name='reg', align='l')
             yy += 42
@@ -1202,7 +1204,7 @@ def phone_ui(cv, t):
             cv.save()
             cv.translate(bx, by)
             cv.scale(bs, bs)
-            label = 'Kind  ·  Positive  ·  Polite'
+            label = 'Positive  ·  A compliment'
             lw = text_w(label, 'bold', 30) + 110
             glow(cv, 0, 0, lw * 0.7, '#2BA36B', 0.25 * b, blend=skia.BlendMode.kSrcOver)
             rrect(cv, -lw / 2, -42, lw, 84, 42, P('#2BA36B'))
@@ -1262,12 +1264,14 @@ def end_card(cv, t):
     cv.translate(540, 880)
     s = lerp(0.94, 1.0, ease_out(prog(t, 45.3, 46.4)))
     cv.scale(s, s)
-    text(cv, PHRASE, 0, 0, 132, GOLD, 0.8 * a1, name='jpb', blur=30, blend=skia.BlendMode.kPlus)
-    text(cv, PHRASE, 0, 0, 132, '#FFF6E0', a1, name='jpb')
+    text(cv, PHRASE, 0, 0, 106, GOLD, 0.8 * a1, name='jpb', blur=26, blend=skia.BlendMode.kPlus)
+    text(cv, PHRASE, 0, 0, 106, '#FFF6E0', a1, name='jpb')
     cv.restore()
     text(cv, ROMAJI, 540, 1000, 46, '#FFE3B0', a2, name='ital')
     cv.drawLine(440, 1060, 640, 1060, P(GOLD, 0.5 * a3, stroke=2))
-    text(cv, 'Thank you for your hard work.', 540, 1140, 46, '#FFFFFF', a3, name='med')
+    text(cv, 'Not so bad after all.', 540, 1140, 50, '#FFFFFF', a3, name='med')
+    a4 = smooth(prog(t, 46.9, 47.5))
+    text(cv, 'literally: “not something to throw away”', 540, 1206, 32, '#B9B4D6', a4, name='ital')
     # tiny faceless car driving across bottom
     u = prog(t, 45.4, 48.5)
     car(cv, lerp(-200, 1300, u), 1560, 0.32, u * 120, lights=1.0)
@@ -1283,7 +1287,7 @@ CAPTIONS = [
     ('Wait…\nI UNDERSTOOD that!', 21.5, 26.7, 1580),
     ('I couldn’t wait to get home\nand look it up.', 27.6, 32.0, 1600),
     ('But was it a good phrase…\nor a bad one?', 32.7, 37.3, 250),
-    ('Exactly what I needed\nto hear tonight.', 41.6, 45.2, 1580),
+    ('It sounds negative…\nbut it’s a compliment!', 41.6, 45.2, 1580),
 ]
 
 
