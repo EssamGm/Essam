@@ -16,15 +16,25 @@ understanding a sentence, and rushing home to check whether it was a good one.
 | 21–27 s | The "aha": the sounds assemble into 捨てたもんじゃない |
 | 27–32 s | Arriving home, rushing to the door |
 | 32–41 s | Looking it up: "Not so bad after all." (lit. "not something to throw away") — sounds negative, but it's a compliment |
-| 41–48 s | Celebration and end card |
+| 41–48 s | Celebration and end card with the pronunciation |
+
+## Sound
+
+No music. Ambient sound only (office, engine, road, doors, footsteps, keys,
+phone taps, crickets) plus the phrase spoken three times by an offline
+Japanese voice (OpenJTalk): from the car's phone speaker just before the
+"aha", from the dictionary's play button, and on the end card.
+
+Pronunciation guide shown on screen: **s’teh-tah mohn jah nye**
+(the "u" in *su* is almost silent).
 
 ## Rebuild
 
-Requires `skia-python`, `numpy`, `scipy`, `ffmpeg`, plus the Inter and Noto Sans CJK fonts.
+Requires `skia-python`, `numpy`, `scipy`, `pyopenjtalk`, `ffmpeg`, plus the Inter and Noto Sans CJK fonts.
 
 ```bash
 python3 render.py video_only.mp4          # frames -> H.264 (video only)
-python3 audio.py ambience.wav             # ambient sound design (no music)
+python3 audio.py ambience.wav             # ambience + spoken phrase (no music)
 ffmpeg -i video_only.mp4 -i ambience.wav -map 0:v -map 1:a -c:v copy \
   -af "loudnorm=I=-16:TP=-1.5:LRA=11" -c:a aac -b:a 192k -shortest \
   -movflags +faststart suteta-mon-ja-nai-drive-home.mp4

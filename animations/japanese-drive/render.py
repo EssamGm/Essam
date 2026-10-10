@@ -163,6 +163,27 @@ def text(cv, s, x, y, size, c='#FFFFFF', a=1.0, name='semi', align='c', blur=0, 
     return w
 
 
+def fit_size(s, name, size, maxw):
+    w = text_w(s, name, size)
+    return size if w <= maxw else size * maxw / w
+
+
+def speaking(t, t0, dur):
+    """0..1 envelope while the spoken phrase plays."""
+    return smooth(prog(t, t0, t0 + 0.12)) * (1 - smooth(prog(t, t0 + dur - 0.2, t0 + dur)))
+
+
+def speaker_icon(cv, x, y, s, c, active=0.0, t=0.0):
+    body = poly([(x - s * 0.55, y - s * 0.2), (x - s * 0.28, y - s * 0.2), (x + s * 0.05, y - s * 0.5),
+                 (x + s * 0.05, y + s * 0.5), (x - s * 0.28, y + s * 0.2), (x - s * 0.55, y + s * 0.2)])
+    cv.drawPath(body, P(c))
+    for k in range(2):
+        r = s * (0.3 + 0.28 * k)
+        a = 1.0 if active <= 0 else lerp(1.0, 0.3 + 0.7 * (0.5 + 0.5 * math.sin(t * 12 - k * 1.4)), active)
+        cv.drawArc(skia.Rect.MakeXYWH(x + s * 0.1 - r, y - r, 2 * r, 2 * r), -50, 100, False,
+                   P(c, a, stroke=max(2.0, s * 0.11)))
+
+
 def wrap(s, name, size, maxw):
     words, lines, cur = s.split(' '), [], ''
     for wd in words:
@@ -694,6 +715,9 @@ PHRASE_KANA = 'すてたもんじゃない'
 PHRASE = '捨てたもんじゃない'
 ROMAJI = 'suteta mon ja nai'
 MEANING = '“Not so bad after all.”'
+SAY_IT = 's’teh-tah  mohn  jah  nye'
+# when the spoken phrase plays (keep in sync with audio.py)
+VOICE_CAR, VOICE_PHONE, VOICE_END = 19.4, 38.05, 45.75
 KANA_POOL = 'のはがをにでもねよなあいうえおかきくけこさしすせそたちつてとなにぬねまみむめもやゆよらりるれろわん'
 PHONE_POS = (905, 935)
 
@@ -858,13 +882,14 @@ def car_int(cv, t):
     text(cv, 'Japanese Audio', 0, -36, 11, '#B7BEF0', 0.9, name='med')
     for i in range(9):
         hgt = 8 + 34 * abs(math.sin(t * 7 + i * 1.7)) * (0.6 + 0.4 * math.sin(t * 3 + i))
+        hgt *= 1 + 0.5 * speaking(t, VOICE_CAR, 1.1)
         if t > GATHER_T:
             hgt *= 1 - 0.6 * smooth(prog(t, GATHER_T, GATHER_T + 0.5))
         rrect(cv, -44 + i * 10.5, 10 - hgt / 2, 6, hgt, 3, P('#8FA6FF'))
     cv.drawLine(-40, 62, 40, 62, P('#FFFFFF', 0.25, stroke=4))
     cv.drawLine(-40, 62, -40 + 80 * ((t - 11) / 18 % 1), 62, P('#FFFFFF', 0.9, stroke=4))
     cv.restore()
-    glow(cv, PHONE_POS[0], PHONE_POS[1], 220, '#7E95FF', 0.22)
+    glow(cv, PHONE_POS[0], PHONE_POS[1], 220, '#7E95FF', 0.22 + 0.25 * speaking(t, VOICE_CAR, 1.1))
     cv.restore()
 
     # --- kana particles (screen space)
@@ -1177,15 +1202,26 @@ def phone_ui(cv, t):
     rc = ease_out(prog(t, 37.35, 37.9))
     if rc > 0:
         cy = fy + 150 + (1 - rc) * 300
-        cx, cw, chh = fx, fw, 640
+        cx, cw, chh = fx, fw, 690
         cv.saveLayerAlpha(None, int(255 * rc))
         rrect(cv, cx, cy + 10, cw, chh, 40, P('#000000', 0.08, blur=16))
         rrect(cv, cx, cy, cw, chh, 40, P('#FFFFFF'))
         text(cv, PHRASE, cx + 32, cy + 104, 50, '#1B1D33', 1, name='jpb', align='l')
         text(cv, ROMAJI, cx + 34, cy + 160, 32, '#8A8798', 1, name='ital', align='l')
-        cv.drawLine(cx + 40, cy + 206, cx + cw - 40, cy + 206, P('#ECE8F0', stroke=3))
-        text(cv, 'MEANING', cx + 42, cy + 258, 24, '#E8724C', 1, name='bold', align='l')
-        yy = cy + 312
+        # play-pronunciation button (tapped at VOICE_PHONE)
+        tap_s = 1 + 0.18 * math.exp(-max(0.0, t - (VOICE_PHONE - 0.1)) * 9) if t > VOICE_PHONE - 0.1 else 1
+        bxp, byp = cx + cw - 60, cy + 160
+        ring = prog(t, VOICE_PHONE - 0.1, VOICE_PHONE + 0.6)
+        if 0 < ring < 1:
+            cv.drawCircle(bxp, byp, 30 + 36 * ease_out(ring), P('#E8724C', 0.5 * (1 - ring), stroke=4))
+        cv.drawCircle(bxp, byp, 30 * tap_s, P('#E8724C'))
+        speaker_icon(cv, bxp - 2, byp, 27 * tap_s, '#FFFFFF', speaking(t, VOICE_PHONE, 1.25), t)
+        say_size = fit_size('say it:  ' + SAY_IT, 'semi', 28, cw - 72)
+        w0 = text(cv, 'say it:  ', cx + 36, cy + 214, say_size, '#8A8798', 1, name='med', align='l')
+        text(cv, SAY_IT, cx + 36 + w0, cy + 214, say_size, '#E8724C', 1, name='semi', align='l')
+        cv.drawLine(cx + 40, cy + 246, cx + cw - 40, cy + 246, P('#ECE8F0', stroke=3))
+        text(cv, 'MEANING', cx + 42, cy + 296, 24, '#E8724C', 1, name='bold', align='l')
+        yy = cy + 350
         for line in wrap(MEANING, 'bold', 40, cw - 80):
             text(cv, line, cx + 40, yy, 40, '#1B1D33', 1, name='bold', align='l')
             yy += 52
@@ -1195,6 +1231,8 @@ def phone_ui(cv, t):
                          cw - 80):
             text(cv, line, cx + 40, yy, 30, '#5E5A6E', 1, name='reg', align='l')
             yy += 42
+        yy += 10
+        text(cv, 'Tip: the “u” in su is almost silent.', cx + 40, yy, 26, '#A6A2B3', 1, name='ital', align='l')
         cv.restore()
         # badge
         b = prog(t, 38.9, 39.35)
@@ -1261,17 +1299,23 @@ def end_card(cv, t):
     a2 = smooth(prog(t, 45.9, 46.5))
     a3 = smooth(prog(t, 46.4, 47.0))
     cv.save()
-    cv.translate(540, 880)
+    cv.translate(540, 840)
     s = lerp(0.94, 1.0, ease_out(prog(t, 45.3, 46.4)))
     cv.scale(s, s)
     text(cv, PHRASE, 0, 0, 106, GOLD, 0.8 * a1, name='jpb', blur=26, blend=skia.BlendMode.kPlus)
     text(cv, PHRASE, 0, 0, 106, '#FFF6E0', a1, name='jpb')
     cv.restore()
-    text(cv, ROMAJI, 540, 1000, 46, '#FFE3B0', a2, name='ital')
-    cv.drawLine(440, 1060, 640, 1060, P(GOLD, 0.5 * a3, stroke=2))
-    text(cv, 'Not so bad after all.', 540, 1140, 50, '#FFFFFF', a3, name='med')
+    text(cv, ROMAJI, 540, 955, 46, '#FFE3B0', a2, name='ital')
+    # pronunciation with a speaker icon that animates while the phrase is spoken
+    sw = text_w(SAY_IT, 'semi', 40)
+    text(cv, SAY_IT, 540 + 30, 1030, 40, GOLD, a2, name='semi')
+    cv.saveLayerAlpha(None, int(255 * a2))
+    speaker_icon(cv, 540 + 30 - sw / 2 - 44, 1016, 34, GOLD, speaking(t, VOICE_END, 1.15), t)
+    cv.restore()
+    cv.drawLine(440, 1090, 640, 1090, P(GOLD, 0.5 * a3, stroke=2))
+    text(cv, 'Not so bad after all.', 540, 1170, 50, '#FFFFFF', a3, name='med')
     a4 = smooth(prog(t, 46.9, 47.5))
-    text(cv, 'literally: “not something to throw away”', 540, 1206, 32, '#B9B4D6', a4, name='ital')
+    text(cv, 'literally: “not something to throw away”', 540, 1236, 32, '#B9B4D6', a4, name='ital')
     # tiny faceless car driving across bottom
     u = prog(t, 45.4, 48.5)
     car(cv, lerp(-200, 1300, u), 1560, 0.32, u * 120, lights=1.0)

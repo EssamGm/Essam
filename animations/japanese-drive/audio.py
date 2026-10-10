@@ -1,4 +1,4 @@
-"""Ambient sound design for the animation (no music). Writes a 48 kHz stereo WAV.
+"""Ambient sound design for the animation: no music, no chimes or melodies. Writes a 48 kHz stereo WAV.
 
     python3 audio.py out.wav
 """
@@ -105,21 +105,21 @@ def whoosh(dur=0.7, lo=300, hi=3000, peak=0.5):
     return x / (np.abs(x).max() + 1e-9)
 
 
-def chime(freqs, dur=2.5, decay=2.2, bright=1.0):
-    n = int(dur * SR)
-    t = tt(n)
-    x = np.zeros(n)
-    for i, f in enumerate(freqs):
-        for h, ha in ((1, 1.0), (2.76, 0.35 * bright), (5.4, 0.12 * bright)):
-            x += ha / (i + 1) ** 0.3 * np.sin(2 * np.pi * f * h * t + i) * np.exp(-t * decay * (1 + 0.6 * (h - 1)))
-    x *= np.minimum(1, t / 0.006)
-    return x / (np.abs(x).max() + 1e-9)
 
 
-def ping(f, dur=0.35, decay=14):
-    n = int(dur * SR)
-    t = tt(n)
-    x = np.sin(2 * np.pi * f * t) * np.exp(-t * decay) * np.minimum(1, t / 0.003)
+def voice(speed=1.0):
+    """The phrase spoken by an offline Japanese TTS voice (OpenJTalk), trimmed of silence."""
+    import pyopenjtalk
+    x, sr = pyopenjtalk.tts(R.PHRASE, speed=speed)
+    x = np.asarray(x, dtype=float)
+    if sr != SR:
+        x = signal.resample_poly(x, SR, sr)
+    x /= np.abs(x).max() + 1e-9
+    idx = np.where(np.abs(x) > 0.03)[0]
+    x = x[max(0, idx[0] - 240): idx[-1] + 2400]
+    fade = int(0.01 * SR)
+    x[:fade] *= np.linspace(0, 1, fade)
+    x[-fade:] *= np.linspace(1, 0, fade)
     return x
 
 
@@ -166,31 +166,6 @@ def crickets(n):
         x += np.sin(2 * np.pi * f * t) * chirp * trill
     return x / (np.abs(x).max() + 1e-9)
 
-
-def babble(dur, seed=1):
-    """Muffled, wordless speech-like murmur coming out of a small phone speaker."""
-    r = random.Random(seed)
-    n = int(dur * SR)
-    t = tt(n)
-    pitch = 165 + 25 * np.sin(2 * np.pi * 0.35 * t) + 12 * np.sin(2 * np.pi * 1.3 * t)
-    ph = 2 * np.pi * np.cumsum(pitch) / SR
-    src = signal.sawtooth(ph) + 0.05 * rng.standard_normal(n)
-    vowels = [(730, 1090), (270, 2290), (300, 870), (530, 1840), (570, 840)]
-    out = np.zeros(n)
-    pos = 0.0
-    while pos < dur:
-        syl = r.uniform(0.11, 0.2)
-        gap = r.uniform(0.02, 0.06) if r.random() > 0.15 else r.uniform(0.25, 0.45)
-        i0, i1 = int(pos * SR), min(n, int((pos + syl) * SR))
-        if i1 > i0 + 64:
-            f1, f2 = r.choice(vowels)
-            seg = src[i0:i1]
-            v = bandpass(seg, f1 * 0.8, f1 * 1.25) + 0.6 * bandpass(seg, f2 * 0.85, f2 * 1.18)
-            e = np.sin(np.linspace(0, np.pi, i1 - i0)) ** 0.8
-            out[i0:i1] += v * e * r.uniform(0.6, 1.0)
-        pos += syl + gap
-    out = bandpass(out, 350, 3200)
-    return out / (np.abs(out).max() + 1e-9)
 
 
 # ------------------------------------------------------------ scene beds
@@ -242,18 +217,11 @@ def build():
         if near < 7 and (last is None or tk - last > 0.3):
             add(lowpass(whoosh(0.9, 300, 1800, 0.5), 1200), tk - 0.45, 0.05, pan=-0.4)
             last = tk
-    bab = babble(10.2, seed=2)
-    e = np.ones(len(bab))
-    e[:int(0.5 * SR)] = np.linspace(0, 1, int(0.5 * SR))
-    e[-int(0.5 * SR):] = np.linspace(1, 0, int(0.5 * SR))
-    add(bab * e, 11.2, 0.035, pan=0.5)
+    # the phrase coming out of the small phone speaker, just before the aha
+    add(bandpass(voice(1.0), 300, 3800), R.VOICE_CAR, 0.30, pan=0.5)
     # aha moment
     add(whoosh(0.9, 500, 6000, 0.95), R.GATHER_T - 0.85, 0.08)
     add(thud(55, 1.2, 3.5, 0.2), R.GATHER_T, 0.22)
-    add(chime([659.3, 830.6, 987.8, 1318.5], 3.5, 1.3), R.GATHER_T, 0.10, pan=-0.1)
-    add(chime([493.9, 659.3, 987.8], 3.0, 1.5, 0.6), 22.6, 0.07, pan=0.1)
-    for i in range(9):
-        add(ping(1600 + i * 110, 0.25, 22), R.GATHER_T + 0.15 + i * 0.05, 0.015, pan=-0.8 + i * 0.2)
 
     # home exterior: crickets, car slows + stops, door, steps, keys, house door
     cr = crickets(N)
@@ -283,22 +251,18 @@ def build():
     add(click(0.008, 2500, 9000, 600), 36.25, 0.08)
     add(click(0.012, 1500, 6000, 350), 36.6, 0.11)
     add(whoosh(0.45, 600, 4000, 0.6), 37.2, 0.05)
-    up = np.sin(2 * np.pi * np.cumsum(np.linspace(700, 1250, int(0.12 * SR))) / SR) * np.exp(-tt(int(0.12 * SR)) * 22)
-    add(up, 38.9, 0.10)
-    add(chime([1046.5, 1318.5, 1568.0], 1.6, 3.0, 0.5), 39.0, 0.05)
+    add(click(0.012, 1500, 6000, 350), R.VOICE_PHONE - 0.1, 0.10)  # tap the speaker button
+    add(voice(0.8), R.VOICE_PHONE, 0.30)
+    add(click(0.012, 1500, 6000, 350), 38.9, 0.07)  # badge appears: soft tap
 
     # celebrate
     add(whoosh(0.5, 200, 1200, 0.5), 40.95, 0.06)
     add(thud(70, 0.4, 14, 0.5), 41.95, 0.16)
     add(thud(70, 0.4, 14, 0.5), 42.6, 0.12)
-    sr_ = random.Random(9)
-    for i in range(16):
-        add(ping(sr_.uniform(2200, 4200), 0.4, 10), 41.2 + sr_.uniform(0, 1.6), 0.018, pan=sr_.uniform(-0.7, 0.7))
-    add(chime([523.3, 659.3, 784.0, 1046.5], 3.5, 1.2, 0.7), 41.3, 0.06)
 
     # end card
     bed(cr, 44.8, R.DUR, 0.025, fade_in=1.0, fade_out=1.2)
-    add(chime([440.0, 554.4, 659.3, 880.0], 3.2, 1.1, 0.6), 45.3, 0.05)
+    add(voice(0.9), R.VOICE_END, 0.30)
     seg = int(3.1 * SR)
     pas = lowpass(pink(seg), 900) * np.interp(tt(seg), [0, 1.5, 3.1], [0, 1, 0])
     add(pas, 45.4, 0.05, pan=0.0)
