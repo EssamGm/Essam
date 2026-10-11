@@ -1,0 +1,351 @@
+<title>Bedtime 4コマ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Maru+Gothic:wght@500;700&display=swap">
+<style>
+/* Layout: one manga strip at a time, four stacked panels, tall phone column; light only by design */
+:root{
+  --paper:#ffffff;
+  --desk:#eef0f4;
+  --ink:#1b1d24;
+  --soft:#5d6272;
+  --line:#c9cdd8;
+  --ai:#2f4c8f;          /* indigo accent */
+  --ai-soft:#e3e9f6;
+  --display:"Dela Gothic One","Zen Maru Gothic","Hiragino Sans","Noto Sans JP",sans-serif;
+  --body:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Noto Sans JP",system-ui,sans-serif;
+  color-scheme:light;
+}
+html,body{background:var(--desk);color:var(--ink)}
+body{font-family:var(--body);padding-inline:16px;padding-block:20px 40px}
+.wrap{max-width:440px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+header{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+h1{font-family:var(--display);font-weight:400;font-size:1.35rem;margin:0;letter-spacing:.02em}
+.count{font-size:.85rem;color:var(--soft);font-variant-numeric:tabular-nums}
+.dots{display:flex;gap:6px}
+.dots span{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.dots span.on{background:var(--ai)}
+.strip{display:flex;flex-direction:column;gap:10px}
+.strip h2{font-family:var(--display);font-weight:400;font-size:1.05rem;margin:0;color:var(--ai)}
+.panel{background:var(--paper);border:2.5px solid var(--ink);display:grid;grid-template-columns:28px 1fr}
+.num{border-right:2px solid var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:10px;padding-top:8px;font-family:var(--display);font-size:.9rem}
+.inner{min-width:0}
+.inner svg{display:block;width:100%;height:auto;border-bottom:1.5px solid var(--line)}
+.lines{padding:10px 12px 12px;display:flex;flex-direction:column;gap:6px;font-size:1.12rem;line-height:1.65;font-weight:500}
+.lines > div{border-radius:6px;margin-inline:-4px;padding-inline:4px;transition:background-color .15s}
+.lines > div.now{background:var(--ai-soft)}
+.lines .n{color:var(--soft);font-size:1rem}
+.lines b{font-weight:700}
+.task{background:var(--ai-soft);border-radius:10px;padding:12px 14px;font-size:.95rem;line-height:1.55}
+.task strong{color:var(--ai)}
+nav{display:flex;gap:10px}
+button{font-family:var(--body);font-weight:700;font-size:1rem;border-radius:999px;padding:12px 18px;cursor:pointer;border:2px solid var(--ink);background:var(--paper);color:var(--ink)}
+button.go{background:var(--ink);color:var(--paper);flex:1}
+button:disabled{opacity:.35;cursor:default}
+button:focus-visible{outline:3px solid var(--ai);outline-offset:2px}
+.audio{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.audio button{padding:9px 14px;font-size:.95rem}
+.speed{display:flex;border:2px solid var(--ink);border-radius:999px;overflow:hidden;margin-left:auto}
+.speed button{border:0;border-radius:0;padding:8px 12px;font-size:.85rem;background:var(--paper)}
+.speed button[aria-pressed="true"]{background:var(--ai);color:var(--paper)}
+.say{border:0;background:none;padding:2px 0 0;font-size:1rem;color:var(--ai);cursor:pointer;justify-self:center}
+.panel.playing{outline:4px solid var(--ai);outline-offset:-1px}
+.warn{font-size:.85rem;color:#8a3b12;background:#fff1e6;border-radius:8px;padding:8px 10px}
+.check{background:var(--paper);border:2.5px solid var(--ink);padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.check label{font-weight:700;font-size:.95rem}
+.check textarea{font-family:var(--body);font-size:1rem;line-height:1.5;border:1.5px solid var(--line);border-radius:8px;padding:10px;resize:vertical;min-height:3.2em;background:var(--paper);color:var(--ink)}
+.check textarea:focus-visible{outline:3px solid var(--ai);outline-offset:1px}
+.reveal{display:flex;flex-direction:column;gap:10px;border-top:1.5px dashed var(--line);padding-top:10px}
+.reveal p{margin:0;line-height:1.6;font-size:.98rem}
+.wordline{background:var(--ai-soft);border-radius:8px;padding:8px 10px}
+.wordline .jp{font-size:1.25rem;font-weight:700}
+.verdict{display:flex;gap:8px;flex-wrap:wrap}
+.verdict button{flex:1;min-width:6.5em;padding:10px 8px;font-size:.92rem}
+.verdict button[aria-pressed="true"]{background:var(--ai);color:var(--paper);border-color:var(--ai)}
+.status{font-size:.85rem;color:var(--soft);min-height:1.2em}
+.done ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
+.done{text-align:center;padding:28px 12px;background:var(--paper);border:2.5px solid var(--ink);display:flex;flex-direction:column;gap:10px}
+.done .big{font-family:var(--display);font-size:1.6rem}
+.done p{margin:0;line-height:1.6}
+.credit{font-size:.78rem;line-height:1.6;color:var(--soft);text-align:center;margin:4px 0 0}
+@media (prefers-reduced-motion: reduce){.lines > div{transition:none}}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>今夜の4コマ</h1>
+    <div class="dots" id="dots" aria-hidden="true"></div>
+  </header>
+  <main id="stage"></main>
+  <nav>
+    <button id="back" type="button">戻る</button>
+    <button id="next" class="go" type="button">次へ</button>
+  </nav>
+  <p class="credit" id="credit"></p>
+</div>
+
+<script>
+const S = 'stroke="#1b1d24" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"';
+const svg = inner => `<svg viewBox="0 0 320 170" role="img" aria-hidden="true"><rect width="320" height="170" fill="#ffffff"/>${inner}</svg>`;
+const floor = `<line x1="0" y1="150" x2="320" y2="150" ${S} stroke-width="1.6"/>`;
+
+function dad(x, y, mood='plain', flip=false){
+  const eyes = mood==='sleepy'
+    ? `<path d="M${x-12} ${y-2} q4 3 8 0 M${x+4} ${y-2} q4 3 8 0" fill="none" ${S} stroke-width="1.8"/>`
+    : `<circle cx="${x-8}" cy="${y-2}" r="6" fill="#fff" ${S} stroke-width="1.8"/><circle cx="${x+8}" cy="${y-2}" r="6" fill="#fff" ${S} stroke-width="1.8"/><line x1="${x-2}" y1="${y-2}" x2="${x+2}" y2="${y-2}" ${S} stroke-width="1.8"/><circle cx="${x-8}" cy="${y-2}" r="1.8" fill="#1b1d24"/><circle cx="${x+8}" cy="${y-2}" r="1.8" fill="#1b1d24"/>`;
+  const mouth = {
+    plain:`<path d="M${x-6} ${y+12} q6 3 12 0" fill="none" ${S} stroke-width="1.8"/>`,
+    laugh:`<path d="M${x-8} ${y+9} q8 12 16 0 z" fill="#1b1d24"/>`,
+    shock:`<ellipse cx="${x}" cy="${y+13}" rx="4" ry="5.5" fill="#1b1d24"/>`,
+    sleepy:`<ellipse cx="${x}" cy="${y+13}" rx="4" ry="5.5" fill="#1b1d24"/>`,
+    worry:`<path d="M${x-6} ${y+14} q6 -4 12 0" fill="none" ${S} stroke-width="1.8"/>`,
+    blank:`<line x1="${x-5}" y1="${y+13}" x2="${x+5}" y2="${y+13}" ${S} stroke-width="1.8"/>`
+  }[mood] || '';
+  const hair = mood==='sleepy'
+    ? `<path d="M${x-14} ${y-20} l-6 -10 M${x-4} ${y-23} l-2 -12 M${x+6} ${y-22} l5 -11 M${x+15} ${y-17} l9 -7" fill="none" ${S}/>`
+    : `<path d="M${x-10} ${y-21} q10 -8 22 -2" fill="none" ${S} stroke-width="1.8"/>`;
+  const sweat = mood==='worry' ? `<path d="M${x+27} ${y-14} q4 7 0 10 q-4 -3 0 -10 z" fill="#9fb7e6" ${S} stroke-width="1.4"/>` : '';
+  return `<g>${hair}<rect x="${x-20}" y="${y+24}" width="40" height="${148-(y+24)}" rx="12" fill="#dfe6f3" ${S}/><path d="M${x-4} ${y+25} l4 4 l4 -4 l-2 22 l-2 4 l-2 -4 z" fill="${'#2f4c8f'}" ${S} stroke-width="1.4"/><circle cx="${x}" cy="${y}" r="23" fill="#fff" ${S}/>${eyes}${mouth}${sweat}<path d="M${x-7} ${y+7} q7 -3 14 0" fill="none" ${S} stroke-width="1.6"/></g>`;
+}
+function son(x, y, mood='plain'){
+  const mouth = {
+    plain:`<path d="M${x-4} ${y+8} q4 3 8 0" fill="none" ${S} stroke-width="1.8"/>`,
+    flat:`<line x1="${x-4}" y1="${y+9}" x2="${x+4}" y2="${y+9}" ${S} stroke-width="1.8"/>`,
+    open:`<ellipse cx="${x}" cy="${y+9}" rx="3.5" ry="4" fill="#1b1d24"/>`
+  }[mood];
+  const eyes = mood==='flat'
+    ? `<line x1="${x-9}" y1="${y-1}" x2="${x-3}" y2="${y-1}" ${S} stroke-width="2"/><line x1="${x+3}" y1="${y-1}" x2="${x+9}" y2="${y-1}" ${S} stroke-width="2"/>`
+    : `<circle cx="${x-6}" cy="${y-1}" r="2.4" fill="#1b1d24"/><circle cx="${x+6}" cy="${y-1}" r="2.4" fill="#1b1d24"/>`;
+  return `<g><rect x="${x-14}" y="${y+18}" width="28" height="${148-(y+18)}" rx="10" fill="#ffe3b8" ${S}/><circle cx="${x}" cy="${y}" r="18" fill="#fff" ${S}/><path d="M${x-18} ${y-4} l4 -14 l5 7 l4 -11 l5 9 l5 -10 l4 10 l6 -6 l3 13" fill="#1b1d24" ${S} stroke-width="1.6"/>${eyes}${mouth}</g>`;
+}
+function cat(x, y, angry=false, flip=false){
+  const t = flip ? `transform="translate(${2*x},0) scale(-1,1)"` : '';
+  const back = angry ? `M${x-26} ${y+2} q20 -34 44 0` : `M${x-26} ${y+4} q20 -14 44 0`;
+  const fur = angry ? `<path d="M${x-14} ${y-20} l-3 -8 M${x-2} ${y-25} l0 -9 M${x+10} ${y-21} l3 -8" ${S} stroke-width="1.6"/>` : '';
+  return `<g ${t}><path d="${back} l0 18 l-44 0 z" fill="#f2f2f2" ${S}/><path d="M${x-26} ${y+10} q-18 -6 -14 -24" fill="none" ${S}/><circle cx="${x+22}" cy="${y-2}" r="13" fill="#f2f2f2" ${S}/><path d="M${x+13} ${y-11} l2 -10 l7 6 M${x+24} ${y-15} l7 -6 l1 10" fill="#f2f2f2" ${S} stroke-width="1.8"/><circle cx="${x+20}" cy="${y-3}" r="1.8" fill="#1b1d24"/><circle cx="${x+28}" cy="${y-3}" r="1.8" fill="#1b1d24"/>${angry?`<path d="M${x+20} ${y+4} l4 3 l4 -3" fill="none" ${S} stroke-width="1.6"/>`:''}${fur}</g>`;
+}
+const fx = (x,y)=>`<path d="M${x} ${y} l6 -10 M${x+12} ${y-2} l10 -6 M${x+14} ${y+10} l11 0" ${S} stroke-width="2"/>`;
+const frame = (x,y,w,h,inner='')=>`<rect x="${x-6}" y="${y-6}" width="${w+12}" height="${h+12}" rx="4" fill="#cfa66b" ${S}/><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#eef3fb" ${S} stroke-width="1.6"/><path d="M${x+8} ${y+10} l14 -8 M${x+8} ${y+22} l22 -14" stroke="#ffffff" stroke-width="3"/>${inner}`;
+const door = (x, withKey)=>`<rect x="${x}" y="18" width="70" height="132" fill="#e9d7bd" ${S}/><circle cx="${x+58}" cy="88" r="5" fill="#cfa66b" ${S} stroke-width="1.6"/>${withKey?`<g><rect x="${x+68}" y="80" width="14" height="6" fill="#d9b94a" ${S} stroke-width="1.4"/><circle cx="${x+90}" cy="83" r="8" fill="#d9b94a" ${S} stroke-width="1.4"/><circle cx="${x+90}" cy="83" r="2.5" fill="#fff"/></g>`:''}`;
+const fridge = x=>`<rect x="${x}" y="30" width="62" height="120" rx="6" fill="#f4f6fa" ${S}/><line x1="${x}" y1="70" x2="${x+62}" y2="70" ${S} stroke-width="1.6"/><line x1="${x+52}" y1="40" x2="${x+52}" y2="58" ${S}/><line x1="${x+52}" y1="82" x2="${x+52}" y2="108" ${S}/>`;
+const clock = (x,y)=>`<circle cx="${x}" cy="${y}" r="16" fill="#fff" ${S}/><line x1="${x}" y1="${y}" x2="${x}" y2="${y-11}" ${S}/><line x1="${x}" y1="${y}" x2="${x+8}" y2="${y+3}" ${S}/>`;
+const sun = (x,y)=>`<circle cx="${x}" cy="${y}" r="12" fill="#ffd36b" ${S} stroke-width="1.8"/>`;
+const win = (x,y,inner)=>`<rect x="${x}" y="${y}" width="80" height="58" fill="#e6f0ff" ${S}/>${inner}<line x1="${x+40}" y1="${y}" x2="${x+40}" y2="${y+58}" ${S} stroke-width="1.6"/>`;
+const rain = ()=>{let r='';for(let i=0;i<26;i++){const x=(i*37)%320,y=(i*53)%120;r+=`<line x1="${x}" y1="${y}" x2="${x-6}" y2="${y+16}" stroke="#6f8fd0" stroke-width="2" stroke-linecap="round"/>`;}return r;};
+const stick = (x,y,len=70)=>`<line x1="${x}" y1="${y}" x2="${x}" y2="${y+len}" ${S} stroke-width="3"/><path d="M${x} ${y+len} q0 9 -8 7" fill="none" ${S} stroke-width="3"/><path d="M${x-4} ${y+8} q4 -14 8 0 l0 ${len-30} q-4 6 -8 0 z" fill="#9aa7c4" ${S} stroke-width="1.4"/>`;
+const shop = x=>`<rect x="${x}" y="40" width="96" height="110" fill="#fff" ${S}/><rect x="${x}" y="40" width="96" height="22" fill="#2f4c8f" ${S}/><text x="${x+48}" y="56" font-size="13" text-anchor="middle" fill="#fff" font-family="Zen Maru Gothic, sans-serif" font-weight="700">コンビニ</text><rect x="${x+30}" y="92" width="36" height="58" fill="#e6f0ff" ${S} stroke-width="1.6"/>`;
+
+/* STRIPS-START */
+const strips = [
+  { id:"2026-10-11-kagami", title:"タマとおじさん", word:"鏡", reading:"かがみ", meaning:"mirror",
+    kanji:"金 (metal) on the left — old mirrors were polished metal.",
+    model:"Dad laughs at the cat for fighting its own reflection: “That's a mirror, it's your own face!” Next morning, half asleep, he jumps at “some old guy” — his own face in the mirror. The kid: “Dad, that's a mirror too.”",
+    panels:[
+    { art: svg(floor + frame(196,32,92,110, cat(232,116,false,true)) + cat(140,116) + son(48,72,'plain')),
+      lines:['<span class="n">タマが、何かとにらみ合っている。</span>','息子「タマ、何してるの？」'] },
+    { art: svg(floor + frame(196,32,92,110, cat(232,116,true,true)) + cat(140,116,true) + fx(168,52)),
+      lines:['タマ「シャーッ！」','<span class="n">向こうのネコも「シャーッ！」</span>'] },
+    { art: svg(floor + frame(224,32,76,110) + dad(110,58,'laugh') + cat(196,116)),
+      lines:['父「ハハハ、タマ、それは<b>鏡</b>だよ。自分の顔じゃないか。」'] },
+    { art: svg(floor + dad(170,58,'sleepy') + fx(204,40) + son(60,72,'flat')),
+      lines:['<span class="n">次の朝。寝ぼけたお父さん。</span>','父「うわっ！誰だ、このおじさん！？」','息子「……お父さん、それも<b>鏡</b>だよ。」'] }
+  ]},
+  { id:"2026-10-11-kagi", title:"いそがしい朝", word:"鍵", reading:"かぎ", meaning:"key; lock",
+    kanji:"金 (metal) again. 鍵をかける = to lock (a door).",
+    model:"Dad can't find his key and searches everywhere, even the fridge. Late, he gives up and opens the door — the key has been stuck in the outside lock all night. The kid: “Good thing nobody came in.”",
+    panels:[
+    { art: svg(floor + clock(270,40) + dad(150,58,'worry')),
+      lines:['<span class="n">朝。</span>','父「あれ？<b>鍵</b>がない！」'] },
+    { art: svg(floor + fridge(210) + dad(140,58,'worry') + son(48,72,'flat')),
+      lines:['<span class="n">父はソファの下も、カバンの中も、冷蔵庫の中まで探した。</span>','息子「冷蔵庫には入れないでしょ……」'] },
+    { art: svg(floor + clock(46,40) + door(220,false) + dad(150,58,'shock')),
+      lines:['父「もう遅刻だ！」','<span class="n">父はあきらめて、ドアを開けた。</span>'] },
+    { art: svg(floor + door(150,true) + dad(80,58,'blank') + son(280,72,'flat')),
+      lines:['<span class="n"><b>鍵</b>は、ドアの外側にささったままだった。</span>','父「……一晩中？」','息子「誰も入ってこなくて、よかったね。」'] }
+  ]},
+  { id:"2026-10-11-kasa", title:"晴れの日", word:"傘", reading:"かさ", meaning:"umbrella",
+    kanji:"The kanji is a picture: a canopy with four little 人 (people) sheltering under it.",
+    model:"The kid says take an umbrella; Dad refuses because it's sunny. It pours, he runs to a konbini and buys one, and by the time he's home the rain has stopped. The kid points at the stand: that's the sixth konbini umbrella.",
+    panels:[
+    { art: svg(floor + win(212,24, sun(232,44)) + son(60,72,'plain') + stick(100,70,62) + dad(160,58,'laugh')),
+      lines:['息子「お父さん、今日は午後から雨だって。<b>傘</b>、持っていきなよ。」','父「大丈夫、大丈夫。こんなに晴れてるし。」'] },
+    { art: svg(rain() + floor + shop(206) + dad(110,58,'worry')),
+      lines:['<span class="n">夕方。ザーザー降り。</span>','<span class="n">父はコンビニに走った。</span>'] },
+    { art: svg(floor + win(212,24, sun(280,40)) + door(30,false) + dad(150,58,'blank') + stick(180,72,62)),
+      lines:['<span class="n">家に着くと、雨はもう止んでいた。</span>'] },
+    { art: svg(floor + `<rect x="60" y="98" width="62" height="52" fill="#dfe6f3" ${S}/>` + [70,78,86,94,102,110].map((x,i)=>stick(x,40+(i%2)*6,58)).join('') + dad(270,58,'blank') + son(186,72,'flat')),
+      lines:['息子「おかえり。コンビニの<b>傘</b>、それで六本目だよ。」'] }
+  ]}
+];
+/* STRIPS-END */
+
+/* Generated by build.py: VOICEVOX clips per line, CLIPS[strip][panel][line] = {n: normal-speed mp3, s: slow mp3} */
+const VOICE = /*VOICE-START*/{"credit":[],"clips":[]}/*VOICE-END*/;
+
+let i = 0;
+const stage = document.getElementById('stage');
+const dots = document.getElementById('dots');
+const back = document.getElementById('back');
+const next = document.getElementById('next');
+const total = strips.length;
+document.getElementById('credit').textContent = VOICE.credit.length ? '音声：' + VOICE.credit.join('、') : '';
+
+let speed = 'n', runId = 0, playingWhat = null, failed = false;
+try {
+  const v = localStorage.getItem('yk-speed') || localStorage.getItem('yk-rate');
+  if (v === 's' || (parseFloat(v) && parseFloat(v) < 0.8)) speed = 's';
+} catch(e) {}
+
+function render(){
+  stopAll();
+  dots.innerHTML = strips.map((_,k)=>`<span class="${k<=i && i<total ? 'on' : (i>=total?'on':'')}"></span>`).join('');
+  if (i >= total){
+    const label = {got:'Got it', partly:'Partly', missed:'Missed'};
+    stage.innerHTML = `<div class="done"><div class="big">おつかれさま</div><ul>${strips.map(s=>`<li><b>${s.word}</b> ${s.reading} — ${label[(saved[s.id]||{}).verdict] || 'not checked yet'}</li>`).join('')}</ul><p>${dbRef ? 'Your answers are saved for tomorrow’s strips.' : 'These answers were not saved. Tell Claude in chat how it went.'}</p><p>Enjoy your Japanese tonight.</p></div>`;
+    next.disabled = true; back.disabled = false; return;
+  }
+  const s = strips[i];
+  stage.innerHTML = `<section class="strip"><h2>${i+1}. ${s.title}</h2><div class="audio"><button type="button" id="playall">▶ 全部聞く</button><div class="speed" role="group" aria-label="Speed"><button type="button" data-sp="s" aria-pressed="${speed==='s'}">ゆっくり</button><button type="button" data-sp="n" aria-pressed="${speed==='n'}">ふつう</button></div></div><div class="warn" id="warn" hidden></div>${s.panels.map((p,k)=>`<div class="panel" id="p${k}"><div class="num">${'一二三四'[k]}<button type="button" class="say" data-k="${k}" aria-label="Play panel ${k+1}">▶</button></div><div class="inner">${p.art}<div class="lines">${p.lines.map((l,j)=>`<div id="l${k}-${j}">${l}</div>`).join('')}</div></div></div>`).join('')}${checkBox(s)}</section>`;
+  back.disabled = i === 0;
+  next.disabled = false;
+  next.textContent = i === total-1 ? '終わり' : '次へ';
+  window.scrollTo({top:0});
+}
+
+/* ---- answer + check + self-grade, saved to the artifact db when available ---- */
+const saved = {};      // id -> {answer, verdict, checked}
+let dbRef = null;
+const esc = t => String(t).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function checkBox(s){
+  const st = saved[s.id] || {};
+  const v = st.verdict;
+  const btn = (k,t)=>`<button type="button" data-v="${k}" aria-pressed="${v===k}">${t}</button>`;
+  return `<div class="check" data-id="${s.id}">
+    <label for="ans-${s.id}">Your answer: what's the joke? (one line)</label>
+    <textarea id="ans-${s.id}" rows="2" placeholder="e.g. The dad…">${esc(st.answer||'')}</textarea>
+    <button type="button" class="go" data-check="1"${st.checked?' hidden':''}>Check</button>
+    <div class="reveal"${st.checked?'':' hidden'}>
+      <p>${s.model}</p>
+      <div class="wordline"><span class="jp">${s.word}</span> ${s.reading} — ${s.meaning}<br><span class="n">${s.kanji}</span></div>
+      <p><b>Did you get it?</b></p>
+      <div class="verdict">${btn('got','Got it')}${btn('partly','Partly')}${btn('missed','Missed')}</div>
+      <div class="status" aria-live="polite"></div>
+    </div>
+  </div>`;
+}
+async function saveVerdict(s, status){
+  const st = saved[s.id];
+  if (!dbRef){ status.textContent = 'Not saved on this device. Tell Claude in chat how it went.'; return; }
+  status.textContent = 'Saving…';
+  try {
+    await dbRef.doc('answers/' + s.id).set({ word:s.word, reading:s.reading, answer:st.answer||'', verdict:st.verdict, at:new Date().toISOString() });
+    status.textContent = 'Saved.';
+  } catch(e){
+    status.textContent = 'Couldn’t save. Tell Claude in chat how it went.';
+  }
+}
+stage.addEventListener('input', e=>{
+  const box = e.target.closest('.check'); if (!box || e.target.tagName !== 'TEXTAREA') return;
+  (saved[box.dataset.id] ||= {}).answer = e.target.value;
+});
+stage.addEventListener('click', e=>{
+  const box = e.target.closest('.check'); if (!box) return;
+  const s = strips.find(x=>x.id===box.dataset.id);
+  const st = (saved[s.id] ||= {});
+  if (e.target.dataset.check){
+    st.checked = true;
+    e.target.hidden = true;
+    box.querySelector('.reveal').hidden = false;
+    box.querySelector('.reveal').scrollIntoView({behavior:'smooth', block:'nearest'});
+  } else if (e.target.dataset.v){
+    st.verdict = e.target.dataset.v;
+    st.answer = box.querySelector('textarea').value;
+    box.querySelectorAll('.verdict button').forEach(b=>b.setAttribute('aria-pressed', String(b===e.target)));
+    saveVerdict(s, box.querySelector('.status'));
+  }
+});
+(async()=>{
+  try {
+    const db = window.claude && await window.claude.use('db');
+    if (!db) return;
+    dbRef = db;
+    const snap = await db.collection('answers').get();
+    let changed = false;
+    snap.docs.forEach(d=>{
+      const x = d.data(); if (!x || !strips.some(s=>s.id===d.id)) return;
+      const cur = (saved[d.id] ||= {});
+      if (!cur.verdict){ Object.assign(cur, {answer:x.answer||cur.answer, verdict:x.verdict, checked:true}); changed = true; }
+    });
+    const ta = document.activeElement && document.activeElement.tagName === 'TEXTAREA';
+    if (changed && !ta) render();
+  } catch(e) { dbRef = dbRef || null; }
+})();
+
+/* ---- audio: one shared <audio> element, so phones keep playing clip after clip once a tap has started it ---- */
+const player = new Audio();
+player.preload = 'auto';
+
+function mark(k, j){
+  document.querySelectorAll('.panel').forEach(el=>el.classList.toggle('playing', el.id === 'p'+k));
+  document.querySelectorAll('.lines > div').forEach(el=>el.classList.toggle('now', el.id === `l${k}-${j}`));
+}
+function setButtons(){
+  const all = document.getElementById('playall');
+  if (all) all.textContent = playingWhat === 'all' ? '■ 止める' : '▶ 全部聞く';
+  document.querySelectorAll('.say').forEach(b=>{
+    const on = playingWhat === +b.dataset.k;
+    b.textContent = on ? '■' : '▶';
+    b.setAttribute('aria-label', on ? 'Stop' : `Play panel ${+b.dataset.k+1}`);
+  });
+}
+function showWarn(msg){
+  const w = document.getElementById('warn');
+  if (w){ w.textContent = msg; w.hidden = !msg; }
+}
+function play(panels, what){
+  const id = ++runId;
+  const clips = VOICE.clips[i] || [];
+  const items = [];
+  panels.forEach(k=>{
+    const ls = clips[k] || [];
+    ls.forEach((c,j)=>items.push({c, k, j, last:j===ls.length-1}));
+  });
+  if (!items.length){ showWarn('No audio for this strip yet.'); return; }
+  playingWhat = what; setButtons(); showWarn('');
+  let n = 0;
+  const step = ()=>{
+    if (id !== runId) return;
+    if (n >= items.length){ finish(); return; }
+    const it = items[n++];
+    mark(it.k, it.j);
+    player.onended = ()=>{ if (id === runId) setTimeout(step, it.last ? 700 : 250); };
+    player.onerror = ()=>{ if (id === runId){ showWarn('This clip could not be played. Try reloading the page.'); finish(); } };
+    player.src = it.c[speed] || it.c.n;
+    const p = player.play();
+    if (p && p.catch) p.catch(err=>{
+      if (id !== runId || err.name === 'AbortError') return;
+      showWarn('Tap ▶ again to start the sound.');
+      finish();
+    });
+  };
+  step();
+}
+function finish(){ runId++; playingWhat = null; mark(-1,-1); setButtons(); }
+function stopAll(){ runId++; player.onended = player.onerror = null; player.pause(); playingWhat = null; }
+
+stage.addEventListener('click', e=>{
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.id === 'playall'){
+    if (playingWhat === 'all'){ stopAll(); finish(); } else { stopAll(); play([0,1,2,3], 'all'); }
+  } else if (b.classList.contains('say')){
+    const k = +b.dataset.k;
+    if (playingWhat === k){ stopAll(); finish(); } else { stopAll(); play([k], k); }
+  } else if (b.dataset.sp){
+    speed = b.dataset.sp;
+    try { localStorage.setItem('yk-speed', speed); } catch(e) {}
+    stage.querySelectorAll('.speed button').forEach(x=>x.setAttribute('aria-pressed', String(x===b)));
+  }
+});
+back.addEventListener('click', ()=>{ if(i>0){ i--; render(); } });
+next.addEventListener('click', ()=>{ if(i<total){ i++; render(); } });
+render();
+</script>
