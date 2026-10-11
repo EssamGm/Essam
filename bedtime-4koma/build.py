@@ -3,7 +3,9 @@
 
 Reads the strip lines from page.src.html, picks a voice per speaker, synthesizes
 every line at two speeds with voicevox_core, levels loudness with ffmpeg, and
-writes index.html with the MP3s embedded as data: URIs.
+writes index.html plus audio/<strip id>.json (that strip's MP3s as data: URIs),
+which the page fetches when the strip is opened. Publish index.html with the audio
+files the script lists as new or changed; files already published stay in place.
 
     VV_HOME=/home/user/vv VV_MODELS=/home/user/voicevox/voicevox_vvm/vvms \
         /home/user/vv/venv/bin/python build.py
@@ -28,6 +30,7 @@ VV_MODELS = Path(os.environ.get("VV_MODELS", "/home/user/voicevox/voicevox_vvm/v
 ORT_LIB = VV_HOME / "ort/voicevox_onnxruntime-linux-x64-1.23.2/lib/libvoicevox_onnxruntime.so.1.23.2"
 DICT_DIR = VV_HOME / "dict/open_jtalk_dic_utf_8-1.11"
 CACHE = VV_HOME / "clip-cache"
+AUDIO = HERE / "audio"  # one JSON per strip, published next to index.html
 
 # Style IDs and the .vvm file each lives in (from the voicevox_vvm README table).
 VOICES = {
@@ -48,6 +51,7 @@ READINGS = {
     "八十？": "はちじゅう？",
     "二十歳": "はたち",
     "開いている": "あいている",
+    "片手で十分": "片手でじゅうぶん",
 }
 SPEEDS = {"n": 1.0, "s": 0.8}  # ふつう / ゆっくり
 VVM_VERSION_TAG = (VV_MODELS.parent / "env.json").read_text()
@@ -146,13 +150,19 @@ def main():
         cached.write_bytes(mp3)
         return mp3
 
+    ids = re.findall(r'\bid:"([^"]+)"', src.split("/* STRIPS-START */", 1)[1].split("/* STRIPS-END */", 1)[0])
+    if len(ids) != len(strips):
+        raise SystemExit(f"found {len(ids)} strip ids for {len(strips)} strips")
+    AUDIO.mkdir(exist_ok=True)
+
     used = []
-    clips = []
+    audio = {}
+    changed = []
     report = []
-    for si, panels in enumerate(strips):
-        sc = []
+    for si, (sid, panels) in enumerate(zip(ids, strips)):
+        plan = []
         for pi, lines in enumerate(panels):
-            pc = []
+            pp = []
             for li, line in enumerate(lines):
                 segs = segments(line)
                 if len(segs) != 1:
@@ -162,15 +172,20 @@ def main():
                 name = VOICES[speaker]["name"]
                 if name not in used:
                     used.append(name)
-                entry = {}
-                for sp, scale in SPEEDS.items():
-                    entry[sp] = "data:audio/mpeg;base64," + base64.b64encode(synth(spoken(text), style, scale)).decode()
-                pc.append(entry)
+                pp.append((style, spoken(text)))
                 report.append(f"{si+1}-{pi+1}-{li+1}  {speaker:<8} {name}({style})  {spoken(text)}")
-            sc.append(pc)
-        clips.append(sc)
+            plan.append(pp)
+        sig = hashlib.sha256(json.dumps([VVM_VERSION_TAG, SPEEDS, plan], ensure_ascii=False).encode()).hexdigest()[:12]
+        path = AUDIO / f"{sid}.json"
+        old = json.loads(path.read_text()) if path.exists() else {}
+        if old.get("sig") != sig:
+            clips = [[{sp: "data:audio/mpeg;base64," + base64.b64encode(synth(text, style, scale)).decode()
+                       for sp, scale in SPEEDS.items()} for style, text in pp] for pp in plan]
+            path.write_text(json.dumps({"sig": sig, "clips": clips}, separators=(",", ":")))
+            changed.append(f"audio/{sid}.json")
+        audio[sid] = f"audio/{sid}.json?v={sig}"
 
-    voice = {"credit": [f"VOICEVOX:{n}" for n in used], "clips": clips}
+    voice = {"credit": [f"VOICEVOX:{n}" for n in used], "audio": audio}
     out = re.sub(r"/\*VOICE-START\*/.*?/\*VOICE-END\*/",
                  lambda _: "/*VOICE-START*/" + json.dumps(voice, ensure_ascii=False, separators=(",", ":")) + "/*VOICE-END*/",
                  src, count=1, flags=re.S)
@@ -178,6 +193,8 @@ def main():
     print("\n".join(report))
     print(f"\ncredit: {'、'.join(voice['credit'])}")
     print(f"index.html: {len(out.encode()) / 1024:.0f} KB")
+    print("audio files to publish alongside index.html (new or changed):")
+    print("\n".join(changed) if changed else "(none)")
 
 
 if __name__ == "__main__":

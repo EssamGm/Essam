@@ -21,9 +21,7 @@ body{font-family:var(--body);padding-inline:16px;padding-block:20px 40px}
 header{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
 h1{font-family:var(--display);font-weight:400;font-size:1.35rem;margin:0;letter-spacing:.02em}
 .count{font-size:.85rem;color:var(--soft);font-variant-numeric:tabular-nums}
-.dots{display:flex;gap:6px}
-.dots span{width:9px;height:9px;border-radius:50%;background:var(--line)}
-.dots span.on{background:var(--ai)}
+.dots{font-size:.85rem;font-weight:700;color:var(--soft);font-variant-numeric:tabular-nums;white-space:nowrap}
 .strip{display:flex;flex-direction:column;gap:10px}
 .strip h2{font-family:var(--display);font-weight:400;font-size:1.05rem;margin:0;color:var(--ai)}
 .panel{background:var(--paper);border:2.5px solid var(--ink);display:grid;grid-template-columns:28px 1fr}
@@ -76,7 +74,7 @@ button:focus-visible{outline:3px solid var(--ai);outline-offset:2px}
 <div class="wrap">
   <header>
     <h1>今夜の4コマ</h1>
-    <div class="dots" id="dots" aria-hidden="true"></div>
+    <div class="dots" id="dots"></div>
   </header>
   <label class="jump" for="jump"><span>Jump to</span><select id="jump"></select></label>
   <main id="stage"></main>
@@ -170,6 +168,17 @@ const car = x=>`<path d="M${x-135} 130 l0 -28 q0 -8 8 -8 l32 0 l28 -32 q6 -6 14 
 const wall = `<rect x="0" y="0" width="320" height="150" fill="#f7f1e8"/>`;
 const openWin = (x,y,tail=false)=>`<rect x="${x}" y="${y}" width="80" height="58" fill="#3b4a6b" ${S}/><rect x="${x+38}" y="${y}" width="42" height="58" fill="#e6f0ff" ${S} stroke-width="1.8"/>${tail?`<path d="M${x+18} ${y+58} q-14 16 -4 34" fill="none" stroke="#1b1d24" stroke-width="9" stroke-linecap="round"/><path d="M${x+18} ${y+58} q-14 16 -4 34" fill="none" stroke="#f2f2f2" stroke-width="5" stroke-linecap="round"/>`:''}`;
 const gift = (x,y)=>`<rect x="${x-20}" y="${y}" width="40" height="30" fill="#f6c76b" ${S}/><rect x="${x-24}" y="${y-8}" width="48" height="9" fill="#f6c76b" ${S} stroke-width="1.8"/><line x1="${x}" y1="${y-8}" x2="${x}" y2="${y+30}" stroke="#2f4c8f" stroke-width="4"/><path d="M${x} ${y-8} q-12 -12 -14 -2 q2 4 14 2 q12 -12 14 -2 q-2 4 -14 2" fill="#e3e9f6" stroke="#2f4c8f" stroke-width="2"/>`;
+const newspaper = (x,y)=>`<rect x="${x-30}" y="${y}" width="60" height="40" fill="#f4f4ee" ${S} stroke-width="1.8"/><line x1="${x}" y1="${y}" x2="${x}" y2="${y+40}" ${S} stroke-width="1.2"/>${[8,15,22,29].map(d=>`<line x1="${x-24}" y1="${y+d}" x2="${x-6}" y2="${y+d}" stroke="#9aa3b5" stroke-width="2"/><line x1="${x+6}" y1="${y+d}" x2="${x+24}" y2="${y+d}" stroke="#9aa3b5" stroke-width="2"/>`).join('')}`;
+const tree = x=>`<rect x="${x-6}" y="96" width="12" height="54" fill="#b98a5a" ${S} stroke-width="1.8"/><circle cx="${x}" cy="74" r="30" fill="#bfe0b0" ${S}/><circle cx="${x-20}" cy="92" r="16" fill="#bfe0b0" ${S} stroke-width="1.8"/><circle cx="${x+20}" cy="92" r="16" fill="#bfe0b0" ${S} stroke-width="1.8"/>`;
+const dusk = `<rect width="320" height="150" fill="#2b3550" opacity=".35"/><circle cx="280" cy="30" r="12" fill="#fff6c8" ${S} stroke-width="1.6"/><circle cx="286" cy="26" r="10" fill="#8a93a8"/>`;
+const night = x=>`<rect x="${x}" y="24" width="80" height="58" fill="#2b3550" ${S}/><circle cx="${x+58}" cy="44" r="9" fill="#fff6c8"/><line x1="${x+40}" y1="24" x2="${x+40}" y2="82" ${S} stroke-width="1.6"/>`;
+const register = x=>`${counter(x, x+110)}<rect x="${x+56}" y="82" width="42" height="28" rx="3" fill="#dfe6f3" ${S} stroke-width="1.8"/><rect x="${x+62}" y="87" width="30" height="10" fill="#9fd0a0" stroke="#1b1d24" stroke-width="1.2"/>`;
+const zz = (x,y)=>`<text x="${x}" y="${y}" font-size="18" font-weight="700" fill="#5d6272" font-family="Zen Maru Gothic, sans-serif">Z</text><text x="${x+14}" y="${y-12}" font-size="13" font-weight="700" fill="#5d6272" font-family="Zen Maru Gothic, sans-serif">z</text>`;
+const closet = (x, open)=> open
+  ? `<rect x="${x}" y="22" width="96" height="128" fill="#3b4a6b" ${S}/><rect x="${x-26}" y="22" width="26" height="128" fill="#e9d7bd" ${S} stroke-width="1.8"/><rect x="${x+8}" y="96" width="34" height="26" fill="#d9b07a" ${S} stroke-width="1.8"/><circle cx="${x+66}" cy="104" r="14" fill="#f4a261" ${S} stroke-width="1.8"/><rect x="${x+20}" y="70" width="44" height="22" fill="#9fb7e6" ${S} stroke-width="1.8"/><rect x="${x+48}" y="122" width="40" height="22" fill="#d9b07a" ${S} stroke-width="1.8"/><path d="M${x+10} 140 l-18 6 M${x+92} 120 l16 -4 M${x+90} 138 l18 4" ${S} stroke-width="2"/>`
+  : `<rect x="${x}" y="22" width="96" height="128" fill="#e9d7bd" ${S}/><line x1="${x+48}" y1="22" x2="${x+48}" y2="150" ${S} stroke-width="1.8"/><circle cx="${x+42}" cy="86" r="3" fill="#cfa66b" ${S} stroke-width="1.2"/><circle cx="${x+54}" cy="86" r="3" fill="#cfa66b" ${S} stroke-width="1.2"/>`;
+const cardbox = (x,y)=>`<rect x="${x-28}" y="${y}" width="56" height="40" fill="#d9b07a" ${S}/><line x1="${x-28}" y1="${y+10}" x2="${x+28}" y2="${y+10}" stroke="#a87b45" stroke-width="3"/>`;
+const steak = (x,y=108)=>`<ellipse cx="${x}" cy="${y}" rx="20" ry="6" fill="#fff" ${S} stroke-width="1.8"/><ellipse cx="${x}" cy="${y-2}" rx="11" ry="4" fill="#8a4b2a"/>`;
 const drops = (x,y)=>[[-26,-8],[24,-14],[-30,24],[28,18],[-6,-30]].map(([dx,dy])=>`<path d="M${x+dx} ${y+dy} q4 7 0 10 q-4 -3 0 -10 z" fill="#9fb7e6" ${S} stroke-width="1.2"/>`).join('');
 
 /* STRIPS-START */
@@ -277,12 +286,143 @@ const strips = [
       lines:['<span class="n">一週間後。やっと雨が降った。</span>','息子「やったー！行ってきます！」'] },
     { art: svg(floor + door(24,false) + son(140,72,'flat') + drops(140,72) + dad(240,58,'shock')),
       lines:['<span class="n">夕方。息子はびしょぬれで帰ってきた。</span>','父「どうしたんだ！？」','息子「だって、新しい<b>傘</b>がぬれちゃうもん。」'] }
+  ]},
+  { id:"2026-10-11-megane", title:"新聞が読めない", word:"眼鏡", reading:"めがね", meaning:"glasses",
+    kanji:"眼 = eye (as in 眼科, the eye doctor). Shops usually write it メガネ.",
+    model:"Grandpa can't read the newspaper and blames the tiny print. The kid points out his glasses are on top of his head. Grandpa puts them on: “Oh! The letters suddenly got bigger!”",
+    panels:[
+    { art: svg(floor + win(220,24, sun(240,44)) + gramps(140,64,'plain') + newspaper(140,96)),
+      lines:['<span class="n">日曜日の朝。</span>','じいちゃん「さて、新聞を読もう。」'] },
+    { art: svg(floor + gramps(160,64,'blank') + newspaper(160,96) + fx(186,36)),
+      lines:['じいちゃん「うーん、字が小さくて読めない。」'] },
+    { art: svg(floor + gramps(110,64,'shock') + newspaper(110,96) + dad(240,58,'laugh')),
+      lines:['じいちゃん「最近の新聞は、字が小さすぎる！」','父「ハハハ……」'] },
+    { art: svg(floor + son(60,72,'flat') + gramps(180,64,'laugh') + newspaper(180,96) + sparkle(214,30) + sparkle(146,34)),
+      lines:['息子「おじいちゃん、<b>眼鏡</b>、頭の上だよ。」','じいちゃん「……おお！新聞の字が、急に大きくなった！」'] }
+  ]},
+  { id:"2026-10-11-saifu", title:"今日はごちそう", word:"財布", reading:"さいふ", meaning:"wallet",
+    kanji:"財 = money, wealth (as in 財産, property) + 布 = cloth: a cloth for your money.",
+    model:"Dad proudly treats everyone to steak. At the register he realizes he left his wallet at home. Grandpa: “Me too.” The kid: “…I have 300 yen.”",
+    panels:[
+    { art: svg(floor + dad(70,58,'laugh') + son(160,72,'open') + gramps(250,64,'laugh') + table(20,300) + plate(70) + plate(160) + plate(250)),
+      lines:['<span class="n">レストラン。</span>','父「今日は、お父さんがごちそうするぞ！」'] },
+    { art: svg(floor + dad(70,58,'laugh') + son(160,72,'open') + gramps(250,64,'laugh') + table(20,300) + steak(70) + steak(160) + steak(250)),
+      lines:['息子「ステーキ！」','じいちゃん「わしもステーキ！」','父「いいぞ、いいぞ！」'] },
+    { art: svg(floor + dad(100,58,'worry') + register(180)),
+      lines:['<span class="n">食べ終わって、レジの前。</span>','父「……あれ？」'] },
+    { art: svg(floor + dad(70,58,'blank') + son(160,72,'flat') + gramps(250,64,'shock')),
+      lines:['父「……<b>財布</b>、家に忘れた。」','じいちゃん「わしも。」','息子「……ぼく、三百円あるよ。」'] }
+  ]},
+  { id:"2026-10-11-tokei", title:"まだ三時", word:"時計", reading:"とけい", meaning:"watch; clock",
+    kanji:"時 = time + 計 = measure (as in 計算, calculation): a time-measurer.",
+    model:"At the park Grandpa keeps checking and saying “still only three o'clock, plenty of time to play.” Even when it gets dark it's “still three.” The kid: “Grandpa, your watch has said three since this morning.” Grandpa: “So that's why I'm hungry.”",
+    panels:[
+    { art: svg(floor + sun(40,30) + tree(262) + son(80,72,'open') + gramps(160,64,'plain')),
+      lines:['<span class="n">じいちゃんと公園に来た。</span>','じいちゃん「今、何時かな？……まだ三時か。」'] },
+    { art: svg(floor + sun(40,30) + tree(262) + son(90,72,'open') + gramps(180,64,'laugh')),
+      lines:['<span class="n">たくさん遊んだ。</span>','じいちゃん「まだ三時か。まだまだ遊べるな。」'] },
+    { art: svg(floor + tree(262) + son(80,72,'flat') + gramps(170,64,'plain') + dusk),
+      lines:['<span class="n">空が暗くなってきた。</span>','じいちゃん「ふむ、まだ三時だ。」'] },
+    { art: svg(floor + tree(262) + son(80,72,'flat') + gramps(180,64,'shock') + dusk),
+      lines:['息子「おじいちゃん、その<b>時計</b>、朝からずっと三時だよ。」','じいちゃん「……だから、おなかがすいたのか。」'] }
+  ]},
+  { id:"2026-10-11-shashin", title:"家族みんなで", word:"写真", reading:"しゃしん", meaning:"photo",
+    kanji:"写 = copy (写す, to copy or capture) + 真 = true: a “true copy”.",
+    model:"Dad lines the family up in the garden, Tama included, but Tama won't keep still. On the hundredth try Dad finally gets it. The kid: “Dad, only Tama is in this photo.” Dad: “…Tama looks great, though.”",
+    panels:[
+    { art: svg(floor + sun(30,28) + son(60,72,'open') + gramps(130,64,'laugh') + cat(200,130) + dad(286,58,'laugh')),
+      lines:['<span class="n">庭で、家族が並んだ。</span>','父「はい、タマも一緒に！並んで！」'] },
+    { art: svg(floor + cat(140,116,true) + fx(170,52) + dad(260,58,'worry')),
+      lines:['<span class="n">でも、タマはじっとしていない。</span>','父「タマ、動かないで！」'] },
+    { art: svg(floor + dad(160,58,'laugh') + sparkle(196,26) + sparkle(124,30)),
+      lines:['<span class="n">百回目。</span>','父「よし！やっと撮れた！」'] },
+    { art: svg(floor + son(80,72,'flat') + dad(200,58,'blank')),
+      lines:['息子「お父さん、この<b>写真</b>……タマしか写っていないよ。」','父「……タマ、いい顔だな。」'] }
+  ]},
+  { id:"2026-10-11-bentou", title:"お父さんの手作り", word:"弁当", reading:"べんとう", meaning:"boxed lunch",
+    kanji:"Usually said politely as お弁当. コンビニ弁当 = a konbini boxed lunch.",
+    model:"Dad cooks the lunches for the first time. At school the kid opens his and is puzzled. That night: “Dad, my lunch was only rice.” Dad: “…Mine was only the side dishes.”",
+    panels:[
+    { art: svg(floor + dad(110,58,'laugh') + counter(180,300) + pot(240,76)),
+      lines:['<span class="n">朝。今日は父が料理をした。</span>','父「今日のお昼は、お父さんが作ったぞ！」'] },
+    { art: svg(floor + dad(70,58,'laugh') + son(150,72,'open') + door(220,false)),
+      lines:['息子「ありがとう！行ってきます！」','父「行ってらっしゃい！」'] },
+    { art: svg(floor + son(160,72,'open') + table(80,240,118) + fx(186,46)),
+      lines:['<span class="n">お昼。学校で。</span>','息子「……え？」'] },
+    { art: svg(floor + night(220) + son(80,72,'flat') + dad(170,58,'blank')),
+      lines:['<span class="n">夜。</span>','息子「お父さん、ぼくの<b>弁当</b>、ごはんだけだったよ。」','父「……お父さんのは、おかずだけだった。」'] }
+  ]},
+  { id:"2026-10-11-shukudai", title:"夜中の算数", word:"宿題", reading:"しゅくだい", meaning:"homework",
+    kanji:"宿 = lodging, home (as in 宿, an inn) + 題 = topic: a topic you take home.",
+    model:"The kid can't solve a problem, so Dad takes over. Dad and Grandpa argue until midnight (8! No, 7!) while the kid goes to bed. Next day: the homework they did got 30 points. Grandpa: “See, I told you it was seven.”",
+    panels:[
+    { art: svg(floor + son(80,72,'plain') + dad(180,58,'laugh') + table(30,240,116)),
+      lines:['息子「お父さん、この問題、わからない。」','父「よし、お父さんにまかせて！」'] },
+    { art: svg(floor + night(224) + dad(70,58,'worry') + gramps(160,64,'shock') + table(20,210,116) + fx(186,36)),
+      lines:['<span class="n">父とじいちゃんは、夜中まで考えた。</span>','父「答えは八だ！」','じいちゃん「いや、七だ！」'] },
+    { art: svg(floor + night(224) + son(130,72,'flat') + zz(152,52)),
+      lines:['<span class="n">息子は、先に寝た。</span>'] },
+    { art: svg(floor + son(60,72,'flat') + dad(160,58,'blank') + gramps(254,64,'laugh')),
+      lines:['<span class="n">次の日。</span>','息子「お父さんたちがやった<b>宿題</b>、三十点だったよ。」','じいちゃん「ほら、だから七だと言ったのに。」'] }
+  ]},
+  { id:"2026-10-11-haisha", title:"もう痛くない", word:"歯医者", reading:"はいしゃ", meaning:"dentist",
+    kanji:"歯 = tooth + 医者 = doctor: a tooth doctor.",
+    model:"Dad has a toothache but insists it'll go away. Three days later it still hurts. When Grandpa tells him to go to the dentist tomorrow, Dad suddenly announces: “Oh! It doesn't hurt anymore! It's cured!”",
+    panels:[
+    { art: svg(floor + dad(130,58,'worry') + table(60,260) + plate(130)),
+      lines:['<span class="n">夕ごはん。</span>','父「イテテ……歯が痛い……」'] },
+    { art: svg(floor + son(70,72,'plain') + dad(180,58,'worry')),
+      lines:['息子「お父さん、大丈夫？」','父「大丈夫、大丈夫。すぐ治る。」'] },
+    { art: svg(floor + dad(160,58,'worry') + fx(192,36)),
+      lines:['<span class="n">三日後。</span>','父「イテテテ……」'] },
+    { art: svg(floor + gramps(90,64,'plain') + dad(210,58,'laugh') + sparkle(244,30) + sparkle(176,26)),
+      lines:['じいちゃん「明日、<b>歯医者</b>に行きなさい。」','父「……あれ？もう痛くない！治った！」'] }
+  ]},
+  { id:"2026-10-11-souji", title:"ピカピカの部屋", word:"掃除", reading:"そうじ", meaning:"cleaning",
+    kanji:"掃 = sweep + 除 = remove (as in 削除, delete): sweep and take away.",
+    model:"Dad tells the kid to tidy his messy room today. Ten minutes later it's sparkling and Dad is amazed. Then Dad opens the closet: “I did clean. Into the closet.”",
+    panels:[
+    { art: svg(floor + son(80,72,'flat') + dad(220,58,'worry') + cardbox(150,112) + `<circle cx="276" cy="140" r="10" fill="#f4a261" ${S} stroke-width="1.8"/>`),
+      lines:['父「部屋がきたないぞ。今日中にきれいにしなさい。」','息子「はーい。」'] },
+    { art: svg(floor + son(110,72,'open') + closet(200,false)),
+      lines:['<span class="n">十分後。</span>','息子「終わったよ！」'] },
+    { art: svg(floor + dad(110,58,'laugh') + closet(200,false) + sparkle(60,40) + sparkle(160,30) + sparkle(80,120)),
+      lines:['父「えっ、もう？すごい、ピカピカだ！」'] },
+    { art: svg(floor + son(44,72,'plain') + dad(120,58,'shock') + closet(196,true)),
+      lines:['<span class="n">父がクローゼットを開けると……</span>','息子「ちゃんと<b>掃除</b>したよ。クローゼットの中に。」'] }
+  ]},
+  { id:"2026-10-11-chizu", title:"道は知っている", word:"地図", reading:"ちず", meaning:"map",
+    kanji:"地 = ground, land + 図 = drawing, plan: a drawing of the land.",
+    model:"On a family drive Dad says he knows every road by heart and refuses the navigation. An hour later they pass the same konbini again. The kid: “That's the third time. Let's look at the map?” Dad: “…Let's look.”",
+    panels:[
+    { art: svg(floor + sun(36,30) + car(170)),
+      lines:['<span class="n">家族でドライブ。</span>','父「道は全部、頭に入っている！」'] },
+    { art: svg(floor + sun(36,30) + car(170)),
+      lines:['息子「ナビ、使わないの？」','父「いらない、いらない。」'] },
+    { art: svg(floor + shop(6) + car(236)),
+      lines:['<span class="n">一時間後。</span>','じいちゃん「あのコンビニ、さっきも見たな。」'] },
+    { art: svg(floor + shop(6) + car(236) + fx(196,44)),
+      lines:['息子「お父さん、あのコンビニ、もう三回目だよ。<b>地図</b>、見よう？」','父「……見よう。」'] }
+  ]},
+  { id:"2026-10-11-omoi", title:"石のコレクション", word:"重い", reading:"おもい", meaning:"heavy",
+    kanji:"重 also appears in 体重 (たいじゅう, body weight).",
+    model:"Grandpa asks Dad to carry a box upstairs; Dad boasts he can do it with one hand. It turns out to be Grandpa's rock collection. Straining, Dad insists it's not heavy at all. Grandpa: “Good! Then there are five more boxes.”",
+    panels:[
+    { art: svg(floor + gramps(70,64,'plain') + cardbox(160,110) + dad(250,58,'laugh')),
+      lines:['じいちゃん「この箱、二階に運んでくれるかな？」','父「もちろん！こんなの、片手で十分！」'] },
+    { art: svg(floor + dad(160,58,'worry') + cardbox(160,104) + fx(192,36)),
+      lines:['父「よいしょ……！」'] },
+    { art: svg(floor + gramps(70,64,'laugh') + dad(200,58,'shock') + cardbox(200,104)),
+      lines:['じいちゃん「中は、わしの石のコレクションだ。」','父「い、石……？」'] },
+    { art: svg(floor + dad(100,58,'worry') + cardbox(100,104) + gramps(200,64,'laugh') + cardbox(280,110) + cardbox(280,70) + cardbox(280,30)),
+      lines:['父「ぜ、ぜんぜん<b>重く</b>ないよ……」','じいちゃん「よかった。じゃあ、あと五箱あるぞ。」'] }
   ]}
 ];
 /* STRIPS-END */
 
-/* Generated by build.py: VOICEVOX clips per line, CLIPS[strip][panel][line] = {n: normal-speed mp3, s: slow mp3} */
-const VOICE = /*VOICE-START*/{"credit":[],"clips":[]}/*VOICE-END*/;
+/* Generated by build.py: credits, and per strip id the URL of its audio file.
+   Each audio/<id>.json holds clips[panel][line] = {n: normal-speed mp3, s: slow mp3} as data: URIs. */
+const VOICE = /*VOICE-START*/{"credit":[],"audio":{}}/*VOICE-END*/;
 
 let i = 0;
 const stage = document.getElementById('stage');
@@ -299,13 +439,26 @@ try {
 } catch(e) {}
 
 const jump = document.getElementById('jump');
-jump.innerHTML = strips.map((s,k)=>`<option value="${k}">${k+1}. ${s.title} — ${s.word}</option>`).join('') + `<option value="${total}">おわり — results</option>`;
-jump.addEventListener('change', ()=>{ i = +jump.value; render(); });
+/* answered strips move to the 済み group; nothing is removed */
+const answered = k => !!(saved[strips[k].id] || {}).verdict;
+const vmark = {got:'✓', partly:'△', missed:'✗'};
+let navigated = false;
+function buildJump(){
+  const opt = k => `<option value="${k}">${k+1}. ${strips[k].title} — ${strips[k].word}${answered(k) ? ' ' + vmark[saved[strips[k].id].verdict] : ''}</option>`;
+  const ks = strips.map((_,k)=>k);
+  const todo = ks.filter(k=>!answered(k)), done = ks.filter(answered);
+  jump.innerHTML = `<optgroup label="まだ — to do (${todo.length})">${todo.map(opt).join('')}</optgroup>`
+    + (done.length ? `<optgroup label="済み — done (${done.length})">${done.map(opt).join('')}</optgroup>` : '')
+    + `<option value="${total}">おわり — results</option>`;
+  jump.value = String(i);
+}
+function firstTodo(){ const k = strips.findIndex((_,k)=>!answered(k)); return k < 0 ? total : k; }
+jump.addEventListener('change', ()=>{ navigated = true; i = +jump.value; render(); });
 
 function render(){
   stopAll();
-  jump.value = String(i);
-  dots.innerHTML = strips.map((_,k)=>`<span class="${k<=i && i<total ? 'on' : (i>=total?'on':'')}"></span>`).join('');
+  buildJump();
+  dots.textContent = `${Math.min(i+1, total)} / ${total}`;
   if (i >= total){
     const label = {got:'Got it', partly:'Partly', missed:'Missed'};
     stage.innerHTML = `<div class="done"><div class="big">おつかれさま</div><ul>${strips.map(s=>`<li><b>${s.word}</b> ${s.reading} — ${label[(saved[s.id]||{}).verdict] || 'not checked yet'}</li>`).join('')}</ul><p>${dbRef ? 'Your answers are saved for tomorrow’s strips.' : 'These answers were not saved. Tell Claude in chat how it went.'}</p><p>Enjoy your Japanese tonight.</p></div>`;
@@ -317,6 +470,8 @@ function render(){
   next.disabled = false;
   next.textContent = i === total-1 ? '終わり' : '次へ';
   window.scrollTo({top:0});
+  loadClips(i).catch(()=>{});
+  if (i+1 < total) loadClips(i+1).catch(()=>{});
 }
 
 /* ---- answer + check + self-grade, saved to the artifact db when available ---- */
@@ -347,6 +502,7 @@ async function saveVerdict(s, status){
   try {
     await dbRef.doc('answers/' + s.id).set({ word:s.word, reading:s.reading, answer:st.answer||'', verdict:st.verdict, at:new Date().toISOString() });
     status.textContent = 'Saved.';
+    buildJump();
   } catch(e){
     status.textContent = 'Couldn’t save. Tell Claude in chat how it went.';
   }
@@ -384,13 +540,25 @@ stage.addEventListener('click', e=>{
       if (!cur.verdict){ Object.assign(cur, {answer:x.answer||cur.answer, verdict:x.verdict, checked:true}); changed = true; }
     });
     const ta = document.activeElement && document.activeElement.tagName === 'TEXTAREA';
-    if (changed && !ta) render();
+    if (!navigated) i = firstTodo();
+    if ((changed || !navigated) && !ta) render();
   } catch(e) { dbRef = dbRef || null; }
 })();
 
 /* ---- audio: one shared <audio> element, so phones keep playing clip after clip once a tap has started it ---- */
 const player = new Audio();
 player.preload = 'auto';
+const SILENT = 'data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjYwLjE2LjEwMAAAAAAAAAAAAAAA//NExAAAAANIAAAAAExBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMu//NExFMAAANIAAAAADEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMu//NExKYAAANIAAAAADEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NExKwAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NExKwAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV';
+const clipData = {}, clipLoads = {};
+function loadClips(k){
+  const id = strips[k] && strips[k].id, url = id && VOICE.audio[id];
+  if (!url) return Promise.reject(new Error('no audio'));
+  if (!clipLoads[id]) clipLoads[id] = fetch(url)
+    .then(r=>{ if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(j=>(clipData[id] = j.clips))
+    .catch(e=>{ delete clipLoads[id]; throw e; });
+  return clipLoads[id];
+}
 
 function mark(k, j){
   document.querySelectorAll('.panel').forEach(el=>el.classList.toggle('playing', el.id === 'p'+k));
@@ -410,14 +578,24 @@ function showWarn(msg){
   if (w){ w.textContent = msg; w.hidden = !msg; }
 }
 function play(panels, what){
+  const sid = strips[i].id;
+  if (clipData[sid]) return start(clipData[sid], panels, what);
+  /* audio still downloading: unlock the player inside the tap, then start when it arrives */
   const id = ++runId;
-  const clips = VOICE.clips[i] || [];
+  playingWhat = what; setButtons(); showWarn('Loading sound…');
+  player.onended = player.onerror = null;
+  player.src = SILENT; const u = player.play(); if (u && u.catch) u.catch(()=>{});
+  loadClips(i).then(clips=>{ if (id === runId && strips[i].id === sid) start(clips, panels, what); })
+    .catch(()=>{ if (id === runId){ finish(); showWarn('The sound could not load. Check your connection and tap ▶ again.'); } });
+}
+function start(clips, panels, what){
+  const id = ++runId;
   const items = [];
   panels.forEach(k=>{
     const ls = clips[k] || [];
     ls.forEach((c,j)=>items.push({c, k, j, last:j===ls.length-1}));
   });
-  if (!items.length){ showWarn('No audio for this strip yet.'); return; }
+  if (!items.length){ finish(); showWarn('No audio for this strip yet.'); return; }
   playingWhat = what; setButtons(); showWarn('');
   let n = 0;
   const step = ()=>{
@@ -453,7 +631,7 @@ stage.addEventListener('click', e=>{
     stage.querySelectorAll('.speed button').forEach(x=>x.setAttribute('aria-pressed', String(x===b)));
   }
 });
-back.addEventListener('click', ()=>{ if(i>0){ i--; render(); } });
-next.addEventListener('click', ()=>{ if(i<total){ i++; render(); } });
+back.addEventListener('click', ()=>{ navigated = true; if(i>0){ i--; render(); } });
+next.addEventListener('click', ()=>{ navigated = true; if(i<total){ i++; render(); } });
 render();
 </script>
