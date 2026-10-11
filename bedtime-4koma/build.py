@@ -45,6 +45,9 @@ STYLE_VVM = {v["style"]: v["vvm"] for v in VOICES.values()} | {83: "15.vvm"}
 # Spoken text fixes where Open JTalk misreads the written form.
 READINGS = {
     "ザーザー降り": "ザーザーぶり",
+    "八十？": "はちじゅう？",
+    "二十歳": "はたち",
+    "開いている": "あいている",
 }
 SPEEDS = {"n": 1.0, "s": 0.8}  # ふつう / ゆっくり
 VVM_VERSION_TAG = (VV_MODELS.parent / "env.json").read_text()

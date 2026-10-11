@@ -66,6 +66,9 @@ button:focus-visible{outline:3px solid var(--ai);outline-offset:2px}
 .done{text-align:center;padding:28px 12px;background:var(--paper);border:2.5px solid var(--ink);display:flex;flex-direction:column;gap:10px}
 .done .big{font-family:var(--display);font-size:1.6rem}
 .done p{margin:0;line-height:1.6}
+.jump{display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--soft);font-weight:700}
+.jump select{flex:1;min-width:0;font-family:var(--body);font-size:1rem;font-weight:700;color:var(--ink);background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:9px 34px 9px 12px;appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--ink) 50%),linear-gradient(135deg,var(--ink) 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 12px) 50%;background-size:6px 6px;background-repeat:no-repeat;text-overflow:ellipsis}
+.jump select:focus-visible{outline:3px solid var(--ai);outline-offset:2px}
 .credit{font-size:.78rem;line-height:1.6;color:var(--soft);text-align:center;margin:4px 0 0}
 @media (prefers-reduced-motion: reduce){.lines > div{transition:none}}
 </style>
@@ -75,6 +78,7 @@ button:focus-visible{outline:3px solid var(--ai);outline-offset:2px}
     <h1>今夜の4コマ</h1>
     <div class="dots" id="dots" aria-hidden="true"></div>
   </header>
+  <label class="jump" for="jump"><span>Jump to</span><select id="jump"></select></label>
   <main id="stage"></main>
   <nav>
     <button id="back" type="button">戻る</button>
@@ -134,6 +138,40 @@ const rain = ()=>{let r='';for(let i=0;i<26;i++){const x=(i*37)%320,y=(i*53)%120
 const stick = (x,y,len=70)=>`<line x1="${x}" y1="${y}" x2="${x}" y2="${y+len}" ${S} stroke-width="3"/><path d="M${x} ${y+len} q0 9 -8 7" fill="none" ${S} stroke-width="3"/><path d="M${x-4} ${y+8} q4 -14 8 0 l0 ${len-30} q-4 6 -8 0 z" fill="#9aa7c4" ${S} stroke-width="1.4"/>`;
 const shop = x=>`<rect x="${x}" y="40" width="96" height="110" fill="#fff" ${S}/><rect x="${x}" y="40" width="96" height="22" fill="#2f4c8f" ${S}/><text x="${x+48}" y="56" font-size="13" text-anchor="middle" fill="#fff" font-family="Zen Maru Gothic, sans-serif" font-weight="700">コンビニ</text><rect x="${x+30}" y="92" width="36" height="58" fill="#e6f0ff" ${S} stroke-width="1.6"/>`;
 
+/* grandpa: bald with white side tufts, white mustache, sage cardigan */
+function gramps(x, y, mood='plain'){
+  const eyes = mood==='laugh'
+    ? `<path d="M${x-11} ${y-1} q4 -4 8 0 M${x+3} ${y-1} q4 -4 8 0" fill="none" ${S} stroke-width="1.8"/>`
+    : `<circle cx="${x-7}" cy="${y-1}" r="2.2" fill="#1b1d24"/><circle cx="${x+7}" cy="${y-1}" r="2.2" fill="#1b1d24"/>`;
+  const mouth = {
+    plain:'',
+    laugh:`<path d="M${x-5} ${y+14} q5 6 10 0 z" fill="#1b1d24"/>`,
+    shock:`<ellipse cx="${x}" cy="${y+15}" rx="3.5" ry="4.5" fill="#1b1d24"/>`,
+    blank:`<line x1="${x-4}" y1="${y+15}" x2="${x+4}" y2="${y+15}" ${S} stroke-width="1.8"/>`
+  }[mood] || '';
+  return `<g><rect x="${x-19}" y="${y+22}" width="38" height="${148-(y+22)}" rx="12" fill="#e2ebd6" ${S}/><line x1="${x}" y1="${y+24}" x2="${x}" y2="148" ${S} stroke-width="1.4"/><circle cx="${x}" cy="${y}" r="21" fill="#fff" ${S}/><path d="M${x-20} ${y+2} q-7 -5 -2 -13 q2 6 5 4 M${x+20} ${y+2} q7 -5 2 -13 q-2 6 -5 4" fill="#fff" ${S} stroke-width="1.6"/><path d="M${x-6} ${y-16} q6 -2 12 0" fill="none" ${S} stroke-width="1.2"/><path d="M${x-13} ${y-9} q4 -3 8 0 M${x+5} ${y-9} q4 -3 8 0" fill="none" ${S} stroke-width="1.8"/>${eyes}<path d="M${x} ${y+7} q-6 -3 -12 3 q6 3 12 -1 q6 4 12 1 q-6 -6 -12 -3 z" fill="#fff" ${S} stroke-width="1.6"/>${mouth}</g>`;
+}
+const sepia = `<rect width="320" height="170" fill="#efe1c4" opacity=".55"/>`;
+const table = (x1,x2,y=112)=>`<rect x="${x1}" y="${y}" width="${x2-x1}" height="9" rx="2" fill="#cfa66b" ${S}/><line x1="${x1+12}" y1="${y+9}" x2="${x1+12}" y2="150" ${S}/><line x1="${x2-12}" y1="${y+9}" x2="${x2-12}" y2="150" ${S}/>`;
+const plate = (x,y=108)=>`<ellipse cx="${x}" cy="${y}" rx="20" ry="6" fill="#fff" ${S} stroke-width="1.8"/><ellipse cx="${x+4}" cy="${y-1}" rx="10" ry="3" fill="#c98a3a"/>`;
+const steam = (x,y)=>`<path d="M${x-8} ${y} q-5 -7 0 -14 q5 -7 0 -14 M${x+6} ${y} q-5 -7 0 -14 q5 -7 0 -14" fill="none" stroke="#9aa3b5" stroke-width="2" stroke-linecap="round"/>`;
+const pot = (x,y)=>`${steam(x,y-4)}<rect x="${x-26}" y="${y}" width="52" height="34" rx="6" fill="#6b7a99" ${S}/><line x1="${x-34}" y1="${y+8}" x2="${x-26}" y2="${y+8}" ${S} stroke-width="3"/><line x1="${x+26}" y1="${y+8}" x2="${x+34}" y2="${y+8}" ${S} stroke-width="3"/><rect x="${x-30}" y="${y-5}" width="60" height="7" rx="3" fill="#8592ad" ${S} stroke-width="1.8"/>`;
+const counter = (x1,x2)=>`<rect x="${x1}" y="110" width="${x2-x1}" height="40" fill="#f4f6fa" ${S}/><line x1="${x1}" y1="118" x2="${x2}" y2="118" ${S} stroke-width="1.4"/>`;
+const cake = (x,y=86)=>`<rect x="${x-26}" y="${y}" width="52" height="26" rx="4" fill="#fff6e6" ${S}/><path d="M${x-26} ${y+8} q6 6 13 0 q6 6 13 0 q6 6 13 0 q6 6 13 0" fill="none" ${S} stroke-width="1.6"/>${[-15,-5,5,15].map(d=>`<line x1="${x+d}" y1="${y}" x2="${x+d}" y2="${y-12}" ${S} stroke-width="2.2"/><path d="M${x+d} ${y-14} q3 -4 0 -8 q-3 4 0 8 z" fill="#ffb347" stroke="#e08a1e" stroke-width="1"/>`).join('')}`;
+const sparkle = (x,y)=>`<path d="M${x} ${y-7} l2 5 l5 2 l-5 2 l-2 5 l-2 -5 l-5 -2 l5 -2 z" fill="#ffd36b" ${S} stroke-width="1.2"/>`;
+const book = (x,y)=>`<rect x="${x}" y="${y}" width="20" height="26" rx="2" fill="#7c9fd6" ${S} stroke-width="1.8"/><line x1="${x+4}" y1="${y}" x2="${x+4}" y2="${y+26}" ${S} stroke-width="1.4"/>`;
+const gamepad = (x,y)=>`<rect x="${x}" y="${y}" width="26" height="14" rx="7" fill="#9aa7c4" ${S} stroke-width="1.8"/><circle cx="${x+19}" cy="${y+7}" r="2" fill="#1b1d24"/><path d="M${x+5} ${y+7} h6 M${x+8} ${y+4} v6" ${S} stroke-width="1.6"/>`;
+const mall = x=>`<rect x="${x}" y="30" width="100" height="120" fill="#fff" ${S}/><rect x="${x}" y="30" width="100" height="22" fill="#2f4c8f" ${S}/><text x="${x+50}" y="46" font-size="13" text-anchor="middle" fill="#fff" font-family="Zen Maru Gothic, sans-serif" font-weight="700">モール</text><rect x="${x+10}" y="62" width="34" height="22" fill="#e6f0ff" ${S} stroke-width="1.4"/><rect x="${x+56}" y="62" width="34" height="22" fill="#e6f0ff" ${S} stroke-width="1.4"/><rect x="${x+30}" y="100" width="40" height="50" fill="#e6f0ff" ${S} stroke-width="1.6"/><line x1="${x+50}" y1="100" x2="${x+50}" y2="150" ${S} stroke-width="1.4"/>`;
+const car = x=>`<path d="M${x-135} 130 l0 -28 q0 -8 8 -8 l32 0 l28 -32 q6 -6 14 -6 l106 0 q8 0 14 6 l28 32 l32 0 q8 0 8 8 l0 28 z" fill="#dfe6f3" ${S}/><path d="M${x-86} 92 l24 -27 l57 0 l0 27 z M${x+5} 92 l0 -27 l57 0 l24 27 z" fill="#e6f0ff" ${S} stroke-width="1.8"/>`
+  + `<circle cx="${x-42}" cy="80" r="11" fill="#fff" ${S} stroke-width="1.8"/><circle cx="${x-46}" cy="79" r="3" fill="none" ${S} stroke-width="1.2"/><circle cx="${x-38}" cy="79" r="3" fill="none" ${S} stroke-width="1.2"/>`
+  + `<circle cx="${x+28}" cy="82" r="9" fill="#fff" ${S} stroke-width="1.8"/><path d="M${x+19} 80 l3 -8 l3 4 l3 -6 l3 5 l3 -6 l3 6 l2 5" fill="#1b1d24" ${S} stroke-width="1.2"/>`
+  + `<circle cx="${x+62}" cy="81" r="10" fill="#fff" ${S} stroke-width="1.8"/><path d="M${x+62} 85 q-4 -2 -8 2 q4 2 8 0 q4 2 8 0 q-4 -4 -8 -2 z" fill="#fff" ${S} stroke-width="1.2"/>`
+  + `<circle cx="${x-80}" cy="132" r="15" fill="#5d6272" ${S}/><circle cx="${x-80}" cy="132" r="5" fill="#dfe6f3"/><circle cx="${x+80}" cy="132" r="15" fill="#5d6272" ${S}/><circle cx="${x+80}" cy="132" r="5" fill="#dfe6f3"/>`;
+const wall = `<rect x="0" y="0" width="320" height="150" fill="#f7f1e8"/>`;
+const openWin = (x,y,tail=false)=>`<rect x="${x}" y="${y}" width="80" height="58" fill="#3b4a6b" ${S}/><rect x="${x+38}" y="${y}" width="42" height="58" fill="#e6f0ff" ${S} stroke-width="1.8"/>${tail?`<path d="M${x+18} ${y+58} q-14 16 -4 34" fill="none" stroke="#1b1d24" stroke-width="9" stroke-linecap="round"/><path d="M${x+18} ${y+58} q-14 16 -4 34" fill="none" stroke="#f2f2f2" stroke-width="5" stroke-linecap="round"/>`:''}`;
+const gift = (x,y)=>`<rect x="${x-20}" y="${y}" width="40" height="30" fill="#f6c76b" ${S}/><rect x="${x-24}" y="${y-8}" width="48" height="9" fill="#f6c76b" ${S} stroke-width="1.8"/><line x1="${x}" y1="${y-8}" x2="${x}" y2="${y+30}" stroke="#2f4c8f" stroke-width="4"/><path d="M${x} ${y-8} q-12 -12 -14 -2 q2 4 14 2 q12 -12 14 -2 q-2 4 -14 2" fill="#e3e9f6" stroke="#2f4c8f" stroke-width="2"/>`;
+const drops = (x,y)=>[[-26,-8],[24,-14],[-30,24],[28,18],[-6,-30]].map(([dx,dy])=>`<path d="M${x+dx} ${y+dy} q4 7 0 10 q-4 -3 0 -10 z" fill="#9fb7e6" ${S} stroke-width="1.2"/>`).join('');
+
 /* STRIPS-START */
 const strips = [
   { id:"2026-10-11-kagami", title:"タマとおじさん", word:"鏡", reading:"かがみ", meaning:"mirror",
@@ -174,6 +212,71 @@ const strips = [
       lines:['<span class="n">家に着くと、雨はもう止んでいた。</span>'] },
     { art: svg(floor + `<rect x="60" y="98" width="62" height="52" fill="#dfe6f3" ${S}/>` + [70,78,86,94,102,110].map((x,i)=>stick(x,40+(i%2)*6,58)).join('') + dad(270,58,'blank') + son(186,72,'flat')),
       lines:['息子「おかえり。コンビニの<b>傘</b>、それで六本目だよ。」'] }
+  ]},
+  { id:"2026-10-11-imasara", title:"じいちゃんのカレー", word:"今更", reading:"いまさら", meaning:"now, after all this time (too late / pointless now)",
+    kanji:"今 = now, 更 = anew, once more (as in 更新, renewal). “Now, after everything” — the moment has passed.",
+    model:"Ten years ago Dad lied that Grandpa's curry was delicious, so Grandpa has made it every week since. The kid says just tell him the truth; Dad: after ten years, it's too late to say it now. Grandpa: “There's seconds too!”",
+    panels:[
+    { art: svg(sepia + floor + dad(90,58,'worry') + gramps(228,64,'laugh') + table(30,290) + plate(90) + plate(228)),
+      lines:['<span class="n">十年前。</span>','じいちゃん「わしのカレー、どうじゃ？」','父「お、おいしい！すごくおいしいよ！」'] },
+    { art: svg(floor + gramps(100,64,'laugh') + counter(170,300) + pot(236,76)),
+      lines:['<span class="n">それから十年。じいちゃんは毎週カレーを作る。</span>','じいちゃん「今日もたくさん作ったぞ！」'] },
+    { art: svg(floor + son(80,72,'plain') + dad(190,58,'worry') + fx(222,34)),
+      lines:['息子「お父さん、本当はおじいちゃんのカレー、好きじゃないでしょ？」','父「しーっ！」'] },
+    { art: svg(floor + dad(70,58,'blank') + son(160,72,'flat') + gramps(250,64,'laugh') + table(20,300) + plate(70) + plate(160) + plate(250)),
+      lines:['息子「本当のこと、言えばいいのに。」','父「十年だぞ。<b>今更</b>言えないよ……」','じいちゃん「おかわりもあるぞー！」'] }
+  ]},
+  { id:"2026-10-11-barabara", title:"家族の日", word:"バラバラ", reading:"ばらばら", meaning:"scattered; in pieces; everyone going their own way",
+    kanji:"A sound-and-feel word, like a handful of beads hitting the floor: bara-bara. The doubled sound gives the sense of many separate bits. Written in katakana or hiragana.",
+    model:"Dad declares a “family day” out together, but at the mall the kid runs off to the arcade and Grandpa to the bookshop. When the kid wants another family day, Dad points out that everyone spent the whole day apart.",
+    panels:[
+    { art: svg(floor + sun(40,32) + dad(120,58,'laugh') + son(196,72,'open') + gramps(266,64,'plain')),
+      lines:['<span class="n">日曜日。</span>','父「今日は家族の日だ！みんなで一緒に出かけよう！」'] },
+    { art: svg(floor + mall(212) + son(36,72,'open') + gramps(100,64,'plain') + dad(166,58,'shock')),
+      lines:['<span class="n">ショッピングモールに着いた。</span>','息子「ぼく、ゲームセンター行ってくる！」','じいちゃん「わしは本屋じゃ。」','父「えっ、ちょっと……」'] },
+    { art: svg(floor + `<circle cx="290" cy="34" r="14" fill="#f4a261" ${S} stroke-width="1.8"/>` + son(56,72,'open') + gamepad(72,104) + gramps(150,64,'laugh') + book(166,98) + dad(250,58,'plain')),
+      lines:['<span class="n">夕方。</span>','息子「ゲーム、十回やった！」','じいちゃん「本を三冊読んだぞ。」'] },
+    { art: svg(floor + car(160)),
+      lines:['息子「また家族の日、やろうね！」','父「家族の日って……一日中、<b>バラバラ</b>だったじゃないか。」'] }
+  ]},
+  { id:"2026-10-11-kagami2", title:"八十歳の誕生日", word:"鏡", reading:"かがみ", meaning:"mirror",
+    kanji:"Also hiding in 眼鏡 (めがね, glasses): an “eye mirror”.",
+    model:"On his 80th birthday Grandpa insists he's still twenty at heart, and that his face looks young too. The kid offers to go and get a mirror. Grandpa: “No thanks!”",
+    panels:[
+    { art: svg(floor + son(56,72,'open') + gramps(160,64,'laugh') + dad(264,58,'laugh') + table(110,210,132) + cake(160,108)),
+      lines:['<span class="n">今日は、じいちゃんの八十歳の誕生日。</span>','息子「おじいちゃん、おめでとう！」'] },
+    { art: svg(floor + son(56,72,'plain') + gramps(160,64,'laugh') + fx(186,36) + dad(264,58,'laugh')),
+      lines:['じいちゃん「八十？いやいや、わしの心は、まだ二十歳じゃ！」','父「ハハハ。」'] },
+    { art: svg(floor + son(80,72,'flat') + gramps(200,64,'laugh') + sparkle(232,30) + sparkle(168,26) + sparkle(244,62)),
+      lines:['じいちゃん「顔だって、まだまだ若いじゃろう？」','息子「えっ……」'] },
+    { art: svg(floor + son(100,72,'plain') + gramps(220,64,'shock') + fx(246,38)),
+      lines:['息子「ちょっと<b>鏡</b>、持ってくるね。」','じいちゃん「いらない、いらない！」'] }
+  ]},
+  { id:"2026-10-11-kagi2", title:"三回チェック", word:"鍵", reading:"かぎ", meaning:"lock; key",
+    kanji:"One word for both the key and the lock: 窓の鍵 = the window lock, 鍵をかける = to lock.",
+    model:"Before going out, Grandpa checks the front door three times in case a burglar gets in. Then Tama strolls into the house through the open window. The kid: “Grandpa… what about the window lock?”",
+    panels:[
+    { art: svg(wall + floor + door(200,false) + son(56,72,'plain') + gramps(140,64,'plain')),
+      lines:['<span class="n">出かける前、じいちゃんはいつもドアを三回チェックする。</span>','じいちゃん「よし、よし、よし。」'] },
+    { art: svg(wall + floor + door(200,false) + son(56,72,'open') + gramps(140,64,'laugh')),
+      lines:['息子「おじいちゃん、三回も？」','じいちゃん「どろぼうが入ったら、困るじゃろう。」'] },
+    { art: svg(wall + floor + openWin(212,30) + cat(110,130)),
+      lines:['<span class="n">その時、タマが帰ってきた。</span>'] },
+    { art: svg(wall + floor + openWin(212,30,true) + son(60,72,'flat') + gramps(146,64,'shock')),
+      lines:['<span class="n">タマは、開いている窓から家に入った。</span>','息子「……おじいちゃん、窓の<b>鍵</b>は？」','じいちゃん「あ。」'] }
+  ]},
+  { id:"2026-10-11-kasa2", title:"新しいプレゼント", word:"傘", reading:"かさ", meaning:"umbrella",
+    kanji:"傘をさす = to put up an umbrella. 日傘 (ひがさ) = a sun umbrella, a “sun 傘”.",
+    model:"The kid gets a present from Grandpa and checks the sky every day, waiting for rain. When it finally rains he comes home soaked: he didn't want his new umbrella to get wet.",
+    panels:[
+    { art: svg(floor + son(100,72,'open') + gift(166,108) + gramps(236,64,'laugh')),
+      lines:['<span class="n">息子の誕生日。じいちゃんからプレゼントをもらった。</span>','息子「わあ、かっこいい！ありがとう！」'] },
+    { art: svg(floor + win(212,24, sun(232,44)) + son(110,72,'flat')),
+      lines:['<span class="n">それから毎日、息子は空を見ている。</span>','息子「雨、まだかなあ。」'] },
+    { art: svg(rain() + floor + son(150,72,'open')),
+      lines:['<span class="n">一週間後。やっと雨が降った。</span>','息子「やったー！行ってきます！」'] },
+    { art: svg(floor + door(24,false) + son(140,72,'flat') + drops(140,72) + dad(240,58,'shock')),
+      lines:['<span class="n">夕方。息子はびしょぬれで帰ってきた。</span>','父「どうしたんだ！？」','息子「だって、新しい<b>傘</b>がぬれちゃうもん。」'] }
   ]}
 ];
 /* STRIPS-END */
@@ -195,8 +298,13 @@ try {
   if (v === 's' || (parseFloat(v) && parseFloat(v) < 0.8)) speed = 's';
 } catch(e) {}
 
+const jump = document.getElementById('jump');
+jump.innerHTML = strips.map((s,k)=>`<option value="${k}">${k+1}. ${s.title} — ${s.word}</option>`).join('') + `<option value="${total}">おわり — results</option>`;
+jump.addEventListener('change', ()=>{ i = +jump.value; render(); });
+
 function render(){
   stopAll();
+  jump.value = String(i);
   dots.innerHTML = strips.map((_,k)=>`<span class="${k<=i && i<total ? 'on' : (i>=total?'on':'')}"></span>`).join('');
   if (i >= total){
     const label = {got:'Got it', partly:'Partly', missed:'Missed'};
