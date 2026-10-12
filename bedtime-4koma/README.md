@@ -29,3 +29,14 @@ A line is spoken by a character when it is written `父「…」`, `息子「…
 
 Credit shown on the page (required by the voice terms): `VOICEVOX:<voice name>` for
 every voice used.
+
+## Before publishing (lessons from 2026-10-12)
+
+- A syntax error in the inline script blanks the whole page, and publishing does not catch it.
+  After `build.py`, load `index.html` in headless Chromium and check: no page error, `#dots`
+  reads "1 / N", `#jump` has N+1 options, and each new strip opens with 4 panels.
+- Every strip in `page.src.html` must end with `  ]},` (panels array closed, then the strip).
+- Publishing is refused until the live version has been fully viewed: `Artifact read`, then Read
+  every line of the saved HTML it names, merge, publish once.
+- Merge live-only strips into `page.src.html` first and fetch their `audio/*.json` from the live
+  page so `build.py` only re-voices the new strips.
