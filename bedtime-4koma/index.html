@@ -181,6 +181,24 @@ const cardbox = (x,y)=>`<rect x="${x-28}" y="${y}" width="56" height="40" fill="
 const steak = (x,y=108)=>`<ellipse cx="${x}" cy="${y}" rx="20" ry="6" fill="#fff" ${S} stroke-width="1.8"/><ellipse cx="${x}" cy="${y-2}" rx="11" ry="4" fill="#8a4b2a"/>`;
 const drops = (x,y)=>[[-26,-8],[24,-14],[-30,24],[28,18],[-6,-30]].map(([dx,dy])=>`<path d="M${x+dx} ${y+dy} q4 7 0 10 q-4 -3 0 -10 z" fill="#9fb7e6" ${S} stroke-width="1.2"/>`).join('');
 
+const coin = (x,y)=>`<circle cx="${x}" cy="${y}" r="7" fill="#f6c76b" ${S} stroke-width="1.6"/><line x1="${x-3}" y1="${y}" x2="${x+3}" y2="${y}" ${S} stroke-width="1.2"/>`;
+const sofa = x=>`<rect x="${x}" y="100" width="110" height="50" rx="10" fill="#9fb7e6" ${S}/><rect x="${x-8}" y="88" width="126" height="22" rx="10" fill="#b5c8ee" ${S}/>`;
+const futonbed = (x,y=118)=>`<rect x="${x}" y="${y}" width="130" height="30" rx="10" fill="#cfe0f5" ${S}/><line x1="${x+40}" y1="${y}" x2="${x+40}" y2="${y+30}" ${S} stroke-width="1.4"/><line x1="${x+80}" y1="${y}" x2="${x+80}" y2="${y+30}" ${S} stroke-width="1.4"/><rect x="${x-14}" y="${y-6}" width="40" height="18" rx="8" fill="#fff" ${S}/>`;
+const peek = (x,y)=>`<circle cx="${x}" cy="${y}" r="15" fill="#fff" ${S}/><path d="M${x-15} ${y-4} l4 -12 l5 6 l4 -9 l5 8 l5 -8 l4 9 l5 -5 l2 11" fill="#1b1d24" ${S} stroke-width="1.4"/><line x1="${x-8}" y1="${y+2}" x2="${x-3}" y2="${y+2}" ${S} stroke-width="1.8"/><line x1="${x+3}" y1="${y+2}" x2="${x+8}" y2="${y+2}" ${S} stroke-width="1.8"/>`;
+const tee = (x,y,c)=>`<path d="M${x-12} ${y} l-10 8 l6 8 l6 -4 l0 24 l20 0 l0 -24 l6 4 l6 -8 l-10 -8 q-8 5 -24 0 z" fill="${c}" ${S} stroke-width="1.8"/>`;
+const phone = (x,y)=>`<rect x="${x}" y="${y}" width="12" height="22" rx="3" fill="#6b7a99" ${S} stroke-width="1.6"/><rect x="${x+2}" y="${y+3}" width="8" height="12" fill="#e6f0ff"/>`;
+const train = x=>`<rect x="${x}" y="52" width="170" height="78" rx="14" fill="#dfe6f3" ${S}/><rect x="${x}" y="100" width="170" height="10" fill="#2f4c8f" ${S} stroke-width="1.6"/>${[14,62,110].map(d=>`<rect x="${x+d}" y="64" width="42" height="28" rx="4" fill="#e6f0ff" ${S} stroke-width="1.6"/>`).join('')}<circle cx="${x+34}" cy="134" r="9" fill="#5d6272" ${S} stroke-width="1.8"/><circle cx="${x+136}" cy="134" r="9" fill="#5d6272" ${S} stroke-width="1.8"/>`;
+const waves = y=>`<path d="M0 ${y} q20 -10 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0" fill="none" stroke="#6f8fd0" stroke-width="3" stroke-linecap="round"/><path d="M0 ${y+14} q20 -10 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0" fill="none" stroke="#9fb7e6" stroke-width="3" stroke-linecap="round"/>`;
+const treasuremap = (x,y)=>`<rect x="${x-34}" y="${y}" width="68" height="48" rx="3" fill="#f3e2b8" ${S} stroke-width="1.8" transform="rotate(-4 ${x} ${y+24})"/><path d="M${x-24} ${y+34} q10 -22 20 -8 t20 -14" fill="none" stroke="#a87b45" stroke-width="2" stroke-dasharray="4 4"/><path d="M${x+14} ${y+8} l10 10 M${x+24} ${y+8} l-10 10" ${S} stroke="#c0392b" stroke-width="3"/>`;
+const hole = x=>`<ellipse cx="${x}" cy="148" rx="44" ry="10" fill="#7a5a3a" ${S}/><path d="M${x-60} 146 q14 -14 30 -2 M${x+34} 146 q14 -14 30 -2" fill="#b98a5a" ${S} stroke-width="1.8"/>`;
+const dentistsign = x=>`<rect x="${x}" y="30" width="86" height="40" rx="6" fill="#fff" ${S}/><text x="${x+43}" y="58" font-size="24" text-anchor="middle" font-weight="700" fill="#2f4c8f" font-family="Zen Maru Gothic, sans-serif">歯</text>`;
+const washer = x=>`<rect x="${x}" y="60" width="80" height="90" rx="8" fill="#f4f6fa" ${S}/><circle cx="${x+40}" cy="106" r="26" fill="#e6f0ff" ${S}/><circle cx="${x+40}" cy="106" r="14" fill="#cfe0f5" ${S} stroke-width="1.6"/><circle cx="${x+14}" cy="74" r="4" fill="#9fb7e6" ${S} stroke-width="1.4"/>`;
+const bigclock = (x,y,hh)=>`<circle cx="${x}" cy="${y}" r="20" fill="#fff" ${S}/><line x1="${x}" y1="${y}" x2="${x}" y2="${y-14}" ${S}/>${hh}`;
+
+const leaves = (pts)=>pts.map(([x,y],i)=>`<ellipse cx="${x}" cy="${y}" rx="6" ry="3.5" fill="${i%2?'#f4a261':'#e07a3a'}" ${S} stroke-width="1.2" transform="rotate(${(i*37)%90-45} ${x} ${y})"/>`).join('');
+const leafpile = x=>`<path d="M${x-44} 150 q4 -40 44 -42 q40 2 44 42 z" fill="#e8a05a" ${S}/>` + leaves([[x-20,136],[x,124],[x+18,138],[x-6,142],[x+28,144]]);
+const broom = (x,y)=>`<line x1="${x}" y1="${y}" x2="${x+12}" y2="${y+78}" ${S} stroke-width="3"/><path d="M${x+2} ${y+76} l22 0 l8 22 l-34 0 z" fill="#d9b94a" ${S} stroke-width="1.6"/>`;
+const wind = (x,y)=>`<path d="M${x} ${y} q30 -10 60 0 q14 4 8 12 M${x+10} ${y+22} q30 -10 60 0 q14 4 8 12" fill="none" stroke="#9aa3b5" stroke-width="2.4" stroke-linecap="round"/>`;
 /* STRIPS-START */
 const strips = [
   { id:"2026-10-11-kagami", title:"タマとおじさん", word:"鏡", reading:"かがみ", meaning:"mirror",
@@ -416,13 +434,208 @@ const strips = [
       lines:['じいちゃん「中は、わしの石のコレクションだ。」','父「い、石……？」'] },
     { art: svg(floor + dad(100,58,'worry') + cardbox(100,104) + gramps(200,64,'laugh') + cardbox(280,110) + cardbox(280,70) + cardbox(280,30)),
       lines:['父「ぜ、ぜんぜん<b>重く</b>ないよ……」','じいちゃん「よかった。じゃあ、あと五箱あるぞ。」'] }
+  ]},
+  { id:"2026-10-11-shashin2", title:"花火大会", word:"写真", reading:"しゃしん", meaning:"photo",
+    kanji:"写 = copy, capture + 真 = true. 写真を撮る = to take a photo.",
+    model:"Dad is proud of the fireworks photos he took. At home Grandpa looks at them: every one is pitch black. The kid points out the lens cap is still on the camera. Dad: “…but the sound was beautiful.”",
+    panels:[
+    { art: svg(floor + night(20) + night(120) + sparkle(60,50) + sparkle(160,44) + sparkle(210,70) + dad(250,58,'laugh')),
+      lines:['<span class="n">夏の夜。花火大会。</span>','父「きれいだなあ。よし、たくさん<b>写真</b>を撮るぞ。」'] },
+    { art: svg(floor + night(40) + sparkle(90,50) + sparkle(190,40) + dad(230,58,'laugh') + sparkle(256,34)),
+      lines:['<span class="n">父は、百回ボタンをおした。</span>','父「いい<b>写真</b>が撮れたぞ！」'] },
+    { art: svg(floor + gramps(110,64,'shock') + son(210,72,'flat')),
+      lines:['<span class="n">家で。</span>','じいちゃん「この<b>写真</b>、ぜんぶまっくろじゃのう。」'] },
+    { art: svg(floor + son(80,72,'flat') + dad(190,58,'blank') + fx(222,36)),
+      lines:['息子「お父さん、カメラのふたが、閉まったままだよ。」','父「……花火の音は、きれいだったぞ。」'] }
+  ]},
+  { id:"2026-10-11-souji2", title:"ソファの下", word:"掃除", reading:"そうじ", meaning:"cleaning",
+    kanji:"掃 = sweep + 除 = remove (as in 削除, delete): sweep and take away.",
+    model:"Dad announces a big cleaning day and moves the sofa. Underneath he finds coins and a thousand-yen note. He is thrilled and says cleaning is wonderful. A week later the kid asks if he's going to clean again. Dad: “No. I've already found all the money.”",
+    panels:[
+    { art: svg(floor + sun(40,30) + dad(150,58,'laugh') + sofa(190)),
+      lines:['<span class="n">日曜日の朝。</span>','父「今日は<b>掃除</b>をするぞ！」'] },
+    { art: svg(floor + coin(70,140) + coin(110,144) + coin(150,138) + dad(230,58,'shock') + sofa(0)),
+      lines:['<span class="n">父は、ソファを動かした。</span>','父「おっ！お金だ！千円もある！」'] },
+    { art: svg(floor + sparkle(60,40) + sparkle(250,50) + dad(150,58,'laugh') + coin(110,140) + coin(196,142)),
+      lines:['父「<b>掃除</b>は、すばらしいなあ！」'] },
+    { art: svg(floor + night(224) + son(80,72,'plain') + dad(170,58,'blank') + sofa(200)),
+      lines:['<span class="n">一週間後。</span>','息子「お父さん、今日は<b>掃除</b>しないの？」','父「しない。お金は、もうぜんぶ見つけたからね。」'] }
+  ]},
+  { id:"2026-10-11-chizu2", title:"宝さがし", word:"地図", reading:"ちず", meaning:"map",
+    kanji:"地 = ground, land + 図 = drawing, plan. 宝の地図 = a treasure map.",
+    model:"The kid draws a treasure map for Grandpa. Grandpa follows it to the garden and digs a huge hole. Then the kid says the map was upside down. Grandpa: “No wonder there was nothing.”",
+    panels:[
+    { art: svg(floor + son(70,72,'open') + treasuremap(130,100) + gramps(250,64,'laugh')),
+      lines:['息子「おじいちゃん、宝の<b>地図</b>を作ったよ。」','じいちゃん「ほう、すごいのう。」'] },
+    { art: svg(floor + tree(250) + gramps(100,64,'plain') + treasuremap(170,70)),
+      lines:['<span class="n">じいちゃんは、地図を見ながら庭に出た。</span>','じいちゃん「ここじゃな。」'] },
+    { art: svg(floor + hole(150) + gramps(60,64,'shock') + dad(260,58,'shock')),
+      lines:['<span class="n">じいちゃんは、大きな穴をほった。</span>','父「庭が、穴だらけだ！」'] },
+    { art: svg(floor + hole(80) + son(180,72,'flat') + gramps(262,64,'blank') + treasuremap(190,60)),
+      lines:['息子「ごめん、<b>地図</b>が逆さまだったよ。」','じいちゃん「……どうりで、何もないはずじゃ。」'] }
+  ]},
+  { id:"2026-10-11-haisha2", title:"こわくない", word:"歯医者", reading:"はいしゃ", meaning:"dentist",
+    kanji:"歯 = tooth + 医者 = doctor: a tooth doctor.",
+    model:"Dad brags to his son that he isn't scared of the dentist at all. In the waiting room his hands are shaking. When his name is called, he grabs the kid's hand and asks him to come in too.",
+    panels:[
+    { art: svg(floor + dentistsign(210) + dad(100,58,'laugh') + son(180,72,'plain')),
+      lines:['<span class="n">今日は、父の歯医者の日。息子もついてきた。</span>','父「お父さんは、<b>歯医者</b>なんて、ぜんぜんこわくないぞ。」'] },
+    { art: svg(floor + dentistsign(210) + dad(100,58,'laugh') + son(180,72,'plain')),
+      lines:['息子「ふーん。」','父「ほんとうだ。ハハハ。」'] },
+    { art: svg(floor + dentistsign(210) + dad(110,58,'worry') + son(190,72,'flat') + drops(110,58)),
+      lines:['<span class="n">待合室。</span>','息子「お父さん、手がふるえているよ。」'] },
+    { art: svg(floor + dentistsign(210) + dad(120,58,'shock') + son(190,72,'flat') + fx(150,34)),
+      lines:['<span class="n">名前をよばれた。</span>','父「……いっしょに、入ってくれないか。」','息子「えっ。」'] }
+  ]},
+  { id:"2026-10-11-tokei2", title:"おひるねのあと", word:"時計", reading:"とけい", meaning:"clock; watch",
+    kanji:"時 = time + 計 = measure: a time-measurer. 目覚まし時計 = alarm clock.",
+    model:"Grandpa wakes from an afternoon nap, sees the clock says five and thinks it's morning, so he cooks breakfast. The kid asks him to look out the window: it's getting dark. Grandpa: “Then this is dinner.”",
+    panels:[
+    { art: svg(floor + futonbed(60) + zz(200,60) + win(220,24, sun(250,44))),
+      lines:['<span class="n">午後。じいちゃんは、おひるねをしている。</span>'] },
+    { art: svg(floor + counter(190,310) + gramps(110,64,'shock') + bigclock(250,60,`<line x1="250" y1="60" x2="${250+10}" y2="${60+7}" ${S}/>`)),
+      lines:['<span class="n">目がさめた。</span>','じいちゃん「<b>時計</b>が五時じゃ。朝じゃ！」'] },
+    { art: svg(floor + dusk + pot(250,76) + gramps(90,64,'laugh') + son(180,72,'plain')),
+      lines:['<span class="n">じいちゃんは、朝ごはんを作りはじめた。</span>','息子「おじいちゃん、窓を見て。」'] },
+    { art: svg(floor + dusk + night(30) + gramps(150,64,'blank') + son(240,72,'flat')),
+      lines:['息子「外が暗いよ。これは、夕方の五時だよ。」','じいちゃん「……では、この朝ごはんは、夕ごはんじゃな。」'] }
+  ]},
+  { id:"2026-10-11-futon", title:"寒い朝", word:"布団", reading:"ふとん", meaning:"futon; bedding",
+    kanji:"布 = cloth (as in 財布, wallet) + 団 = round, lump: a cloth bundle you sleep in.",
+    model:"Dad tells the kid to get up, but the kid says it's too cold to leave the futon. Dad pulls the bedding, then admits it's cold and gets in too. Grandpa comes in at noon: both of them are still in bed.",
+    panels:[
+    { art: svg(floor + futonbed(150) + peek(180,108) + dad(70,58,'worry')),
+      lines:['<span class="n">寒い朝。</span>','父「起きなさい！学校に遅れるぞ！」'] },
+    { art: svg(floor + futonbed(150) + peek(180,108) + dad(70,58,'plain')),
+      lines:['息子「寒いから、<b>布団</b>から出られない。」','父「ほら、早く出なさい。」'] },
+    { art: svg(floor + futonbed(80) + peek(110,108) + dad(200,58,'worry')),
+      lines:['父「……たしかに、寒いなあ。」','<span class="n">父は、布団に入った。</span>'] },
+    { art: svg(floor + clock(46,40) + futonbed(80) + peek(110,108) + peek(170,108) + gramps(270,64,'shock')),
+      lines:['じいちゃん「もう昼じゃぞ。二人とも、まだ<b>布団</b>の中か。」'] }
+  ]},
+  { id:"2026-10-11-denwa", title:"どこだ", word:"電話", reading:"でんわ", meaning:"telephone; phone call",
+    kanji:"電 = electricity (as in 電車, train) + 話 = talk: electric talk.",
+    model:"Dad is on the phone with Grandpa when he suddenly cannot find his phone and starts searching the room in panic. Grandpa asks, through the phone: “Who are you talking to right now?” Dad: “…oh.”",
+    panels:[
+    { art: svg(floor + dad(160,58,'plain') + phone(190,50)),
+      lines:['<span class="n">父は、じいちゃんと電話で話している。</span>','父「うん、うん。……あれ？」'] },
+    { art: svg(floor + dad(160,58,'worry') + phone(190,50) + fx(206,30)),
+      lines:['父「<b>電話</b>がない！どこだ！」'] },
+    { art: svg(floor + dad(130,58,'shock') + phone(160,50) + sofa(200)),
+      lines:['<span class="n">父は、ソファの下も、さがした。</span>','じいちゃん「おーい、聞こえるか？」'] },
+    { art: svg(floor + dad(160,58,'blank') + phone(190,50)),
+      lines:['じいちゃん「おまえは今、だれと話しているんじゃ？」','父「……あ。」'] }
+  ]},
+  { id:"2026-10-11-sentaku", title:"はじめての洗濯", word:"洗濯", reading:"せんたく", meaning:"laundry; washing clothes",
+    kanji:"洗 = wash (as in 手洗い, hand washing) + 濯 = rinse.",
+    model:"For the first time, Dad does the laundry himself. He puts in a red sock with all the white shirts. Everything comes out pink. Grandpa calmly says it's a nice pink. Dad: “They were white before the wash.”",
+    panels:[
+    { art: svg(floor + washer(200) + dad(100,58,'laugh')),
+      lines:['父「今日の<b>洗濯</b>は、お父さんがやる！」'] },
+    { art: svg(floor + washer(130) + dad(60,58,'plain') + tee(260,90,'#ffffff') + tee(290,100,'#c0392b')),
+      lines:['<span class="n">白いシャツと、赤いくつしたを、いっしょに入れた。</span>'] },
+    { art: svg(floor + tee(70,70,'#f5b5c0') + tee(130,70,'#f5b5c0') + tee(190,70,'#f5b5c0') + dad(250,58,'shock')),
+      lines:['<span class="n">一時間後。</span>','父「えっ！？」'] },
+    { art: svg(floor + tee(60,80,'#f5b5c0') + tee(110,80,'#f5b5c0') + dad(180,58,'blank') + gramps(264,64,'laugh')),
+      lines:['じいちゃん「きれいな、ピンクじゃのう。」','父「<b>洗濯</b>の前は、白かったんだ……」'] }
+  ]},
+  { id:"2026-10-11-yakusoku", title:"百点の約束", word:"約束", reading:"やくそく", meaning:"promise; appointment",
+    kanji:"約 = promise, approximately (as in 予約, reservation) + 束 = bundle: a bound agreement.",
+    model:"Grandpa promises to buy the kid a game if he scores 100 on his test. The kid scores 100, but Grandpa says he doesn't remember promising that. The kid shows the note Grandpa wrote, and Grandpa says he left his glasses behind and can't read it.",
+    panels:[
+    { art: svg(floor + son(80,72,'open') + gamepad(100,128) + gramps(220,64,'laugh')),
+      lines:['じいちゃん「テストで百点を取ったら、ゲームを買ってあげよう。<b>約束</b>じゃ。」','息子「本当？やった！」'] },
+    { art: svg(floor + night(224) + son(150,72,'open') + sparkle(190,34) + sparkle(110,36)),
+      lines:['<span class="n">一週間後。</span>','息子「おじいちゃん、百点だったよ！」'] },
+    { art: svg(floor + son(80,72,'plain') + gramps(220,64,'blank')),
+      lines:['じいちゃん「ほう？そんな<b>約束</b>、したかのう？」'] },
+    { art: svg(floor + son(80,72,'flat') + newspaper(150,96) + gramps(250,64,'shock')),
+      lines:['息子「ここに<b>約束</b>のメモがあるよ。」','じいちゃん「おお……でも、眼鏡がない。読めないのう。」'] }
+  ]},
+  { id:"2026-10-11-densha", title:"また終点", word:"電車", reading:"でんしゃ", meaning:"train (electric)",
+    kanji:"電 = electricity + 車 = vehicle: an electric vehicle, a train.",
+    model:"Dad says trains make him sleepy. He dozes off and wakes up at the sea at the end of the line. He phones home to say so. The kid: “Dad, you fell asleep on the train yesterday too, and ended up in the mountains.”",
+    panels:[
+    { art: svg(floor + train(70) + dad(160,58,'plain')),
+      lines:['<span class="n">朝。父は電車で会社に行く。</span>','父「<b>電車</b>は、ねむくなるなあ。」'] },
+    { art: svg(floor + train(70) + dad(160,58,'sleepy') + zz(230,50)),
+      lines:['<span class="n">父は、ねてしまった。</span>'] },
+    { art: svg(waves(120) + floor + train(10) + dad(100,58,'shock') + sun(270,34)),
+      lines:['<span class="n">目がさめると、そこは海だった。</span>','父「ここは、どこだ！？」'] },
+    { art: svg(floor + son(100,72,'flat') + gramps(220,64,'laugh') + phone(140,40)),
+      lines:['<span class="n">家の電話が鳴った。</span>','父「海に着いた。」','息子「お父さん、きのうも<b>電車</b>で寝て、山に行ったよね。」'] }
+  ]},
+  { id:"2026-10-12-souji3", title:"明日のわし", word:"掃除", reading:"そうじ", meaning:"cleaning",
+    kanji:"掃除機 (そうじき) = a vacuum cleaner, literally a “cleaning machine”.",
+    model:"Grandpa sweeps the autumn leaves into one big pile, proud and done, then a gust of wind scatters them all across the garden again. The kid points out the garden is covered in leaves again. Grandpa shrugs: the cleaning can be left to tomorrow's Grandpa.",
+    panels:[
+    { art: svg(floor + tree(250) + leaves([[60,140],[110,144],[170,138],[200,146],[30,146]]) + gramps(120,64,'plain') + broom(150,70)),
+      lines:['<span class="n">秋。庭は、落ち葉だらけ。</span>','じいちゃん「今日は庭を<b>掃除</b>するぞ。」'] },
+    { art: svg(floor + tree(250) + leafpile(70) + gramps(190,64,'laugh') + broom(222,70)),
+      lines:['<span class="n">じいちゃんは、落ち葉を大きな山にした。</span>','じいちゃん「よし、きれいになった！」'] },
+    { art: svg(floor + tree(250) + wind(20,40) + leaves([[60,50],[110,70],[150,40],[190,90],[90,110],[40,120],[140,120],[210,60]]) + gramps(180,64,'shock')),
+      lines:['<span class="n">その時、強い風がふいた。</span>'] },
+    { art: svg(floor + tree(250) + leaves([[40,140],[80,146],[120,138],[160,146],[200,140],[100,100],[60,90]]) + son(60,72,'flat') + gramps(180,64,'blank')),
+      lines:['息子「おじいちゃん、また落ち葉だらけだよ。」','じいちゃん「いいんじゃ。<b>掃除</b>は、明日のわしにまかせる。」'] }
+  ]},
+  { id:"2026-10-12-imasara2", title:"一年前のごめん", word:"今更", reading:"いまさら", meaning:"now, after all this time (too late / pointless now)",
+    kanji:"今 = now, 更 = anew, once more (as in 更新, renewal). “Now, after everything” — the moment has passed.",
+    model:"Dad suddenly apologizes to the sleeping Tama for stepping on his tail a year ago. The kid says it's too late now, Tama won't remember. Then Tama opens his eyes and hisses at Dad: he remembers perfectly. The kid: so it wasn't too late after all.",
+    panels:[
+    { art: svg(floor + night(224) + dad(100,58,'worry') + cat(220,130)),
+      lines:['<span class="n">夜。父が、タマの前にすわった。</span>','父「タマ、一年前にしっぽをふんで、ごめんね。」'] },
+    { art: svg(floor + night(224) + dad(100,58,'worry') + cat(220,130) + zz(236,96)),
+      lines:['<span class="n">タマは、ねている。</span>'] },
+    { art: svg(floor + night(224) + son(60,72,'flat') + dad(150,58,'worry') + cat(250,130)),
+      lines:['息子「お父さん、一年前だよ。<b>今更</b>あやまっても、タマは忘れているよ。」'] },
+    { art: svg(floor + dad(70,58,'shock') + cat(200,116,true) + fx(236,52) + son(290,72,'flat')),
+      lines:['<span class="n">その時、タマが目をあけた。</span>','タマ「シャーッ！」','息子「……<b>今更</b>じゃなかったね。」'] }
+  ]  },
+  { id:"2026-10-12-chizu3", title:"お父さんの絵", word:"地図", reading:"ちず", meaning:"map",
+    kanji:"地 = ground, land + 図 = drawing, plan. 日本地図 = a map of Japan; 世界地図 = a world map.",
+    model:"The kid has homework: draw a map of Japan. Dad is sure he is good at drawing and does it for him, proudly pointing out Tokyo and Osaka on his lumpy drawing. The next day at school the teacher asks the kid whether the map is a potato. Dad: but the Hokkaido part came out well, didn’t it?",
+    panels:[
+    { art: svg(floor + table(40,290,118) + `<rect x="120" y="100" width="60" height="18" fill="#fff" ${S} stroke-width="1.8"/>` + son(70,72,'plain') + dad(230,58,'plain')),
+      lines:['<span class="n">夜。息子の宿題。</span>','息子「日本の<b>地図</b>をかく宿題があるんだ。」'] },
+    { art: svg(floor + table(40,290,118) + `<rect x="120" y="100" width="60" height="18" fill="#fff" ${S} stroke-width="1.8"/>` + son(70,72,'open') + dad(230,58,'laugh') + sparkle(262,34)),
+      lines:['父「まかせなさい。お父さんは、絵が上手だぞ。」'] },
+    { art: svg(floor + `<rect x="70" y="20" width="180" height="124" fill="#fff" ${S}/><path d="M110 60 q30 -30 60 -6 q30 -16 36 22 q-4 32 -34 30 q-20 22 -46 6 q-30 -10 -16 -52 z" fill="#f3e2b8" ${S}/><circle cx="170" cy="80" r="3" fill="#c0392b"/><circle cx="140" cy="96" r="3" fill="#c0392b"/>` + dad(40,58,'laugh') + son(290,72,'flat')),
+      lines:['父「ここが東京で、ここが大阪だ。どうだ？」','息子「……うん。」'] },
+    { art: svg(floor + `<rect x="100" y="24" width="120" height="86" fill="#fff" ${S}/><path d="M120 60 q20 -22 44 -4 q26 -10 30 18 q-4 24 -28 22 q-14 14 -34 4 q-20 -6 -12 -40 z" fill="#f3e2b8" ${S} stroke-width="1.8"/>` + son(40,72,'flat') + dad(270,58,'blank')),
+      lines:['<span class="n">次の日。</span>','息子「先生は『この<b>地図</b>は、じゃがいもですか』と言ったよ。」','父「……でも、北海道は、よくできただろう？」'] }
+  },
+  { id:"2026-10-12-haisha3", title:"ごほうび", word:"歯医者", reading:"はいしゃ", meaning:"dentist",
+    kanji:"歯 = tooth + 医者 = doctor: a tooth doctor. 歯医者さん is the polite way to say it.",
+    model:"The kid hears that his friend got a toy at the dentist for being a good boy, so he wants to go to the dentist too. He goes home and eats a huge pile of sweets to get a toothache on purpose. Dad: nobody has ever eaten sweets because they wanted to go to the dentist; I will buy you the toy.",
+    panels:[
+    { art: svg(floor + dentistsign(190) + son(70,72,'open') + dad(150,58,'plain')),
+      lines:['<span class="n">町を歩いている。</span>','息子「友だちは、<b>歯医者</b>でおもちゃをもらったんだって。」'] },
+    { art: svg(floor + son(100,72,'open') + dad(210,58,'laugh')),
+      lines:['父「いい子にしていたから、もらえたんだよ。」','息子「いいなあ。ぼくも<b>歯医者</b>に行きたい！」'] },
+    { art: svg(floor + table(40,290,118) + [90,130,170,210].map(x=>`<circle cx="${x}" cy="108" r="9" fill="#f4a8c0" ${S} stroke-width="1.6"/>`).join('') + son(150,72,'open') + sparkle(150,36)),
+      lines:['<span class="n">家で。息子は、お菓子をたくさん食べている。</span>','息子「これで、歯が痛くなるぞ！」'] },
+    { art: svg(floor + table(40,200,118) + [70,110,150].map(x=>`<circle cx="${x}" cy="108" r="9" fill="#f4a8c0" ${S} stroke-width="1.6"/>`).join('') + son(90,72,'open') + dad(250,58,'shock')),
+      lines:['父「待ちなさい！<b>歯医者</b>に行きたいから食べるなんて、聞いたことがないぞ。」','父「おもちゃは、お父さんが買ってあげるから！」'] }
+  },
+  { id:"2026-10-12-omoi2", title:"ふとったタマ", word:"重い", reading:"おもい", meaning:"heavy",
+    kanji:"重 also appears in 体重 (たいじゅう, body weight) and 重大 (じゅうだい, serious).",
+    model:"Dad picks up Tama and notices the cat is a bit heavy. The kid says he eats too much. A week later Dad can hardly lift him. The kid notices Grandpa secretly feeding Tama fish and says Tama only got heavier because of Grandpa.",
+    panels:[
+    { art: svg(floor + cat(150,120) + dad(70,58,'plain') + son(260,72,'plain')),
+      lines:['<span class="n">夕方。</span>','父「タマ、おいで。よいしょ。……ちょっと<b>重い</b>な。」'] },
+    { art: svg(floor + cat(150,120) + dad(70,58,'worry') + son(260,72,'flat')),
+      lines:['息子「ごはんを食べすぎだよ。ダイエットしないと。」','父「そうだな。」'] },
+    { art: svg(floor + cat(120,112) + dad(60,58,'shock') + fx(172,70)),
+      lines:['<span class="n">一週間後。</span>','父「うっ……！タマ、前より<b>重く</b>なった！」'] },
+    { art: svg(floor + cat(100,120) + gramps(230,64,'laugh') + `<ellipse cx="140" cy="132" rx="14" ry="6" fill="#9fb7e6" ${S} stroke-width="1.6"/>` + son(290,72,'flat') + dad(40,58,'worry')),
+      lines:['じいちゃん「ほれ、タマ。さかなじゃ。」','息子「タマが<b>重く</b>なったのは、じいちゃんのせいだね。」'] }
   ]}
 ];
 /* STRIPS-END */
 
 /* Generated by build.py: credits, and per strip id the URL of its audio file.
    Each audio/<id>.json holds clips[panel][line] = {n: normal-speed mp3, s: slow mp3} as data: URIs. */
-const VOICE = /*VOICE-START*/{"credit":["VOICEVOX:雀松朱司","VOICEVOX:白上虎太郎","VOICEVOX:ちび式じい","VOICEVOX:青山龍星"],"audio":{"2026-10-11-kagami":"audio/2026-10-11-kagami.json?v=612687fc2522","2026-10-11-kagi":"audio/2026-10-11-kagi.json?v=f9f43b8efa9f","2026-10-11-kasa":"audio/2026-10-11-kasa.json?v=5efd6f3339fa","2026-10-11-imasara":"audio/2026-10-11-imasara.json?v=64c0b1eaf3be","2026-10-11-barabara":"audio/2026-10-11-barabara.json?v=29738a439033","2026-10-11-kagami2":"audio/2026-10-11-kagami2.json?v=87e8a8bcd669","2026-10-11-kagi2":"audio/2026-10-11-kagi2.json?v=b78bc2ba324a","2026-10-11-kasa2":"audio/2026-10-11-kasa2.json?v=0d8020fbb4b2","2026-10-11-megane":"audio/2026-10-11-megane.json?v=9b2cd2760134","2026-10-11-saifu":"audio/2026-10-11-saifu.json?v=f6a15ae4027e","2026-10-11-tokei":"audio/2026-10-11-tokei.json?v=d6d9b808d570","2026-10-11-shashin":"audio/2026-10-11-shashin.json?v=65bb630b2173","2026-10-11-bentou":"audio/2026-10-11-bentou.json?v=f4d668058925","2026-10-11-shukudai":"audio/2026-10-11-shukudai.json?v=b9e2b95bba60","2026-10-11-haisha":"audio/2026-10-11-haisha.json?v=e2cd7592bd9c","2026-10-11-souji":"audio/2026-10-11-souji.json?v=064b525b9aa4","2026-10-11-chizu":"audio/2026-10-11-chizu.json?v=b701e2d7daf0","2026-10-11-omoi":"audio/2026-10-11-omoi.json?v=70821d52d2cf"}}/*VOICE-END*/;
+const VOICE = /*VOICE-START*/{"credit":["VOICEVOX:雀松朱司","VOICEVOX:白上虎太郎","VOICEVOX:ちび式じい","VOICEVOX:青山龍星"],"audio":{"2026-10-11-kagami":"audio/2026-10-11-kagami.json?v=612687fc2522","2026-10-11-kagi":"audio/2026-10-11-kagi.json?v=f9f43b8efa9f","2026-10-11-kasa":"audio/2026-10-11-kasa.json?v=5efd6f3339fa","2026-10-11-imasara":"audio/2026-10-11-imasara.json?v=64c0b1eaf3be","2026-10-11-barabara":"audio/2026-10-11-barabara.json?v=29738a439033","2026-10-11-kagami2":"audio/2026-10-11-kagami2.json?v=87e8a8bcd669","2026-10-11-kagi2":"audio/2026-10-11-kagi2.json?v=b78bc2ba324a","2026-10-11-kasa2":"audio/2026-10-11-kasa2.json?v=0d8020fbb4b2","2026-10-11-megane":"audio/2026-10-11-megane.json?v=9b2cd2760134","2026-10-11-saifu":"audio/2026-10-11-saifu.json?v=f6a15ae4027e","2026-10-11-tokei":"audio/2026-10-11-tokei.json?v=d6d9b808d570","2026-10-11-shashin":"audio/2026-10-11-shashin.json?v=65bb630b2173","2026-10-11-bentou":"audio/2026-10-11-bentou.json?v=f4d668058925","2026-10-11-shukudai":"audio/2026-10-11-shukudai.json?v=b9e2b95bba60","2026-10-11-haisha":"audio/2026-10-11-haisha.json?v=e2cd7592bd9c","2026-10-11-souji":"audio/2026-10-11-souji.json?v=064b525b9aa4","2026-10-11-chizu":"audio/2026-10-11-chizu.json?v=b701e2d7daf0","2026-10-11-omoi":"audio/2026-10-11-omoi.json?v=70821d52d2cf","2026-10-11-shashin2":"audio/2026-10-11-shashin2.json?v=70c5a3223659","2026-10-11-souji2":"audio/2026-10-11-souji2.json?v=7e95209445b6","2026-10-11-chizu2":"audio/2026-10-11-chizu2.json?v=5e2f73a3d056","2026-10-11-haisha2":"audio/2026-10-11-haisha2.json?v=d9cd4e5df4e4","2026-10-11-tokei2":"audio/2026-10-11-tokei2.json?v=683af900babe","2026-10-11-futon":"audio/2026-10-11-futon.json?v=4e9942c86357","2026-10-11-denwa":"audio/2026-10-11-denwa.json?v=4cbac5138dcf","2026-10-11-sentaku":"audio/2026-10-11-sentaku.json?v=00d5a951bfbc","2026-10-11-yakusoku":"audio/2026-10-11-yakusoku.json?v=51d9bc76e5be","2026-10-11-densha":"audio/2026-10-11-densha.json?v=1a095a1e6b80","2026-10-12-souji3":"audio/2026-10-12-souji3.json?v=108f6c7a7881","2026-10-12-imasara2":"audio/2026-10-12-imasara2.json?v=19162b801597","2026-10-12-chizu3":"audio/2026-10-12-chizu3.json?v=63897a6c675c","2026-10-12-haisha3":"audio/2026-10-12-haisha3.json?v=b0d390a14a1f","2026-10-12-omoi2":"audio/2026-10-12-omoi2.json?v=7beb61df7d51"}}/*VOICE-END*/;
 
 let i = 0;
 const stage = document.getElementById('stage');
@@ -635,3 +848,4 @@ back.addEventListener('click', ()=>{ navigated = true; if(i>0){ i--; render(); }
 next.addEventListener('click', ()=>{ navigated = true; if(i<total){ i++; render(); } });
 render();
 </script>
+
