@@ -590,7 +590,7 @@ const strips = [
       lines:['息子「お父さん、一年前だよ。<b>今更</b>あやまっても、タマは忘れているよ。」'] },
     { art: svg(floor + dad(70,58,'shock') + cat(200,116,true) + fx(236,52) + son(290,72,'flat')),
       lines:['<span class="n">その時、タマが目をあけた。</span>','タマ「シャーッ！」','息子「……<b>今更</b>じゃなかったね。」'] }
-  ]  },
+  ]},
   { id:"2026-10-12-chizu3", title:"お父さんの絵", word:"地図", reading:"ちず", meaning:"map",
     kanji:"地 = ground, land + 図 = drawing, plan. 日本地図 = a map of Japan; 世界地図 = a world map.",
     model:"The kid has homework: draw a map of Japan. Dad is sure he is good at drawing and does it for him, proudly pointing out Tokyo and Osaka on his lumpy drawing. The next day at school the teacher asks the kid whether the map is a potato. Dad: but the Hokkaido part came out well, didn’t it?",
@@ -629,7 +629,33 @@ const strips = [
       lines:['<span class="n">一週間後。</span>','父「うっ……！タマ、前より<b>重く</b>なった！」'] },
     { art: svg(floor + cat(100,120) + gramps(230,64,'laugh') + `<ellipse cx="140" cy="132" rx="14" ry="6" fill="#9fb7e6" ${S} stroke-width="1.6"/>` + son(290,72,'flat') + dad(40,58,'worry')),
       lines:['じいちゃん「ほれ、タマ。さかなじゃ。」','息子「タマが<b>重く</b>なったのは、じいちゃんのせいだね。」'] }
-  ]}
+  ]},
+  { id:"2026-10-13-barabara2", title:"おじいちゃんの歌", word:"バラバラ", reading:"ばらばら", meaning:"scattered; in pieces; everyone going their own way",
+    kanji:"A sound-and-feel word, like beads spilling across the floor: bara-bara. The doubled sound gives the feel of many separate bits. Written in katakana or hiragana.",
+    model:"For Grandpa's birthday Dad says everyone will sing the same song together. But Dad sings an old enka song, the kid an anime song, and Grandpa a song from long ago. The kid says they were all different. Dad cheerfully says it was fun anyway.",
+    panels:[
+    { art: svg(floor + table(60,260,118) + cake(160,92) + gramps(150,56,'laugh') + dad(60,58,'laugh') + son(260,72,'open')),
+      lines:['<span class="n">今日は、じいちゃんの誕生日。</span>','父「みんなで同じ歌を歌おう。」'] },
+    { art: svg(floor + dad(70,58,'laugh') + son(160,72,'open') + gramps(250,64,'laugh') + sparkle(110,26) + sparkle(200,30)),
+      lines:['父「せーの！」'] },
+    { art: svg(floor + dad(70,58,'shock') + son(160,72,'open') + gramps(250,64,'plain') + `<text x="70" y="22" font-size="16" fill="#2f4c8f">♪</text><text x="170" y="18" font-size="16" fill="#c0392b">♫</text><text x="262" y="24" font-size="16" fill="#5d6272">♪</text>`),
+      lines:['<span class="n">父は演歌。息子はアニメの歌。じいちゃんは、昔の歌。</span>'] },
+    { art: svg(floor + son(90,72,'flat') + dad(200,58,'laugh')),
+      lines:['息子「お父さん、みんなの歌が<b>バラバラ</b>だったよ。」','父「でも、楽しかったなあ！」'] }
+  ]},
+  { id:"2026-10-13-saifu2", title:"あつい財布", word:"財布", reading:"さいふ", meaning:"wallet",
+    kanji:"財 = money, wealth (as in 財産, property) + 布 = cloth: a cloth for your money.",
+    model:"Dad shows off his thick wallet and the kid thinks Dad is rich. When it is opened, it is full of receipts and point cards. The kid asks where the money is: Dad has only one hundred-yen coin.",
+    panels:[
+    { art: svg(floor + dad(100,58,'laugh') + `<rect x="170" y="86" width="56" height="38" rx="6" fill="#8a5a3a" ${S}/><line x1="170" y1="100" x2="226" y2="100" ${S} stroke-width="1.6"/>` + sparkle(244,70) + sparkle(160,76)),
+      lines:['父「見て。お父さんの<b>財布</b>、こんなに厚いぞ。」'] },
+    { art: svg(floor + dad(220,58,'laugh') + son(100,72,'open') + sparkle(150,30)),
+      lines:['息子「すごい！お父さんは、お金持ちだ！」'] },
+    { art: svg(floor + son(80,72,'plain') + dad(220,58,'worry') + `<rect x="130" y="92" width="26" height="34" fill="#fff" ${S} stroke-width="1.6" transform="rotate(-14 143 109)"/><rect x="156" y="98" width="26" height="34" fill="#fff" ${S} stroke-width="1.6" transform="rotate(10 169 115)"/><rect x="146" y="112" width="30" height="20" rx="3" fill="#f4a8c0" ${S} stroke-width="1.6"/>`),
+      lines:['<span class="n">父が<b>財布</b>を開けた。</span>','息子「……あれ？」'] },
+    { art: svg(floor + son(80,72,'flat') + dad(220,58,'blank') + coin(150,118)),
+      lines:['息子「レシートとカードばかりだね。お金は？」','父「……百円だけ。」'] }
+  ]},
 ];
 /* STRIPS-END */
 
