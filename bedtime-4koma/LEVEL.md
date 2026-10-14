@@ -29,3 +29,7 @@ Update this file after reading new answers in the page's `answers` database.
 - New grades since last run: 電話 got, 布団 got (read 10-13). 8 strips were unanswered (電車, 洗濯, 約束, 地図 #3, 歯医者 #3, 今更 #2, 重い #2, 掃除 #3), so topped up with 2.
 - Partly/missed words were all already re-queued or later got (写真, 掃除, 時計 now got; 地図 and 歯医者 still queued).
 - Added バラバラ #2 (reported word, only used once; new scene: singing different songs) and 財布 #2 (due got word; new scene: thick wallet full of receipts). Both end on an explicit last line, no inference needed.
+
+## Update 2026-10-14 (27 answers read, no new grades since 10-13)
+- 8 strips unanswered (電車, 地図 #3, 歯医者 #3, 今更 #2, 重い #2, 掃除 #3, バラバラ #2, 財布 #2), so topped up with 2.
+- No missed/partly words left unqueued and no new reported words, so used due got words (10-11 got, now 3 days): 眼鏡 #2 (new scene: sat on the glasses) and 弁当 #2 (new scene: station lunch boxes eaten early). Both end on an explicit last line.
