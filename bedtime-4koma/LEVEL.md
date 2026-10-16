@@ -38,3 +38,9 @@ Update this file after reading new answers in the page's `answers` database.
 - New grades 10-15: 電車 partly, 歯医者 #3 missed, 今更 #2 partly, 弁当 #2 partly; got: 地図 #3, 重い #2, 掃除 #3, バラバラ #2, 財布 #2, 眼鏡 #2.
 - Topped up a full 10. Order: missed/partly first (歯医者 #4, 電車 #2, 今更 #3, 弁当 #3), then due got words (布団, 電話, 洗濯, 約束 got 10-13; 鏡, 鍵 got 10-11).
 - Every new strip ends on an explicit last line (no inference), plain grammar, short grandpa lines, and a brand-new scene per word.
+
+## Feedback 2026-10-16 (from Essam, read first)
+- He forced himself through all 10 strips last night. The early ones were funny to a degree, then they got bland. Funny is now the top priority, above filling the pile fast.
+- Write 3 candidate jokes per word, keep only the one that makes you laugh. A mild jab or "he forgot / mix-up" ending is not enough.
+- Prefer: escalation, rule of three, a callback to an earlier strip, a real reversal on the last line. Recurring gags are allowed (Grandpa vs Tama, Dad's pride vs reality).
+- Weaker strips (his words): ones that are predictable or end on a comment instead of a flip (e.g. 鏡 #2).
