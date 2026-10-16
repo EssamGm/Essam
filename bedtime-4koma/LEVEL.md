@@ -1,5 +1,17 @@
 # Essam's level and taste (read before writing strips)
 
+## Level reset 2026-10-16 (Essam: arc 1 is much harder than the earlier strips) — READ FIRST, these rules win
+The story arc (第1–10話) raised the Japanese level well above the first 37 strips, which were "just enough".
+Write at the level of the 2026-10-11 strips (傘, 鍵, 今更 curry, バラバラ family day). Concretely:
+- No literary or old-style speech: no 吾輩 (Tama just says plain lines), no ～ておる. Grandpa: わし and ～じゃ only, sparingly.
+- No layered grammar: no quotes inside quotes (『いない』と言えと言われた), no passive/causative (とられて), no ～て以来, ～ことにした, ～ばかり, long relative clauses before a noun.
+- Only everyday words. Avoid words like 自慢, 卒業, 信号, 渋滞, 引き分け, 追いこす, 衣装, 応援, 優勝, 連続, 長年, 敵, 虫歯, ライバル, ざまあ. If a story idea needs one, change the idea.
+- Kanji: only common, early kanji (roughly what the 10-11 strips used). Write a harder word in kana or pick an easier word. Be consistent: do not write a word in kanji in one line and kana in the next.
+- Narration: one short sentence per line, max ~15 characters where possible. The catch-up line must be plain too.
+- At most 3 speakers per strip (narration not counted). Fewer voices = easier by ear.
+- One new or hard word per strip, and that word is the target word. Everything else he should already know.
+- Check before publishing: read each line and ask "would this be in the 10-11 strips?" If not, simplify.
+
 Update this file after reading new answers in the page's `answers` database.
 
 ## Level (as of 2026-10-11, 8 strips, all graded "got")

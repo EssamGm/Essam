@@ -10,7 +10,7 @@ The last panel must flip or escalate, never just comment. Essam's own comments o
   Gag: sometimes he skips a day ("今日は、お休み").
 - **Grandpa (じいちゃん, 源蔵):** 80. Selective hearing. Tall tales ("昔、クマとすもうをした", "ライオンと戦った").
   Reigning karaoke champion (11 years running). Wears a small key on a string round his neck. Always wins in the end.
-- **Tama (タマ):** the cat, the real boss. Spoken as dramatic inner monologue ("吾輩は…"). Knows everything. Enemy: the crow.
+- **Tama (タマ):** the cat, the real boss. Speaks in short, plain lines (no 吾輩; e.g. タマ「ぜんぶ、知っていた。」). Knows everything. Enemy: the crow.
 - **山田さん:** neighbor, Dad's rival; brags about gadgets/cars; secretly as scared and bad as Dad. Tries karaoke, is terrible.
 - **ミカ:** 山田さん's daughter, 6. Says exactly what she sees, in simple Japanese.
 - **カラス:** the crow. Steals food and shiny things. Never speaks.
@@ -22,6 +22,6 @@ The last panel must flip or escalate, never just comment. Essam's own comments o
 - Arc 1 (第1–10話): Dad vs 山田さん, Grandpa's karaoke, Tama vs the crow. Next arc: open (seeds: the bear photo, 山田さん's revenge, Mika).
 
 ## Style
-- Plain grammar (see LEVEL.md). Punchline line is the plainest. Speakers obvious. Short lines.
+- Plain grammar and easy kanji: follow the "Level reset" rules at the top of LEVEL.md, which win over any story idea. Punchline line is the plainest. Speakers obvious. Short lines.
 - Each strip has a one-line catch-up in the first narration so he can jump in anywhere.
 - Voices (build.py): 父 青山龍星, 息子 白上虎太郎, じいちゃん 麒ヶ島宗麟, タマ 黒沢冴白, 山田さん 玄野武宏, ミカ 春歌ナナ, narrator 雀松朱司.
