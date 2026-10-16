@@ -1,5 +1,12 @@
 # Essam's level and taste (read before writing strips)
 
+## How to read Essam's grades (his words, 2026-10-16) — READ FIRST
+- "Partly" or "Missed" does NOT mean he doesn't know the word. He keeps reviewing the words in the page, so remembering them is not the problem. It means he did not understand the JOKE.
+- So a partly/missed strip is a signal that the Japanese or the joke was too hard (level, grammar, or an inference he had to make), not that the word needs drilling.
+- When choosing words, keep the skill's order, but for a missed/partly word, write the new strip with an easier, more explicit joke at the same word. Do not assume the word is weak.
+- If he has trouble with a word itself, he will say so directly in chat.
+- Everything else stays the same (format, top-up rule, voices).
+
 ## Level reset 2026-10-16 (Essam: arc 1 is much harder than the earlier strips) — READ FIRST, these rules win
 The story arc (第1–10話) raised the Japanese level well above the first 37 strips, which were "just enough".
 Write at the level of the 2026-10-11 strips (傘, 鍵, 今更 curry, バラバラ family day). Concretely:
