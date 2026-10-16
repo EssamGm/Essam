@@ -33,3 +33,8 @@ Update this file after reading new answers in the page's `answers` database.
 ## Update 2026-10-14 (27 answers read, no new grades since 10-13)
 - 8 strips unanswered (電車, 地図 #3, 歯医者 #3, 今更 #2, 重い #2, 掃除 #3, バラバラ #2, 財布 #2), so topped up with 2.
 - No missed/partly words left unqueued and no new reported words, so used due got words (10-11 got, now 3 days): 眼鏡 #2 (new scene: sat on the glasses) and 弁当 #2 (new scene: station lunch boxes eaten early). Both end on an explicit last line.
+
+## Update 2026-10-16 (37 answers read, all 37 strips answered, 0 unanswered)
+- New grades 10-15: 電車 partly, 歯医者 #3 missed, 今更 #2 partly, 弁当 #2 partly; got: 地図 #3, 重い #2, 掃除 #3, バラバラ #2, 財布 #2, 眼鏡 #2.
+- Topped up a full 10. Order: missed/partly first (歯医者 #4, 電車 #2, 今更 #3, 弁当 #3), then due got words (布団, 電話, 洗濯, 約束 got 10-13; 鏡, 鍵 got 10-11).
+- Every new strip ends on an explicit last line (no inference), plain grammar, short grandpa lines, and a brand-new scene per word.
