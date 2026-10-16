@@ -25,3 +25,7 @@ The last panel must flip or escalate, never just comment. Essam's own comments o
 - Plain grammar and easy kanji: follow the "Level reset" rules at the top of LEVEL.md, which win over any story idea. Punchline line is the plainest. Speakers obvious. Short lines.
 - Each strip has a one-line catch-up in the first narration so he can jump in anywhere.
 - Voices (build.py): 父 青山龍星, 息子 白上虎太郎, じいちゃん 麒ヶ島宗麟, タマ 黒沢冴白, 山田さん 玄野武宏, ミカ 春歌ナナ, narrator 雀松朱司.
+
+## Arc 2 (第11–20話, written 2026-10-16)
+- Seeds used: the crow now hits Yamada (傘 flies off, car 掃除), Mika tells the truth (写真 of Dad's nose, 歯医者 comes out smiling, 宿題: bear story 100 points, lion story 0), Tama steals Dad's 弁当 (not the crow), the crow returns Dad's 財布 with a leaf as change, Tama sleeps in the heavy box.
+- 失敗ノート: not used in arc 2 yet (last: #7 in 第9話).

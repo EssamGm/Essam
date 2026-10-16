@@ -68,3 +68,8 @@ Update this file after reading new answers in the page's `answers` database.
 - Essam's first arc-1 answer: 第1話 歯医者 missed, funny zzz ("didn't understand it well").
 - Rewrote all 10 arc-1 strips (第1–10話, same ids, same art and plot) to the Level reset rules: no 吾輩/ておる, no nested quotes or passives, banned words removed (自慢, 卒業, 信号, 渋滞, 引き分け, 優勝, 連続, 衣装, 応援, 虫歯, ライバル, 長年, 敵, ざまあ), short narration, at most 3 speakers per strip. Tama now speaks plainly in the third person (タマ「タマの布団だ。」).
 - 第1話 keeps its old answer (missed/zzz) because the id did not change; judge the rewrite by the other nine.
+
+## Update 2026-10-16 (late): 47 answers read, 0 unanswered, topped up a full 10 (第11–20話, arc 2)
+- New grades 10-16: got 電車 (lol), 今更 (lol), 鍵 (lol), 洗濯 (lol), 約束 (lol), 電話, 布団, 鏡 (meh); 弁当 #3 partly (meh); 歯医者 #4 missed (zzz: "didn't understand it well").
+- Funny signal: lol = the ones with a real reversal + callback (race lost to Grandpa's bike, gold suit on Tama, bear photo). meh = softer endings (布団, 鏡, 電話). 歯医者 is still zzz, so the new 歯医者 #5 is one plain idea: two men too scared to go in, a 6-year-old comes out smiling.
+- Order used: missed 歯医者, partly 弁当, then due got words: 傘, 財布, 眼鏡, 写真, 時計, 宿題, 掃除, 重い. All in brand-new scenes; crow and Mika carry the jokes; each ends on an explicit last line; at most 3 speakers.
