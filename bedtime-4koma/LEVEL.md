@@ -63,3 +63,8 @@ Update this file after reading new answers in the page's `answers` database.
 - Grandpa voice changed from ちび式じい to 麒ヶ島宗麟 (he found the old voice hard to understand). Tama uses 黒沢冴白.
 - Page now has a 😂 / 😐 / 😴 "Was it funny?" row, saved as `funny` (lol / meh / zzz) in `answers`. READ IT each run and write more of what scored lol.
 - Next arc: continue from 第10話 (bear photo truth, 山田さん's revenge, Mika). Number episodes from 第11話; failure notebook restarts as needed.
+
+## Update 2026-10-16 (later): arc 1 rewritten at the reset level
+- Essam's first arc-1 answer: 第1話 歯医者 missed, funny zzz ("didn't understand it well").
+- Rewrote all 10 arc-1 strips (第1–10話, same ids, same art and plot) to the Level reset rules: no 吾輩/ておる, no nested quotes or passives, banned words removed (自慢, 卒業, 信号, 渋滞, 引き分け, 優勝, 連続, 衣装, 応援, 虫歯, ライバル, 長年, 敵, ざまあ), short narration, at most 3 speakers per strip. Tama now speaks plainly in the third person (タマ「タマの布団だ。」).
+- 第1話 keeps its old answer (missed/zzz) because the id did not change; judge the rewrite by the other nine.
