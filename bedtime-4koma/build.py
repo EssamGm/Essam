@@ -37,8 +37,10 @@ VOICES = {
     "narrator": {"style": 52, "vvm": "12.vvm", "name": "雀松朱司"},
     "父": {"style": 13, "vvm": "15.vvm", "name": "青山龍星"},
     "息子": {"style": 12, "vvm": "9.vvm", "name": "白上虎太郎"},
-    "タマ": {"style": 42, "vvm": "10.vvm", "name": "ちび式じい"},
-    "じいちゃん": {"style": 42, "vvm": "10.vvm", "name": "ちび式じい"},
+    "タマ": {"style": 100, "vvm": "19.vvm", "name": "黒沢冴白"},
+    "じいちゃん": {"style": 53, "vvm": "12.vvm", "name": "麒ヶ島宗麟"},
+    "山田さん": {"style": 11, "vvm": "4.vvm", "name": "玄野武宏"},
+    "ミカ": {"style": 54, "vvm": "13.vvm", "name": "春歌ナナ"},
 }
 # A line containing the key uses this style instead (same character, other mood).
 STYLE_OVERRIDES = {
@@ -92,7 +94,7 @@ def spoken(text: str) -> str:
 
 def style_for(speaker: str, text: str) -> int:
     for key, sid in STYLE_OVERRIDES.items():
-        if key in text and speaker != "narrator":
+        if key in text and speaker == "父":
             return sid
     return VOICES[speaker]["style"]
 

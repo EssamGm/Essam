@@ -59,6 +59,7 @@ button:focus-visible{outline:3px solid var(--ai);outline-offset:2px}
 .verdict{display:flex;gap:8px;flex-wrap:wrap}
 .verdict button{flex:1;min-width:6.5em;padding:10px 8px;font-size:.92rem}
 .verdict button[aria-pressed="true"]{background:var(--ai);color:var(--paper);border-color:var(--ai)}
+.funnyq{margin:0}
 .status{font-size:.85rem;color:var(--soft);min-height:1.2em}
 .done ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
 .done{text-align:center;padding:28px 12px;background:var(--paper);border:2.5px solid var(--ink);display:flex;flex-direction:column;gap:10px}
@@ -204,6 +205,22 @@ const keyring = (x,y)=>`<circle cx="${x}" cy="${y}" r="10" fill="none" ${S}/>` +
 const hairs = (x,y,n)=>Array.from({length:n},(_,i)=>`<path d="M${x+i*9-n*4} ${y} q4 -6 8 0" fill="none" stroke="#9aa3b5" stroke-width="2.4" stroke-linecap="round"/>`).join('');
 const clothesline = ()=>`<line x1="0" y1="34" x2="320" y2="34" ${S} stroke-width="1.6"/>`;
 const paws = (x,y)=>[[0,0],[10,6],[0,12],[10,18]].map(([dx,dy])=>`<circle cx="${x+dx}" cy="${y+dy}" r="3" fill="#6b5a4a"/>`).join('');
+const kneck = (x,y)=>`<path d="M${x-9} ${y+22} q9 14 18 0" fill="none" stroke="#9aa3b5" stroke-width="1.6"/><circle cx="${x}" cy="${y+38}" r="4" fill="#d9b94a" ${S} stroke-width="1.2"/><line x1="${x}" y1="${y+42}" x2="${x}" y2="${y+50}" ${S} stroke-width="1.6"/>`;
+function yamada(x, y, mood='plain'){
+  const base = dad(x,y,mood).replace('#dfe6f3','#cfe8d0').replace('fill="#2f4c8f"','fill="#c0392b"');
+  return base + `<path d="M${x-21} ${y-8} q3 -22 22 -22 q19 0 21 22 q-12 -11 -22 -11 q-10 0 -21 11z" fill="#1b1d24"/><circle cx="${x-8}" cy="${y-2}" r="9" fill="none" ${S} stroke-width="1.4"/><circle cx="${x+8}" cy="${y-2}" r="9" fill="none" ${S} stroke-width="1.4"/><line x1="${x-1}" y1="${y-2}" x2="${x+1}" y2="${y-2}" ${S} stroke-width="1.4"/><path d="M${x-9} ${y+9} q9 -5 18 0 q-9 4 -18 0z" fill="#1b1d24"/>`;
+}
+function mika(x, y, mood='plain'){
+  const mouth = mood==='open' ? `<ellipse cx="${x}" cy="${y+8}" rx="3.5" ry="4" fill="#1b1d24"/>` : `<path d="M${x-4} ${y+8} q4 3 8 0" fill="none" ${S} stroke-width="1.8"/>`;
+  return `<g><path d="M${x-11} ${y+16} h22 l9 ${132-y} h-40 z" fill="#f9c6d0" ${S}/><ellipse cx="${x-21}" cy="${y+4}" rx="5" ry="10" fill="#1b1d24"/><ellipse cx="${x+21}" cy="${y+4}" rx="5" ry="10" fill="#1b1d24"/><circle cx="${x}" cy="${y}" r="17" fill="#fff" ${S}/><path d="M${x-17} ${y-3} q0 -17 17 -17 q17 0 17 17 q-8 -9 -17 -9 q-9 0 -17 9z" fill="#1b1d24"/><path d="M${x+6} ${y-17} l8 -5 v10 z M${x+6} ${y-17} l-2 -6 l10 2z" fill="#c0392b" ${S} stroke-width="1.2"/><circle cx="${x-6}" cy="${y}" r="2.3" fill="#1b1d24"/><circle cx="${x+6}" cy="${y}" r="2.3" fill="#1b1d24"/>${mouth}</g>`;
+}
+const crow = (x,y,flip=false)=>`<g ${flip?`transform="translate(${2*x},0) scale(-1,1)"`:''}><path d="M${x-16} ${y-2} l-20 -8 l4 14 z" fill="#1b1d24" ${S} stroke-width="1.4"/><ellipse cx="${x}" cy="${y}" rx="20" ry="13" fill="#1b1d24" ${S} stroke-width="1.6"/><circle cx="${x+18}" cy="${y-9}" r="9" fill="#1b1d24" ${S} stroke-width="1.6"/><path d="M${x+26} ${y-12} l13 4 l-13 5 z" fill="#f4a261" ${S} stroke-width="1.2"/><circle cx="${x+20}" cy="${y-11}" r="2.4" fill="#fff"/><line x1="${x-4}" y1="${y+12}" x2="${x-4}" y2="${y+22}" ${S} stroke-width="2"/><line x1="${x+6}" y1="${y+12}" x2="${x+6}" y2="${y+22}" ${S} stroke-width="2"/></g>`;
+const notebook = (x,y,n)=>`<rect x="${x}" y="${y}" width="38" height="48" rx="3" fill="#c0392b" ${S} stroke-width="1.8"/><rect x="${x+5}" y="${y+7}" width="28" height="17" fill="#fff" ${S} stroke-width="1.2"/><text x="${x+19}" y="${y+21}" font-size="14" text-anchor="middle" font-weight="700" fill="#1b1d24" font-family="Zen Maru Gothic, sans-serif">${n}</text>`;
+const jubako = (x,y)=>[0,1,2,3,4].map(i=>`<rect x="${x-24}" y="${y-i*11}" width="48" height="10" rx="2" fill="${i%2?'#c0392b':'#7a2a1f'}" ${S} stroke-width="1.6"/>`).join('');
+const onigiri = (x,y)=>`<path d="M${x-11} ${y+12} l11 -24 l11 24z" fill="#fff" ${S} stroke-width="1.8"/><rect x="${x-5}" y="${y+2}" width="10" height="10" fill="#1b1d24"/>`;
+const bike = x=>`<circle cx="${x-24}" cy="136" r="13" fill="none" ${S}/><circle cx="${x+24}" cy="136" r="13" fill="none" ${S}/><path d="M${x-24} 136 L${x-4} 116 L${x+24} 136 M${x-4} 116 L${x+14} 112 L${x+24} 136" fill="none" ${S} stroke-width="2.2"/>`;
+const goldjacket = (x,y)=>tee(x,y,'#e8c547') + sparkle(x-22,y-6) + sparkle(x+24,y+2);
+const bear = (x,y)=>`<circle cx="${x-12}" cy="${y-17}" r="6" fill="#8a5a3a" ${S} stroke-width="1.4"/><circle cx="${x+12}" cy="${y-17}" r="6" fill="#8a5a3a" ${S} stroke-width="1.4"/><circle cx="${x}" cy="${y}" r="18" fill="#8a5a3a" ${S} stroke-width="1.8"/><ellipse cx="${x}" cy="${y+6}" rx="8" ry="6" fill="#d9b07a" ${S} stroke-width="1.2"/><circle cx="${x-7}" cy="${y-4}" r="2" fill="#1b1d24"/><circle cx="${x+7}" cy="${y-4}" r="2" fill="#1b1d24"/><circle cx="${x}" cy="${y+3}" r="2.4" fill="#1b1d24"/>`;
 /* STRIPS-START */
 const strips = [
   { id:"2026-10-11-kagami", title:"タマとおじさん", word:"鏡", reading:"かがみ", meaning:"mirror",
@@ -687,135 +704,135 @@ const strips = [
     { art: svg(floor + train(60) + gramps(120,64,'blank') + son(200,72,'flat') + clock(280,40)),
       lines:['<span class="n">お昼。</span>','息子「おじいちゃんの<b>弁当</b>は？」','じいちゃん「朝、食べた。」'] }
   ]},
-  { id:"2026-10-16-haisha4", title:"お先にどうぞ", word:"歯医者", reading:"はいしゃ", meaning:"dentist",
+  { id:"2026-10-16-haisha4", title:"第1話 虫歯ゼロの男", word:"歯医者", reading:"はいしゃ", meaning:"dentist",
     kanji:"歯 = tooth + 医者 = doctor: a tooth doctor. 歯医者さん is the polite way to say it.",
-    model:"Dad is scared of the dentist. At the waiting room he lets Grandpa go first, then the kid, then everyone else. The dentist closes for the day and Dad is relieved he did not get to go. The kid: “Dad, you have another appointment tomorrow.”",
+    model:"Episode 1. Neighbor Yamada brags that he has zero cavities because he visits the dentist every month. Dad, terrified of dentists, claims he goes monthly too. Tama (in his head) knows Dad has not been for twenty years. Yamada says: then let's go together tomorrow. At the dentist's door both confess: Yamada has not been for ten years, Dad for twenty. The son notes it in his Dad's-failures notebook: number one.",
     panels:[
-    { art: svg(floor + dentistsign(200) + dad(80,58,'worry') + son(150,72,'plain')),
-      lines:['<span class="n">今日は、父の<b>歯医者</b>の日。</span>','父「き、今日は、いい天気だなあ。」'] },
-    { art: svg(floor + dad(90,58,'worry') + gramps(200,64,'plain')),
-      lines:['<span class="n">待合室で。</span>','じいちゃん「わしの番じゃ。」','父「どうぞ、どうぞ、お先に！」'] },
-    { art: svg(floor + dad(90,58,'worry') + son(200,72,'open')),
-      lines:['<span class="n">次は、息子の番。</span>','息子「次は、お父さんだよ。」','父「どうぞ、お先に！」'] },
-    { art: svg(floor + night(224) + dad(90,58,'laugh') + son(170,72,'flat') + sparkle(130,30)),
-      lines:['<span class="n">夜。<b>歯医者</b>は、もう閉まった。</span>','父「よかった！今日は行けなかった！」','息子「お父さん、明日も<b>歯医者</b>だよ。」'] }
+    { art: svg(floor + yamada(90,58,'laugh') + sparkle(60,36) + dad(220,58,'plain') + son(290,72,'plain')),
+      lines:['<span class="n">となりの山田さんは、父のライバル。いつも自慢ばかりする。</span>','山田さん「ぼくの歯は、虫歯ゼロ！毎月<b>歯医者</b>に行っているからね。」'] },
+    { art: svg(floor + yamada(90,58,'laugh') + dad(210,58,'worry') + cat(280,130)),
+      lines:['父「ぼ、ぼくも、毎月行っているよ。もちろん！」','タマ「吾輩は知っている。この男は、二十年、行っていない。」'] },
+    { art: svg(floor + yamada(90,58,'laugh') + dad(210,58,'shock') + fx(240,34)),
+      lines:['山田さん「それはいい！じゃあ明日、同じ<b>歯医者</b>に、いっしょに行こう！」','父「えっ。」'] },
+    { art: svg(floor + dentistsign(120) + yamada(60,58,'worry') + dad(250,58,'worry') + son(210,72,'flat') + notebook(170,100,'1')),
+      lines:['<span class="n"><b>歯医者</b>の前。二人とも、かたまっている。</span>','山田さん「じ、じつは……十年、行っていないんだ。」','父「……ぼくは、二十年だ。」','息子「お父さんの失敗ノート、一番目。」'] }
   ]},
-  { id:"2026-10-16-densha2", title:"あと一秒", word:"電車", reading:"でんしゃ", meaning:"train (electric)",
+  { id:"2026-10-16-densha2", title:"第2話 先に着くのは誰だ", word:"電車", reading:"でんしゃ", meaning:"train (electric)",
     kanji:"電 = electricity + 車 = vehicle: an electric vehicle, a train.",
-    model:"Dad misses his train by one second, so he decides to run to the next station instead of waiting ten minutes. He arrives out of breath, exactly when the next train does. Dad: “I should have waited for the train.”",
+    model:"Episode 2. Yamada has bought a new car and boasts he has graduated from trains. Dad challenges him to a race: Dad by train, Yamada by car, first to arrive wins. The train stops for a signal problem and Yamada's car sits in a huge traffic jam. Dad says it's a draw. Then Grandpa cycles past both of them. The son: two losers in one, notebook number two.",
     panels:[
-    { art: svg(floor + train(150) + dad(80,58,'shock') + clock(40,30)),
-      lines:['<span class="n">朝の駅。</span>','父「あ！<b>電車</b>が行ってしまう！」'] },
-    { art: svg(floor + dad(130,58,'plain') + clock(260,40)),
-      lines:['<span class="n">次の<b>電車</b>は、十分後。</span>','父「待つより、走るほうが速い！」'] },
-    { art: svg(floor + dad(150,58,'worry') + fx(190,40) + fx(100,50)),
-      lines:['<span class="n">父は、次の駅まで走った。</span>','父「ハア、ハア……」'] },
-    { art: svg(floor + train(20) + dad(250,58,'blank')),
-      lines:['<span class="n">次の駅に着いた。同じ時間に、次の<b>電車</b>も着いた。</span>','父「……<b>電車</b>を待てばよかった。」'] }
+    { art: svg(floor + yamada(70,58,'laugh') + car(240) + sparkle(120,40)),
+      lines:['<span class="n">前回、歯医者で負けた山田さんは、新しい車を買った。</span>','山田さん「新車だ！もう<b>電車</b>は、卒業だ！」'] },
+    { art: svg(floor + yamada(80,58,'laugh') + dad(220,58,'laugh') + fx(150,40)),
+      lines:['父「ふん。<b>電車</b>は、時間どおりに着くんだ。」','父「勝負だ！同時に出て、先に着いたほうが勝ち！」'] },
+    { art: svg(floor + train(20) + clock(240,40) + dad(100,58,'plain')),
+      lines:['<span class="n">アナウンス「信号のトラブルで、この<b>電車</b>は止まります。」</span>','父「ふふふ。山田さんも今ごろ、大渋滞だ。引き分けだな。」'] },
+    { art: svg(floor + bike(150) + gramps(150,64,'laugh') + wind(210,40) + son(40,72,'flat') + notebook(246,100,'2')),
+      lines:['<span class="n">そのとき、自転車のじいちゃんが、<b>電車</b>も車も追いこした。</span>','じいちゃん「お先に〜。」','息子「失敗ノート、二番目。二人まとめて。」'] }
   ]},
-  { id:"2026-10-16-imasara3", title:"一年前の花びん", word:"今更", reading:"いまさら", meaning:"now, after all this time (too late / pointless now)",
+  { id:"2026-10-16-imasara3", title:"第3話 十年目の真実", word:"今更", reading:"いまさら", meaning:"now, after all this time (too late / pointless now)",
     kanji:"今 = now, 更 = anew, once more (as in 更新, renewal). “Now, after everything” — the moment has passed.",
-    model:"A year ago a vase broke and Dad blamed Tama, who has had no treats since. Now the kid finally confesses that he broke it. Dad: “It's too late to say it now! Tama has had no snacks for a whole year!”",
+    model:"Episode 3. Dad tells Grandpa not to enter the karaoke contest: it's too late to start practising at his age. Little Mika (Yamada's 6-year-old daughter) says Grandpa has won it ten years in a row. Tama says he has known for ten years. The son: Dad, it's too late to be surprised now, you have lived together for ten years. Also: a small key hangs round Grandpa's neck.",
     panels:[
-    { art: svg(sepia + floor + cat(150,126,true) + dad(250,58,'shock') + fx(100,60)),
-      lines:['<span class="n">一年前。花びんが割れた。</span>','父「タマ！おまえだな！」'] },
-    { art: svg(floor + cat(150,126) + dad(250,58,'plain') + clock(60,40)),
-      lines:['<span class="n">それから、タマは、おやつがもらえない。</span>','父「悪いネコには、おやつはなし。」'] },
-    { art: svg(floor + son(100,72,'flat') + dad(220,58,'plain')),
-      lines:['<span class="n">一年後。</span>','息子「お父さん……あの花びんを割ったのは、ぼくなんだ。」'] },
-    { art: svg(floor + son(80,72,'flat') + dad(190,58,'shock') + cat(280,126,true) + fx(224,40)),
-      lines:['父「えっ！？ <b>今更</b>言われても……」','父「タマは一年間、おやつなしだぞ！」'] }
+    { art: svg(floor + dad(70,58,'laugh') + gramps(220,64,'plain') + kneck(220,64)),
+      lines:['<span class="n">じいちゃんの首には、いつも小さな鍵がかかっている。</span>','父「じいちゃん、来週のカラオケ大会に出るの？ <b>今更</b>がんばっても、もう遅いよ。」'] },
+    { art: svg(floor + dad(70,58,'laugh') + mika(200,76,'plain') + cat(280,130)),
+      lines:['<span class="n">山田さんの娘のミカちゃん、六さい。思ったことを、全部言う。</span>','ミカ「おじさん、しらないの？」'] },
+    { art: svg(floor + dad(70,58,'plain') + mika(200,76,'open') + gramps(280,64,'laugh') + kneck(280,64)),
+      lines:['ミカ「おじいちゃんは、十年れんぞくで、ゆうしょうしているよ。」','タマ「吾輩は、十年前から知っていた。」'] },
+    { art: svg(floor + dad(80,58,'shock') + fx(114,34) + son(210,72,'flat') + gramps(280,64,'laugh')),
+      lines:['父「えっ……ええっ！？」','息子「お父さん、<b>今更</b>おどろいても、おそいよ。十年、いっしょに住んでいるのに。」'] }
   ]},
-  { id:"2026-10-16-bentou3", title:"見ていたよ", word:"弁当", reading:"べんとう", meaning:"boxed lunch",
+  { id:"2026-10-16-bentou3", title:"第4話 カラスの来る日", word:"弁当", reading:"べんとう", meaning:"boxed lunch",
     kanji:"Usually said politely as お弁当. 弁当箱 (べんとうばこ) = a lunch box.",
-    model:"At the park Dad asks the kid to watch the lunch box while he goes to the toilet. Tama arrives and eats the whole thing. Dad comes back to an empty box. The kid: “I watched it all the way to the end.”",
+    model:"Episode 4. At a picnic Yamada proudly opens a five-tier 3,000-yen boxed lunch; Dad boasts his two rice balls are made with love. A crow swoops and steals Yamada's lunch. Dad laughs, then the crow takes his rice balls too. Mika notices only Grandpa's lunch was not stolen: he keeps it inside his shirt, a habit since a bear once stole his lunch. Dad: a bear?",
     panels:[
-    { art: svg(floor + sun(40,30) + tree(262) + dad(100,58,'laugh') + son(190,72,'open')),
-      lines:['<span class="n">公園で。</span>','父「みんなで<b>弁当</b>を食べよう。」'] },
-    { art: svg(floor + tree(262) + dad(90,58,'plain') + son(190,72,'plain') + `<rect x="150" y="132" width="40" height="16" fill="#cfa66b" ${S} stroke-width="1.8"/>`),
-      lines:['父「トイレに行ってくる。<b>弁当</b>を見ていてね。」','息子「うん、わかった。」'] },
-    { art: svg(floor + tree(262) + son(150,72,'plain') + cat(240,130) + `<rect x="120" y="132" width="40" height="16" fill="#cfa66b" ${S} stroke-width="1.8"/>`),
-      lines:['<span class="n">そこに、タマが来た。</span>'] },
-    { art: svg(floor + tree(262) + dad(80,58,'shock') + son(180,72,'flat') + cat(260,130) + `<rect x="110" y="132" width="40" height="16" fill="#fff" ${S} stroke-width="1.8"/>`),
-      lines:['父「<b>弁当</b>が空っぽだ！」','息子「ちゃんと見ていたよ。食べるところまで。」'] }
+    { art: svg(floor + tree(280) + yamada(70,58,'laugh') + jubako(70,140) + dad(190,58,'plain') + onigiri(200,140)),
+      lines:['<span class="n">みんなで、公園にピクニック。</span>','山田さん「見ろ！三千円の<b>弁当</b>だ！」','父「ふん。ぼくの<b>弁当</b>には、愛がこもっている。おにぎり二つだ。」'] },
+    { art: svg(floor + tree(280) + yamada(70,58,'shock') + jubako(70,140) + crow(180,60) + wind(120,34)),
+      lines:['<span class="n">その時、空からカラスが来た。</span>','山田さん「ああっ！ぼくの<b>弁当</b>が！」'] },
+    { art: svg(floor + tree(280) + yamada(70,58,'worry') + dad(180,58,'laugh') + crow(260,70,true) + cat(120,134)),
+      lines:['父「ハハハ。ざまあ……あっ、ぼくのおにぎりも！」','タマ「あの黒い鳥は、吾輩の長年の敵だ。」'] },
+    { art: svg(floor + tree(290) + gramps(150,64,'laugh') + crow(260,110) + mika(60,76,'plain') + dad(220,58,'worry')),
+      lines:['ミカ「おじいちゃんのだけ、とられてないよ。」','じいちゃん「わしの<b>弁当</b>は、シャツの中じゃ。クマにとられて以来、これが一番じゃ。」','父「……クマ？」'] }
   ]},
-  { id:"2026-10-16-futon2", title:"ニャー", word:"布団", reading:"ふとん", meaning:"futon; bedding",
+  { id:"2026-10-16-futon2", title:"第5話 ぼくの布団", word:"布団", reading:"ふとん", meaning:"futon; bedding",
     kanji:"布 = cloth (as in 財布, wallet) + 団 = round, lump: a cloth bundle you sleep in.",
-    model:"Grandpa hangs the bedding out in the sun, then folds it up and puts it away in the evening. At night the kid gets into his futon and it says “Nyaa”. Grandpa: “Tama went in when I took it in.”",
+    model:"Episode 5. Dad finds Tama in his futon. He carries Tama out; minutes later Tama is back in the futon. Dad shuts the door and the windows, and Tama is in the futon again, saying he was here from the start. Dad gives up and sleeps on the floor. Grandpa asks whose house this is; Dad: Tama's house. The son: notebook number four.",
     panels:[
-    { art: svg(floor + sun(40,30) + `<rect x="130" y="50" width="100" height="60" rx="6" fill="#cfe0f5" ${S}/><line x1="110" y1="50" x2="250" y2="50" ${S} stroke-width="2"/>` + gramps(70,64,'laugh')),
-      lines:['<span class="n">天気のいい日。</span>','じいちゃん「<b>布団</b>を、太陽に当てよう。」'] },
-    { art: svg(floor + sun(40,30) + `<rect x="130" y="50" width="100" height="60" rx="6" fill="#cfe0f5" ${S}/><line x1="110" y1="50" x2="250" y2="50" ${S} stroke-width="2"/>` + cat(180,138)),
-      lines:['<span class="n">タマが、あたたかい<b>布団</b>に入った。</span>'] },
-    { art: svg(floor + dusk + futonbed(150) + gramps(80,64,'plain')),
-      lines:['<span class="n">夕方。</span>','じいちゃん「よし、<b>布団</b>を持って入ろう。」'] },
-    { art: svg(floor + night(224) + futonbed(60) + peek(90,108) + fx(120,80) + gramps(250,64,'shock')),
-      lines:['<span class="n">夜。</span>','息子「おじいちゃん、<b>布団</b>が「ニャー」って言ったよ。」','じいちゃん「取り込んだ時に、タマも入ったんじゃ。」'] }
+    { art: svg(floor + night(224) + futonbed(60) + cat(100,112) + dad(250,58,'worry')),
+      lines:['<span class="n">夜。父の<b>布団</b>に、タマがいる。</span>','父「タマ、そこはお父さんの<b>布団</b>だ。」','タマ「吾輩の<b>布団</b>だ。」'] },
+    { art: svg(floor + night(224) + door(220,false) + dad(100,58,'plain') + cat(160,130)),
+      lines:['<span class="n">父は、タマを部屋の外に出した。</span>','父「これでよし。おやすみ。」'] },
+    { art: svg(floor + night(224) + futonbed(60) + cat(100,112) + dad(250,58,'shock') + fx(220,30)),
+      lines:['<span class="n">三分後。ドアも窓も、しまっているのに。</span>','父「どうやって入った！？」','タマ「吾輩は、最初から、ここにいた。」'] },
+    { art: svg(floor + night(224) + futonbed(150) + cat(190,112) + dad(70,100,'sleepy') + gramps(280,64,'plain') + notebook(10,100,'4')),
+      lines:['<span class="n">父は、ゆかで寝ることにした。</span>','じいちゃん「ここは、だれの家じゃ？」','父「……タマの家です。」'] }
   ]},
-  { id:"2026-10-16-denwa2", title:"朝の電話", word:"電話", reading:"でんわ", meaning:"telephone; phone call",
+  { id:"2026-10-16-denwa2", title:"第6話 いません", word:"電話", reading:"でんわ", meaning:"telephone; phone call",
     kanji:"電 = electricity (as in 電車, train) + 話 = talk: electric talk.",
-    model:"Early in the morning the phone rings and a half-asleep Dad grabs a banana by mistake and says “Hello?” again and again. The kid: “Dad, that is a banana. The phone is on the table.”",
+    model:"Episode 6. The dentist calls to confirm Dad's appointment. Dad panics and asks Grandpa to say he is not home. Grandpa, who hears only what he likes, says 'Tanaka is not here' and then shouts that he is hiding in the toilet. Dad: you told them everything! Grandpa: I said what you asked, the rest was a free service. The son: notebook number five.",
     panels:[
-    { art: svg(floor + table(180,300) + phone(230,86) + fx(250,60) + banana(190,100) + dad(80,58,'sleepy')),
-      lines:['<span class="n">朝。<b>電話</b>が鳴っている。</span>','父「ううん……<b>電話</b>……」'] },
-    { art: svg(floor + table(180,300) + phone(230,86) + banana(190,100) + dad(120,58,'sleepy')),
-      lines:['<span class="n">父は、ねぼけたまま手をのばした。</span>'] },
-    { art: svg(floor + dad(150,58,'sleepy') + banana(176,70) + fx(210,40)),
-      lines:['父「もしもし？……もしもし？」','父「あれ？ 返事がない。」'] },
-    { art: svg(floor + table(190,310) + phone(240,86) + dad(100,58,'blank') + banana(124,70) + son(170,72,'flat')),
-      lines:['息子「お父さん、それはバナナだよ。<b>電話</b>は、テーブルの上。」'] }
+    { art: svg(floor + table(150,300) + phone(210,86) + fx(240,60) + dentistsign(210) + dad(80,58,'shock')),
+      lines:['<span class="n"><b>電話</b>が鳴った。画面には「歯医者」の文字。</span>','父「じいちゃん、出て！ いないと言って！」'] },
+    { art: svg(floor + gramps(150,64,'laugh') + phone(190,100) + dad(60,58,'worry')),
+      lines:['じいちゃん「ほう、わかったわかった。」'] },
+    { art: svg(floor + gramps(150,64,'shock') + phone(190,100) + dad(60,58,'plain')),
+      lines:['じいちゃん「もしもし！ 田中は、いません！」','じいちゃん「いま、トイレにかくれておる！」'] },
+    { art: svg(floor + dad(80,58,'shock') + gramps(220,64,'laugh') + son(290,72,'flat') + notebook(150,100,'5')),
+      lines:['父「全部言ってる！」','じいちゃん「『いない』と言えと言われたから、言ったぞ。あとは、サービスじゃ。」','息子「失敗ノート、五番目。」'] }
   ]},
-  { id:"2026-10-16-sentaku2", title:"足あと", word:"洗濯", reading:"せんたく", meaning:"laundry; washing clothes",
+  { id:"2026-10-16-sentaku2", title:"第7話 金ぴかの上着", word:"洗濯", reading:"せんたく", meaning:"laundry; washing clothes",
     kanji:"洗 = wash (as in 手洗い, hand washing) + 濯 = rinse.",
-    model:"Dad hangs the clean white laundry out to dry, but Tama walks over it with muddy paws and he has to wash it again. This repeats until it is the fifth wash of the day. The kid: “You should have washed Tama's feet first.”",
+    model:"Episode 7. Grandpa hands Dad his gold karaoke jacket, the one he wore when he fought a lion, and says to wash it gently by hand. Dad, busy listening to Yamada's bragging on the phone, puts it in the machine on hot. It comes out the size of a doll's coat. Tama puts it on and it fits perfectly. Notebook number six.",
     panels:[
-    { art: svg(floor + sun(40,30) + clothesline() + tee(120,40,'#ffffff') + tee(190,40,'#ffffff') + dad(260,58,'laugh')),
-      lines:['父「<b>洗濯</b>、ぜんぶ終わった！まっ白だ！」'] },
-    { art: svg(floor + clothesline() + `<rect x="60" y="120" width="140" height="24" fill="#ffffff" ${S} stroke-width="1.8"/>` + paws(100,124) + paws(140,126) + cat(230,130)),
-      lines:['<span class="n">そこに、どろだらけのタマが歩いた。</span>'] },
-    { art: svg(floor + `<rect x="60" y="120" width="140" height="24" fill="#ffffff" ${S} stroke-width="1.8"/>` + paws(100,124) + paws(140,126) + dad(250,58,'worry')),
-      lines:['父「また<b>洗濯</b>か……」'] },
-    { art: svg(floor + night(224) + washer(20) + dad(160,58,'blank') + son(240,72,'flat')),
-      lines:['<span class="n">夜。</span>','息子「お父さん、今日の<b>洗濯</b>、もう五回目だよ。」','父「タマの足を、先に洗えばよかった……」'] }
+    { art: svg(floor + gramps(110,64,'plain') + kneck(110,64) + goldjacket(190,70) + dad(270,58,'laugh')),
+      lines:['じいちゃん「明日の大会の衣装じゃ。ライオンと戦った時も着た服じゃ。」','じいちゃん「<b>洗濯</b>は、手で、そっとじゃぞ。」'] },
+    { art: svg(floor + washer(40) + dad(190,58,'plain') + phone(220,50) + fx(244,30)),
+      lines:['<span class="n">父は、山田さんの自慢話を電話で聞きながら、<b>洗濯</b>機のボタンをおした。</span>','父「へえ、すごいねえ。」'] },
+    { art: svg(floor + washer(20) + `<g transform="translate(150 96) scale(.45)">${tee(0,0,'#e8c547')}</g>` + dad(250,58,'blank') + mika(100,76,'plain')),
+      lines:['<span class="n">ふたを開けた。小さい。</span>','ミカ「おにんぎょうのふくみたい。」'] },
+    { art: svg(floor + cat(110,116) + `<rect x="92" y="112" width="40" height="16" rx="5" fill="#e8c547" ${S} stroke-width="1.8"/>` + sparkle(80,90) + sparkle(160,96) + gramps(240,64,'shock') + dad(300,58,'worry') + notebook(10,100,'6')),
+      lines:['タマ「吾輩に、ぴったりだ。」','じいちゃん「わしの衣装が……」'] }
   ]},
-  { id:"2026-10-16-yakusoku2", title:"一時間だけ", word:"約束", reading:"やくそく", meaning:"promise; appointment",
+  { id:"2026-10-16-yakusoku2", title:"第8話 うそをつかない約束", word:"約束", reading:"やくそく", meaning:"promise; appointment",
     kanji:"約 = promise, approximately (as in 予約, reservation) + 束 = bundle: a bound agreement.",
-    model:"Dad and the kid agree: games for one hour a day only. The kid plays for one hour, takes a short break, and plays another hour, eight times. Dad: “That was not the promise.” The kid: “Each one was one hour.”",
+    model:"Episode 8. Dad promises his son not to tell a single lie today. Yamada comes over and asks: isn't my new car great? (It is, Dad says honestly.) Then: how was my karaoke? It was terrible, but Dad cannot lie. He sweats and keeps repeating how good the car is. Yamada cries. The son closes the notebook: Dad kept his promise, so no failure number today.",
     panels:[
-    { art: svg(floor + dad(100,58,'plain') + son(210,72,'open') + gamepad(224,128)),
-      lines:['父「ゲームは、一日一時間だけ。<b>約束</b>だよ。」','息子「うん、<b>約束</b>する！」'] },
-    { art: svg(floor + clock(260,40) + son(150,72,'open') + gamepad(164,128)),
-      lines:['<span class="n">息子は、一時間ゲームをした。</span>','息子「一時間、終わり！」'] },
-    { art: svg(floor + night(224) + son(120,72,'open') + gamepad(134,128) + clock(40,40)),
-      lines:['<span class="n">少し休んで、また一時間。</span>','<span class="n">それを、八回やった。</span>'] },
-    { art: svg(floor + night(224) + dad(100,58,'shock') + son(210,72,'plain')),
-      lines:['父「<b>約束</b>は、一日一時間だぞ！」','息子「だから、一時間ずつ、八回だよ。」'] }
+    { art: svg(floor + dad(100,58,'laugh') + son(210,72,'plain') + sparkle(140,30)),
+      lines:['父「ソラ、<b>約束</b>する。今日は一日、うそをつかない！」','息子「ノートに書くよ。」'] },
+    { art: svg(floor + yamada(80,58,'laugh') + car(260) + dad(180,58,'worry')),
+      lines:['山田さん「どうだ、ぼくの新車。いい車だろう？」','父「……ああ。本当に、いい車だ。」'] },
+    { art: svg(floor + yamada(80,58,'laugh') + `<text x="130" y="40" font-size="18" fill="#c0392b">♪♪</text>` + dad(210,58,'worry') + drops(210,58) + cat(290,130)),
+      lines:['山田さん「次は、ぼくの歌だ。大会の練習をしたんだ。あ〜〜〜！」','タマ「吾輩の耳が、こわれた。」'] },
+    { art: svg(floor + yamada(70,58,'shock') + dad(180,58,'worry') + drops(180,58) + son(270,72,'flat')),
+      lines:['山田さん「どうだった？」','父「車は、すごくいい！ 本当に、いい車！」','息子「お父さんが<b>約束</b>を守ったから、今日のノートは、お休み。」'] }
   ]},
-  { id:"2026-10-16-kagami3", title:"白い髪", word:"鏡", reading:"かがみ", meaning:"mirror",
+  { id:"2026-10-16-kagami3", title:"第9話 鏡の中のおじいちゃん", word:"鏡", reading:"かがみ", meaning:"mirror",
     kanji:"金 (metal) on the left — old mirrors were polished metal. Also in 眼鏡 (めがね, glasses).",
-    model:"Dad finds a white hair in the mirror and pulls it out, then another, and another, until the pile is huge. The kid: “If you keep pulling, you will have none left.” Dad stops and says he will not look in the mirror again.",
+    model:"Episode 9. The day before the contest Dad rehearses his cheering in front of a mirror, which is really a frame with Grandpa standing behind it copying every move. Dad praises how perfectly the mirror moves. Then Grandpa sneezes. Dad: the mirror sneezed! The son: that is not a mirror, that is Grandpa. Notebook number seven.",
     panels:[
-    { art: svg(floor + frame(200,30,80,100) + dad(100,58,'plain')),
-      lines:['<span class="n">朝。</span>','父「<b>鏡</b>を見たら、白い髪が一本あった。」'] },
-    { art: svg(floor + frame(200,30,80,100) + dad(100,58,'worry') + hairs(100,140,3)),
-      lines:['父「えい！……あ、もう一本ある。」'] },
-    { art: svg(floor + frame(200,30,80,100) + dad(100,58,'worry') + hairs(100,140,9)),
-      lines:['<span class="n">三十分後。</span>','父「また一本……また一本……」'] },
-    { art: svg(floor + frame(220,30,70,100) + dad(120,58,'blank') + hairs(120,140,10) + son(40,72,'flat')),
-      lines:['息子「お父さん、そんなに抜くと、髪がなくなるよ。」','父「……<b>鏡</b>は、もう見ない。」'] }
+    { art: svg(floor + frame(196,24,92,124, gramps(242,76,'laugh')) + dad(110,58,'laugh')),
+      lines:['<span class="n">大会の前の日。父は<b>鏡</b>の前で、応援の練習をしている。</span>','父「フレー、フレー、じいちゃん！」'] },
+    { art: svg(floor + frame(196,24,92,124, gramps(242,76,'laugh')) + dad(110,58,'shock') + fx(150,40)),
+      lines:['父「次は、ダンスだ！」','<span class="n">父は右手をあげた。<b>鏡</b>の中も、右手をあげた。</span>'] },
+    { art: svg(floor + frame(196,24,92,124, gramps(242,76,'laugh')) + dad(110,58,'plain') + cat(40,130)),
+      lines:['父「おお、さすが<b>鏡</b>。動きがぴったりだ。」','タマ「吾輩は、最初から知っていた。」'] },
+    { art: svg(floor + frame(196,24,92,124, gramps(242,76,'shock') + fx(262,40)) + dad(110,58,'shock') + son(40,72,'flat') + notebook(280,100,'7')),
+      lines:['<span class="n">ハクション！</span>','父「<b>鏡</b>が、くしゃみした！？」','息子「お父さん、それは<b>鏡</b>じゃなくて、おじいちゃんだよ。」'] }
   ]},
-  { id:"2026-10-16-kagi3", title:"合わない鍵", word:"鍵", reading:"かぎ", meaning:"lock; key",
+  { id:"2026-10-16-kagi3", title:"第10話 首の鍵", word:"鍵", reading:"かぎ", meaning:"lock; key",
     kanji:"金 (metal) again. 鍵をかける = to lock, 鍵をあける = to unlock.",
-    model:"Grandpa tries every key on his big key ring, one after another, and none of them turns. The kid says the door is already open. Grandpa: “So that is why the key would not turn.”",
+    model:"Episode 10, end of arc 1. After winning the contest for the eleventh year, Grandpa finally opens the old box that the key round his neck belongs to. Inside is a photo of young Grandpa wrestling a bear: the bear story was true! Dad asks about the lion story. Grandpa: that one was a lie.",
     panels:[
-    { art: svg(wall + floor + door(200,false) + gramps(110,64,'plain') + keyring(60,70)),
-      lines:['<span class="n">家の前。</span>','じいちゃん「えーと、この<b>鍵</b>じゃ。」'] },
-    { art: svg(wall + floor + door(200,false) + gramps(110,64,'blank') + keyring(60,70)),
-      lines:['じいちゃん「回らんのう。この<b>鍵</b>かな。」'] },
-    { art: svg(wall + floor + door(200,false) + gramps(110,64,'shock') + keyring(60,70) + fx(150,40)),
-      lines:['<span class="n">十分後。</span>','じいちゃん「この<b>鍵</b>も、あの<b>鍵</b>も、合わん！」'] },
-    { art: svg(wall + floor + `<rect x="200" y="18" width="70" height="132" fill="#3b4a6b" ${S}/>` + son(150,72,'flat') + gramps(80,64,'shock')),
-      lines:['息子「おじいちゃん、ドアは、もう開いているよ。」','じいちゃん「……だから、<b>鍵</b>が回らなかったのか。」'] }
+    { art: svg(floor + sparkle(40,30) + sparkle(280,40) + gramps(230,64,'laugh') + kneck(230,64) + dad(70,58,'laugh') + notebook(150,100,'?')),
+      lines:['<span class="n">大会のあと。じいちゃんは、十一年れんぞくで優勝した。</span>','息子「おじいちゃん、その首の<b>鍵</b>は、何の<b>鍵</b>？」'] },
+    { art: svg(floor + cardbox(150,100) + gramps(70,64,'plain') + kneck(70,64) + son(240,72,'open') + dad(290,58,'plain')),
+      lines:['<span class="n">じいちゃんは、古い箱を出してきた。</span>','じいちゃん「五十年、あけておらん。」'] },
+    { art: svg(floor + `<rect x="110" y="30" width="100" height="84" fill="#f4f4ee" ${S}/>` + bear(190,80) + `<circle cx="140" cy="62" r="9" fill="#fff" ${S} stroke-width="1.6"/><path d="M140 71 l0 24 l-8 14 M140 78 l22 8 M140 95 l12 14" fill="none" ${S} stroke-width="2.2"/>` + dad(40,58,'shock') + mika(270,76,'open')),
+      lines:['<span class="n"><b>鍵</b>をまわして、ふたを開けた。中には、一まいの写真。</span>','ミカ「ほんとうに、クマとすもうしてる！」'] },
+    { art: svg(floor + son(60,72,'open') + dad(150,58,'shock') + gramps(250,64,'blank') + kneck(250,64)),
+      lines:['息子「おじいちゃんの話、本当だったんだ……」','父「じゃあ、ライオンと戦った話も？」','じいちゃん「あれは、うそじゃ。」'] }
   ]},
 ];
 /* STRIPS-END */
@@ -882,6 +899,7 @@ function checkBox(s){
   const st = saved[s.id] || {};
   const v = st.verdict;
   const btn = (k,t)=>`<button type="button" data-v="${k}" aria-pressed="${v===k}">${t}</button>`;
+  const fbtn = (k,t)=>`<button type="button" data-f="${k}" aria-pressed="${st.funny===k}">${t}</button>`;
   return `<div class="check" data-id="${s.id}">
     <label for="ans-${s.id}">Your answer: what's the joke? (one line)</label>
     <textarea id="ans-${s.id}" rows="2" placeholder="e.g. The dad…">${esc(st.answer||'')}</textarea>
@@ -891,6 +909,8 @@ function checkBox(s){
       <div class="wordline"><span class="jp">${s.word}</span> ${s.reading} — ${s.meaning}<br><span class="n">${s.kanji}</span></div>
       <p><b>Did you get it?</b></p>
       <div class="verdict">${btn('got','Got it')}${btn('partly','Partly')}${btn('missed','Missed')}</div>
+      <p class="funnyq"><b>Was it funny?</b></p>
+      <div class="verdict">${fbtn('lol','😂 Funny')}${fbtn('meh','😐 OK')}${fbtn('zzz','😴 Bland')}</div>
       <div class="status" aria-live="polite"></div>
     </div>
   </div>`;
@@ -900,7 +920,7 @@ async function saveVerdict(s, status){
   if (!dbRef){ status.textContent = 'Not saved on this device. Tell Claude in chat how it went.'; return; }
   status.textContent = 'Saving…';
   try {
-    await dbRef.doc('answers/' + s.id).set({ word:s.word, reading:s.reading, answer:st.answer||'', verdict:st.verdict, at:new Date().toISOString() });
+    await dbRef.doc('answers/' + s.id).set({ word:s.word, reading:s.reading, answer:st.answer||'', verdict:st.verdict, funny:st.funny||'', at:new Date().toISOString() });
     status.textContent = 'Saved.';
     buildJump();
   } catch(e){
@@ -920,6 +940,12 @@ stage.addEventListener('click', e=>{
     e.target.hidden = true;
     box.querySelector('.reveal').hidden = false;
     box.querySelector('.reveal').scrollIntoView({behavior:'smooth', block:'nearest'});
+  } else if (e.target.dataset.f){
+    st.funny = e.target.dataset.f;
+    st.answer = box.querySelector('textarea').value;
+    e.target.parentNode.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed', String(b===e.target)));
+    if (st.verdict) saveVerdict(s, box.querySelector('.status'));
+    else box.querySelector('.status').textContent = 'Now pick Got it / Partly / Missed to save.';
   } else if (e.target.dataset.v){
     st.verdict = e.target.dataset.v;
     st.answer = box.querySelector('textarea').value;
@@ -937,7 +963,7 @@ stage.addEventListener('click', e=>{
     snap.docs.forEach(d=>{
       const x = d.data(); if (!x || !strips.some(s=>s.id===d.id)) return;
       const cur = (saved[d.id] ||= {});
-      if (!cur.verdict){ Object.assign(cur, {answer:x.answer||cur.answer, verdict:x.verdict, checked:true}); changed = true; }
+      if (!cur.verdict){ Object.assign(cur, {answer:x.answer||cur.answer, verdict:x.verdict, funny:x.funny||cur.funny, checked:true}); changed = true; }
     });
     const ta = document.activeElement && document.activeElement.tagName === 'TEXTAREA';
     if (!navigated) i = firstTodo();

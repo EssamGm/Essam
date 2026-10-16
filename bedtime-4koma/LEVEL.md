@@ -44,3 +44,10 @@ Update this file after reading new answers in the page's `answers` database.
 - Write 3 candidate jokes per word, keep only the one that makes you laugh. A mild jab or "he forgot / mix-up" ending is not enough.
 - Prefer: escalation, rule of three, a callback to an earlier strip, a real reversal on the last line. Recurring gags are allowed (Grandpa vs Tama, Dad's pride vs reality).
 - Weaker strips (his words): ones that are predictable or end on a comment instead of a flip (e.g. 鏡 #2).
+
+## Update 2026-10-16 (evening): serial story launched
+- Essam approved a serial story (see STORY.md): new cast (山田さん, ミカ the little girl, the crow), episodes numbered 第N話, failure-notebook counter, Tama's inner monologue.
+- Replaced the 10 pending strips with arc 1 (第1–10話). Words: 歯医者, 電車, 今更, 弁当, 布団, 電話, 洗濯, 約束, 鏡, 鍵.
+- Grandpa voice changed from ちび式じい to 麒ヶ島宗麟 (he found the old voice hard to understand). Tama uses 黒沢冴白.
+- Page now has a 😂 / 😐 / 😴 "Was it funny?" row, saved as `funny` (lol / meh / zzz) in `answers`. READ IT each run and write more of what scored lol.
+- Next arc: continue from 第10話 (bear photo truth, 山田さん's revenge, Mika). Number episodes from 第11話; failure notebook restarts as needed.

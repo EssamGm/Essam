@@ -14,7 +14,11 @@ being reviewed. Published page: https://claude.ai/artifact/SX4vtXd3bVVsTiCm1CGCU
   kept, so never re-send all of them. Do not pass `capabilities` (the page declares `db`).
 - `setup_voicevox.sh` installs VOICEVOX CORE 0.17.0 and the voice models.
 
-## Cast
+## Cast (STORY.md is the source of truth; it supersedes the skill's old cast limit)
+
+Voices now: 父 青山龍星, 息子 白上虎太郎, じいちゃん 麒ヶ島宗麟 (53), タマ 黒沢冴白 (100), 山田さん 玄野武宏 (11), ミカ 春歌ナナ (54), narration 雀松朱司. Speaker prefixes: `父「`, `息子「`, `じいちゃん「`, `タマ「`, `山田さん「`, `ミカ「`. A little girl (ミカ) is allowed; no women.
+
+Old table (kept for reference):
 
 | Role | Voice | Style ID |
 |---|---|---|
