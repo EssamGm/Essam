@@ -29,3 +29,15 @@ The last panel must flip or escalate, never just comment. Essam's own comments o
 ## Arc 2 (第11–20話, written 2026-10-16)
 - Seeds used: the crow now hits Yamada (傘 flies off, car 掃除), Mika tells the truth (写真 of Dad's nose, 歯医者 comes out smiling, 宿題: bear story 100 points, lion story 0), Tama steals Dad's 弁当 (not the crow), the crow returns Dad's 財布 with a leaf as change, Tama sleeps in the heavy box.
 - 失敗ノート: not used in arc 2 yet (last: #7 in 第9話).
+
+## Arc 3 (第21–28話, written 2026-10-16): his reported words
+- Words from the `words` queue: 偶然, 耳, どころ ×2, 元気出す, 金を払う, 今更, バラバラ.
+- 第21話 Yamada "bumps into" Dad three times by 偶然; Mika: he's been walking behind Dad all morning.
+- 第22話 パンの耳: Grandpa thinks he's offered Mika's ears; the crow steals only the soft middle (hates crust too).
+- 第23話 Yamada's new car: 速いどころか、動かない; Grandpa's bike passes again (callback 第2話).
+- 第24話 Dad tries to cheer Sora up, ends up sulking himself: 失敗ノート #8.
+- 第25話 Tama charges 100 yen for the sofa and pays the crow to fetch Dad's wallet (Tama was behind 第14話).
+- 第26話 Lion photo appears ("the lion story is true"), too late for Mika's zero-point homework; Tama: the lion is a stuffed toy.
+- 第27話 ラジオたいそう: everyone バラバラ, only Tama (stretching) does it right.
+- 第28話 Pool: Dad can't even get into the water (泳ぐどころか); Mika, 6, offers to teach him.
+- 失敗ノート: last #8 in 第24話.

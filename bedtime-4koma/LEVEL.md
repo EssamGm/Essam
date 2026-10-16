@@ -80,3 +80,9 @@ Update this file after reading new answers in the page's `answers` database.
 - New grades 10-16: got 電車 (lol), 今更 (lol), 鍵 (lol), 洗濯 (lol), 約束 (lol), 電話, 布団, 鏡 (meh); 弁当 #3 partly (meh); 歯医者 #4 missed (zzz: "didn't understand it well").
 - Funny signal: lol = the ones with a real reversal + callback (race lost to Grandpa's bike, gold suit on Tama, bear photo). meh = softer endings (布団, 鏡, 電話). 歯医者 is still zzz, so the new 歯医者 #5 is one plain idea: two men too scared to go in, a 6-year-old comes out smiling.
 - Order used: missed 歯医者, partly 弁当, then due got words: 傘, 財布, 眼鏡, 写真, 時計, 宿題, 掃除, 重い. All in brand-new scenes; crow and Mika carry the jokes; each ends on an explicit last line; at most 3 speakers.
+
+## Update 2026-10-16 (night): reported words were never reaching the runs — fixed
+- Cause: the skill's step 2 ("words he told Claude he learned") had no storage. Runs are fresh sessions with no chat history and no Notion memory, so they always found "no new reported words".
+- Fix: queue in the page database, collection `words` (see README "Word queue"). Queued words come FIRST, ahead of missed/partly (his rule).
+- 55 answers read (all got; funny mostly lol in arc 2), 2 unanswered (第19, 第20話), so added 8: 第21–28話 with his 7 reported words (どころ twice: どころか "far from", and "let alone"). All marked `used` in the queue.
+- His understanding of each word was correct. Notes: 耳 = edge is everyday mainly as パンの耳 (also 紙/布の耳); plain 金 is rough, お金を払う is the neutral form.

@@ -54,6 +54,7 @@ READINGS = {
     "二十歳": "はたち",
     "開いている": "あいている",
     "片手で十分": "片手でじゅうぶん",
+    "金を払": "かねを払",
 }
 SPEEDS = {"n": 1.0, "s": 0.8}  # ふつう / ゆっくり
 VVM_VERSION_TAG = (VV_MODELS.parent / "env.json").read_text()

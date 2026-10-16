@@ -14,6 +14,19 @@ being reviewed. Published page: https://claude.ai/artifact/SX4vtXd3bVVsTiCm1CGCU
   kept, so never re-send all of them. Do not pass `capabilities` (the page declares `db`).
 - `setup_voicevox.sh` installs VOICEVOX CORE 0.17.0 and the voice models.
 
+## Word queue (read before choosing words)
+
+Words Essam reports learning live in the page's database, collection `words`, one doc per word
+(doc id = romaji, e.g. `guuzen`): `word, reading, his_meaning, context, reported, priority,
+status (queued | used), strips [strip ids]`. Scheduled runs are fresh sessions with no chat
+history or Notion memory, so a word mentioned only in a chat is invisible to them unless it is
+written here.
+
+- Any chat where he reports a word: add a `words` doc with status `queued` (ArtifactData set).
+- Each run: queued words come FIRST, ahead of missed/partly and due reviews (his rule, 2026-10-16),
+  lowest `priority` number first. Then the skill's usual order.
+- After a word gets a strip: set status `used` and append the strip id to `strips`.
+
 ## Cast (STORY.md is the source of truth; it supersedes the skill's old cast limit)
 
 Voices now: 父 青山龍星, 息子 白上虎太郎, じいちゃん 麒ヶ島宗麟 (53), タマ 黒沢冴白 (100), 山田さん 玄野武宏 (11), ミカ 春歌ナナ (54), narration 雀松朱司. Speaker prefixes: `父「`, `息子「`, `じいちゃん「`, `タマ「`, `山田さん「`, `ミカ「`. A little girl (ミカ) is allowed; no women.
