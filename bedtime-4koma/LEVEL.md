@@ -86,3 +86,8 @@ Update this file after reading new answers in the page's `answers` database.
 - Fix: queue in the page database, collection `words` (see README "Word queue"). Queued words come FIRST, ahead of missed/partly (his rule).
 - 55 answers read (all got; funny mostly lol in arc 2), 2 unanswered (第19, 第20話), so added 8: 第21–28話 with his 7 reported words (どころ twice: どころか "far from", and "let alone"). All marked `used` in the queue.
 - His understanding of each word was correct. Notes: 耳 = edge is everyday mainly as パンの耳 (also 紙/布の耳); plain 金 is rough, お金を払う is the neutral form.
+
+## Update 2026-10-17: 64 answers read, 1 unanswered (第28話), topped up 9 (第29–37話, arc 4)
+- All arc-3 words graded got (mostly lol; 偶然 meh). 歯医者 #5 and 弁当 #4 got after the earlier miss/partly, so no missed/partly words were left to bring back.
+- Queued words first (both reported 10-17): 無視する (第29話), かなり (第30話). Then due got words, oldest first / meh-scored first: 地図, 鏡, 布団, 電話, 重い, 掃除, 時計, each in a new scene.
+- Same rules: plain grammar, at most 3 speakers, explicit last line. Reused callbacks that scored lol: crow, Mika's deadpan, Tama's deadpan, 失敗ノート (九番目 in 第30話), Yamada's 偶然 in 第33話.

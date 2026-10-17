@@ -41,3 +41,8 @@ The last panel must flip or escalate, never just comment. Essam's own comments o
 - 第27話 ラジオたいそう: everyone バラバラ, only Tama (stretching) does it right.
 - 第28話 Pool: Dad can't even get into the water (泳ぐどころか); Mika, 6, offers to teach him.
 - 失敗ノート: last #8 in 第24話.
+
+## Arc 4 (第29–37話, written 2026-10-17)
+- Queued words: 無視する (第29話 Dad ignores Yamada until the steak), かなり (第30話 Mika: かなり…、へた).
+- Then: 地図 (Grandpa's adventure map, 3 hours to the next-door konbini), 鏡 (the crow gives the crust it hates to its reflection), 布団 (Tama, the crow, then Yamada hide in Dad's futon), 電話 (phone in the fridge, Tama did it), 重い (the scale; Tama is light), 掃除 (leaves go back and forth over the fence), 時計 (Tama is the most accurate clock).
+- 失敗ノート: last #9 in 第30話.
