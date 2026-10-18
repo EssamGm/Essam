@@ -91,3 +91,9 @@ Update this file after reading new answers in the page's `answers` database.
 - All arc-3 words graded got (mostly lol; 偶然 meh). 歯医者 #5 and 弁当 #4 got after the earlier miss/partly, so no missed/partly words were left to bring back.
 - Queued words first (both reported 10-17): 無視する (第29話), かなり (第30話). Then due got words, oldest first / meh-scored first: 地図, 鏡, 布団, 電話, 重い, 掃除, 時計, each in a new scene.
 - Same rules: plain grammar, at most 3 speakers, explicit last line. Reused callbacks that scored lol: crow, Mika's deadpan, Tama's deadpan, 失敗ノート (九番目 in 第30話), Yamada's 偶然 in 第33話.
+
+## Update 2026-10-18: 74 answers read, 0 unanswered, topped up a full 10 (第38–47話, arc 5)
+- All 74 strips answered, all latest grades got. Lol: 傘, 鍵, 財布, 眼鏡, 宿題, 洗濯, 約束, 写真, 耳, かなり, 無視, 布団 #3. Meh/zzz: 地図 #4, 鏡 #4, 掃除 #5 (zzz), 時計 #4, 電話 #3, 重い #4 (meh). No missed/partly words left, so none re-queued.
+- Queued word first: 上着 (reported 10-18, wants the kanji 着 reviewed) -> 第38話. Then due lol-scoring got words, each in a new scene: 宿題, 洗濯, 約束, 写真, 眼鏡, 財布, 傘, 耳, 鍵.
+- Funny recipe kept: reversal on the last line + callbacks (Tama "knew all along", crow hates crust, Grandpa's tall tales turn out true, Mika's deadpan). Rule of three in 上着 (Mika, Tama, crow in one jacket).
+- 失敗ノート: 十番目 in 第41話 (約束), 十一番目 in 第47話 (鍵).

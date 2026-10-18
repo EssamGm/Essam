@@ -1196,12 +1196,142 @@ const strips = [
     { art: svg(floor + futonbed(60) + cat(110,100) + son(260,72,'flat')),
       lines:['タマ「朝ごはんの時間だ。」','息子「タマは、いちばん正しい<b>時計</b>だね。」'] }
   ]},
+  { id:"2026-10-18-uwagi", title:"第38話 さむい朝", word:"上着", reading:"うわぎ", meaning:"jacket; outer coat",
+    kanji:"上 = up, over + 着 = wear (as in 着る, to wear): the thing you wear over your clothes. 上着をぬぐ = take off your jacket.",
+    model:"Episode 38. It is a cold morning and Mika is shivering, so Dad gives her his jacket. It reaches her feet. Then Tama gets in. Then the crow. Three heads stick out of the jacket. Dad is the one left in the cold: “It's my jacket, but I'm the one who's cold.”",
+    panels:[
+    { art: svg(floor + dad(110,58,'plain') + mika(240,76,'plain') + wind(130,30)),
+      lines:['<span class="n">さむい朝。</span>','ミカ「おじさん、さむい。」','父「じゃあ、お父さんの<b>上着</b>を貸すよ。」'] },
+    { art: svg(floor + dad(90,58,'laugh') + tee(240,76,'#e2ebd6') + mika(240,76,'open')),
+      lines:['<span class="n">ミカは、<b>上着</b>を着た。大きい。足まである。</span>','ミカ「あったかい！」'] },
+    { art: svg(floor + dad(70,58,'worry') + tee(210,70,'#e2ebd6') + mika(210,76,'plain') + cat(270,120) + crow(150,110)),
+      lines:['<span class="n">タマが、<b>上着</b>の中に入った。</span>','タマ「あたたかいから。」','<span class="n">カラスも入った。</span>'] },
+    { art: svg(floor + dad(90,58,'worry') + drops(90,58) + tee(230,70,'#e2ebd6') + mika(230,70,'plain') + cat(206,100,false) + crow(262,96)),
+      lines:['<span class="n"><b>上着</b>から、頭が三つ出ている。</span>','父「お父さんの<b>上着</b>なのに……お父さんが、さむい。」'] }
+  ]},
+  { id:"2026-10-18-shukudai3", title:"第39話 かんたんな宿題", word:"宿題", reading:"しゅくだい", meaning:"homework",
+    kanji:"宿 = lodging, stay (as in 宿, inn) + 題 = topic, title: a topic you take home with you.",
+    model:"Episode 39. Dad says Sora's homework is easy and he'll do it all. He proudly writes 1+1=3. Sora tells him it's 2; Dad says that's a hard one. Six-year-old Mika walks by and says the answer: “Two.” Dad lost to a six-year-old.",
+    panels:[
+    { art: svg(floor + table(40,300,112) + book(120,90) + son(90,72,'flat') + dad(220,58,'laugh')),
+      lines:['<span class="n">夜。息子は、<b>宿題</b>をしている。</span>','父「<b>宿題</b>か。かんたん、かんたん。お父さんがやる！」'] },
+    { art: svg(floor + table(40,300,112) + dad(120,58,'laugh') + sparkle(170,40) + `<text x="210" y="80" font-size="26" font-weight="700" fill="#1b1d24" font-family="Zen Maru Gothic, sans-serif">1+1=3</text>` + son(260,72,'flat')),
+      lines:['父「できた！ 答えは三だ！」'] },
+    { art: svg(floor + dad(90,58,'worry') + fx(130,34) + son(230,72,'flat')),
+      lines:['息子「お父さん、一たす一は、二だよ。」','父「それは、むずかしい問題だ。」'] },
+    { art: svg(floor + dad(70,58,'blank') + son(160,72,'flat') + mika(260,76,'plain')),
+      lines:['<span class="n">ミカが、とおりかかった。</span>','ミカ「一たす一は、二だよ。」','父「……六さいに、まけた。」'] }
+  ]},
+  { id:"2026-10-18-sentaku3", title:"第40話 白いシャツ", word:"洗濯", reading:"せんたく", meaning:"laundry; washing clothes",
+    kanji:"洗 = wash (as in 手を洗う) + 濯 = rinse. 洗濯機 = a washing machine.",
+    model:"Episode 40. Dad does the laundry himself and throws everything in at once, including one red sock, while Tama watches from on top of the machine. He takes the clothes out and every white shirt is pink. Dad: “Why?!” Tama: “Tama watched. Tama didn't say.”",
+    panels:[
+    { art: svg(floor + washer(190) + dad(90,58,'laugh')),
+      lines:['<span class="n">父が、はじめて<b>洗濯</b>をする。</span>','父「<b>洗濯</b>なんて、かんたんだ！」'] },
+    { art: svg(floor + washer(190) + dad(90,58,'laugh') + tee(60,110,'#c0392b') + cat(230,50)),
+      lines:['<span class="n">父は、ぜんぶ一緒に入れた。赤いくつ下も。</span>','<span class="n">タマは、洗濯機の上で見ている。</span>'] },
+    { art: svg(floor + washer(190) + dad(90,58,'shock') + tee(150,100,'#f4b6c2') + tee(110,110,'#f4b6c2')),
+      lines:['<span class="n"><b>洗濯</b>が終わった。</span>','父「白いシャツが、ぜんぶピンクだ！」'] },
+    { art: svg(floor + dad(90,58,'blank') + cat(230,130)),
+      lines:['父「なんで、言ってくれなかったんだ！」','タマ「タマは、見ていた。言わなかった。」'] }
+  ]},
+  { id:"2026-10-18-yakusoku3", title:"第41話 ゆびきり", word:"約束", reading:"やくそく", meaning:"promise; appointment",
+    kanji:"約 = promise, approximately + 束 = bundle: a bound agreement. 約束を守る = keep a promise, 約束をやぶる = break one.",
+    model:"Episode 41. Mika asks Dad to promise not to lie, and they pinky-swear. A minute later she asks if he ate the cake. “No.” There is cream on his nose. Mika: “You broke the promise in one minute.” Sora: “Failure notebook, number ten.”",
+    panels:[
+    { art: svg(floor + dad(110,58,'plain') + mika(230,76,'plain')),
+      lines:['ミカ「おじさん、<b>約束</b>して。ウソは言わない。」','父「いいよ。<b>約束</b>する。」'] },
+    { art: svg(floor + dad(110,58,'laugh') + mika(230,76,'plain') + sparkle(170,40)),
+      lines:['<span class="n">二人は、ゆびきりをした。</span>','父「ゆびきり、げんまん。」'] },
+    { art: svg(floor + table(30,150,112) + cake(90,100) + dad(220,58,'worry') + `<circle cx="226" cy="64" r="4" fill="#fff" stroke="#c98a3a" stroke-width="2"/>` + mika(290,76,'plain')),
+      lines:['<span class="n">一分後。</span>','ミカ「おじさん、ケーキを食べた？」','父「食べていないよ。」'] },
+    { art: svg(floor + dad(90,58,'blank') + mika(180,76,'plain') + son(270,72,'flat') + notebook(20,100,'10')),
+      lines:['ミカ「鼻に、クリームがついてる。」','ミカ「<b>約束</b>、一分でやぶったね。」','息子「失敗ノート、十番目。」'] }
+  ]},
+  { id:"2026-10-18-shashin4", title:"第42話 山田さんの車", word:"写真", reading:"しゃしん", meaning:"photo",
+    kanji:"写 = copy, capture + 真 = true: a “true copy” of what was there.",
+    model:"Episode 42. Yamada shows Dad photos of his new car. Photo one: Tama is on the roof. Photo two: Tama is on the hood. Photo three: Tama is in the driver's seat. Yamada: “Why is Tama in every photo?” Tama: “It's Tama's car.”",
+    panels:[
+    { art: svg(floor + yamada(100,58,'laugh') + sparkle(150,30) + dad(250,58,'plain')),
+      lines:['山田さん「新しい車の<b>写真</b>です。見てください。」'] },
+    { art: svg(floor + car2(160) + cat(160,70)),
+      lines:['<span class="n">一まい目の<b>写真</b>。</span>','<span class="n">車の上に、タマがいる。</span>'] },
+    { art: svg(floor + car2(160) + cat(80,92,false,true)),
+      lines:['<span class="n">二まい目の<b>写真</b>。</span>','<span class="n">車の前に、タマがいる。</span>','<span class="n">三まい目は、車の中にタマ。</span>'] },
+    { art: svg(floor + yamada(90,58,'worry') + drops(90,58) + cat(190,130) + dad(270,58,'laugh')),
+      lines:['山田さん「どの<b>写真</b>にも、タマがいる……」','タマ「タマの車だ。」'] }
+  ]},
+  { id:"2026-10-18-megane4", title:"第43話 見えない朝", word:"眼鏡", reading:"めがね", meaning:"glasses",
+    kanji:"眼 = eye (as in 眼科, eye doctor) + 鏡 = mirror (the same 鏡 as in 鏡): an eye mirror.",
+    model:"Episode 43. Grandpa can't find his glasses and can't see. He calls Dad “Mika, you've grown!”. Tama says the crow took the glasses. In the tree, the crow is wearing them and reading the newspaper. Grandpa: “Can that crow see better than me?”",
+    panels:[
+    { art: svg(floor + gramps(110,64,'shock') + fx(140,36)),
+      lines:['<span class="n">朝。じいちゃんの<b>眼鏡</b>がない。</span>','じいちゃん「わしの<b>眼鏡</b>は、どこじゃ？」'] },
+    { art: svg(floor + gramps(110,64,'laugh') + dad(240,58,'blank')),
+      lines:['じいちゃん「ミカちゃん、大きくなったのう。」','父「お父さんだよ。」'] },
+    { art: svg(floor + gramps(90,64,'plain') + cat(230,130)),
+      lines:['タマ「<b>眼鏡</b>は、カラスが持っていった。」'] },
+    { art: svg(floor + tree(80) + crow(80,60) + `<circle cx="95" cy="54" r="6" fill="none" ${S} stroke-width="1.4"/><circle cx="108" cy="54" r="6" fill="none" ${S} stroke-width="1.4"/>` + newspaper(80,80) + son(230,72,'flat') + gramps(290,64,'shock')),
+      lines:['息子「カラスが、<b>眼鏡</b>をかけて、新聞を読んでいるよ。」','じいちゃん「わしより、よく見えるのか。」'] }
+  ]},
+  { id:"2026-10-18-saifu4", title:"第44話 十円", word:"財布", reading:"さいふ", meaning:"wallet",
+    kanji:"財 = money, wealth (as in 財産, property) + 布 = cloth: a cloth for your money.",
+    model:"Episode 44. Grandpa shows his wallet: just one old 10-yen coin. He says a bear gave it to him long ago. Sora: another lie? Dad remembers the bear photo was true (episode 10). Then Tama says the bear is watching from the window right now.",
+    panels:[
+    { art: svg(floor + gramps(110,64,'laugh') + dad(240,58,'plain')),
+      lines:['じいちゃん「わしの<b>財布</b>を見せよう。」'] },
+    { art: svg(floor + gramps(110,64,'laugh') + `<rect x="150" y="84" width="40" height="28" rx="5" fill="#c98a3a" ${S} stroke-width="1.8"/>` + coin(210,70) + son(260,72,'flat')),
+      lines:['<span class="n"><b>財布</b>の中には、十円が一まい。</span>','じいちゃん「この十円は、クマにもらったんじゃ。」','息子「また、うそ？」'] },
+    { art: svg(floor + dad(110,58,'worry') + son(240,72,'plain') + fx(150,34)),
+      lines:['父「でも、クマの写真は、本当だった……」','息子「あっ。」'] },
+    { art: svg(wall + floor + openWin(212,30) + bear(250,60) + cat(110,130) + gramps(60,64,'shock')),
+      lines:['タマ「そのクマは、さっきから、窓の外にいる。」'] }
+  ]},
+  { id:"2026-10-18-kasa4", title:"第45話 風の日", word:"傘", reading:"かさ", meaning:"umbrella",
+    kanji:"The kanji is a picture: a canopy with four little 人 (people) sheltering under it. 傘をさす = to put up an umbrella.",
+    model:"Episode 45. On a windy day Grandpa says he once flew through the sky with an umbrella. Dad: “Another lie.” Tama: “It's true.” Grandpa opens his umbrella in the strong wind and slowly rises into the air. Dad: “…It was true.”",
+    panels:[
+    { art: svg(floor + wind(120,30) + gramps(110,64,'laugh') + dad(240,58,'blank') + cat(180,130)),
+      lines:['<span class="n">風が強い日。</span>','じいちゃん「昔、<b>傘</b>で空をとんだことがある。」','父「また、うそだ。」','タマ「本当だ。」'] },
+    { art: svg(floor + wind(40,30) + wind(200,50) + gramps(150,64,'laugh') + stick(190,10,70)),
+      lines:['<span class="n">じいちゃんが、<b>傘</b>を開いた。</span>','じいちゃん「見ていろ。」'] },
+    { art: svg(wind(30,60) + floor + gramps(150,30,'laugh') + stick(190,-20,60) + dad(70,58,'shock') + son(260,72,'open')),
+      lines:['<span class="n">風が吹いた。じいちゃんが、ふわっと上がった。</span>'] },
+    { art: svg(wind(30,60) + floor + gramps(150,6,'laugh') + stick(190,-40,50) + dad(70,58,'blank') + son(260,72,'flat')),
+      lines:['息子「おじいちゃんが、空をとんでいる。」','父「……本当だった。」'] }
+  ]},
+  { id:"2026-10-18-mimi2", title:"第46話 サンドイッチ", word:"耳", reading:"みみ", meaning:"ear; edge, crust (パンの耳)",
+    kanji:"耳 = ear. The edge of bread, tofu, paper or cloth is also called 耳 (パンの耳 = bread crust).",
+    model:"Episode 46. Dad tells Mika that eating the crust makes you smart, but she hates it, so he cuts the crust off her sandwich. The crow, who also hates crust, takes the soft sandwiches. Dad is left with a plate of crust only. Mika: “Uncle, you'll get smart.”",
+    panels:[
+    { art: svg(floor + table(40,300,112) + crustring(130,86) + crustring(180,86) + dad(70,58,'laugh') + mika(260,76,'plain')),
+      lines:['父「パンの<b>耳</b>を食べると、頭がよくなるぞ。」','ミカ「<b>耳</b>は、きらい。」'] },
+    { art: svg(floor + table(40,300,112) + crustring(140,86) + dad(70,58,'plain') + mika(260,76,'plain')),
+      lines:['<span class="n">父は、パンの<b>耳</b>を切った。</span>','父「じゃあ、<b>耳</b>は、お父さんが食べる。」'] },
+    { art: svg(floor + table(40,300,112) + crow(150,70) + dad(70,58,'shock') + mika(260,76,'open')),
+      lines:['<span class="n">その時、カラスが来た。</span>','<span class="n">カラスは、やわらかいところだけ、持っていった。</span>'] },
+    { art: svg(floor + table(40,300,112) + plate(130,108) + plate(190,108) + dad(80,58,'blank') + mika(260,76,'plain')),
+      lines:['<span class="n">お皿には、パンの<b>耳</b>だけ。</span>','ミカ「おじさん、頭がよくなるね。」'] }
+  ]},
+  { id:"2026-10-18-kagi4", title:"第47話 小さいドア", word:"鍵", reading:"かぎ", meaning:"key; lock",
+    kanji:"金 (metal) on the left — keys and locks are metal. 鍵をかける = to lock, 鍵をあける = to unlock.",
+    model:"Episode 47. Dad comes home at night and his key is gone; the crow took it. Tama tells him to use the cat door. Dad squeezes in and gets stuck halfway. Sora: “Dad, your belly is stuck.” Dad: “The belly is the problem, not the key.” Failure notebook, number ten.",
+    panels:[
+    { art: svg(dusk + floor + door(190,false) + dad(100,58,'worry')),
+      lines:['<span class="n">夜。父が帰ってきた。</span>','父「あれ？ <b>鍵</b>がない！」'] },
+    { art: svg(dusk + floor + tree(250) + crow(250,40) + keyring(250,56) + dad(90,58,'shock')),
+      lines:['<span class="n">カラスが、<b>鍵</b>を持っている。</span>','父「返せー！」'] },
+    { art: svg(dusk + floor + door(190,false) + `<rect x="196" y="120" width="28" height="26" rx="4" fill="#cfa66b" ${S} stroke-width="1.8"/>` + cat(140,130) + dad(70,58,'plain')),
+      lines:['タマ「ここから入れ。タマの入口だ。」'] },
+    { art: svg(dusk + floor + door(190,false) + dad(180,120,'worry') + son(280,72,'flat') + notebook(20,100,'11')),
+      lines:['<span class="n">父は、ドアの小さい入口にはさまった。</span>','息子「お父さん、おなかがつかえているよ。失敗ノート、十一番目。」','父「問題は<b>鍵</b>じゃなくて、おなかだ……」'] }
+  ]},
 ];
 /* STRIPS-END */
 
 /* Generated by build.py: credits, and per strip id the URL of its audio file.
    Each audio/<id>.json holds clips[panel][line] = {n: normal-speed mp3, s: slow mp3} as data: URIs. */
-const VOICE = /*VOICE-START*/{"credit":["VOICEVOX:雀松朱司","VOICEVOX:白上虎太郎","VOICEVOX:黒沢冴白","VOICEVOX:青山龍星","VOICEVOX:麒ヶ島宗麟","VOICEVOX:玄野武宏","VOICEVOX:春歌ナナ"],"audio":{"2026-10-11-kagami":"audio/2026-10-11-kagami.json?v=726d77a3747e","2026-10-11-kagi":"audio/2026-10-11-kagi.json?v=f9f43b8efa9f","2026-10-11-kasa":"audio/2026-10-11-kasa.json?v=5efd6f3339fa","2026-10-11-imasara":"audio/2026-10-11-imasara.json?v=0215d3b3d30d","2026-10-11-barabara":"audio/2026-10-11-barabara.json?v=b542c7a57ab4","2026-10-11-kagami2":"audio/2026-10-11-kagami2.json?v=824f5363bf3a","2026-10-11-kagi2":"audio/2026-10-11-kagi2.json?v=93eff2ea2c03","2026-10-11-kasa2":"audio/2026-10-11-kasa2.json?v=0d8020fbb4b2","2026-10-11-megane":"audio/2026-10-11-megane.json?v=f27caf20779f","2026-10-11-saifu":"audio/2026-10-11-saifu.json?v=3306f45e365f","2026-10-11-tokei":"audio/2026-10-11-tokei.json?v=28b745e992b5","2026-10-11-shashin":"audio/2026-10-11-shashin.json?v=65bb630b2173","2026-10-11-bentou":"audio/2026-10-11-bentou.json?v=f4d668058925","2026-10-11-shukudai":"audio/2026-10-11-shukudai.json?v=efa2ab4fe8c7","2026-10-11-haisha":"audio/2026-10-11-haisha.json?v=d0b7f756ae2b","2026-10-11-souji":"audio/2026-10-11-souji.json?v=064b525b9aa4","2026-10-11-chizu":"audio/2026-10-11-chizu.json?v=3812cd9a501a","2026-10-11-omoi":"audio/2026-10-11-omoi.json?v=240e0d2286df","2026-10-11-shashin2":"audio/2026-10-11-shashin2.json?v=b1daaa7d12d2","2026-10-11-souji2":"audio/2026-10-11-souji2.json?v=7e95209445b6","2026-10-11-chizu2":"audio/2026-10-11-chizu2.json?v=8be0e809d9b9","2026-10-11-haisha2":"audio/2026-10-11-haisha2.json?v=d9cd4e5df4e4","2026-10-11-tokei2":"audio/2026-10-11-tokei2.json?v=f9c695fc7b13","2026-10-11-futon":"audio/2026-10-11-futon.json?v=662985ab92e4","2026-10-11-denwa":"audio/2026-10-11-denwa.json?v=0e8e03e16a7b","2026-10-11-sentaku":"audio/2026-10-11-sentaku.json?v=faf413e4f14b","2026-10-11-yakusoku":"audio/2026-10-11-yakusoku.json?v=33c72a0a54de","2026-10-11-densha":"audio/2026-10-11-densha.json?v=1a095a1e6b80","2026-10-12-souji3":"audio/2026-10-12-souji3.json?v=304f61506766","2026-10-12-imasara2":"audio/2026-10-12-imasara2.json?v=2413c4281dc9","2026-10-12-chizu3":"audio/2026-10-12-chizu3.json?v=63897a6c675c","2026-10-12-haisha3":"audio/2026-10-12-haisha3.json?v=b0d390a14a1f","2026-10-12-omoi2":"audio/2026-10-12-omoi2.json?v=8cc49f19c4f0","2026-10-13-barabara2":"audio/2026-10-13-barabara2.json?v=26ade176092d","2026-10-13-saifu2":"audio/2026-10-13-saifu2.json?v=b44f1086d8c4","2026-10-14-megane2":"audio/2026-10-14-megane2.json?v=84bed8f023fe","2026-10-14-bentou2":"audio/2026-10-14-bentou2.json?v=4ef18ff415a0","2026-10-16-haisha4":"audio/2026-10-16-haisha4.json?v=4716f50031f7","2026-10-16-densha2":"audio/2026-10-16-densha2.json?v=99cc40170b65","2026-10-16-imasara3":"audio/2026-10-16-imasara3.json?v=7a7172187a69","2026-10-16-bentou3":"audio/2026-10-16-bentou3.json?v=3ab497e97e9e","2026-10-16-futon2":"audio/2026-10-16-futon2.json?v=c281b4051a72","2026-10-16-denwa2":"audio/2026-10-16-denwa2.json?v=8c10dd8e7319","2026-10-16-sentaku2":"audio/2026-10-16-sentaku2.json?v=b029b4f3e556","2026-10-16-yakusoku2":"audio/2026-10-16-yakusoku2.json?v=c7521a8b4537","2026-10-16-kagami3":"audio/2026-10-16-kagami3.json?v=d5c08c355cdf","2026-10-16-kagi3":"audio/2026-10-16-kagi3.json?v=01ae22f8d70c","2026-10-16-haisha5":"audio/2026-10-16-haisha5.json?v=5b4959a04d0b","2026-10-16-bentou4":"audio/2026-10-16-bentou4.json?v=604d83aed027","2026-10-16-kasa3":"audio/2026-10-16-kasa3.json?v=0cb37c0ef7b0","2026-10-16-saifu3":"audio/2026-10-16-saifu3.json?v=e26be9ff19ef","2026-10-16-megane3":"audio/2026-10-16-megane3.json?v=3c936c226402","2026-10-16-shashin3":"audio/2026-10-16-shashin3.json?v=4ae9e5184965","2026-10-16-tokei3":"audio/2026-10-16-tokei3.json?v=d9234ff63f1f","2026-10-16-shukudai2":"audio/2026-10-16-shukudai2.json?v=43cf74736876","2026-10-16-souji4":"audio/2026-10-16-souji4.json?v=457015130c0c","2026-10-16-omoi3":"audio/2026-10-16-omoi3.json?v=5af68367ad15","2026-10-16-guuzen":"audio/2026-10-16-guuzen.json?v=5260bca2c323","2026-10-16-mimi":"audio/2026-10-16-mimi.json?v=2972650aca5d","2026-10-16-dokoro":"audio/2026-10-16-dokoro.json?v=3094512febde","2026-10-16-genki":"audio/2026-10-16-genki.json?v=243f71710038","2026-10-16-kane":"audio/2026-10-16-kane.json?v=fe5fdf5cc6da","2026-10-16-imasara4":"audio/2026-10-16-imasara4.json?v=42dadfa2ccc9","2026-10-16-barabara3":"audio/2026-10-16-barabara3.json?v=1a8e5f9cfc74","2026-10-16-dokoro2":"audio/2026-10-16-dokoro2.json?v=dc99a8462bcf","2026-10-17-mushi":"audio/2026-10-17-mushi.json?v=b3aa190ecb03","2026-10-17-kanari":"audio/2026-10-17-kanari.json?v=8fdb225dfb9f","2026-10-17-chizu4":"audio/2026-10-17-chizu4.json?v=b9efeabd8a36","2026-10-17-kagami4":"audio/2026-10-17-kagami4.json?v=be049b0f71c8","2026-10-17-futon3":"audio/2026-10-17-futon3.json?v=1236000f18e7","2026-10-17-denwa3":"audio/2026-10-17-denwa3.json?v=26bf92b29422","2026-10-17-omoi4":"audio/2026-10-17-omoi4.json?v=f741b6e6f451","2026-10-17-souji5":"audio/2026-10-17-souji5.json?v=ee56ef2aa701","2026-10-17-tokei4":"audio/2026-10-17-tokei4.json?v=d3ee83df731d"}}/*VOICE-END*/;
+const VOICE = /*VOICE-START*/{"credit":["VOICEVOX:雀松朱司","VOICEVOX:白上虎太郎","VOICEVOX:黒沢冴白","VOICEVOX:青山龍星","VOICEVOX:麒ヶ島宗麟","VOICEVOX:玄野武宏","VOICEVOX:春歌ナナ"],"audio":{"2026-10-11-kagami":"audio/2026-10-11-kagami.json?v=726d77a3747e","2026-10-11-kagi":"audio/2026-10-11-kagi.json?v=f9f43b8efa9f","2026-10-11-kasa":"audio/2026-10-11-kasa.json?v=5efd6f3339fa","2026-10-11-imasara":"audio/2026-10-11-imasara.json?v=0215d3b3d30d","2026-10-11-barabara":"audio/2026-10-11-barabara.json?v=b542c7a57ab4","2026-10-11-kagami2":"audio/2026-10-11-kagami2.json?v=824f5363bf3a","2026-10-11-kagi2":"audio/2026-10-11-kagi2.json?v=93eff2ea2c03","2026-10-11-kasa2":"audio/2026-10-11-kasa2.json?v=0d8020fbb4b2","2026-10-11-megane":"audio/2026-10-11-megane.json?v=f27caf20779f","2026-10-11-saifu":"audio/2026-10-11-saifu.json?v=3306f45e365f","2026-10-11-tokei":"audio/2026-10-11-tokei.json?v=28b745e992b5","2026-10-11-shashin":"audio/2026-10-11-shashin.json?v=65bb630b2173","2026-10-11-bentou":"audio/2026-10-11-bentou.json?v=f4d668058925","2026-10-11-shukudai":"audio/2026-10-11-shukudai.json?v=efa2ab4fe8c7","2026-10-11-haisha":"audio/2026-10-11-haisha.json?v=d0b7f756ae2b","2026-10-11-souji":"audio/2026-10-11-souji.json?v=064b525b9aa4","2026-10-11-chizu":"audio/2026-10-11-chizu.json?v=3812cd9a501a","2026-10-11-omoi":"audio/2026-10-11-omoi.json?v=240e0d2286df","2026-10-11-shashin2":"audio/2026-10-11-shashin2.json?v=b1daaa7d12d2","2026-10-11-souji2":"audio/2026-10-11-souji2.json?v=7e95209445b6","2026-10-11-chizu2":"audio/2026-10-11-chizu2.json?v=8be0e809d9b9","2026-10-11-haisha2":"audio/2026-10-11-haisha2.json?v=d9cd4e5df4e4","2026-10-11-tokei2":"audio/2026-10-11-tokei2.json?v=f9c695fc7b13","2026-10-11-futon":"audio/2026-10-11-futon.json?v=662985ab92e4","2026-10-11-denwa":"audio/2026-10-11-denwa.json?v=0e8e03e16a7b","2026-10-11-sentaku":"audio/2026-10-11-sentaku.json?v=faf413e4f14b","2026-10-11-yakusoku":"audio/2026-10-11-yakusoku.json?v=33c72a0a54de","2026-10-11-densha":"audio/2026-10-11-densha.json?v=1a095a1e6b80","2026-10-12-souji3":"audio/2026-10-12-souji3.json?v=304f61506766","2026-10-12-imasara2":"audio/2026-10-12-imasara2.json?v=2413c4281dc9","2026-10-12-chizu3":"audio/2026-10-12-chizu3.json?v=63897a6c675c","2026-10-12-haisha3":"audio/2026-10-12-haisha3.json?v=b0d390a14a1f","2026-10-12-omoi2":"audio/2026-10-12-omoi2.json?v=8cc49f19c4f0","2026-10-13-barabara2":"audio/2026-10-13-barabara2.json?v=26ade176092d","2026-10-13-saifu2":"audio/2026-10-13-saifu2.json?v=b44f1086d8c4","2026-10-14-megane2":"audio/2026-10-14-megane2.json?v=84bed8f023fe","2026-10-14-bentou2":"audio/2026-10-14-bentou2.json?v=4ef18ff415a0","2026-10-16-haisha4":"audio/2026-10-16-haisha4.json?v=4716f50031f7","2026-10-16-densha2":"audio/2026-10-16-densha2.json?v=99cc40170b65","2026-10-16-imasara3":"audio/2026-10-16-imasara3.json?v=7a7172187a69","2026-10-16-bentou3":"audio/2026-10-16-bentou3.json?v=3ab497e97e9e","2026-10-16-futon2":"audio/2026-10-16-futon2.json?v=c281b4051a72","2026-10-16-denwa2":"audio/2026-10-16-denwa2.json?v=8c10dd8e7319","2026-10-16-sentaku2":"audio/2026-10-16-sentaku2.json?v=b029b4f3e556","2026-10-16-yakusoku2":"audio/2026-10-16-yakusoku2.json?v=c7521a8b4537","2026-10-16-kagami3":"audio/2026-10-16-kagami3.json?v=d5c08c355cdf","2026-10-16-kagi3":"audio/2026-10-16-kagi3.json?v=01ae22f8d70c","2026-10-16-haisha5":"audio/2026-10-16-haisha5.json?v=5b4959a04d0b","2026-10-16-bentou4":"audio/2026-10-16-bentou4.json?v=604d83aed027","2026-10-16-kasa3":"audio/2026-10-16-kasa3.json?v=0cb37c0ef7b0","2026-10-16-saifu3":"audio/2026-10-16-saifu3.json?v=e26be9ff19ef","2026-10-16-megane3":"audio/2026-10-16-megane3.json?v=3c936c226402","2026-10-16-shashin3":"audio/2026-10-16-shashin3.json?v=4ae9e5184965","2026-10-16-tokei3":"audio/2026-10-16-tokei3.json?v=d9234ff63f1f","2026-10-16-shukudai2":"audio/2026-10-16-shukudai2.json?v=43cf74736876","2026-10-16-souji4":"audio/2026-10-16-souji4.json?v=457015130c0c","2026-10-16-omoi3":"audio/2026-10-16-omoi3.json?v=5af68367ad15","2026-10-16-guuzen":"audio/2026-10-16-guuzen.json?v=5260bca2c323","2026-10-16-mimi":"audio/2026-10-16-mimi.json?v=2972650aca5d","2026-10-16-dokoro":"audio/2026-10-16-dokoro.json?v=3094512febde","2026-10-16-genki":"audio/2026-10-16-genki.json?v=243f71710038","2026-10-16-kane":"audio/2026-10-16-kane.json?v=fe5fdf5cc6da","2026-10-16-imasara4":"audio/2026-10-16-imasara4.json?v=42dadfa2ccc9","2026-10-16-barabara3":"audio/2026-10-16-barabara3.json?v=1a8e5f9cfc74","2026-10-16-dokoro2":"audio/2026-10-16-dokoro2.json?v=dc99a8462bcf","2026-10-17-mushi":"audio/2026-10-17-mushi.json?v=b3aa190ecb03","2026-10-17-kanari":"audio/2026-10-17-kanari.json?v=8fdb225dfb9f","2026-10-17-chizu4":"audio/2026-10-17-chizu4.json?v=b9efeabd8a36","2026-10-17-kagami4":"audio/2026-10-17-kagami4.json?v=be049b0f71c8","2026-10-17-futon3":"audio/2026-10-17-futon3.json?v=1236000f18e7","2026-10-17-denwa3":"audio/2026-10-17-denwa3.json?v=26bf92b29422","2026-10-17-omoi4":"audio/2026-10-17-omoi4.json?v=f741b6e6f451","2026-10-17-souji5":"audio/2026-10-17-souji5.json?v=ee56ef2aa701","2026-10-17-tokei4":"audio/2026-10-17-tokei4.json?v=d3ee83df731d","2026-10-18-uwagi":"audio/2026-10-18-uwagi.json?v=1685ea806f16","2026-10-18-shukudai3":"audio/2026-10-18-shukudai3.json?v=66c7816904ea","2026-10-18-sentaku3":"audio/2026-10-18-sentaku3.json?v=f0e1ab4de1a3","2026-10-18-yakusoku3":"audio/2026-10-18-yakusoku3.json?v=908b6bb221f9","2026-10-18-shashin4":"audio/2026-10-18-shashin4.json?v=52323c235480","2026-10-18-megane4":"audio/2026-10-18-megane4.json?v=bc15d75bbfb0","2026-10-18-saifu4":"audio/2026-10-18-saifu4.json?v=2a50b47de408","2026-10-18-kasa4":"audio/2026-10-18-kasa4.json?v=c8202e233f98","2026-10-18-mimi2":"audio/2026-10-18-mimi2.json?v=49f8960bb446","2026-10-18-kagi4":"audio/2026-10-18-kagi4.json?v=60c7d5abfc89"}}/*VOICE-END*/;
 
 let i = 0;
 const stage = document.getElementById('stage');

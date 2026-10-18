@@ -46,3 +46,8 @@ The last panel must flip or escalate, never just comment. Essam's own comments o
 - Queued words: 無視する (第29話 Dad ignores Yamada until the steak), かなり (第30話 Mika: かなり…、へた).
 - Then: 地図 (Grandpa's adventure map, 3 hours to the next-door konbini), 鏡 (the crow gives the crust it hates to its reflection), 布団 (Tama, the crow, then Yamada hide in Dad's futon), 電話 (phone in the fridge, Tama did it), 重い (the scale; Tama is light), 掃除 (leaves go back and forth over the fence), 時計 (Tama is the most accurate clock).
 - 失敗ノート: last #9 in 第30話.
+
+## Arc 5 (第38–47話, written 2026-10-18)
+- Queued word: 上着 (第38話 Dad lends his 上着 to Mika; Tama and the crow climb in; Dad is cold).
+- Then: 宿題 (Dad: 1+1=3, Mika corrects him), 洗濯 (pink shirts, Tama saw and said nothing), 約束 (Mika: broken in one minute, cake cream on his nose), 写真 (Tama in every photo of Yamada's car), 眼鏡 (the crow reads the newspaper with Grandpa's glasses), 財布 (Grandpa's bear 10-yen coin; the bear watches at the window), 傘 (Grandpa really flies with an umbrella; Tama said so), 耳 (Dad's "crust makes you smart" comes back on him), 鍵 (crow steals the key; Dad stuck in Tama's door).
+- 失敗ノート: last #11 in 第47話.
