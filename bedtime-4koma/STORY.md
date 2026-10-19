@@ -16,7 +16,7 @@ The last panel must flip or escalate, never just comment. Essam's own comments o
 - **カラス:** the crow. Steals food and shiny things. Never speaks.
 
 ## Running gags and threads
-- 失敗ノート counter (last: #6 in 第7話; 第8話 was skipped).
+- 失敗ノート counter (see the latest arc below for the last number).
 - Tama "knew all along". Grandpa saying a tall tale, then (第10話) the bear was true and the lion was a lie.
 - Grandpa's key necklace (mystery solved in 第10話: a photo of young Grandpa wrestling a bear).
 - Arc 1 (第1–10話): Dad vs 山田さん, Grandpa's karaoke, Tama vs the crow. Next arc: open (seeds: the bear photo, 山田さん's revenge, Mika).
@@ -51,3 +51,7 @@ The last panel must flip or escalate, never just comment. Essam's own comments o
 - Queued word: 上着 (第38話 Dad lends his 上着 to Mika; Tama and the crow climb in; Dad is cold).
 - Then: 宿題 (Dad: 1+1=3, Mika corrects him), 洗濯 (pink shirts, Tama saw and said nothing), 約束 (Mika: broken in one minute, cake cream on his nose), 写真 (Tama in every photo of Yamada's car), 眼鏡 (the crow reads the newspaper with Grandpa's glasses), 財布 (Grandpa's bear 10-yen coin; the bear watches at the window), 傘 (Grandpa really flies with an umbrella; Tama said so), 耳 (Dad's "crust makes you smart" comes back on him), 鍵 (crow steals the key; Dad stuck in Tama's door).
 - 失敗ノート: last #11 in 第47話.
+
+## Arc 6 (第48–57話, written 2026-10-19)
+- No queued words. Due got words: 電車 (Yamada's car dies, Dad on the train), 歯医者 (Dad yells before being touched), 弁当 (the bear is real and eats the lunch), 今更 (Grandpa hates curry too), バラバラ (Dad's bookshelf), どころ (Mika's cake; Tama swapped sugar and salt), 無視する (tuna can), 地図 (Dad and Yamada, same tree), 電話 (Tama answers Yamada), 時計 (Yamada's gold watch stopped).
+- 失敗ノート: last #12 in 第49話.

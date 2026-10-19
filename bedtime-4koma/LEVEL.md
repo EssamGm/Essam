@@ -97,3 +97,8 @@ Update this file after reading new answers in the page's `answers` database.
 - Queued word first: 上着 (reported 10-18, wants the kanji 着 reviewed) -> 第38話. Then due lol-scoring got words, each in a new scene: 宿題, 洗濯, 約束, 写真, 眼鏡, 財布, 傘, 耳, 鍵.
 - Funny recipe kept: reversal on the last line + callbacks (Tama "knew all along", crow hates crust, Grandpa's tall tales turn out true, Mika's deadpan). Rule of three in 上着 (Mika, Tama, crow in one jacket).
 - 失敗ノート: 十番目 in 第41話 (約束), 十一番目 in 第47話 (鍵).
+
+## Update 2026-10-19: 84 answers read, 0 unanswered, topped up a full 10 (第48–57話, arc 6)
+- All 84 strips answered, latest grades all got. 10-18 batch scored mostly zzz (鍵, 傘, 眼鏡, 財布, 洗濯, 写真, 宿題, 約束, 掃除, 地図, 鏡, 時計 zzz/meh in the last rounds); lol: 耳, かなり, 無視, 布団 #3. No missed/partly words left, and the `words` queue was empty (all 10 used).
+- Reaction to the zzz run: fewer callbacks-for-callbacks' sake, one clear escalation or reversal per strip, last line explicit. Due got words oldest first: 電車, 歯医者, 弁当, 今更, バラバラ, どころ, 無視する, 地図, 電話, 時計, each in a brand-new scene (元気出す, 鏡, 偶然, 金を払う, かなり, 重い, 布団, 掃除 are due next).
+- Gags used: Yamada's car dies beside the train (電車); Dad yells "it hurts" before being touched (歯医者, 失敗ノート 十二番目); the bear from Grandpa's tall tale eats the lunch (弁当); Grandpa also hates the curry (今更, flip on the 10-11 strip); Dad's bookshelf (バラバラ); Tama swapped sugar and salt (どころ); tuna can beats ignoring (無視する); two maps, one tree (地図); Tama hangs up on Yamada (電話); Yamada's stopped gold watch (時計).

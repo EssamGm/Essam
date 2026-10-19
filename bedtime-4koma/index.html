@@ -1326,12 +1326,142 @@ const strips = [
     { art: svg(dusk + floor + door(190,false) + dad(180,120,'worry') + son(280,72,'flat') + notebook(20,100,'11')),
       lines:['<span class="n">父は、ドアの小さい入口にはさまった。</span>','息子「お父さん、おなかがつかえているよ。失敗ノート、十一番目。」','父「問題は<b>鍵</b>じゃなくて、おなかだ……」'] }
   ]},
+  { id:"2026-10-19-densha3", title:"第48話 山田さんの車", word:"電車", reading:"でんしゃ", meaning:"train (electric train)",
+    kanji:"電 = electricity + 車 = vehicle (as in 自動車, car): an electric vehicle. 電車に乗る = ride a train.",
+    model:"Episode 48. Yamada drives his new car to work because trains are slow. Dad takes the train. Yamada's car breaks down by the tracks; the train passes him. Dad: “The train is fast!” Yamada: “…Take me with you.”",
+    panels:[
+    { art: svg(floor + yamada(80,58,'laugh') + `<g transform="translate(168,88) scale(.42)">${car2(160)}</g>`),
+      lines:['<span class="n">朝。山田さんは、新しい車で会社に行く。</span>','山田さん「<b>電車</b>は、おそいからな。」'] },
+    { art: svg(floor + train(130) + dad(60,58,'laugh')),
+      lines:['<span class="n">父は<b>電車</b>に乗った。</span>','父「<b>電車</b>は、らくだなあ。」'] },
+    { art: svg(floor + yamada(110,58,'shock') + `<g transform="translate(168,88) scale(.42)">${car2(160)}</g>` + fx(70,40)),
+      lines:['<span class="n">山田さんの車が、止まった。</span>','山田さん「うごかない……！」'] },
+    { art: svg(floor + train(20) + yamada(270,64,'worry') + drops(270,64)),
+      lines:['<span class="n"><b>電車</b>が、山田さんの前を通った。</span>','父「<b>電車</b>は、速いなあ！」','山田さん「……乗せて。」'] }
+  ]},
+  { id:"2026-10-19-haisha6", title:"第49話 まだ、さわっていない", word:"歯医者", reading:"はいしゃ", meaning:"dentist",
+    kanji:"歯 = tooth + 医者 = doctor (医 = medicine, 者 = person). 歯医者に行く = go to the dentist.",
+    model:"Episode 49. Dad is at the dentist. He yells “It hurts!” when the dentist has only switched on the light, and again before the dentist has even touched him. Sora: “Dad, you haven't even opened your mouth.” Dad: “Dentists always hurt!” Notebook, number twelve.",
+    panels:[
+    { art: svg(floor + dentistsign(200) + dad(100,58,'worry') + son(40,72,'plain')),
+      lines:['<span class="n">今日は、父が<b>歯医者</b>に行く日。</span>','父「こわくない、こわくない。」'] },
+    { art: svg(floor + dad(160,58,'worry') + `<circle cx="250" cy="40" r="14" fill="#ffd36b" ${S} stroke-width="1.8"/>`),
+      lines:['<span class="n">父は、いすにすわった。</span>','<span class="n"><b>歯医者</b>さんは、ライトをつけただけ。</span>','父「いたい！」'] },
+    { art: svg(floor + dad(160,58,'shock') + fx(196,34) + `<circle cx="250" cy="40" r="14" fill="#ffd36b" ${S} stroke-width="1.8"/>`),
+      lines:['<span class="n"><b>歯医者</b>さんは、まだ何もさわっていない。</span>','父「いたい！いたい！」'] },
+    { art: svg(floor + dad(120,58,'worry') + drops(120,58) + son(240,72,'flat') + notebook(272,98,'12')),
+      lines:['息子「お父さん、まだ口もあけていないよ。」','父「でも、<b>歯医者</b>は、ぜったいにいたい！」','息子「失敗ノート、十二番目。」'] }
+  ]},
+  { id:"2026-10-19-bentou5", title:"第50話 十人分", word:"弁当", reading:"べんとう", meaning:"boxed lunch",
+    kanji:"弁 = (here) a portion of food, as in 弁当箱 (the lunch box). Often said politely: お弁当.",
+    model:"Episode 50. On a mountain trip Grandpa brings lunch for ten. A bear walks out of the forest and eats it all, politely. Grandpa greets it like an old friend. Sora: “Grandpa's bear story was true.” Dad: “But even my lunch got eaten!”",
+    panels:[
+    { art: svg(floor + tree(270) + dad(60,58,'worry') + gramps(150,64,'laugh') + jubako(230,146)),
+      lines:['<span class="n">みんなで、山に来た。</span>','じいちゃん「<b>弁当</b>は、十人分あるぞ。」','父「多すぎるよ……」'] },
+    { art: svg(floor + tree(270) + bear(250,100) + dad(100,58,'shock') + gramps(40,64,'plain')),
+      lines:['<span class="n">森から、クマが出てきた。</span>','父「うわあ！」'] },
+    { art: svg(floor + bear(220,100) + jubako(220,146) + gramps(100,64,'laugh') + dad(30,58,'shock')),
+      lines:['<span class="n">クマは、<b>弁当</b>を食べている。</span>','じいちゃん「ひさしぶりじゃのう。」'] },
+    { art: svg(floor + `<rect x="180" y="120" width="52" height="26" rx="3" fill="#fff" ${S}/>` + dad(90,58,'blank') + son(260,72,'flat')),
+      lines:['<span class="n">クマは、空の箱を返して、帰った。</span>','息子「おじいちゃんの話、ほんとうだったね。」','父「でも、お父さんの<b>弁当</b>まで、全部食べられた……」'] }
+  ]},
+  { id:"2026-10-19-imasara5", title:"第51話 カレーの日", word:"今更", reading:"いまさら", meaning:"now, after all this time (too late)",
+    kanji:"今 = now, 更 = anew, once more. “Now, after everything”: the right moment has already passed.",
+    model:"Episode 51. Grandpa announces it is the last curry day. He confesses he hates curry too; he only made it for ten years because Dad said it was delicious. Dad: “Ten years! Don't tell me NOW!” Grandpa: “Want seconds?”",
+    panels:[
+    { art: svg(floor + table(20,300) + plate(70) + plate(160) + plate(250) + dad(70,58,'laugh') + son(160,72,'plain') + gramps(250,64,'plain')),
+      lines:['<span class="n">日曜日。じいちゃんのカレーの日。</span>','じいちゃん「今日で、カレーは終わりじゃ。」'] },
+    { art: svg(floor + table(20,300) + plate(70) + plate(250) + dad(70,58,'shock') + gramps(250,64,'blank') + fx(98,34)),
+      lines:['じいちゃん「本当は、わしもカレーが、きらいなんじゃ。」','父「えっ！？」'] },
+    { art: svg(sepia + floor + table(20,300) + plate(70) + plate(250) + dad(70,58,'shock') + gramps(250,64,'laugh')),
+      lines:['じいちゃん「十年前、お前がおいしいと言ったから、作っていたんじゃ。」','父「ええーっ！」'] },
+    { art: svg(floor + table(20,300) + plate(70) + plate(250) + dad(70,58,'worry') + drops(70,58) + gramps(250,64,'laugh')),
+      lines:['父「十年だぞ！<b>今更</b>言うなよ！」','じいちゃん「おかわりは？」'] }
+  ]},
+  { id:"2026-10-19-barabara4", title:"第52話 新しい本だな", word:"バラバラ", reading:"ばらばら", meaning:"scattered; in pieces",
+    kanji:"A sound-and-feel word: bara-bara, like beads spilling on the floor. Written in katakana or hiragana.",
+    model:"Episode 52. Dad proudly builds a bookshelf. Yamada touches it and it falls apart. Mika, deadpan: “Uncle, your bookshelf is in pieces.” Dad: “…It's a new design.”",
+    panels:[
+    { art: svg(floor + `<rect x="190" y="30" width="80" height="120" fill="#e9d7bd" ${S}/><line x1="190" y1="70" x2="270" y2="70" ${S}/><line x1="190" y1="110" x2="270" y2="110" ${S}/>` + dad(100,58,'laugh')),
+      lines:['<span class="n">父は、本だなを作った。</span>','父「どうだ！」'] },
+    { art: svg(floor + `<rect x="190" y="30" width="80" height="120" fill="#e9d7bd" ${S}/><line x1="190" y1="70" x2="270" y2="70" ${S}/><line x1="190" y1="110" x2="270" y2="110" ${S}/>` + yamada(100,64,'laugh')),
+      lines:['山田さん「ほう。いい本だなじゃないか。」'] },
+    { art: svg(floor + `<g transform="rotate(8 230 150)"><rect x="190" y="30" width="80" height="120" fill="#e9d7bd" ${S}/><line x1="190" y1="70" x2="270" y2="70" ${S}/><line x1="190" y1="110" x2="270" y2="110" ${S}/></g>` + yamada(110,64,'shock') + fx(150,40)),
+      lines:['<span class="n">山田さんが、本だなにさわった。</span>','山田さん「あ。」'] },
+    { art: svg(floor + [[40,128,20],[90,136,-30],[150,124,60],[210,138,-10],[270,130,40]].map(([x,y,r])=>`<rect x="${x}" y="${y}" width="50" height="10" fill="#e9d7bd" ${S} transform="rotate(${r} ${x+25} ${y+5})"/>`).join('') + mika(60,76,'plain') + dad(250,58,'blank')),
+      lines:['<span class="n">本だなが、くずれた。</span>','ミカ「おじさんの本だな、<b>バラバラ</b>。」','父「……新しいデザインだ。」'] }
+  ]},
+  { id:"2026-10-19-dokoro3", title:"第53話 ミカの誕生日", word:"どころ", reading:"どころ", meaning:"far from ~ (AどころかB: not A at all, rather B)",
+    kanji:"Written in kana. A どころか B: “far from A, it's actually B.” 甘いどころか、しょっぱい = far from sweet, it's salty.",
+    model:"Episode 53. Dad bakes a cake for Mika's birthday. Mika takes a bite: “Far from sweet, it's salty.” The crow collapses after one bite. Tama confesses he swapped the sugar and salt.",
+    panels:[
+    { art: svg(floor + table(60,280,112) + cake(170,86) + dad(100,58,'laugh')),
+      lines:['<span class="n">ミカの誕生日。父がケーキを作った。</span>','父「お父さんが、作ったぞ！」'] },
+    { art: svg(floor + table(60,280,112) + cake(170,86) + mika(240,76,'open') + dad(80,58,'laugh')),
+      lines:['<span class="n">ミカが、ひと口食べた。</span>','ミカ「うっ。」'] },
+    { art: svg(floor + `<g transform="rotate(80 150 120)">${crow(150,120)}</g>` + cake(250,112) + dad(70,58,'worry')),
+      lines:['<span class="n">カラスも、ひと口食べた。</span>','<span class="n">カラスは、たおれた。</span>'] },
+    { art: svg(floor + dad(70,58,'shock') + mika(160,76,'plain') + cat(250,128,false,true)),
+      lines:['ミカ「このケーキ、甘い<b>どころ</b>か、しょっぱい。」','タマ「さとうと塩、タマが入れかえた。」','父「えーっ！」'] }
+  ]},
+  { id:"2026-10-19-mushi2", title:"第54話 ツナのかん", word:"無視する", reading:"むしする", meaning:"to ignore",
+    kanji:"無 = nothing, none + 視 = to look/see: to act as if you see nothing. 無視する = to ignore.",
+    model:"Episode 54. Dad calls Tama and Tama ignores him completely. Sora quietly opens a can of tuna, and Tama appears instantly. Dad: “You ignore me, but you hear that!” Tama: “The tuna can is different.”",
+    panels:[
+    { art: svg(floor + sofa(160) + cat(210,120) + dad(70,58,'plain')),
+      lines:['<span class="n">昼。父がタマを呼んでいる。</span>','父「タマ、おいで。」'] },
+    { art: svg(floor + sofa(160) + cat(210,120) + dad(70,58,'worry') + fx(100,34)),
+      lines:['父「タマ！タマ！」','<span class="n">タマは、父を<b>無視</b>している。</span>'] },
+    { art: svg(floor + dad(60,58,'worry') + son(230,72,'flat') + `<rect x="210" y="104" width="22" height="18" rx="3" fill="#dfe6f3" ${S} stroke-width="1.8"/>`),
+      lines:['<span class="n">息子が、ツナのかんを、あけた。</span>','<span class="n">カチッ。</span>'] },
+    { art: svg(floor + dad(70,58,'shock') + son(250,72,'flat') + cat(180,130)),
+      lines:['<span class="n">タマが、とんできた。</span>','父「お父さんが呼んでも<b>無視</b>するのに！」','タマ「ツナのかんの音は、べつ。」'] }
+  ]},
+  { id:"2026-10-19-chizu5", title:"第55話 二人の地図", word:"地図", reading:"ちず", meaning:"map",
+    kanji:"地 = ground, land + 図 = picture, diagram: a picture of the land.",
+    model:"Episode 55. Dad and Yamada each set out for the other's house, each with a map. They walk around the same tree three times. Mika: “You both have the map upside down.” Dad: “Then the map is wrong.”",
+    panels:[
+    { art: svg(floor + dad(130,58,'laugh') + treasuremap(220,70)),
+      lines:['<span class="n">父は、山田さんの家に行く。</span>','父「<b>地図</b>があれば、らくらくだ。」'] },
+    { art: svg(floor + yamada(130,64,'laugh') + treasuremap(220,70)),
+      lines:['<span class="n">山田さんは、父の家に行く。</span>','山田さん「<b>地図</b>を見れば、かんたんだ。」'] },
+    { art: svg(floor + tree(160) + dad(40,58,'worry') + yamada(280,64,'worry')),
+      lines:['<span class="n">二人は、同じ木のまわりを、三回まわった。</span>','父「……また、ここだ。」'] },
+    { art: svg(floor + dad(70,58,'blank') + mika(160,76,'plain') + yamada(250,64,'blank')),
+      lines:['ミカ「二人とも、<b>地図</b>、さかさま。」','山田さん「うぐっ。」','父「<b>地図</b>が、わるい。」'] }
+  ]},
+  { id:"2026-10-19-denwa4", title:"第56話 まちがい電話", word:"電話", reading:"でんわ", meaning:"telephone; phone call",
+    kanji:"電 = electricity + 話 = talk: electric talk. 電話をかける = make a call, 電話に出る = answer the phone.",
+    model:"Episode 56. Dad is in the bath when the phone rings. Tama answers with a paw. Yamada brags about his new car. Tama says “Hmm,” hangs up, and tells Dad it was a wrong number.",
+    panels:[
+    { art: svg(floor + table(150,300,112) + phone(210,90) + cat(100,122,false,true)),
+      lines:['<span class="n">夜。父は、おふろ。</span>','<span class="n"><b>電話</b>が鳴った。</span>'] },
+    { art: svg(floor + table(150,300,112) + phone(210,90) + cat(230,86) + fx(190,60)),
+      lines:['<span class="n">タマが、前足で<b>電話</b>に出た。</span>','タマ「はい。」'] },
+    { art: svg(floor + cat(120,122) + phone(190,110) + `<text x="250" y="60" font-size="16" fill="#2f4c8f" font-family="Zen Maru Gothic, sans-serif" font-weight="700">ペラペラ</text>`),
+      lines:['山田さん「もしもし！新しい車を、買ったぞ！」','<span class="n">タマは、だまって聞いている。</span>'] },
+    { art: svg(floor + cat(80,122) + phone(150,110) + dad(250,58,'plain')),
+      lines:['タマ「……ふうん。」','<span class="n">ガチャ。</span>','父「だれから？」','タマ「まちがい<b>電話</b>。」'] }
+  ]},
+  { id:"2026-10-19-tokei5", title:"第57話 高い時計", word:"時計", reading:"とけい", meaning:"watch; clock",
+    kanji:"時 = time + 計 = measure: a time-measurer. 腕時計 (うでどけい) = a wristwatch, an “arm 時計”.",
+    model:"Episode 57. Yamada shows off his expensive watch. Mika asks the time twice, ten minutes apart, and both times it says three o'clock. Mika: “Your watch has stopped.” Yamada: “But it was expensive…” Tama: “Tama is more right.”",
+    panels:[
+    { art: svg(floor + yamada(100,64,'laugh') + bigclock(230,70,`<line x1="230" y1="70" x2="240" y2="74" ${S}/>`) + sparkle(256,44) + mika(40,76,'plain')),
+      lines:['山田さん「見ろ。高い<b>時計</b>だぞ。」','ミカ「へえ。」'] },
+    { art: svg(floor + yamada(200,64,'plain') + mika(90,76,'plain')),
+      lines:['ミカ「いま、何時？」','山田さん「三時だ。」'] },
+    { art: svg(floor + yamada(200,64,'blank') + mika(90,76,'plain') + `<circle cx="290" cy="30" r="12" fill="#f4a261" ${S} stroke-width="1.8"/>`),
+      lines:['<span class="n">十分後。</span>','ミカ「いま、何時？」','山田さん「……三時だ。」'] },
+    { art: svg(floor + mika(60,76,'plain') + yamada(160,64,'worry') + drops(160,64) + cat(260,130)),
+      lines:['ミカ「その<b>時計</b>、止まっている。」','山田さん「高いのに……」','タマ「タマの方が、ただしい。」'] }
+  ]},
 ];
 /* STRIPS-END */
 
 /* Generated by build.py: credits, and per strip id the URL of its audio file.
    Each audio/<id>.json holds clips[panel][line] = {n: normal-speed mp3, s: slow mp3} as data: URIs. */
-const VOICE = /*VOICE-START*/{"credit":["VOICEVOX:雀松朱司","VOICEVOX:白上虎太郎","VOICEVOX:黒沢冴白","VOICEVOX:青山龍星","VOICEVOX:麒ヶ島宗麟","VOICEVOX:玄野武宏","VOICEVOX:春歌ナナ"],"audio":{"2026-10-11-kagami":"audio/2026-10-11-kagami.json?v=726d77a3747e","2026-10-11-kagi":"audio/2026-10-11-kagi.json?v=f9f43b8efa9f","2026-10-11-kasa":"audio/2026-10-11-kasa.json?v=5efd6f3339fa","2026-10-11-imasara":"audio/2026-10-11-imasara.json?v=0215d3b3d30d","2026-10-11-barabara":"audio/2026-10-11-barabara.json?v=b542c7a57ab4","2026-10-11-kagami2":"audio/2026-10-11-kagami2.json?v=824f5363bf3a","2026-10-11-kagi2":"audio/2026-10-11-kagi2.json?v=93eff2ea2c03","2026-10-11-kasa2":"audio/2026-10-11-kasa2.json?v=0d8020fbb4b2","2026-10-11-megane":"audio/2026-10-11-megane.json?v=f27caf20779f","2026-10-11-saifu":"audio/2026-10-11-saifu.json?v=3306f45e365f","2026-10-11-tokei":"audio/2026-10-11-tokei.json?v=28b745e992b5","2026-10-11-shashin":"audio/2026-10-11-shashin.json?v=65bb630b2173","2026-10-11-bentou":"audio/2026-10-11-bentou.json?v=f4d668058925","2026-10-11-shukudai":"audio/2026-10-11-shukudai.json?v=efa2ab4fe8c7","2026-10-11-haisha":"audio/2026-10-11-haisha.json?v=d0b7f756ae2b","2026-10-11-souji":"audio/2026-10-11-souji.json?v=064b525b9aa4","2026-10-11-chizu":"audio/2026-10-11-chizu.json?v=3812cd9a501a","2026-10-11-omoi":"audio/2026-10-11-omoi.json?v=240e0d2286df","2026-10-11-shashin2":"audio/2026-10-11-shashin2.json?v=b1daaa7d12d2","2026-10-11-souji2":"audio/2026-10-11-souji2.json?v=7e95209445b6","2026-10-11-chizu2":"audio/2026-10-11-chizu2.json?v=8be0e809d9b9","2026-10-11-haisha2":"audio/2026-10-11-haisha2.json?v=d9cd4e5df4e4","2026-10-11-tokei2":"audio/2026-10-11-tokei2.json?v=f9c695fc7b13","2026-10-11-futon":"audio/2026-10-11-futon.json?v=662985ab92e4","2026-10-11-denwa":"audio/2026-10-11-denwa.json?v=0e8e03e16a7b","2026-10-11-sentaku":"audio/2026-10-11-sentaku.json?v=faf413e4f14b","2026-10-11-yakusoku":"audio/2026-10-11-yakusoku.json?v=33c72a0a54de","2026-10-11-densha":"audio/2026-10-11-densha.json?v=1a095a1e6b80","2026-10-12-souji3":"audio/2026-10-12-souji3.json?v=304f61506766","2026-10-12-imasara2":"audio/2026-10-12-imasara2.json?v=2413c4281dc9","2026-10-12-chizu3":"audio/2026-10-12-chizu3.json?v=63897a6c675c","2026-10-12-haisha3":"audio/2026-10-12-haisha3.json?v=b0d390a14a1f","2026-10-12-omoi2":"audio/2026-10-12-omoi2.json?v=8cc49f19c4f0","2026-10-13-barabara2":"audio/2026-10-13-barabara2.json?v=26ade176092d","2026-10-13-saifu2":"audio/2026-10-13-saifu2.json?v=b44f1086d8c4","2026-10-14-megane2":"audio/2026-10-14-megane2.json?v=84bed8f023fe","2026-10-14-bentou2":"audio/2026-10-14-bentou2.json?v=4ef18ff415a0","2026-10-16-haisha4":"audio/2026-10-16-haisha4.json?v=4716f50031f7","2026-10-16-densha2":"audio/2026-10-16-densha2.json?v=99cc40170b65","2026-10-16-imasara3":"audio/2026-10-16-imasara3.json?v=7a7172187a69","2026-10-16-bentou3":"audio/2026-10-16-bentou3.json?v=3ab497e97e9e","2026-10-16-futon2":"audio/2026-10-16-futon2.json?v=c281b4051a72","2026-10-16-denwa2":"audio/2026-10-16-denwa2.json?v=8c10dd8e7319","2026-10-16-sentaku2":"audio/2026-10-16-sentaku2.json?v=b029b4f3e556","2026-10-16-yakusoku2":"audio/2026-10-16-yakusoku2.json?v=c7521a8b4537","2026-10-16-kagami3":"audio/2026-10-16-kagami3.json?v=d5c08c355cdf","2026-10-16-kagi3":"audio/2026-10-16-kagi3.json?v=01ae22f8d70c","2026-10-16-haisha5":"audio/2026-10-16-haisha5.json?v=5b4959a04d0b","2026-10-16-bentou4":"audio/2026-10-16-bentou4.json?v=604d83aed027","2026-10-16-kasa3":"audio/2026-10-16-kasa3.json?v=0cb37c0ef7b0","2026-10-16-saifu3":"audio/2026-10-16-saifu3.json?v=e26be9ff19ef","2026-10-16-megane3":"audio/2026-10-16-megane3.json?v=3c936c226402","2026-10-16-shashin3":"audio/2026-10-16-shashin3.json?v=4ae9e5184965","2026-10-16-tokei3":"audio/2026-10-16-tokei3.json?v=d9234ff63f1f","2026-10-16-shukudai2":"audio/2026-10-16-shukudai2.json?v=43cf74736876","2026-10-16-souji4":"audio/2026-10-16-souji4.json?v=457015130c0c","2026-10-16-omoi3":"audio/2026-10-16-omoi3.json?v=5af68367ad15","2026-10-16-guuzen":"audio/2026-10-16-guuzen.json?v=5260bca2c323","2026-10-16-mimi":"audio/2026-10-16-mimi.json?v=2972650aca5d","2026-10-16-dokoro":"audio/2026-10-16-dokoro.json?v=3094512febde","2026-10-16-genki":"audio/2026-10-16-genki.json?v=243f71710038","2026-10-16-kane":"audio/2026-10-16-kane.json?v=fe5fdf5cc6da","2026-10-16-imasara4":"audio/2026-10-16-imasara4.json?v=42dadfa2ccc9","2026-10-16-barabara3":"audio/2026-10-16-barabara3.json?v=1a8e5f9cfc74","2026-10-16-dokoro2":"audio/2026-10-16-dokoro2.json?v=dc99a8462bcf","2026-10-17-mushi":"audio/2026-10-17-mushi.json?v=b3aa190ecb03","2026-10-17-kanari":"audio/2026-10-17-kanari.json?v=8fdb225dfb9f","2026-10-17-chizu4":"audio/2026-10-17-chizu4.json?v=b9efeabd8a36","2026-10-17-kagami4":"audio/2026-10-17-kagami4.json?v=be049b0f71c8","2026-10-17-futon3":"audio/2026-10-17-futon3.json?v=1236000f18e7","2026-10-17-denwa3":"audio/2026-10-17-denwa3.json?v=26bf92b29422","2026-10-17-omoi4":"audio/2026-10-17-omoi4.json?v=f741b6e6f451","2026-10-17-souji5":"audio/2026-10-17-souji5.json?v=ee56ef2aa701","2026-10-17-tokei4":"audio/2026-10-17-tokei4.json?v=d3ee83df731d","2026-10-18-uwagi":"audio/2026-10-18-uwagi.json?v=1685ea806f16","2026-10-18-shukudai3":"audio/2026-10-18-shukudai3.json?v=66c7816904ea","2026-10-18-sentaku3":"audio/2026-10-18-sentaku3.json?v=f0e1ab4de1a3","2026-10-18-yakusoku3":"audio/2026-10-18-yakusoku3.json?v=908b6bb221f9","2026-10-18-shashin4":"audio/2026-10-18-shashin4.json?v=52323c235480","2026-10-18-megane4":"audio/2026-10-18-megane4.json?v=bc15d75bbfb0","2026-10-18-saifu4":"audio/2026-10-18-saifu4.json?v=2a50b47de408","2026-10-18-kasa4":"audio/2026-10-18-kasa4.json?v=c8202e233f98","2026-10-18-mimi2":"audio/2026-10-18-mimi2.json?v=49f8960bb446","2026-10-18-kagi4":"audio/2026-10-18-kagi4.json?v=60c7d5abfc89"}}/*VOICE-END*/;
+const VOICE = /*VOICE-START*/{"credit":["VOICEVOX:雀松朱司","VOICEVOX:白上虎太郎","VOICEVOX:黒沢冴白","VOICEVOX:青山龍星","VOICEVOX:麒ヶ島宗麟","VOICEVOX:玄野武宏","VOICEVOX:春歌ナナ"],"audio":{"2026-10-11-kagami":"audio/2026-10-11-kagami.json?v=726d77a3747e","2026-10-11-kagi":"audio/2026-10-11-kagi.json?v=f9f43b8efa9f","2026-10-11-kasa":"audio/2026-10-11-kasa.json?v=5efd6f3339fa","2026-10-11-imasara":"audio/2026-10-11-imasara.json?v=0215d3b3d30d","2026-10-11-barabara":"audio/2026-10-11-barabara.json?v=b542c7a57ab4","2026-10-11-kagami2":"audio/2026-10-11-kagami2.json?v=824f5363bf3a","2026-10-11-kagi2":"audio/2026-10-11-kagi2.json?v=93eff2ea2c03","2026-10-11-kasa2":"audio/2026-10-11-kasa2.json?v=0d8020fbb4b2","2026-10-11-megane":"audio/2026-10-11-megane.json?v=f27caf20779f","2026-10-11-saifu":"audio/2026-10-11-saifu.json?v=3306f45e365f","2026-10-11-tokei":"audio/2026-10-11-tokei.json?v=28b745e992b5","2026-10-11-shashin":"audio/2026-10-11-shashin.json?v=65bb630b2173","2026-10-11-bentou":"audio/2026-10-11-bentou.json?v=f4d668058925","2026-10-11-shukudai":"audio/2026-10-11-shukudai.json?v=efa2ab4fe8c7","2026-10-11-haisha":"audio/2026-10-11-haisha.json?v=d0b7f756ae2b","2026-10-11-souji":"audio/2026-10-11-souji.json?v=064b525b9aa4","2026-10-11-chizu":"audio/2026-10-11-chizu.json?v=3812cd9a501a","2026-10-11-omoi":"audio/2026-10-11-omoi.json?v=240e0d2286df","2026-10-11-shashin2":"audio/2026-10-11-shashin2.json?v=b1daaa7d12d2","2026-10-11-souji2":"audio/2026-10-11-souji2.json?v=7e95209445b6","2026-10-11-chizu2":"audio/2026-10-11-chizu2.json?v=8be0e809d9b9","2026-10-11-haisha2":"audio/2026-10-11-haisha2.json?v=d9cd4e5df4e4","2026-10-11-tokei2":"audio/2026-10-11-tokei2.json?v=f9c695fc7b13","2026-10-11-futon":"audio/2026-10-11-futon.json?v=662985ab92e4","2026-10-11-denwa":"audio/2026-10-11-denwa.json?v=0e8e03e16a7b","2026-10-11-sentaku":"audio/2026-10-11-sentaku.json?v=faf413e4f14b","2026-10-11-yakusoku":"audio/2026-10-11-yakusoku.json?v=33c72a0a54de","2026-10-11-densha":"audio/2026-10-11-densha.json?v=1a095a1e6b80","2026-10-12-souji3":"audio/2026-10-12-souji3.json?v=304f61506766","2026-10-12-imasara2":"audio/2026-10-12-imasara2.json?v=2413c4281dc9","2026-10-12-chizu3":"audio/2026-10-12-chizu3.json?v=63897a6c675c","2026-10-12-haisha3":"audio/2026-10-12-haisha3.json?v=b0d390a14a1f","2026-10-12-omoi2":"audio/2026-10-12-omoi2.json?v=8cc49f19c4f0","2026-10-13-barabara2":"audio/2026-10-13-barabara2.json?v=26ade176092d","2026-10-13-saifu2":"audio/2026-10-13-saifu2.json?v=b44f1086d8c4","2026-10-14-megane2":"audio/2026-10-14-megane2.json?v=84bed8f023fe","2026-10-14-bentou2":"audio/2026-10-14-bentou2.json?v=4ef18ff415a0","2026-10-16-haisha4":"audio/2026-10-16-haisha4.json?v=4716f50031f7","2026-10-16-densha2":"audio/2026-10-16-densha2.json?v=99cc40170b65","2026-10-16-imasara3":"audio/2026-10-16-imasara3.json?v=7a7172187a69","2026-10-16-bentou3":"audio/2026-10-16-bentou3.json?v=3ab497e97e9e","2026-10-16-futon2":"audio/2026-10-16-futon2.json?v=c281b4051a72","2026-10-16-denwa2":"audio/2026-10-16-denwa2.json?v=8c10dd8e7319","2026-10-16-sentaku2":"audio/2026-10-16-sentaku2.json?v=b029b4f3e556","2026-10-16-yakusoku2":"audio/2026-10-16-yakusoku2.json?v=c7521a8b4537","2026-10-16-kagami3":"audio/2026-10-16-kagami3.json?v=d5c08c355cdf","2026-10-16-kagi3":"audio/2026-10-16-kagi3.json?v=01ae22f8d70c","2026-10-16-haisha5":"audio/2026-10-16-haisha5.json?v=5b4959a04d0b","2026-10-16-bentou4":"audio/2026-10-16-bentou4.json?v=604d83aed027","2026-10-16-kasa3":"audio/2026-10-16-kasa3.json?v=0cb37c0ef7b0","2026-10-16-saifu3":"audio/2026-10-16-saifu3.json?v=e26be9ff19ef","2026-10-16-megane3":"audio/2026-10-16-megane3.json?v=3c936c226402","2026-10-16-shashin3":"audio/2026-10-16-shashin3.json?v=4ae9e5184965","2026-10-16-tokei3":"audio/2026-10-16-tokei3.json?v=d9234ff63f1f","2026-10-16-shukudai2":"audio/2026-10-16-shukudai2.json?v=43cf74736876","2026-10-16-souji4":"audio/2026-10-16-souji4.json?v=457015130c0c","2026-10-16-omoi3":"audio/2026-10-16-omoi3.json?v=5af68367ad15","2026-10-16-guuzen":"audio/2026-10-16-guuzen.json?v=5260bca2c323","2026-10-16-mimi":"audio/2026-10-16-mimi.json?v=2972650aca5d","2026-10-16-dokoro":"audio/2026-10-16-dokoro.json?v=3094512febde","2026-10-16-genki":"audio/2026-10-16-genki.json?v=243f71710038","2026-10-16-kane":"audio/2026-10-16-kane.json?v=fe5fdf5cc6da","2026-10-16-imasara4":"audio/2026-10-16-imasara4.json?v=42dadfa2ccc9","2026-10-16-barabara3":"audio/2026-10-16-barabara3.json?v=1a8e5f9cfc74","2026-10-16-dokoro2":"audio/2026-10-16-dokoro2.json?v=dc99a8462bcf","2026-10-17-mushi":"audio/2026-10-17-mushi.json?v=b3aa190ecb03","2026-10-17-kanari":"audio/2026-10-17-kanari.json?v=8fdb225dfb9f","2026-10-17-chizu4":"audio/2026-10-17-chizu4.json?v=b9efeabd8a36","2026-10-17-kagami4":"audio/2026-10-17-kagami4.json?v=be049b0f71c8","2026-10-17-futon3":"audio/2026-10-17-futon3.json?v=1236000f18e7","2026-10-17-denwa3":"audio/2026-10-17-denwa3.json?v=26bf92b29422","2026-10-17-omoi4":"audio/2026-10-17-omoi4.json?v=f741b6e6f451","2026-10-17-souji5":"audio/2026-10-17-souji5.json?v=ee56ef2aa701","2026-10-17-tokei4":"audio/2026-10-17-tokei4.json?v=d3ee83df731d","2026-10-18-uwagi":"audio/2026-10-18-uwagi.json?v=1685ea806f16","2026-10-18-shukudai3":"audio/2026-10-18-shukudai3.json?v=66c7816904ea","2026-10-18-sentaku3":"audio/2026-10-18-sentaku3.json?v=f0e1ab4de1a3","2026-10-18-yakusoku3":"audio/2026-10-18-yakusoku3.json?v=908b6bb221f9","2026-10-18-shashin4":"audio/2026-10-18-shashin4.json?v=52323c235480","2026-10-18-megane4":"audio/2026-10-18-megane4.json?v=bc15d75bbfb0","2026-10-18-saifu4":"audio/2026-10-18-saifu4.json?v=2a50b47de408","2026-10-18-kasa4":"audio/2026-10-18-kasa4.json?v=c8202e233f98","2026-10-18-mimi2":"audio/2026-10-18-mimi2.json?v=49f8960bb446","2026-10-18-kagi4":"audio/2026-10-18-kagi4.json?v=60c7d5abfc89","2026-10-19-densha3":"audio/2026-10-19-densha3.json?v=d438143ef2bd","2026-10-19-haisha6":"audio/2026-10-19-haisha6.json?v=8ac83f882d25","2026-10-19-bentou5":"audio/2026-10-19-bentou5.json?v=be12d8ad9ef7","2026-10-19-imasara5":"audio/2026-10-19-imasara5.json?v=f7453b10ef0a","2026-10-19-barabara4":"audio/2026-10-19-barabara4.json?v=11435d90b8d9","2026-10-19-dokoro3":"audio/2026-10-19-dokoro3.json?v=1ae68ddf6306","2026-10-19-mushi2":"audio/2026-10-19-mushi2.json?v=db85db73c28a","2026-10-19-chizu5":"audio/2026-10-19-chizu5.json?v=41cd293a9ce0","2026-10-19-denwa4":"audio/2026-10-19-denwa4.json?v=41a0f159eb31","2026-10-19-tokei5":"audio/2026-10-19-tokei5.json?v=0680c7b6f7fc"}}/*VOICE-END*/;
 
 let i = 0;
 const stage = document.getElementById('stage');
