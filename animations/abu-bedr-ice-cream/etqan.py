@@ -107,6 +107,8 @@ def is_arabic(s):
 
 def shape(fc, text, size):
     """Shape text; returns (glyph ids, x positions, total advance, clusters) in visual order."""
+    if not text:
+        return [], [], 0.0, [], []
     buf = hb.Buffer()
     buf.add_str(text)
     buf.guess_segment_properties()
