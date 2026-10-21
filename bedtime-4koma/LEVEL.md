@@ -108,3 +108,9 @@ Update this file after reading new answers in the page's `answers` database.
 - Queued words (priority all 1, oldest report first): 散歩 -> 第58話 (used). Still queued: 急ぐ, 厳しい.
 - 第58話 散歩: Dad leashes Tama, Tama drags him around the park; Mika asks who is walking whom. Plain grammar, 3 speakers (父, タマ, ミカ), explicit last line.
 - Latest grades: 電車 #3 partly (zzz, answer was just "."): the 10-19 batch is unread. Keep the plain, one-reversal recipe.
+
+## Update 2026-10-21 (second run): 87 answers read, 8 unanswered, topped up 2 (第59-60話)
+- Unanswered: 第48-57話 except 電車 #3, plus 第58話. Added two to bring the pile back to 10.
+- Queued words (both oldest-first, priority 1): 急ぐ -> 第59話 (Dad shouts "hurry up" but is the only one still in pajamas; 失敗ノート 十三番目), 厳しい -> 第60話 (Dad declares "strict" rules, then sneaks cake; "strict with others, not myself"). Queue is now empty.
+- Plain grammar, at most 3 speakers (父, 息子, タマ), explicit last line.
+

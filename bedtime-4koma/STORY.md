@@ -57,5 +57,7 @@ The last panel must flip or escalate, never just comment. Essam's own comments o
 - 失敗ノート: last #12 in 第49話.
 
 ## Arc 7 (第58話-, written 2026-10-21)
-- Queued word: 散歩 (第58話 Dad takes Tama for a 散歩 but Tama runs and drags Dad; Mika: who is walking whom?). Queue still holds 急ぐ, 厳しい.
+- Queued word: 散歩 (第58話 Dad takes Tama for a 散歩 but Tama runs and drags Dad; Mika: who is walking whom?). Queue then held 急ぐ, 厳しい (used in 第59-60話).
 - 失敗ノート: last #12 in 第49話.
+- 第59話 急ぐ: Dad yells 急いで at everyone; Sora and Tama are ready, Dad is in pajamas. 失敗ノート 十三番目.
+- 第60話 厳しい: Dad "strict from today", then sneaks cake at night; Tama catches him. 失敗ノート: last #13 in 第59話.
