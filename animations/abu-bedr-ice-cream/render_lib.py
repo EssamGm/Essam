@@ -102,7 +102,7 @@ DEFAULT_POSE = dict(lean=0.0, head=0.0, arm_f=(8.0, 14.0), arm_b=(-6.0, -2.0),
 
 # casual home clothes
 ABU_BEDR = dict(skin='#C68A62', hair='#1E1A22', top='#DCE2EA', pants='#2A3F5C', shoe='#3A2E2A',
-                beard=True, sleeve=0.55, leg=1.0, torso=1.0, head=1.0)
+                beard=False, sleeve=0.55, leg=1.0, torso=1.0, head=1.0)
 # a boy: shorter legs and body, slightly larger head
 BEDR = dict(skin='#CF966C', hair='#231C24', top='#3E6C99', pants='#1C2F47', shoe='#E9ECF1',
             beard=False, sleeve=0.5, leg=0.72, torso=0.78, head=1.12)
@@ -188,19 +188,16 @@ def person(cv, x, y, s, pose, outfit=ABU_BEDR, facing=1, light=None, alpha=1.0, 
     rrect(cv, -10, -20, 22, 28, 8, P(shade(o['skin'], 0.86)))
     hx, hy, r = 6, -66, 50
     cv.drawCircle(hx, hy, r, P(o['skin']))
-    cv.save()
-    clip = skia.Path()
-    clip.addCircle(hx, hy, r + 6)
-    cv.clipPath(clip, doAntiAlias=True)
+    # hair: covers the top and the whole back of the head down to the neck, with a soft hairline
+    # in front, so it is clear which way the person faces (no ear, no beard, no facial features)
+    R = r + 4
+    a0 = -32
     hair = skia.Path()
-    hair.addCircle(hx - 16, hy - 19, r + 1)
+    hair.arcTo(skia.Rect.MakeLTRB(hx - R, hy - R, hx + R, hy + R), a0, -212, True)
+    hair.quadTo(hx - r * 0.3, hy + r * 0.2, hx + r * 0.02, hy - r * 0.14)
+    hair.quadTo(hx + r * 0.4, hy - r * 0.5, hx + R * math.cos(math.radians(a0)), hy + R * math.sin(math.radians(a0)))
+    hair.close()
     cv.drawPath(hair, P(o['hair']))
-    if o['beard']:
-        # short, neat beard along the jawline, from the ear to the chin (no facial features)
-        cv.drawArc(skia.Rect.MakeXYWH(hx - r + 9, hy - r + 9, 2 * r - 18, 2 * r - 18), 18, 104, False,
-                   P(o['hair'], 0.9, stroke=18, cap=True))
-    cv.restore()
-    cv.drawOval(skia.Rect.MakeXYWH(hx - 10, hy - 6, 17, 24), P(shade(o['skin'], 0.9)))
     cv.restore()
     a1, a2 = pz['arm_f']
     hand = _arm(cv, sh, a1, a2, o['skin'], shade(o['top'], 0.95), o['sleeve'], 30)

@@ -228,8 +228,7 @@ def end_screen(cv, t=99.0, t0=0.0):
     sq = ease_out(prog(t, t0, t0 + 0.4))
     wd = ease_out(prog(t, t0 + 0.4, t0 + 0.9))
     lw = 560
-    E.draw_logo(cv, (W - lw) / 2, 400, lw, dark=True, word_alpha=wd, square_alpha=sq, word_dx=(1 - wd) * 30)
-    E.draw_text(cv, E.SITE, W / 2, 680, 34, E.TEXT_2, kind='med', alpha=wd)
+    E.draw_logo(cv, (W - lw) / 2, (H - lw * E.LOGO_H / E.LOGO_W) / 2, lw, dark=True, word_alpha=wd, square_alpha=sq, word_dx=(1 - wd) * 30)
 
 
 def word_card(cv, a=1.0):
