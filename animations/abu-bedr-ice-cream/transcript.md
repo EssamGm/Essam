@@ -17,26 +17,26 @@ On screen: English sentence + full Arabic translation (Modern Standard Arabic).
 | 1 | Narrator | This is Abu Bedr. | هذا أبو بدر. | Abu Bedr in his office |
 | 2 | Narrator | It is six o'clock in the evening. | الساعة السادسة مساءً. | wall clock 6:00, evening window |
 | 3 | Narrator | Abu Bedr wants to study English. | أبو بدر يريد أن يدرس الإنجليزية. | thought bubble: "ABC" |
-| 4 | Narrator | He opens the drawer. | يفتح الدرج. | drawer slides open |
-| 5 | Narrator | He takes his English book. | يأخذ كتاب الإنجليزية. | book lifted out |
-| 6 | Narrator | He puts the book on the table. | يضع الكتاب على الطاولة. | book lands on the table |
+| 4 | Narrator | He opens the drawer. | هو يفتح الدرج. | drawer slides open |
+| 5 | Narrator | He takes his English book. | هو يأخذ كتاب الإنجليزية. | book lifted out |
+| 6 | Narrator | He puts the book on the table. | هو يضع الكتاب على الطاولة. | book lands on the table |
 | 7 | Narrator | Abu Bedr is **ready**. | أبو بدر **مستعد**. | sits up straight, pen in hand |
 | 8 | Narrator | He is **ready** to study. | هو مستعد للدراسة. | |
 | 9 | Narrator | But wait! His daughter, Sara, comes in. | لكن انتظر! ابنته سارة تدخل. | door opens, Sara walks in |
 | 10 | Narrator | It is a **hot** day. Sara is **hot**. | إنه يوم **حار**. سارة تشعر بالحر. | big sun, heat waves, Sara fanning herself |
 | 11 | Sara | Baba, I am **hot**. I want ice cream, please! | بابا، أنا أشعر بالحر. أريد آيس كريم، من فضلك! | Sara tugs his sleeve |
 | 12 | Narrator | Abu Bedr is a good father. | أبو بدر أبٌ طيب. | he stands up |
-| 13 | Narrator | He goes to the shop. | يذهب إلى المتجر. | walks to a small shop |
-| 14 | Narrator | He buys ice cream. | يشتري آيس كريم. | ice cream cone handed over |
-| 15 | Narrator | He comes home. | يعود إلى البيت. | walks back home |
-| 16 | Narrator | He gives the ice cream to Sara. | يعطي الآيس كريم لسارة. | gives the cone to Sara |
+| 13 | Narrator | He goes to the shop. | هو يذهب إلى المتجر. | walks to a small shop |
+| 14 | Narrator | He buys ice cream. | هو يشتري آيس كريم. | ice cream cone handed over |
+| 15 | Narrator | He comes home. | هو يعود إلى البيت. | walks back home |
+| 16 | Narrator | He gives the ice cream to Sara. | هو يعطي الآيس كريم لسارة. | gives the cone to Sara |
 | 17 | Narrator | Sara is **happy**. | سارة **سعيدة**. | Sara jumps, sparkles |
 | 18 | Narrator | She is very, very **happy**. | هي سعيدة جدًا جدًا. | |
 | 19 | Narrator | Abu Bedr goes back to his office. | يعود أبو بدر إلى مكتبه. | he sits down again |
-| 20 | Narrator | He looks at the table. | ينظر إلى الطاولة. | slow zoom on the book |
+| 20 | Narrator | He looks at the table. | هو ينظر إلى الطاولة. | slow zoom on the book |
 | 21 | Abu Bedr | A book? Why is this book on the table? | كتاب؟ لماذا هذا الكتاب على الطاولة؟ | he picks it up, turns it over |
 | 22 | Narrator | Abu Bedr is **confused**. | أبو بدر **حائر**. | big "?" above his head, scratches head |
-| 23 | Narrator | He forgets! He forgets his English lesson! | لقد نسي! نسي درس الإنجليزية! | the "ABC" bubble pops |
+| 23 | Narrator | He forgets! He forgets his English lesson! | هو ينسى! هو ينسى درس الإنجليزية! | the "ABC" bubble pops |
 | 24 | Narrator | Oh, Abu Bedr! | آهٍ يا أبا بدر! | |
 
 ---
@@ -88,7 +88,7 @@ Title card: **Now answer the questions!** — **الآن أجب عن الأسئ�
 | 51 | Question | Is Sara **happy** or hot? ⏸ | هل سارة سعيدة أم تشعر بالحر؟ | |
 | 52 | Answer | Sara is **happy**! | سارة سعيدة! | |
 | 53 | Question | Why is Sara **happy**? ⏸ | لماذا سارة سعيدة؟ | |
-| 54 | Answer | Because she has ice cream. | لأن معها آيس كريم. | |
+| 54 | Answer | Because she has ice cream. | لأنها تحمل آيس كريم. | |
 | 55 | Question | Is Abu Bedr a good father? ⏸ | هل أبو بدر أبٌ طيب؟ | |
 | 56 | Answer | Yes! Abu Bedr is a good father. | نعم! أبو بدر أبٌ طيب. | |
 
@@ -108,7 +108,7 @@ Title card: **Now answer the questions!** — **الآن أجب عن الأسئ�
 | 66 | Question | Why is the book on the table? ⏸ | لماذا الكتاب على الطاولة؟ | |
 | 67 | Answer | Because Abu Bedr wants to study English! | لأن أبا بدر يريد أن يدرس الإنجليزية! | "ABC" bubble comes back |
 | 68 | Question | Does Abu Bedr forget? ⏸ | هل ينسى أبو بدر؟ | |
-| 69 | Answer | Yes! He forgets his English lesson. | نعم! ينسى درس الإنجليزية. | |
+| 69 | Answer | Yes! He forgets his English lesson. | نعم! هو ينسى درس الإنجليزية. | |
 | 70 | Narrator | Oh, Abu Bedr! | آهٍ يا أبا بدر! | |
 
 ---
@@ -118,12 +118,12 @@ Title card: **Now answer the questions!** — **الآن أجب عن الأسئ�
 | # | Voice | English | Arabic |
 |---|---|---|---|
 | 71 | Narrator | At six o'clock, Abu Bedr is **ready** to study English. | في الساعة السادسة، أبو بدر مستعد لدراسة الإنجليزية. |
-| 72 | Narrator | He puts his book on the table. | يضع كتابه على الطاولة. |
+| 72 | Narrator | He puts his book on the table. | هو يضع كتابه على الطاولة. |
 | 73 | Narrator | It is a **hot** day. Sara is **hot**. | إنه يوم حار. سارة تشعر بالحر. |
-| 74 | Narrator | She wants ice cream. | تريد آيس كريم. |
+| 74 | Narrator | She wants ice cream. | هي تريد آيس كريم. |
 | 75 | Narrator | Abu Bedr buys ice cream. Sara is **happy**. | أبو بدر يشتري آيس كريم. سارة سعيدة. |
 | 76 | Narrator | Abu Bedr looks at the book. He is **confused**. | أبو بدر ينظر إلى الكتاب. هو حائر. |
-| 77 | Narrator | He forgets his English lesson! Oh, Abu Bedr! | ينسى درس الإنجليزية! آهٍ يا أبا بدر! |
+| 77 | Narrator | He forgets his English lesson! Oh, Abu Bedr! | هو ينسى درس الإنجليزية! آهٍ يا أبا بدر! |
 
 **End card:** the four words with pictures —
 ready · مستعد  |  hot · يشعر بالحر  |  happy · سعيد  |  confused · حائر
