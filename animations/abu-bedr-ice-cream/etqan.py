@@ -4,7 +4,6 @@ Colours, fonts, the logo and the motion rules all live here, so every scene uses
 the same identity. Fonts are the Cairo and IBM Plex Sans Arabic files embedded
 in the guideline (brand/fonts/); Arabic is shaped with HarfBuzz.
 """
-import io
 import os
 import re
 
@@ -105,10 +104,20 @@ def is_arabic(s):
     return bool(re.search(r'[؀-ۿ]', s))
 
 
+_shape_cache = {}
+
+
 def shape(fc, text, size):
     """Shape text; returns (glyph ids, x positions, total advance, clusters) in visual order."""
     if not text:
         return [], [], 0.0, [], []
+    key = (id(fc), text, size)
+    if key not in _shape_cache:
+        _shape_cache[key] = _shape(fc, text, size)
+    return _shape_cache[key]
+
+
+def _shape(fc, text, size):
     buf = hb.Buffer()
     buf.add_str(text)
     buf.guess_segment_properties()
@@ -137,8 +146,9 @@ def draw_text(cv, text, x, y, size, color=TEXT, kind='med', align='c', alpha=1.0
     gids, xs, w, cl, ys = shape(fc, text, size)
     x0 = x - w / 2 if align == 'c' else (x - w if align == 'r' else x)
     hl = set()
-    if highlight:
-        for m in re.finditer(re.escape(highlight), text):
+    for h in ([highlight] if isinstance(highlight, str) else (highlight or [])):
+        pat = r'\b%s\b' % re.escape(h) if re.match(r'[A-Za-z]', h) else re.escape(h)
+        for m in re.finditer(pat, text):
             hl.update(range(m.start(), m.end()))
     groups = {}
     for g, gx, c, gy in zip(gids, xs, cl, ys):

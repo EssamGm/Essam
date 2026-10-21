@@ -19,22 +19,27 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 SR = 24000
 
 VOICES = {  # role -> (kokoro voice, language, speed, boy pitch factor)
-    'Narrator': ('bm_george', 'en-gb', 0.88, None),
-    'Answer': ('bm_george', 'en-gb', 0.88, None),
-    'Question': ('bm_lewis', 'en-gb', 0.88, None),
-    'Abu Bedr': ('am_michael', 'en-us', 0.85, None),
-    'Bedr': ('am_echo', 'en-us', 0.95, 1.25),
+    'Narrator': ('bm_george', 'en-gb', 0.80, None),
+    'Answer': ('bm_george', 'en-gb', 0.80, None),
+    'Question': ('bm_lewis', 'en-gb', 0.80, None),
+    'Abu Bedr': ('am_michael', 'en-us', 0.78, None),
+    'Bedr': ('am_echo', 'en-us', 0.88, 1.25),
+    'Guide': ('am_fenrir', 'en-us', 0.84, None),   # instructions: a different voice breaks the rhythm
 }
+PAUSE_AFTER = {'But wait!': 0.9}   # a held pause inside a line
+# extra seconds after a story line, so the animation has time for the action
+EXTRA_GAP = {'3': 0.3, '4': 0.6, '5': 0.6, '6': 0.7, '9': 0.9, '11': 0.3, '12': 1.2, '13': 1.6, '14': 1.2,
+             '15': 1.4, '16': 0.9, '17': 0.4, '19': 1.8, '20': 0.7, '21': 0.7, '22': 0.4, '23': 0.7, '24': 0.9}
 
 # silence after each line, by what comes next
-GAP_LINE = 0.75        # between story lines
+GAP_LINE = 0.85        # between story lines
 GAP_ANSWER_WAIT = 2.0  # the learner answers out loud
 GAP_AFTER_ANSWER = 1.0
 GAP_SECTION = 1.6
 
 # spoken cues that are not table rows in the transcript
-TITLE_QA = ('Narrator', 'Now, answer the questions!', 'الآن، أجب عن الأسئلة!')
-TITLE_RETELL = ('Narrator', 'Listen to the story again.', 'استمع إلى القصة مرة أخرى.')
+TITLE_QA = ('Guide', 'Now, answer the questions!', 'الآن، أجب عن الأسئلة!')
+TITLE_RETELL = ('Guide', 'Listen to the story again.', 'استمع إلى القصة مرة أخرى.')
 
 
 def load_lines():
@@ -74,8 +79,19 @@ def fix_phonemes(ph):
 
 
 def synth(k, line):
-    voice, lang, speed, boy = VOICES[line['role']]
-    ph = fix_phonemes(k.tokenizer.phonemize(spoken_text(line), lang))
+    text = spoken_text(line)
+    for lead, pause in PAUSE_AFTER.items():
+        if text.startswith(lead) and len(text) > len(lead):
+            a = synth_text(k, line['role'], lead)
+            b = synth_text(k, line['role'], text[len(lead):].strip())
+            line['split'] = round(len(a) / SR + pause, 3)   # where the second half starts
+            return np.concatenate([a, np.zeros(int(SR * pause)), b])
+    return synth_text(k, line['role'], text)
+
+
+def synth_text(k, role, text):
+    voice, lang, speed, boy = VOICES[role]
+    ph = fix_phonemes(k.tokenizer.phonemize(text, lang))
     if boy:
         x, sr = k.create(ph, voice=voice, speed=speed / boy, is_phonemes=True)
         x = resample_poly(x, int(round(100 / boy)), 100)   # tape-style: pitch + formants up together
@@ -115,7 +131,7 @@ def main():
         sf.write(os.path.join(out, 'lines', f"{line['id']}.wav"), x, SR)
         line['start'] = round(t, 3)
         line['end'] = round(t + len(x) / SR, 3)
-        g = gap_after(lines, i)
+        g = gap_after(lines, i) + (EXTRA_GAP.get(line['id'], 0) if line['part'] == 1 else 0)
         line['gap'] = g
         chunks += [x, np.zeros(int(SR * g))]
         t = line['end'] + g

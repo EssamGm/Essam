@@ -5,7 +5,7 @@ On screen: English sentence + full Arabic translation (Modern Standard Arabic).
 
 **Target words:** ready (مستعد) · hot (حار / يشعر بالحر) · happy (سعيد) · confused (حائر)
 
-**Voices (all male):** Narrator (UK male) · Question voice · Answer voice · Bedr (boy) · Abu Bedr
+**Voices (all male):** Narrator (UK male) · Question voice · Answer voice · Bedr (boy) · Abu Bedr · Guide (a different voice for the instructions)
 ⏸ = 2-second pause after a question, so the learner can answer out loud.
 
 ---
@@ -43,7 +43,7 @@ On screen: English sentence + full Arabic translation (Modern Standard Arabic).
 
 ## Part 2 — Questions and answers (about 3 minutes)
 
-Title card: **Now answer the questions!** — **الآن أجب عن الأسئلة!**
+Guide voice + title card: **Now, answer the questions!** — **الآن، أجب عن الأسئلة!**
 
 ### Round 1 — ready
 
@@ -88,7 +88,7 @@ Title card: **Now answer the questions!** — **الآن أجب عن الأسئ�
 | 51 | Question | Is Bedr **happy** or hot? ⏸ | هل بدر سعيد أم يشعر بالحر؟ | |
 | 52 | Answer | Bedr is **happy**! | بدر سعيد! | |
 | 53 | Question | Why is Bedr **happy**? ⏸ | لماذا بدر سعيد؟ | |
-| 54 | Answer | Because he has ice cream. | لأنه يحمل آيس كريم. | |
+| 54 | Answer | Because he has ice cream. | لأن عنده آيس كريم. | |
 | 55 | Question | Is Abu Bedr a good father? ⏸ | هل أبو بدر أبٌ طيب؟ | |
 | 56 | Answer | Yes! Abu Bedr is a good father. | نعم! أبو بدر أبٌ طيب. | |
 
@@ -114,6 +114,8 @@ Title card: **Now answer the questions!** — **الآن أجب عن الأسئ�
 ---
 
 ## Part 3 — The story again (about 30 seconds)
+
+Guide voice + title card: **Listen to the story again.** — **استمع إلى القصة مرة أخرى.**
 
 | # | Voice | English | Arabic |
 |---|---|---|---|

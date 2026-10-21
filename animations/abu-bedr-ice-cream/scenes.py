@@ -64,10 +64,16 @@ def desk(cv, book='closed', drawer_open=0.0):
     cv.drawRect(skia.Rect.MakeXYWH(x0, top_y, x1 - x0, 24), P(shade(WOOD, 1.1)))
     cv.drawRect(skia.Rect.MakeXYWH(x0 + 20, top_y + 24, x1 - x0 - 40, 150), P(WOOD))
     # drawer
-    dx = 0 if drawer_open <= 0 else 0
-    cv.drawRect(skia.Rect.MakeXYWH(x0 + 40, top_y + 44 + drawer_open * 6, 260, 100 + drawer_open * 10),
-                P(shade(WOOD, 0.88 + 0.08 * drawer_open)))
-    rrect(cv, x0 + 140, top_y + 88 + drawer_open * 10, 60, 12, 6, P(E.GOLD))
+    u = drawer_open
+    if u > 0:
+        cv.drawRect(skia.Rect.MakeXYWH(x0 + 40, top_y + 30, 260, 24 * u), P('#2A1C12'))
+    g = 1 + 0.06 * u
+    cv.save()
+    cv.translate(x0 + 170, top_y + 94 + 16 * u)
+    cv.scale(g, g)
+    cv.drawRect(skia.Rect.MakeXYWH(-130, -50, 260, 100), P(shade(WOOD, 0.88 + 0.1 * u)))
+    rrect(cv, -30, -6, 60, 12, 6, P(E.GOLD))
+    cv.restore()
     cv.drawRect(skia.Rect.MakeXYWH(x0 + 340, top_y + 44, 240, 100), P(shade(WOOD, 0.88)))
     rrect(cv, x0 + 430, top_y + 88, 60, 12, 6, P(shade(WOOD, 0.6)))
     for lx in (x0 + 30, x1 - 52):
