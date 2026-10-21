@@ -5,7 +5,7 @@ On screen: English sentence + full Arabic translation (Modern Standard Arabic).
 
 **Target words:** ready (مستعد) · hot (حار / يشعر بالحر) · happy (سعيد) · confused (حائر)
 
-**Voices:** Narrator · Question voice · Answer voice · Sara · Abu Bedr
+**Voices (all male):** Narrator (UK male) · Question voice · Answer voice · Bedr (boy) · Abu Bedr
 ⏸ = 2-second pause after a question, so the learner can answer out loud.
 
 ---
@@ -22,16 +22,16 @@ On screen: English sentence + full Arabic translation (Modern Standard Arabic).
 | 6 | Narrator | He puts the book on the table. | هو يضع الكتاب على الطاولة. | book lands on the table |
 | 7 | Narrator | Abu Bedr is **ready**. | أبو بدر **مستعد**. | sits up straight, pen in hand |
 | 8 | Narrator | He is **ready** to study. | هو مستعد للدراسة. | |
-| 9 | Narrator | But wait! His daughter, Sara, comes in. | لكن انتظر! ابنته سارة تدخل. | door opens, Sara walks in |
-| 10 | Narrator | It is a **hot** day. Sara is **hot**. | إنه يوم **حار**. سارة تشعر بالحر. | big sun, heat waves, Sara fanning herself |
-| 11 | Sara | Baba, I am **hot**. I want ice cream, please! | بابا، أنا أشعر بالحر. أريد آيس كريم، من فضلك! | Sara tugs his sleeve |
+| 9 | Narrator | But wait! His son, Bedr, comes in. | لكن انتظر! ابنه بدر يدخل. | door opens, Bedr walks in |
+| 10 | Narrator | It is a **hot** day. Bedr is **hot**. | إنه يوم **حار**. بدر يشعر بالحر. | big sun, heat waves, Bedr fanning himself |
+| 11 | Bedr | Baba, I am **hot**. I want ice cream, please! | بابا، أنا أشعر بالحر. أريد آيس كريم، من فضلك! | Bedr tugs his sleeve |
 | 12 | Narrator | Abu Bedr is a good father. | أبو بدر أبٌ طيب. | he stands up |
 | 13 | Narrator | He goes to the shop. | هو يذهب إلى المتجر. | walks to a small shop |
 | 14 | Narrator | He buys ice cream. | هو يشتري آيس كريم. | ice cream cone handed over |
 | 15 | Narrator | He comes home. | هو يعود إلى البيت. | walks back home |
-| 16 | Narrator | He gives the ice cream to Sara. | هو يعطي الآيس كريم لسارة. | gives the cone to Sara |
-| 17 | Narrator | Sara is **happy**. | سارة **سعيدة**. | Sara jumps, sparkles |
-| 18 | Narrator | She is very, very **happy**. | هي سعيدة جدًا جدًا. | |
+| 16 | Narrator | He gives the ice cream to Bedr. | هو يعطي الآيس كريم لبدر. | gives the cone to Bedr |
+| 17 | Narrator | Bedr is **happy**. | بدر **سعيد**. | Bedr jumps, sparkles |
+| 18 | Narrator | He is very, very **happy**. | هو سعيد جدًا جدًا. | |
 | 19 | Narrator | Abu Bedr goes back to his office. | يعود أبو بدر إلى مكتبه. | he sits down again |
 | 20 | Narrator | He looks at the table. | هو ينظر إلى الطاولة. | slow zoom on the book |
 | 21 | Abu Bedr | A book? Why is this book on the table? | كتاب؟ لماذا هذا الكتاب على الطاولة؟ | he picks it up, turns it over |
@@ -64,31 +64,31 @@ Title card: **Now answer the questions!** — **الآن أجب عن الأسئ�
 
 | # | Voice | English | Arabic | Visual |
 |---|---|---|---|---|
-| 35 | Narrator | It is a **hot** day. Sara is **hot**. | إنه يوم حار. سارة تشعر بالحر. | replay: sun, Sara fanning herself |
-| 36 | Question | Is Sara **hot**? ⏸ | هل تشعر سارة بالحر؟ | |
-| 37 | Answer | Yes. Sara is **hot**. | نعم. سارة تشعر بالحر. | ✓ |
-| 38 | Question | Is Sara ready? ⏸ | هل سارة مستعدة؟ | |
-| 39 | Answer | No. Sara is not ready. Sara is **hot**. | لا. سارة ليست مستعدة. سارة تشعر بالحر. | ✗ then ✓ |
-| 40 | Question | Who is **hot**? Abu Bedr or Sara? ⏸ | من يشعر بالحر؟ أبو بدر أم سارة؟ | both shown side by side |
-| 41 | Answer | Sara is **hot**. | سارة تشعر بالحر. | Sara highlighted |
-| 42 | Question | Why is Sara **hot**? ⏸ | لماذا تشعر سارة بالحر؟ | |
+| 35 | Narrator | It is a **hot** day. Bedr is **hot**. | إنه يوم حار. بدر يشعر بالحر. | replay: sun, Bedr fanning himself |
+| 36 | Question | Is Bedr **hot**? ⏸ | هل يشعر بدر بالحر؟ | |
+| 37 | Answer | Yes. Bedr is **hot**. | نعم. بدر يشعر بالحر. | ✓ |
+| 38 | Question | Is Bedr ready? ⏸ | هل بدر مستعد؟ | |
+| 39 | Answer | No. Bedr is not ready. Bedr is **hot**. | لا. بدر ليس مستعدًا. بدر يشعر بالحر. | ✗ then ✓ |
+| 40 | Question | Who is **hot**? Abu Bedr or Bedr? ⏸ | من يشعر بالحر؟ أبو بدر أم بدر؟ | both shown side by side |
+| 41 | Answer | Bedr is **hot**. | بدر يشعر بالحر. | Bedr highlighted |
+| 42 | Question | Why is Bedr **hot**? ⏸ | لماذا يشعر بدر بالحر؟ | |
 | 43 | Answer | Because it is a **hot** day. | لأنه يوم حار. | big sun |
-| 44 | Question | What does Sara want? ⏸ | ماذا تريد سارة؟ | |
-| 45 | Answer | Sara wants ice cream! | سارة تريد آيس كريم! | ice cream cone |
+| 44 | Question | What does Bedr want? ⏸ | ماذا يريد بدر؟ | |
+| 45 | Answer | Bedr wants ice cream! | بدر يريد آيس كريم! | ice cream cone |
 
 ### Round 3 — happy
 
 | # | Voice | English | Arabic | Visual |
 |---|---|---|---|---|
-| 46 | Narrator | Abu Bedr gives the ice cream to Sara. Sara is **happy**. | أبو بدر يعطي الآيس كريم لسارة. سارة سعيدة. | replay: Sara jumping |
-| 47 | Question | Is Sara **happy**? ⏸ | هل سارة سعيدة؟ | |
-| 48 | Answer | Yes. Sara is **happy**. | نعم. سارة سعيدة. | ✓ |
-| 49 | Question | Is Sara confused? ⏸ | هل سارة حائرة؟ | |
-| 50 | Answer | No. Sara is not confused. Sara is **happy**. | لا. سارة ليست حائرة. سارة سعيدة. | ✗ then ✓ |
-| 51 | Question | Is Sara **happy** or hot? ⏸ | هل سارة سعيدة أم تشعر بالحر؟ | |
-| 52 | Answer | Sara is **happy**! | سارة سعيدة! | |
-| 53 | Question | Why is Sara **happy**? ⏸ | لماذا سارة سعيدة؟ | |
-| 54 | Answer | Because she has ice cream. | لأنها تحمل آيس كريم. | |
+| 46 | Narrator | Abu Bedr gives the ice cream to Bedr. Bedr is **happy**. | أبو بدر يعطي الآيس كريم لبدر. بدر سعيد. | replay: Bedr jumping |
+| 47 | Question | Is Bedr **happy**? ⏸ | هل بدر سعيد؟ | |
+| 48 | Answer | Yes. Bedr is **happy**. | نعم. بدر سعيد. | ✓ |
+| 49 | Question | Is Bedr confused? ⏸ | هل بدر حائر؟ | |
+| 50 | Answer | No. Bedr is not confused. Bedr is **happy**. | لا. بدر ليس حائرًا. بدر سعيد. | ✗ then ✓ |
+| 51 | Question | Is Bedr **happy** or hot? ⏸ | هل بدر سعيد أم يشعر بالحر؟ | |
+| 52 | Answer | Bedr is **happy**! | بدر سعيد! | |
+| 53 | Question | Why is Bedr **happy**? ⏸ | لماذا بدر سعيد؟ | |
+| 54 | Answer | Because he has ice cream. | لأنه يحمل آيس كريم. | |
 | 55 | Question | Is Abu Bedr a good father? ⏸ | هل أبو بدر أبٌ طيب؟ | |
 | 56 | Answer | Yes! Abu Bedr is a good father. | نعم! أبو بدر أبٌ طيب. | |
 
@@ -119,9 +119,9 @@ Title card: **Now answer the questions!** — **الآن أجب عن الأسئ�
 |---|---|---|---|
 | 71 | Narrator | At six o'clock, Abu Bedr is **ready** to study English. | في الساعة السادسة، أبو بدر مستعد لدراسة الإنجليزية. |
 | 72 | Narrator | He puts his book on the table. | هو يضع كتابه على الطاولة. |
-| 73 | Narrator | It is a **hot** day. Sara is **hot**. | إنه يوم حار. سارة تشعر بالحر. |
-| 74 | Narrator | She wants ice cream. | هي تريد آيس كريم. |
-| 75 | Narrator | Abu Bedr buys ice cream. Sara is **happy**. | أبو بدر يشتري آيس كريم. سارة سعيدة. |
+| 73 | Narrator | It is a **hot** day. Bedr is **hot**. | إنه يوم حار. بدر يشعر بالحر. |
+| 74 | Narrator | He wants ice cream. | هو يريد آيس كريم. |
+| 75 | Narrator | Abu Bedr buys ice cream. Bedr is **happy**. | أبو بدر يشتري آيس كريم. بدر سعيد. |
 | 76 | Narrator | Abu Bedr looks at the book. He is **confused**. | أبو بدر ينظر إلى الكتاب. هو حائر. |
 | 77 | Narrator | He forgets his English lesson! Oh, Abu Bedr! | هو ينسى درس الإنجليزية! آهٍ يا أبا بدر! |
 
