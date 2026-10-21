@@ -102,3 +102,9 @@ Update this file after reading new answers in the page's `answers` database.
 - All 84 strips answered, latest grades all got. 10-18 batch scored mostly zzz (鍵, 傘, 眼鏡, 財布, 洗濯, 写真, 宿題, 約束, 掃除, 地図, 鏡, 時計 zzz/meh in the last rounds); lol: 耳, かなり, 無視, 布団 #3. No missed/partly words left, and the `words` queue was empty (all 10 used).
 - Reaction to the zzz run: fewer callbacks-for-callbacks' sake, one clear escalation or reversal per strip, last line explicit. Due got words oldest first: 電車, 歯医者, 弁当, 今更, バラバラ, どころ, 無視する, 地図, 電話, 時計, each in a brand-new scene (元気出す, 鏡, 偶然, 金を払う, かなり, 重い, 布団, 掃除 are due next).
 - Gags used: Yamada's car dies beside the train (電車); Dad yells "it hurts" before being touched (歯医者, 失敗ノート 十二番目); the bear from Grandpa's tall tale eats the lunch (弁当); Grandpa also hates the curry (今更, flip on the 10-11 strip); Dad's bookshelf (バラバラ); Tama swapped sugar and salt (どころ); tuna can beats ignoring (無視する); two maps, one tree (地図); Tama hangs up on Yamada (電話); Yamada's stopped gold watch (時計).
+
+## Update 2026-10-21: 85 answers read, 9 unanswered, topped up 1 (第58話)
+- Unanswered: all of 第48-57話 except 電車 #3 (answered partly/zzz). Added one strip to bring the pile back to 10.
+- Queued words (priority all 1, oldest report first): 散歩 -> 第58話 (used). Still queued: 急ぐ, 厳しい.
+- 第58話 散歩: Dad leashes Tama, Tama drags him around the park; Mika asks who is walking whom. Plain grammar, 3 speakers (父, タマ, ミカ), explicit last line.
+- Latest grades: 電車 #3 partly (zzz, answer was just "."): the 10-19 batch is unread. Keep the plain, one-reversal recipe.

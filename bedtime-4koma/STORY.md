@@ -55,3 +55,7 @@ The last panel must flip or escalate, never just comment. Essam's own comments o
 ## Arc 6 (第48–57話, written 2026-10-19)
 - No queued words. Due got words: 電車 (Yamada's car dies, Dad on the train), 歯医者 (Dad yells before being touched), 弁当 (the bear is real and eats the lunch), 今更 (Grandpa hates curry too), バラバラ (Dad's bookshelf), どころ (Mika's cake; Tama swapped sugar and salt), 無視する (tuna can), 地図 (Dad and Yamada, same tree), 電話 (Tama answers Yamada), 時計 (Yamada's gold watch stopped).
 - 失敗ノート: last #12 in 第49話.
+
+## Arc 7 (第58話-, written 2026-10-21)
+- Queued word: 散歩 (第58話 Dad takes Tama for a 散歩 but Tama runs and drags Dad; Mika: who is walking whom?). Queue still holds 急ぐ, 厳しい.
+- 失敗ノート: last #12 in 第49話.
