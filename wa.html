@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>مجتمع إتقان</title>
+<style>
+  :root{--navy:#0B1A2A;--gold:#C9962B;--bg:#FFFFFF;--ink:#0B1A2A;--mute:#5B6878;--wa:#25D366}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Arabic","Cairo","Segoe UI",Tahoma,sans-serif}
+  main{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px;text-align:center}
+  .logo{font-weight:900;font-size:44px;letter-spacing:-.5px;color:var(--navy)}
+  .logo b{color:var(--gold)}
+  h1{font-size:22px;font-weight:700;margin:22px 0 8px}
+  p{margin:0;color:var(--mute);font-size:16px;line-height:1.7}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;margin:28px 0 14px;padding:18px 34px;border-radius:999px;background:var(--wa);color:#fff;font-size:20px;font-weight:800;text-decoration:none;box-shadow:0 8px 24px rgba(37,211,102,.28);min-width:260px}
+  .btn svg{width:26px;height:26px;fill:#fff}
+  .hint{display:none;margin-top:18px;padding:14px 16px;border:1px solid #E6E9EE;border-radius:14px;max-width:420px;font-size:15px;color:var(--ink);line-height:1.8}
+  .hint.show{display:block}
+  .hint .kbd{display:inline-block;border:1px solid #CBD2DC;border-radius:6px;padding:0 8px;font-weight:700}
+  .small{margin-top:22px;font-size:13px;color:var(--mute)}
+  .spinner{width:22px;height:22px;border:3px solid #E6E9EE;border-top-color:var(--gold);border-radius:50%;animation:s 1s linear infinite;margin:0 auto 14px}
+  @keyframes s{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<main>
+  <div class="logo">إتقان<b>.</b></div>
+  <div class="spinner" id="sp"></div>
+  <h1>جاري فتح واتساب…</h1>
+  <p>مجتمع إتقان — تذكير اللايف كل سبت، وجديد المحتوى</p>
+
+  <a class="btn" id="go" href="https://chat.whatsapp.com/CMoWao3vis84zenCKDE6Ap">
+    <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>
+    انضم لمجتمع إتقان
+  </a>
+
+  <div class="hint" id="hint">
+    إذا ما فتح واتساب: اضغط <span class="kbd">⋯</span> فوق، ثم <b>«فتح في المتصفح»</b> (Open in browser)، وبعدها اضغط الزر.
+  </div>
+  <div class="small">م. عصام الغامدي · مدرب تعلّم لغات</div>
+</main>
+<script>
+(function(){
+  var CODE = "CMoWao3vis84zenCKDE6Ap";
+  var https = "https://chat.whatsapp.com/" + CODE;
+  var ua = navigator.userAgent || "";
+  var isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  var isAndroid = /Android/i.test(ua);
+  var go = document.getElementById("go"), hint = document.getElementById("hint"), sp = document.getElementById("sp");
+  // Button targets: iOS → leave the in-app browser for Safari (which hands the invite to WhatsApp);
+  // Android → ask the OS for WhatsApp directly, falling back to the https invite.
+  var iosJump = "x-safari-https://chat.whatsapp.com/" + CODE;
+  var androidIntent = "intent://chat.whatsapp.com/" + CODE + "#Intent;scheme=https;package=com.whatsapp;S.browser_fallback_url=" + encodeURIComponent(https) + ";end";
+  var target = isIOS ? iosJump : (isAndroid ? androidIntent : https);
+  go.setAttribute("href", target);
+  // Automatic attempt on load (works in most in-app browsers); the button stays for a manual retry.
+  var left = false;
+  document.addEventListener("visibilitychange", function(){ if (document.hidden) left = true; });
+  window.addEventListener("pagehide", function(){ left = true; });
+  function attempt(){ try { window.location.href = target; } catch(e){} }
+  setTimeout(attempt, 150);
+  setTimeout(function(){
+    if (!left) { hint.classList.add("show"); sp.style.display = "none"; document.querySelector("h1").textContent = "اضغط الزر لفتح واتساب"; }
+  }, 2200);
+})();
+</script>
+</body>
+</html>
