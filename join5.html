@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>مجتمع إتقان</title>
+<meta property="og:title" content="مجتمع إتقان على واتساب">
+<meta property="og:image" content="https://essamgm.github.io/Essam/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root { --navy:#14365C; --red:#E0263C; --line:#E6E7EC; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { height:100%; }
+  body { font-family:'Cairo', sans-serif; color:var(--navy); background:#fff; overflow:hidden; }
+
+  /* ⋯ drawn in the corner, right next to TikTok's real ⋯ */
+  .glyph { position:fixed; right:10px; width:60px; height:60px; border-radius:50%; border:4px solid var(--red); background:#fff; display:flex; align-items:center; justify-content:center; animation:ring 1.2s ease-in-out infinite; }
+  .glyph i { display:block; width:9px; height:9px; border-radius:50%; background:#111; margin:0 3px; }
+  .glyph.top { top:10px; }
+  .glyph.bot { bottom:10px; }
+  @keyframes ring { 0%,100%{box-shadow:0 0 0 0 rgba(224,38,60,.45)} 50%{box-shadow:0 0 0 10px rgba(224,38,60,0)} }
+
+  /* arrows ending exactly at the ⋯ */
+  .arr { position:fixed; width:120px; height:120px; color:var(--red); }
+  .arr.top { top:62px; right:62px; animation:toTop 1.2s ease-in-out infinite; }
+  .arr.bot { bottom:62px; right:62px; animation:toBot 1.2s ease-in-out infinite; }
+  @keyframes toTop { 0%,100%{transform:translate(0,0)} 50%{transform:translate(9px,-9px)} }
+  @keyframes toBot { 0%,100%{transform:translate(0,0)} 50%{transform:translate(9px,9px)} }
+
+  /* centre: the option to press */
+  .mid { position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0 24px; gap:12px; }
+  .then { width:100%; max-width:340px; font-weight:900; font-size:24px; text-align:right; padding-right:6px; }
+  .menu { width:100%; max-width:340px; background:#fff; border:1px solid var(--line); border-radius:18px; padding:8px; box-shadow:0 14px 40px rgba(20,54,92,.10); font-family:-apple-system,'Segoe UI',Roboto,sans-serif; color:#555; }
+  .row { padding:12px 14px; font-size:16px; border-radius:12px; display:flex; align-items:center; gap:12px; }
+  .row + .row { margin-top:4px; }
+  .row.hi { border:4px solid var(--red); font-weight:700; color:#111; font-size:19px; animation:glow 1.2s ease-in-out infinite; }
+  @keyframes glow { 0%,100%{box-shadow:0 0 0 0 rgba(224,38,60,.45)} 50%{box-shadow:0 0 0 9px rgba(224,38,60,0)} }
+  .ic { width:22px; text-align:center; }
+</style>
+</head>
+<body>
+
+<div class="glyph top"><i></i><i></i><i></i></div>
+<svg class="arr top" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 108 L104 16"/><path d="M62 14 H106 V58"/>
+</svg>
+
+<div class="mid">
+  <div class="then">ثم اضغط</div>
+  <div class="menu">
+    <div class="row"><span class="ic">⧉</span>نسخ الرابط</div>
+    <div class="row hi"><span class="ic">🌐</span>فتح في المتصفح</div>
+    <div class="row"><span class="ic">↻</span>تحديث</div>
+  </div>
+</div>
+
+<svg class="arr bot" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 12 L104 104"/><path d="M62 106 H106 V62"/>
+</svg>
+<div class="glyph bot"><i></i><i></i><i></i></div>
+
+<script>
+(function(){
+  var ua = navigator.userAgent || "";
+  var inTikTok = /musical_ly|trill|Bytedance|BytedanceWebview|TikTok|aweme/i.test(ua);
+  if (!inTikTok) {
+    setTimeout(function(){ window.location.href = "https://chat.whatsapp.com/CMoWao3vis84zenCKDE6Ap"; }, 100);
+  }
+})();
+</script>
+</body>
+</html>
