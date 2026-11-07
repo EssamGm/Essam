@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>إتقان — مجتمع واتساب</title>
+<meta property="og:title" content="مجتمع إتقان على واتساب">
+<meta property="og:image" content="https://essamgm.github.io/Essam/og-image.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Cairo:wght@700;900&display=swap" rel="stylesheet">
+
+<style>
+  :root { --navy:#14365C; --gold:#B8860B; --ink:#1A1A2E; --gray:#5A5A6E; --line:#E6E7EC; --bg-soft:#F6F7F9; --wa-green:#128c7e; --red:#E0263C; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'IBM Plex Sans Arabic', sans-serif; color:var(--ink); background:#fff; line-height:1.8; }
+  .wrap { max-width:440px; margin:0 auto; padding:28px 20px 40px; text-align:center; }
+
+  .logo { font-family:'Cairo', sans-serif; font-weight:900; font-size:22px; color:var(--navy); letter-spacing:-.5px; display:inline-flex; align-items:baseline; gap:2px; }
+  .logo .dot { display:inline-block; width:6px; height:6px; background:var(--gold); margin-right:2px; transform:translateY(-2px); }
+
+  .photo { width:150px; height:150px; border-radius:50%; object-fit:cover; object-position:50% 30%; display:block; margin:22px auto 14px; border:4px solid #fff; box-shadow:0 0 0 2px var(--gold), 0 10px 30px rgba(20,54,92,.15); }
+  .name { font-family:'Cairo', sans-serif; font-weight:700; font-size:20px; color:var(--navy); }
+  .role { font-size:14px; color:var(--gray); margin-top:-2px; }
+
+  h1 { font-family:'Cairo', sans-serif; font-weight:700; font-size:21px; color:var(--ink); margin:26px 0 6px; line-height:1.5; }
+  .lead { font-size:15px; color:var(--gray); }
+  .lead b { color:var(--red); font-weight:600; }
+
+  .steps { margin-top:22px; text-align:right; }
+  .step { background:var(--bg-soft); border-radius:18px; padding:18px 18px 16px; margin-bottom:16px; }
+  .step-title { display:flex; align-items:center; gap:12px; font-family:'Cairo', sans-serif; font-weight:700; font-size:18px; color:var(--navy); margin-bottom:12px; }
+  .num { flex:none; width:34px; height:34px; border-radius:50%; background:var(--navy); color:#fff; display:flex; align-items:center; justify-content:center; font-size:17px; }
+  .note { font-size:13.5px; color:var(--gray); margin-top:10px; }
+
+  /* mock phone pieces */
+  .mock { background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden; direction:ltr; font-family:-apple-system, 'Segoe UI', Roboto, sans-serif; color:#111; }
+  .bar { display:flex; align-items:center; justify-content:space-between; padding:14px 16px; font-size:15px; }
+  .bar .t { font-weight:700; font-size:17px; }
+  .bar .back { font-size:22px; line-height:1; }
+  .dots { font-weight:900; font-size:24px; line-height:1; letter-spacing:1px; position:relative; }
+  .ring { position:relative; display:inline-block; padding:6px 10px; }
+  .ring::after { content:""; position:absolute; inset:-2px; border:3px solid var(--red); border-radius:50%; animation:pulse 1.4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.12);opacity:.75} }
+  .faded { height:70px; background:linear-gradient(#fff, #f1f2f4); border-top:1px solid var(--line); }
+
+  .sheet { background:#f4f4f6; padding:14px 12px 10px; }
+  .sheet .row { background:#fff; border-radius:12px; padding:14px 16px; font-size:15.5px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; color:#333; }
+  .sheet .row.hi { border:3px solid var(--red); font-weight:700; color:#111; }
+  .sheet .row small { color:#777; font-size:12px; }
+
+  .wa { background:#fff; padding:22px 16px 18px; text-align:center; }
+  .wa .g { width:60px; height:60px; border-radius:50%; background:#e9eef2; margin:0 auto 10px; display:flex; align-items:center; justify-content:center; font-family:'Cairo',sans-serif; font-weight:900; color:var(--navy); font-size:22px; direction:rtl; }
+  .wa .gn { font-weight:700; font-size:16px; direction:rtl; }
+  .wa .gs { font-size:12px; color:#777; margin-bottom:14px; }
+  .wa .join { display:inline-block; background:#25D366; color:#fff; font-weight:700; border-radius:100px; padding:11px 34px; font-size:15px; border:3px solid var(--red); }
+
+  footer { text-align:center; color:var(--gray); font-size:13px; padding:4px 0 28px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logo">إتقان<span class="dot"></span></div>
+
+  <img class="photo" src="profile.jpg" alt="م. عصام الغامدي">
+  <div class="name">م. عصام الغامدي</div>
+  <div class="role">مدرب تعلّم لغات</div>
+
+  <h1>حيّاك الله في مجتمع إتقان على واتساب</h1>
+  <p class="lead">تيك توك <b>ما يسمح</b> بفتح واتساب من داخله، فنحتاج خطوة صغيرة: افتح هذه الصفحة في المتصفح. هكذا:</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-title"><span class="num">١</span>اضغط النقاط الثلاث <b style="font-family:sans-serif">⋯</b> فوق</div>
+      <div class="mock">
+        <div class="bar"><span class="back">&#8592;</span><span class="t">Web browser</span><span class="ring"><span class="dots">&middot;&middot;&middot;</span></span></div>
+        <div class="faded"></div>
+      </div>
+      <div class="note">في بعض الجوالات تكون النقاط الثلاث <b>تحت</b> في زاوية الشاشة، ابحث عنها هناك.</div>
+    </div>
+
+    <div class="step">
+      <div class="step-title"><span class="num">٢</span>اختر «فتح في المتصفح»</div>
+      <div class="mock">
+        <div class="sheet">
+          <div class="row"><span>Copy link</span><small>نسخ الرابط</small></div>
+          <div class="row hi"><span>Open in browser</span><small>فتح في المتصفح</small></div>
+          <div class="row"><span>Refresh</span><small>تحديث</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-title"><span class="num">٣</span>يفتح واتساب لحاله، اضغط «انضمام»</div>
+      <div class="mock">
+        <div class="wa">
+          <div class="g">إ.</div>
+          <div class="gn">مجتمع إتقان</div>
+          <div class="gs">WhatsApp group invite</div>
+          <span class="join">Join group</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer>إتقان · م. عصام الغامدي</footer>
+
+<script>
+(function(){
+  // Inside TikTok's in-app browser nothing can open WhatsApp, so we only show the steps.
+  // Once the person opens this page in a real browser, send them straight to the invite.
+  var ua = navigator.userAgent || "";
+  var inTikTok = /musical_ly|trill|Bytedance|BytedanceWebview|TikTok|aweme/i.test(ua);
+  if (!inTikTok) {
+    setTimeout(function(){ window.location.href = "https://chat.whatsapp.com/CMoWao3vis84zenCKDE6Ap"; }, 100);
+  }
+})();
+</script>
+</body>
+</html>
